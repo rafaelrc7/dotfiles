@@ -19,7 +19,7 @@
       options = [ "subvol=@" ];
     };
 
-  boot.initrd.luks.devices."root".device = "/dev/disk/by-uuid/ded2f5e5-87d3-430c-9617-efe31be4a5df";
+  boot.initrd.luks.devices."root".device = "/dev/disk/by-uuid/14ec326d-6599-430f-a506-095d737d4877";
 
   fileSystems."/home" =
     { device = "/dev/mapper/root";
@@ -33,6 +33,12 @@
       options = [ "subvol=@snapshots" ];
     };
 
+  fileSystems."/var" =
+    { device = "/dev/mapper/root";
+      fsType = "btrfs";
+      options = [ "subvol=@var" ];
+    };
+
   fileSystems."/root" =
     { device = "/dev/mapper/root";
       fsType = "btrfs";
@@ -43,12 +49,6 @@
     { device = "/dev/mapper/root";
       fsType = "btrfs";
       options = [ "subvol=@tmp" ];
-    };
-
-  fileSystems."/var" =
-    { device = "/dev/mapper/root";
-      fsType = "btrfs";
-      options = [ "subvol=@var" ];
     };
 
   fileSystems."/nix/store" =
@@ -65,4 +65,3 @@
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }
-
