@@ -7,6 +7,7 @@
   home.packages = with pkgs; [
     gcc
     librewolf
+    python3
     thunderbird
     unityhub
   ];
