@@ -4,7 +4,12 @@
 
   programs.home-manager.enable = true;
 
-  home.packages = with pkgs; [ gcc ];
+  home.packages = with pkgs; [
+    gcc
+    librewolf
+    thunderbird
+    unityhub
+  ];
 
   xdg.enable = true;
   xdg.userDirs = {
