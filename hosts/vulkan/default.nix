@@ -34,8 +34,11 @@
     users.rafael = {
       isNormalUser = true;
       createHome = true;
+      group = "rafael";
       extraGroups = [ "wheel" ];
     };
+
+    groups.rafael.gid = 1000;
 
     defaultUserShell = pkgs.zsh;
   };
