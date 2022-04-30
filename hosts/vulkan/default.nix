@@ -67,7 +67,7 @@
         matchConfig = { Name = "enp*"; };
         DHCP = "yes";
         dhcpV4Config.RouteMetric = 10;
-        ipv6AcceptRAConfig.RouteMetric = 10;
+        dhcpV6Config.RouteMetric = 10;
         dns = [ "1.1.1.1" "1.0.0.1" ];
       };
 
@@ -76,7 +76,7 @@
         matchConfig = { Name = "wlan*"; };
         DHCP = "yes";
         dhcpV4Config.RouteMetric = 20;
-        ipv6AcceptRAConfig.RouteMetric = 20;
+        dhcpV6Config.RouteMetric = 20;
         dns = [ "1.1.1.1" "1.0.0.1" ];
       };
     };
