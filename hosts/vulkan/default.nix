@@ -21,8 +21,12 @@
     { device = "/dev/disk/by-partlabel/cryptswap"; randomEncryption.enable = true; }
   ];
 
-  fileSystems."/".options = [ "compress=zstd" "noatime" "nodiratime" "discard" ];
-  fileSystems."/home".options = [ "compress=zstd" "noatime" "nodiratime" "discard" ];
+  fileSystems."/".options = [ "compress=zstd" "noatime" "nodiratime" "discard" "ssd" ];
+  fileSystems."/home".options = [ "compress=zstd" "noatime" "nodiratime" "discard" "ssd" ];
+  fileSystems."/root".options = [ "compress=zstd" "noatime" "nodiratime" "discard" "ssd" ];
+  fileSystems."/var".options = [ "compress=zstd" "noatime" "nodiratime" "discard" "ssd" ];
+  fileSystems."/tmp".options = [ "compress=zstd" "noatime" "nodiratime" "discard" "ssd" ];
+  fileSystems."/.snapshots".options = [ "compress=zstd" "noatime" "nodiratime" "discard" "ssd" ];
 
   networking.hostName = "vulkan";
 
@@ -56,32 +60,6 @@
     settings = {
       experimental-features = "nix-command flakes";
       auto-optimise-store = true;
-    };
-  };
-
-  networking.useDHCP = false;
-
-  systemd.network = {
-    enable = true;
-
-    networks = {
-      "10-wired" = {
-        enable = true;
-        matchConfig = { Name = "enp*"; };
-        DHCP = "yes";
-        dhcpV4Config.RouteMetric = 10;
-        dhcpV6Config.RouteMetric = 10;
-        dns = [ "1.1.1.1" "1.0.0.1" ];
-      };
-
-      "20-wireless" = {
-        enable = true;
-        matchConfig = { Name = "wlan*"; };
-        DHCP = "yes";
-        dhcpV4Config.RouteMetric = 20;
-        dhcpV6Config.RouteMetric = 20;
-        dns = [ "1.1.1.1" "1.0.0.1" ];
-      };
     };
   };
 
@@ -182,9 +160,42 @@
     enableSSHSupport = true;
   };
 
-  networking.firewall.enable = true;
-  networking.firewall.allowedTCPPorts = [];
-  networking.firewall.allowedUDPPorts = [];
+  networking.useDHCP = false;
+
+  systemd.network = {
+    enable = true;
+
+    networks = {
+      "10-wired" = {
+        enable = true;
+        matchConfig = { Name = "enp*"; };
+        DHCP = "yes";
+        dhcpV4Config.RouteMetric = 10;
+        dhcpV6Config.RouteMetric = 10;
+        dns = [ "1.1.1.1" "1.0.0.1" ];
+      };
+
+      "20-wireless" = {
+        enable = true;
+        matchConfig = { Name = "wlan*"; };
+        DHCP = "yes";
+        dhcpV4Config.RouteMetric = 20;
+        dhcpV6Config.RouteMetric = 20;
+        dns = [ "1.1.1.1" "1.0.0.1" ];
+      };
+    };
+  };
+
+  networking = {
+    firewall = {
+      enable = true;
+      allowedTCPPorts = [];
+      allowedUDPPorts = [];
+    };
+
+    wireless.enable = true;
+  };
+
 
   system.stateVersion = "22.05";
 
