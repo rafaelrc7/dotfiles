@@ -37,6 +37,7 @@
         hostName = "vulkan";
         system = "x86_64-linux";
         userNames = [ "rafael" ];
+        nixosModules = [ ./nixos/zsh.nix ];
       };
     };
 
