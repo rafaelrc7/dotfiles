@@ -27,11 +27,13 @@ in rec {
   mkHost = { hostName,
              system ? "x86_64-linux",
              userNames,
-             nixosModules ? [],
-             homeModules ? [],
+             nixosModuleNames ? [],
+             homeModuleNames ? [],
              nixpkgs ? inputs.nixpkgs }:
   let
     pkgs = mkPkgs { inherit nixpkgs system; };
+    nixosModules = map (name: ../modules/nixos/${name}) nixosModuleNames;
+    homeModules = map (name: ../modules/home/${name}) homeModuleNames;
   in nixosSystem {
     inherit system;
 
@@ -55,11 +57,12 @@ in rec {
 
   mkHome = { username,
              system ? "x86_64-linux",
-             homeModules ? [],
+             homeModuleNames ? [],
              nixpkgs ? inputs.nixpkgs }:
   let
     pkgs = mkPkgs { inherit nixpkgs system; };
     homeDirectory = "/home/${username}";
+    homeModules = map (name: ../modules/home/${name}) homeModuleNames;
   in inputs.home-manager.lib.homeManagerConfiguration {
     inherit system username homeDirectory pkgs;
     extraSpecialArgs = { inherit inputs pkgs nixpkgs system username; };
