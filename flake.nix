@@ -26,6 +26,11 @@
       flake = false;
       url = "github:rafaelrc7/nvimrc";
     };
+
+    awesome-git = {
+      flake = false;
+      url = "github:awesomewm/awesome";
+    };
   };
 
   outputs = inputs@{ nixpkgs, home-manager, ... }:

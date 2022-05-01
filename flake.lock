@@ -1,5 +1,21 @@
 {
   "nodes": {
+    "awesome-git": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1647882589,
+        "narHash": "sha256-EDAL7NnLF2BiVI8DAlEciiZtDmwXOzCPypGTrlN/OoQ=",
+        "owner": "awesomewm",
+        "repo": "awesome",
+        "rev": "c539e0e4350a42f813952fc28dd8490f42d934b3",
+        "type": "github"
+      },
+      "original": {
+        "owner": "awesomewm",
+        "repo": "awesome",
+        "type": "github"
+      }
+    },
     "flake-utils": {
       "locked": {
         "lastModified": 1649676176,
@@ -131,6 +147,7 @@
     },
     "root": {
       "inputs": {
+        "awesome-git": "awesome-git",
         "flake-utils": "flake-utils",
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs",
