@@ -49,29 +49,6 @@
     defaultUserShell = pkgs.zsh;
   };
 
-  nix = {
-    package = pkgs.nixUnstable;
-
-    nixPath = [
-      "nixpkgs=/etc/nix/channels/nixpkgs"
-      "nixpkgs-stable=/etc/nix/channels/nixpkgs-stable"
-      "nixpkgs-unstable=/etc/nix/channels/nixpkgs-unstable"
-      "home-manager=/etc/nix/channels/home-manager"
-    ];
-
-    gc = {
-      automatic = true;
-      dates = "weekly";
-      options = "--delete-older-than 1w";
-    };
-
-    registry.nixpkgs.flake = nixpkgs;
-    settings = {
-      experimental-features = "nix-command flakes";
-      auto-optimise-store = true;
-    };
-  };
-
   i18n = {
     defaultLocale = "en_GB.UTF-8";
     supportedLocales = [ "en_US.UTF-8/UTF-8" "pt_BR.UTF-8/UTF-8" ];
@@ -136,12 +113,6 @@
   };
 
   environment = {
-    etc = {
-      "nix/channels/nixpkgs".source = nixpkgs;
-      "nix/channels/nixpkgs-stable".source = inputs.nixpkgs-stable;
-      "nix/channels/nixpkgs-unstable".source = inputs.nixpkgs-unstable;
-      "nix/channels/home-manager".source = home-manager;
-    };
 
     systemPackages = with pkgs; [
       btrfs-progs
