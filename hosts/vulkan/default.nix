@@ -193,7 +193,7 @@
       allowedUDPPorts = [];
     };
 
-    wireless.enable = true;
+    wireless.iwd.enable = true;
   };
 
 
