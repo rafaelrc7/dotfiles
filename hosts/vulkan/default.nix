@@ -171,6 +171,9 @@
     variables = { EDITOR = "nvim"; };
   };
 
+  programs.git.enable = true;
+  programs.git.lfs.enable = true;
+
   programs.zsh.enable = true;
 
   programs.mtr.enable = true;
