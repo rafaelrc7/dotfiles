@@ -9,11 +9,23 @@
   home.packages = with pkgs; [
     discord
     gcc
+    gimp
+    gparted
+    jdk
+    jetbrains.idea-ultimate
+    libreoffice-fresh
     librewolf
+    mpv
+    pavucontrol
     python3
+    slack
+    speedtest-cli
     tdesktop
     thunderbird
+    obs-studio
     unityhub
+    v4l-utils
+    zoom-us
   ];
 
   xdg.enable = true;
@@ -67,6 +79,7 @@
 
   programs.password-store = {
     enable = true;
+    package = pkgs.pass.withExtensions (exts: [ exts.pass-otp ]);
     settings = {
       PASSWORD_STORE_KEY = "03F104A08E5D7DFE";
     };

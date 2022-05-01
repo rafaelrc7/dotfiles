@@ -79,6 +79,7 @@
   services.openssh = {
     enable = true;
     passwordAuthentication = false;
+    permitRootLogin = "no";
   };
 
   security.rtkit.enable = true;
