@@ -1,4 +1,4 @@
-{ config, pkgs, nixpkgs, home-manager, ... }: {
+{ config, inputs, pkgs, nixpkgs, home-manager, ... }: {
   imports = [ ./hardware-configuration.nix ];
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
@@ -14,6 +14,8 @@
       memtest86.enable = true;
     };
   };
+
+  boot.cleanTmpDir = true;
 
   boot.initrd.supportedFilesystems = [ "btrfs" ];
 
@@ -49,6 +51,13 @@
 
   nix = {
     package = pkgs.nixUnstable;
+
+    nixPath = [
+      "nixpkgs=/etc/nix/channels/nixpkgs"
+      "nixpkgs-stable=/etc/nix/channels/nixpkgs-stable"
+      "nixpkgs-unstable=/etc/nix/channels/nixpkgs-unstable"
+      "home-manager=/etc/nix/channels/home-manager"
+    ];
 
     gc = {
       automatic = true;
@@ -90,7 +99,10 @@
     layout = "us";
   };
 
-  services.openssh.enable = true;
+  services.openssh = {
+    enable = true;
+    passwordAuthentication = false;
+  };
 
   security.rtkit.enable = true;
   services.pipewire = {
@@ -126,6 +138,8 @@
   environment = {
     etc = {
       "nix/channels/nixpkgs".source = nixpkgs;
+      "nix/channels/nixpkgs-stable".source = inputs.nixpkgs-stable;
+      "nix/channels/nixpkgs-unstable".source = inputs.nixpkgs-unstable;
       "nix/channels/home-manager".source = home-manager;
     };
 
@@ -149,8 +163,11 @@
     variables = { EDITOR = "nvim"; };
   };
 
-  programs.git.enable = true;
-  programs.git.lfs.enable = true;
+  programs.git = {
+    enable = true;
+    package = pkgs.gitFull;
+    lfs.enable = true;
+  };
 
   programs.zsh.enable = true;
 
