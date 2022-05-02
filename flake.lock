@@ -1,5 +1,21 @@
 {
   "nodes": {
+    "awesome-freedesktop": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1647461200,
+        "narHash": "sha256-xFS1soMdv0Zk+lPQtjgB/VM+xgABXAfCf3y6klTMcLI=",
+        "owner": "lcpz",
+        "repo": "awesome-freedesktop",
+        "rev": "ac9de0eccd9d604f43c82cb03e77f6fd791640ab",
+        "type": "github"
+      },
+      "original": {
+        "owner": "lcpz",
+        "repo": "awesome-freedesktop",
+        "type": "github"
+      }
+    },
     "awesome-git": {
       "flake": false,
       "locked": {
@@ -13,6 +29,25 @@
       "original": {
         "owner": "awesomewm",
         "repo": "awesome",
+        "type": "github"
+      }
+    },
+    "awesomerc": {
+      "inputs": {
+        "awesome-freedesktop": "awesome-freedesktop",
+        "lain": "lain"
+      },
+      "locked": {
+        "lastModified": 1651461756,
+        "narHash": "sha256-wuwYp0+wwLN9cgzGkacwuDiCwMDjL5V8Pirj3DRc4VM=",
+        "owner": "rafaelrc7",
+        "repo": "awesomerc",
+        "rev": "983c392ed021b69cf9ba1658045820f839004fcd",
+        "type": "github"
+      },
+      "original": {
+        "owner": "rafaelrc7",
+        "repo": "awesomerc",
         "type": "github"
       }
     },
@@ -48,6 +83,22 @@
       "original": {
         "owner": "nix-community",
         "repo": "home-manager",
+        "type": "github"
+      }
+    },
+    "lain": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1648318275,
+        "narHash": "sha256-SjlUbiWdLQrxhNIB7p9JvQGwxwcu/4f9LtwjW+LNu78=",
+        "owner": "lcpz",
+        "repo": "lain",
+        "rev": "0df20e38bbd047c1afea46ab25e8ecf758bb5d45",
+        "type": "github"
+      },
+      "original": {
+        "owner": "lcpz",
+        "repo": "lain",
         "type": "github"
       }
     },
@@ -148,6 +199,7 @@
     "root": {
       "inputs": {
         "awesome-git": "awesome-git",
+        "awesomerc": "awesomerc",
         "flake-utils": "flake-utils",
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs",

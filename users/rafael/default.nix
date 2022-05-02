@@ -1,10 +1,14 @@
 { inputs, config, pkgs, ... }: {
+
   home.username = "rafael";
   home.homeDirectory = "/home/rafael";
 
   programs.home-manager.enable = true;
 
-  imports = [ ./neovim.nix ];
+  imports = [
+    inputs.awesomerc.dotfiles
+    ./neovim.nix
+  ];
 
   home.packages = with pkgs; [
     discord

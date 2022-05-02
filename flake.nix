@@ -31,6 +31,11 @@
       flake = false;
       url = "github:awesomewm/awesome";
     };
+
+    awesomerc = {
+      url = "github:rafaelrc7/awesomerc";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs@{ nixpkgs, home-manager, ... }:
