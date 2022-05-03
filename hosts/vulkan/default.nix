@@ -165,7 +165,7 @@
         DHCP = "yes";
         dhcpV4Config.RouteMetric = 10;
         dhcpV6Config.RouteMetric = 10;
-        dns = [ "1.1.1.1" "1.0.0.1" ];
+        dns = [ "127.0.0.1" "::1" ];
       };
 
       "20-wireless" = {
@@ -174,7 +174,7 @@
         DHCP = "yes";
         dhcpV4Config.RouteMetric = 20;
         dhcpV6Config.RouteMetric = 20;
-        dns = [ "1.1.1.1" "1.0.0.1" ];
+        dns = [ "127.0.0.1" "::1" ];
       };
     };
   };
