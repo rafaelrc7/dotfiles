@@ -27,6 +27,7 @@ in rec {
   mkHost = { hostName,
              system ? "x86_64-linux",
              userNames,
+             extraModules ? [],
              nixosModuleNames ? [],
              homeModuleNames ? [],
              nixpkgs ? inputs.nixpkgs }:
@@ -42,7 +43,7 @@ in rec {
       inherit (inputs) home-manager nur;
     };
 
-    modules = nixosModules ++ [
+    modules = nixosModules ++ extraModules ++ [
       (../hosts + "/${hostName}")
 
       inputs.home-manager.nixosModules.home-manager {

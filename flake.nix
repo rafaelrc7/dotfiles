@@ -7,6 +7,11 @@
     nixpkgs-master.url = "github:nixos/nixpkgs";
     nixpkgs = nixpkgs-unstable;
 
+    nixos-hardware = {
+      url = "github:nixos/nixos-hardware/master";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     flake-utils = {
       url = "github:numtide/flake-utils";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -38,7 +43,7 @@
     };
   };
 
-  outputs = inputs@{ nixpkgs, home-manager, ... }:
+  outputs = inputs@{ nixpkgs, home-manager, nixos-hardware, ... }:
   let
     utils = import ./utils inputs;
   in {
@@ -48,6 +53,9 @@
         system = "x86_64-linux";
         userNames = [ "rafael" ];
         nixosModuleNames = [ "nix.nix" "zsh.nix" "dnscrypt.nix" ];
+        extraModules = [ nixos-hardware.nixosModules.common-cpu-intel
+                         nixos-hardware.nixosModules.common-pc-laptop
+        ];
       };
     };
 
