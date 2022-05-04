@@ -35,8 +35,6 @@
   time.timeZone = "America/Sao_Paulo";
 
   users = {
-    mutableUsers = true;
-
     users.rafael = {
       isNormalUser = true;
       createHome = true;
@@ -49,10 +47,7 @@
     defaultUserShell = pkgs.zsh;
   };
 
-  i18n = {
-    defaultLocale = "en_GB.UTF-8";
-    supportedLocales = [ "en_US.UTF-8/UTF-8" "pt_BR.UTF-8/UTF-8" ];
-  };
+  i18n.defaultLocale = "en_GB.UTF-8";
 
   console = {
     font = "Lat2-Terminus16";
