@@ -64,14 +64,6 @@
       runUsingSystemd = true;
     };
 
-    windowManager.awesome = {
-      enable = true;
-      package = pkgs.awesome.overrideAttrs (old: {
-        version = "git";
-        src = inputs.awesome-git;
-      });
-    };
-
     layout = "us";
   };
 
