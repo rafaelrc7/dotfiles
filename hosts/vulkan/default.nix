@@ -58,6 +58,7 @@
     enable = true;
 
     displayManager = {
+      defaultSession = "none+awesome";
       startx.enable = true;
       lightdm.enable = true;
     };
