@@ -158,23 +158,45 @@
   systemd.network = {
     enable = true;
 
-    networks = {
-      "10-wired" = {
+    netdevs = {
+      "10-bond0" = {
         enable = true;
-        matchConfig = { Name = "enp*"; };
+        netdevConfig = {
+          Name = "bond0";
+          Kind = "bond";
+        };
+        bondConfig = {
+          Mode = "active-backup";
+          PrimaryReselectPolicy = "always";
+          MIIMonitorSec = "1s";
+        };
+      };
+    };
+
+    networks = {
+      "10-bond0" = {
+        enable = true;
+        matchConfig.Name = "bond0";
         DHCP = "yes";
-        dhcpV4Config.RouteMetric = 10;
-        dhcpV6Config.RouteMetric = 10;
+        dhcpV4Config = {
+          UseDNS = false;
+          Anonymize = true;
+        };
+        networkConfig.IPv6PrivacyExtensions = "prefer-public";
         dns = [ "127.0.0.1" "::1" ];
       };
 
-      "20-wireless" = {
+      "10-ethernet-bond0" = {
         enable = true;
-        matchConfig = { Name = "wlan*"; };
-        DHCP = "yes";
-        dhcpV4Config.RouteMetric = 20;
-        dhcpV6Config.RouteMetric = 20;
-        dns = [ "127.0.0.1" "::1" ];
+        matchConfig.Name = "enp*";
+        bond = [ "bond0" ];
+        networkConfig.PrimarySlave = true;
+      };
+
+      "10-wifi-bond0" = {
+        enable = true;
+        matchConfig.Name = "wlan*";
+        bond = [ "bond0" ];
       };
     };
   };
