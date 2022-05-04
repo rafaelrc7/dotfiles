@@ -7,6 +7,7 @@
 
   imports = [
     inputs.awesomerc.dotfiles
+    inputs.awesomerc.autorun
     ./neovim.nix
   ];
 

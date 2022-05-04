@@ -32,17 +32,34 @@
         "type": "github"
       }
     },
+    "awesome-git_2": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1647882589,
+        "narHash": "sha256-EDAL7NnLF2BiVI8DAlEciiZtDmwXOzCPypGTrlN/OoQ=",
+        "owner": "awesomewm",
+        "repo": "awesome",
+        "rev": "c539e0e4350a42f813952fc28dd8490f42d934b3",
+        "type": "github"
+      },
+      "original": {
+        "owner": "awesomewm",
+        "repo": "awesome",
+        "type": "github"
+      }
+    },
     "awesomerc": {
       "inputs": {
         "awesome-freedesktop": "awesome-freedesktop",
+        "awesome-git": "awesome-git_2",
         "lain": "lain"
       },
       "locked": {
-        "lastModified": 1651599541,
-        "narHash": "sha256-bs7rCvDE11826YW4iVHREwTFnW2lBO53ai8TSQv0wi4=",
+        "lastModified": 1651635662,
+        "narHash": "sha256-J01ugjZFDqdX9w4jzota8UyBXHnJUJMdAdmoem3zweE=",
         "owner": "rafaelrc7",
         "repo": "awesomerc",
-        "rev": "d4f0123c18ab6e7e39532a936b5616754e5fb692",
+        "rev": "14f1a20b8e681b0d130508b32efbf8524e844ef3",
         "type": "github"
       },
       "original": {
