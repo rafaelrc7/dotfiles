@@ -27,6 +27,7 @@
     speedtest-cli
     tdesktop
     thunderbird
+    ungoogled-chromium
     obs-studio
     unityhub
     v4l-utils
