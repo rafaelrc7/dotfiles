@@ -158,6 +158,14 @@
   systemd.network = {
     enable = true;
 
+    links = {
+      "00-random-mac" = {
+        enable = true;
+        matchConfig.OriginalName = "*";
+        linkConfig.MACAddressPolicy = "random";
+      };
+    };
+
     netdevs = {
       "10-bond0" = {
         enable = true;
@@ -181,21 +189,28 @@
         dhcpV4Config = {
           UseDNS = false;
           Anonymize = true;
+          UseDomains= false;
         };
-        networkConfig.IPv6PrivacyExtensions = "prefer-public";
+        dhcpV6Config = {
+          UseDNS = false;
+        };
+        networkConfig = {
+          IPv6PrivacyExtensions = true;
+          DNSSEC = true;
+        };
         dns = [ "127.0.0.1" "::1" ];
       };
 
       "10-ethernet-bond0" = {
         enable = true;
-        matchConfig.Name = "enp*";
+        matchConfig.Type = "ether";
         bond = [ "bond0" ];
         networkConfig.PrimarySlave = true;
       };
 
       "10-wifi-bond0" = {
         enable = true;
-        matchConfig.Name = "wlan*";
+        matchConfig.Type = "wlan";
         bond = [ "bond0" ];
       };
     };
