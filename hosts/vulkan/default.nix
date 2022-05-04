@@ -57,7 +57,10 @@
   services.xserver = {
     enable = true;
 
-    displayManager.lightdm.enable = true;
+    displayManager = {
+      startx.enable = true;
+      lightdm.enable = true;
+    };
 
     desktopManager.plasma5 = {
       enable = true;
@@ -137,6 +140,7 @@
   programs.mtr.enable = true;
   programs.gnupg.agent = {
     enable = true;
+    pinentryFlavor = "qt";
     enableSSHSupport = true;
   };
 
