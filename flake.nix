@@ -1,11 +1,11 @@
 {
   description = "My NixOS configurations and dotfiles flake";
 
-  inputs = rec {
+  inputs = {
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-21.11";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-master.url = "github:nixos/nixpkgs";
-    nixpkgs = nixpkgs-unstable;
+    nixpkgs.inputs.nixpkgs.follows = "nixpkgs-unstable";
 
     nixos-hardware = {
       url = "github:nixos/nixos-hardware/master";
