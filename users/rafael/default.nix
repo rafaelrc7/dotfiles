@@ -8,6 +8,7 @@
   imports = [
     inputs.awesomerc.dotfiles
     inputs.awesomerc.autorun
+    ./zsh.nix
     ./environment_variables.nix
     ./neovim.nix
   ];
