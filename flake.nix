@@ -52,10 +52,13 @@
         hostName = "spitfire";
         system = "x86_64-linux";
         userNames = [ "rafael" ];
-        nixosModuleNames = [ "nix.nix" "zsh.nix" "dnscrypt.nix" ];
+        nixosModules = [ ./modules/nixos/nix.nix
+                         ./modules/nixos/zsh.nix
+                         ./modules/nixos/dnscrypt.nix
+                       ];
         extraModules = [ nixos-hardware.nixosModules.common-cpu-intel
                          nixos-hardware.nixosModules.common-pc-laptop
-        ];
+                       ];
       };
     };
 

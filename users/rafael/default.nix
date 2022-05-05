@@ -77,7 +77,7 @@
       bold_font = "auto";
       italic_font = "auto";
       bold_italic_font = "auto";
-      background_opacity = "0.9";
+      background_opacity = "0.95";
       enable_audio_bell = false;
       scrollback_pager_history_size = 2048;
       mouse_map = "left click ungrabbed no-op";
