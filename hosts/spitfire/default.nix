@@ -30,7 +30,7 @@
   fileSystems."/tmp".options = [ "compress=zstd" "noatime" "nodiratime" "discard" "ssd" ];
   fileSystems."/.snapshots".options = [ "compress=zstd" "noatime" "nodiratime" "discard" "ssd" ];
 
-  networking.hostName = "vulkan";
+  networking.hostName = "spitfire";
 
   time.timeZone = "America/Sao_Paulo";
 

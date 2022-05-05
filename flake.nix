@@ -48,8 +48,8 @@
     utils = import ./utils inputs;
   in {
     nixosConfigurations = {
-      "vulkan" = utils.mkHost {
-        hostName = "vulkan";
+      "spitfire" = utils.mkHost {
+        hostName = "spitfire";
         system = "x86_64-linux";
         userNames = [ "rafael" ];
         nixosModuleNames = [ "nix.nix" "zsh.nix" "dnscrypt.nix" ];
