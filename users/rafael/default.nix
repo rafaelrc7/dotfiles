@@ -8,6 +8,7 @@
   imports = [
     inputs.awesomerc.dotfiles
     inputs.awesomerc.autorun
+    ./environment_variables.nix
     ./neovim.nix
   ];
 
@@ -21,6 +22,7 @@
     libreoffice-fresh
     librewolf
     mpv
+    obs-studio
     pavucontrol
     python3
     slack
@@ -28,7 +30,6 @@
     tdesktop
     thunderbird
     ungoogled-chromium
-    obs-studio
     unityhub
     v4l-utils
     zoom-us
