@@ -223,7 +223,7 @@
       vimspector
       undotree
       nerdcommenter
-      delimitMate
+      nvim-autopairs
       vim-dispatch-neovim
       tagbar
       vim-fugitive
