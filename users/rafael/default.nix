@@ -7,7 +7,6 @@
 
   imports = [
     inputs.awesomerc.setup
-    ./zsh.nix
     ./environment_variables.nix
     ./neovim.nix
   ];
@@ -34,6 +33,17 @@
     v4l-utils
     zoom-us
   ];
+
+  home.file.".zshenv".text = ''
+    # Environment variables
+    . "/home/rafael/.nix-profile/etc/profile.d/hm-session-vars.sh"
+
+    # Only source this once
+    if [[ -z "$__HM_ZSH_SESS_VARS_SOURCED" ]]; then
+      export __HM_ZSH_SESS_VARS_SOURCED=1
+
+    fi
+  '';
 
   xdg.enable = true;
   xdg.userDirs = {
