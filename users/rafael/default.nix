@@ -6,8 +6,7 @@
   programs.home-manager.enable = true;
 
   imports = [
-    inputs.awesomerc.dotfiles
-    inputs.awesomerc.autorun
+    inputs.awesomerc.setup
     ./zsh.nix
     ./environment_variables.nix
     ./neovim.nix
