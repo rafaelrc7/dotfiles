@@ -115,6 +115,11 @@
     timeout = 3;
   };
 
+  qt = {
+    enable = true;
+    platformTheme = "gtk";
+  };
+
   systemd.user.startServices = "sd-switch";
 }
 
