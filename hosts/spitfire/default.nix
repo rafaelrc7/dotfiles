@@ -127,8 +127,10 @@
       gnumake
       htop
       killall
+      neofetch
       neovim
       parted
+      ripgrep
       tree
       unzip
       usbutils
