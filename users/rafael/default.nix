@@ -34,6 +34,8 @@
     zoom-us
   ];
 
+  home.sessionPath = [ "$HOME/.local/bin" "${config.programs.go.goPath}/bin" ];
+
   home.file.".zshenv".text = ''
     # Environment variables
     . "/home/rafael/.nix-profile/etc/profile.d/hm-session-vars.sh"
@@ -101,6 +103,11 @@
     settings = {
       PASSWORD_STORE_KEY = "03F104A08E5D7DFE";
     };
+  };
+
+  programs.go = {
+    enable = true;
+    goPath = ".local/share/go";
   };
 
   services.unclutter = {
