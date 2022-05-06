@@ -120,6 +120,10 @@
     platformTheme = "gtk";
   };
 
+  services.mpd = {
+    enable = true;
+  };
+
   systemd.user.startServices = "sd-switch";
 }
 
