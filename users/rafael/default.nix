@@ -20,7 +20,6 @@
     jetbrains.idea-ultimate
     libreoffice-fresh
     librewolf
-    mpv
     obs-studio
     pavucontrol
     python3
@@ -108,6 +107,10 @@
   programs.go = {
     enable = true;
     goPath = ".local/share/go";
+  };
+
+  programs.mpv = {
+    enable = true;
   };
 
   services.unclutter = {

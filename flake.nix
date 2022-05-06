@@ -69,6 +69,7 @@
         homeModules = [
           ({ pkgs, ... }: {
             programs.kitty.package = pkgs.hello;
+            programs.mpv.package = pkgs.hello;
           })
         ];
       };
