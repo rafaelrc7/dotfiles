@@ -42,7 +42,7 @@
       extraGroups = [ "wheel" ];
     };
 
-    groups.rafael.gid = 1000;
+    groups.rafael.gid = config.users.users.rafael.uid;
 
     defaultUserShell = pkgs.zsh;
   };
