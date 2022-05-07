@@ -127,6 +127,10 @@
     enable = true;
   };
 
+  programs.ncmpcpp = {
+    enable = true;
+  };
+
   systemd.user.startServices = "sd-switch";
 }
 
