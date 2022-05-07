@@ -18,7 +18,7 @@
 
     shellAliases = {
       diff = "diff --color=auto";
-      dmseg = "dmseg --color=always";
+      dmesg = "dmesg --color=always";
       grep = "grep --color=auto";
       ip = "ip --color=auto";
       ls = "ls --color=auto";
