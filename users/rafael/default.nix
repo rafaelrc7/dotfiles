@@ -9,6 +9,7 @@
     inputs.awesomerc.setup
     ./environment_variables.nix
     ./neovim.nix
+    ../../modules/home/zsh.nix
   ];
 
   home.packages = with pkgs; [
@@ -23,6 +24,7 @@
     obs-studio
     pavucontrol
     python3
+    ripgrep
     slack
     speedtest-cli
     tdesktop
@@ -34,17 +36,6 @@
   ];
 
   home.sessionPath = [ "$HOME/.local/bin" "${config.programs.go.goPath}/bin" ];
-
-  home.file.".zshenv".text = ''
-    # Environment variables
-    . "/home/rafael/.nix-profile/etc/profile.d/hm-session-vars.sh"
-
-    # Only source this once
-    if [[ -z "$__HM_ZSH_SESS_VARS_SOURCED" ]]; then
-      export __HM_ZSH_SESS_VARS_SOURCED=1
-
-    fi
-  '';
 
   xdg.enable = true;
   xdg.userDirs = {
