@@ -38,11 +38,11 @@
         "lain": "lain"
       },
       "locked": {
-        "lastModified": 1651796715,
-        "narHash": "sha256-UJ03aOnaprh3JZsHDTREt91TuRHDIU7/HiKWUBHDBPM=",
+        "lastModified": 1651900263,
+        "narHash": "sha256-dePgn/MFDhy4uEZTGq/O3pdCL6Io2q1t4N11j+I2YMI=",
         "owner": "rafaelrc7",
         "repo": "awesomerc",
-        "rev": "0e06a11777a262010aad77399e672c2efa8cc5e3",
+        "rev": "f68124b4c0a5cac4d0eba727d34d23bd4d143514",
         "type": "github"
       },
       "original": {
