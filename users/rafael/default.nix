@@ -35,7 +35,7 @@
     zoom-us
   ];
 
-  home.sessionPath = [ "$HOME/.local/bin" "${config.programs.go.goPath}/bin" ];
+  home.sessionPath = [ "$HOME/.local/bin" "$HOME/${config.programs.go.goPath}/bin" ];
 
   xdg.enable = true;
   xdg.userDirs = {
