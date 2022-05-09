@@ -127,10 +127,13 @@
       gnumake
       htop
       killall
+      man-pages
+      man-pages-posix
       neofetch
       neovim
       parted
       ripgrep
+      stdmanpages
       tree
       unzip
       usbutils
@@ -153,6 +156,12 @@
     enable = true;
     pinentryFlavor = "qt";
     enableSSHSupport = true;
+  };
+
+  documentation = {
+    man.enable = true;
+    dev.enable = true;
+    nixos.enable = true;
   };
 
   networking.useDHCP = false;
