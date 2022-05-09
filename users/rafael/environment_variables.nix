@@ -15,6 +15,10 @@
     GOLAND_JDK   = "${pkgs.jetbrains.jdk}";
     STUDIO_JDK   = "${pkgs.jetbrains.jdk}";
 
+    CABAL_DIR = "$HOME/.local/share/cabal";
+    CABAL_CONFIG = "$HOME/.config/cabal/config";
+    CABAL_BUILDDIR = "$HOME/.cache/cabal";
+
     LESS  = "-R";
     LESS_TERMCAP_mb = "$'\E[1;31m'";     # begin blink
     LESS_TERMCAP_md = "$'\E[1;36m'";     # begin bold
