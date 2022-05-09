@@ -52,13 +52,21 @@
         hostName = "spitfire";
         system = "x86_64-linux";
         userNames = [ "rafael" ];
-        nixosModules = [ ./modules/nixos/nix.nix
-                         ./modules/nixos/zsh.nix
-                         ./modules/nixos/dnscrypt.nix
-                       ];
-        extraModules = [ nixos-hardware.nixosModules.common-cpu-intel
-                         nixos-hardware.nixosModules.common-pc-laptop
-                       ];
+        nixosModules = [
+          ./modules/nixos/awesomewm.nix
+          ./modules/nixos/boot.nix
+          ./modules/nixos/btrfs.nix
+          ./modules/nixos/dnscrypt.nix
+          ./modules/nixos/geoclue.nix
+          ./modules/nixos/nix.nix
+          ./modules/nixos/pipewire.nix
+          ./modules/nixos/plasma.nix
+          ./modules/nixos/zsh.nix
+        ];
+        extraModules = [
+          nixos-hardware.nixosModules.common-cpu-intel
+          nixos-hardware.nixosModules.common-pc-laptop
+        ];
       };
     };
 

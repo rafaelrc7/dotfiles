@@ -11,7 +11,7 @@
   fileSystems."/" =
     { device = "/dev/mapper/root";
       fsType = "btrfs";
-      options = [ "subvol=@" ];
+      options = [ "subvol=@" "ssd" ];
     };
 
   boot.initrd.luks.devices."root".device = "/dev/disk/by-partlabel/cryptroot";
@@ -19,37 +19,37 @@
   fileSystems."/home" =
     { device = "/dev/mapper/root";
       fsType = "btrfs";
-      options = [ "subvol=@home" ];
+      options = [ "subvol=@home" "ssd" ];
     };
 
   fileSystems."/.snapshots" =
     { device = "/dev/mapper/root";
       fsType = "btrfs";
-      options = [ "subvol=@snapshots" ];
+      options = [ "subvol=@snapshots" "ssd" ];
     };
 
   fileSystems."/var" =
     { device = "/dev/mapper/root";
       fsType = "btrfs";
-      options = [ "subvol=@var" ];
+      options = [ "subvol=@var" "ssd" ];
     };
 
   fileSystems."/root" =
     { device = "/dev/mapper/root";
       fsType = "btrfs";
-      options = [ "subvol=@root" ];
+      options = [ "subvol=@root" "ssd" ];
     };
 
   fileSystems."/tmp" =
     { device = "/dev/mapper/root";
       fsType = "btrfs";
-      options = [ "subvol=@tmp" ];
+      options = [ "subvol=@tmp" "ssd" ];
     };
 
   fileSystems."/nix/store" =
     { device = "/dev/mapper/root";
       fsType = "btrfs";
-      options = [ "subvol=@nix_store" ];
+      options = [ "subvol=@nix_store" "ssd" ];
     };
 
   fileSystems."/boot" =
