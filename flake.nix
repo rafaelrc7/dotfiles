@@ -58,6 +58,7 @@
         system = "x86_64-linux";
         userNames = [ "rafael" ];
         nixosModules = [
+          ./modules/nixos/common.nix
           ./modules/nixos/awesomewm.nix
           ./modules/nixos/boot.nix
           ./modules/nixos/btrfs.nix
