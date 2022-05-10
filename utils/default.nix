@@ -2,12 +2,12 @@ inputs: let
   inherit (inputs.nixpkgs.lib) nixosSystem;
 in rec {
 
-  mkPkgs = { nixpkgs ? inputs.nixpkgs, system }:
+  mkPkgs = { nixpkgs ? inputs.nixpkgs, overlays ? [], system }:
     import nixpkgs {
       inherit system;
       config.allowUnfree = true;
 
-      overlays = [
+      overlays = overlays ++ [
         inputs.nur.overlay
         #(import ../overlay { inherit inputs sytem; })
         (final: prev: {
@@ -15,6 +15,7 @@ in rec {
           nixpkgs-unstable = inputs.nixpkgs-unstable.legacyPackages."${system}";
           nixpkgs-master = inputs.nixpkgs-master.legacyPackages."${system}";
         })
+        inputs.nixgl.overlay
       ];
     };
 
@@ -57,9 +58,10 @@ in rec {
   mkHome = { username,
              system ? "x86_64-linux",
              homeModules ? [],
+             overlays ? [],
              nixpkgs ? inputs.nixpkgs }:
   let
-    pkgs = mkPkgs { inherit nixpkgs system; };
+    pkgs = mkPkgs { inherit nixpkgs system overlays; };
     homeDirectory = "/home/${username}";
   in inputs.home-manager.lib.homeManagerConfiguration {
     inherit system username homeDirectory pkgs;

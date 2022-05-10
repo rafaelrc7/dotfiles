@@ -102,6 +102,26 @@
         "type": "github"
       }
     },
+    "nixgl": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1651078744,
+        "narHash": "sha256-+S/NEzZoTt7EoSOMEUsR/LuNTtzYhbribFaIewNxdCQ=",
+        "owner": "guibou",
+        "repo": "nixgl",
+        "rev": "56f2fbcce7a08c60c98394a64e900d5e9227bcb2",
+        "type": "github"
+      },
+      "original": {
+        "owner": "guibou",
+        "repo": "nixgl",
+        "type": "github"
+      }
+    },
     "nixos-hardware": {
       "locked": {
         "lastModified": 1650522846,
@@ -195,11 +215,11 @@
     "nvim-config": {
       "flake": false,
       "locked": {
-        "lastModified": 1652120676,
-        "narHash": "sha256-z/hEIks5DqcV9Y+wDXZ48ZAKkM4AdOb+CzuIKI4iFMQ=",
+        "lastModified": 1651980254,
+        "narHash": "sha256-DFDG3mcWquGAemOVmTI3PXMl8XGEmXq1XRrAmiHPyP4=",
         "owner": "rafaelrc7",
         "repo": "nvimrc",
-        "rev": "65b32d482b14b0dffb7228b228f669bcae5e3f74",
+        "rev": "d05dddb7551b78c38536cee7c9cc5bb6a2eaf8cd",
         "type": "github"
       },
       "original": {
@@ -214,6 +234,7 @@
         "awesomerc": "awesomerc",
         "flake-utils": "flake-utils",
         "home-manager": "home-manager",
+        "nixgl": "nixgl",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs",
         "nixpkgs-master": "nixpkgs-master",

@@ -27,6 +27,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nixgl = {
+      url = "github:guibou/nixgl";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nvim-config = {
       flake = false;
       url = "github:rafaelrc7/nvimrc";
@@ -43,7 +48,7 @@
     };
   };
 
-  outputs = inputs@{ nixpkgs, home-manager, nixos-hardware, ... }:
+  outputs = inputs@{ nixpkgs, home-manager, nixos-hardware, nixgl, ... }:
   let
     utils = import ./utils inputs;
   in {
@@ -76,8 +81,19 @@
         username = "rafael";
         homeModules = [
           ({ pkgs, ... }: {
-            programs.kitty.package = pkgs.hello;
-            programs.mpv.package = pkgs.hello;
+            programs.kitty.package = pkgs.writeShellScriptBin "kitty" ''
+              ${pkgs.nixgl.auto.nixGLDefault}/bin/nixGL ${pkgs.kitty}/bin/kitty "$@"
+            '';
+            programs.mpv.package = pkgs.writeShellScriptBin "mpv" ''
+              ${pkgs.nixgl.auto.nixGLDefault}/bin/nixGL ${pkgs.mpv}/bin/mpv "$@"
+            '';
+          })
+        ];
+        overlays = [
+          (final: prev: {
+            tdesktop = (final.writeShellScriptBin "telegram-desktop" ''
+              ${final.nixgl.auto.nixGLDefault}/bin/nixGL ${prev.tdesktop}/bin/telegram-desktop "$@"
+            '');
           })
         ];
       };
