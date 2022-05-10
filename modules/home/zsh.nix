@@ -25,6 +25,24 @@
       sudo = "sudo "; # Makes commands after sudo keep colour
     };
 
+    plugins = with pkgs; [
+      {
+          name = "zsh-nix-shell";
+          file = "nix-shell.plugin.zsh";
+          src = "${zsh-nix-shell}/share/zsh-nix-shell";
+      }
+      {
+          name = "zsh-git-prompt";
+          file = "zshrc.sh";
+          src = "${zsh-git-prompt}/share/zsh-git-prompt";
+      }
+      {
+          name = "zsh-vi-mode";
+          file = "zsh-vi-mode.plugin.zsh";
+          src = "${zsh-vi-mode}/share/zsh-vi-mode";
+      }
+    ];
+
     initExtraBeforeCompInit = ''
       zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|=*' 'l:|=* r:|=*'
       zstyle ':completion:*' menu select
@@ -32,16 +50,7 @@
       zmodload zsh/complist
     '';
 
-    initExtra = let
-      inherit (builtins) concatStringsSep;
-      sources = with pkgs; [
-        "${zsh-git-prompt}/share/zsh-git-prompt/zshrc.sh"
-        "${zsh-nix-shell}/share/zsh-nix-shell/nix-shell.plugin.zsh"
-        "${zsh-vi-mode}/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh"
-      ];
-      source = map (source: "source ${source}") sources;
-      plugins = concatStringsSep "\n" (source);
-    in ''
+    initExtra = ''
       # Binds arrows to history search
       autoload -U up-line-or-beginning-search
       autoload -U down-line-or-beginning-search
@@ -66,8 +75,6 @@
       bindkey -M menuselect 'l' vi-forward-char
       bindkey -M menuselect 'j' vi-down-line-or-history
       bindkey -M menuselect 'k' vi-up-line-or-history
-
-      ${plugins}
 
       # Prompt
       autoload -U colors && colors
