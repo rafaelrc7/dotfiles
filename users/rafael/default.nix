@@ -23,7 +23,6 @@
     librewolf
     obs-studio
     pavucontrol
-    python3
     ripgrep
     slack
     speedtest-cli
@@ -36,6 +35,8 @@
   ];
 
   home.sessionPath = [ "$HOME/.local/bin" "$HOME/${config.programs.go.goPath}/bin" ];
+
+  home.file.".librewolf/native-messaging-hosts/passff.json".source = "${pkgs.passff-host}/share/passff-host/passff.json";
 
   xdg.enable = true;
   xdg.userDirs = {
@@ -92,6 +93,7 @@
     package = pkgs.pass.withExtensions (exts: [ exts.pass-otp ]);
     settings = {
       PASSWORD_STORE_KEY = "03F104A08E5D7DFE";
+      PASSWORD_STORE_DIR = "$HOME/.password-store";
     };
   };
 
