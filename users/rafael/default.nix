@@ -112,6 +112,13 @@
     timeout = 3;
   };
 
+  services.flameshot = {
+    enable = true;
+    settings = {
+      General.showStartupMessage = false;
+    };
+  };
+
   gtk = {
     enable = true;
     font = {
