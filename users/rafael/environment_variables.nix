@@ -3,7 +3,7 @@
     EDITOR = "nvim";
     BROWSER = "librewolf";
     TERMINAL = "kitty";
-    EXPLORER = "${pkgs.pcmanfm}";
+    EXPLORER = "${pkgs.pcmanfm}/bin/pcmanfm";
 
     IDEA_JDK     = "${pkgs.jetbrains.jdk}";
     PHPSTORM_JDK = "${pkgs.jetbrains.jdk}";

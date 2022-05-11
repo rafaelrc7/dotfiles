@@ -48,6 +48,7 @@
     extraBackends = [ pkgs.epson-escpr ];
   };
 
+  programs.dconf.enable = true;
   programs.mtr.enable = true;
   programs.gnupg.agent = {
     enable = true;

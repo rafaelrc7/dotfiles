@@ -111,6 +111,27 @@
     timeout = 3;
   };
 
+  gtk = {
+    enable = true;
+    font = {
+      name = "Noto Sans";
+      size = 10;
+      # package = "";
+    };
+    theme = {
+      name = "Nordic-darker";
+      package = pkgs.nordic;
+    };
+    iconTheme = {
+      name = "Arc";
+      package = pkgs.arc-icon-theme;
+    };
+    cursorTheme = {
+      name = "breeze_cursors";
+      package = pkgs.libsForQt5.breeze-gtk;
+    };
+  };
+
   qt = {
     enable = true;
     platformTheme = "gtk";
