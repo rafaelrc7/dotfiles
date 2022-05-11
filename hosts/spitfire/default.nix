@@ -22,7 +22,24 @@
 
     displayManager = {
       defaultSession = "none+awesome";
-      lightdm.enable = true;
+      lightdm = {
+        enable = true;
+        greeters.gtk = {
+          enable = true;
+          theme = {
+            name = "Nordic-darker";
+            package = pkgs.nordic;
+          };
+          iconTheme = {
+            name = "Arc";
+            package = pkgs.arc-icon-theme;
+          };
+          cursorTheme = {
+            name = "breeze_cursors";
+            package = pkgs.libsForQt5.breeze-gtk;
+          };
+        };
+      };
     };
   };
 
