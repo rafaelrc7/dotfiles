@@ -81,6 +81,13 @@
     };
   };
 
+  programs.ssh = {
+    enable = true;
+    extraConfig = ''
+      AddKeysToAgent yes
+    '';
+  };
+
   programs.kitty = {
     enable = true;
     font = {
