@@ -23,6 +23,7 @@
     librewolf
     obs-studio
     pavucontrol
+    pcmanfm
     ripgrep
     slack
     speedtest-cli
@@ -140,6 +141,7 @@
     '';
 
     gtk3.extraConfig = {
+      gtk-application-prefer-dark-theme = true;
       gtk-decoration-layout = "icon:minimize,maximize,close";
       gtk-enable-animations = true;
       gtk-menu-images = true;
