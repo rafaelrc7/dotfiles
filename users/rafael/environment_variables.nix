@@ -30,5 +30,10 @@
     LESS_TERMCAP_us = "$'\E[1;32m'";     # begin underline
     LESS_TERMCAP_ue = "$'\E[0m'";        # reset underline
   };
+
+  home.file.".xprofile".text = ''
+    [ -e $HOME/.zshenv ] && . $HOME/.zshenv
+    [ -e $HOME/.profile ] && . $HOME/.profile
+  '';
 }
 
