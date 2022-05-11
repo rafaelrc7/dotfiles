@@ -41,6 +41,14 @@
 
   home.file.".librewolf/native-messaging-hosts/passff.json".source = "${pkgs.passff-host}/share/passff-host/passff.json";
 
+  home.pointerCursor = {
+    name = "breeze_cursors";
+    package = pkgs.libsForQt5.breeze-gtk;
+    size = 16;
+    x11.enable = true;
+    gtk.enable = true;
+  };
+
   xdg.enable = true;
   xdg.userDirs = {
       enable = true;
