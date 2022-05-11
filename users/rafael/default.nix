@@ -86,6 +86,12 @@
     extraConfig = ''
       AddKeysToAgent yes
     '';
+    matchBlocks = {
+      "aur.archlinux.org" = {
+        identityFile = "$HOME/.ssh/aur";
+        user = "aur";
+      };
+    };
   };
 
   programs.kitty = {
