@@ -26,7 +26,6 @@
     librewolf
     obs-studio
     pavucontrol
-    pcmanfm
     ripgrep
     slack
     speedtest-cli

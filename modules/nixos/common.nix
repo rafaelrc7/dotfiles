@@ -37,12 +37,6 @@
     keyMap = "us";
   };
 
-  qt5 = {
-    enable = true;
-    style = "gtk2";
-    platformTheme = "gtk2";
-  };
-
   documentation = {
     man.enable = true;
     dev.enable = true;
