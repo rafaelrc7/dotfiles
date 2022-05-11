@@ -115,7 +115,7 @@
   services.flameshot = {
     enable = true;
     settings = {
-      General.showStartupMessage = false;
+      General.showStartupLaunchMessage = false;
     };
   };
 
