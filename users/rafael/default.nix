@@ -7,10 +7,13 @@
 
   imports = [
     inputs.awesomerc.setup
+    inputs.nix-colors.homeManagerModule
     ./environment_variables.nix
     ./neovim.nix
     ../../modules/home/zsh.nix
   ];
+
+  colorscheme = inputs.nix-colors.colorSchemes.nord;
 
   home.packages = with pkgs; [
     discord
@@ -86,6 +89,9 @@
       enable_audio_bell = false;
       scrollback_pager_history_size = 2048;
       mouse_map = "left click ungrabbed no-op";
+
+      foreground = "#${config.colorscheme.colors.base05}";
+      background = "#${config.colorscheme.colors.base00}";
     };
   };
 

@@ -187,6 +187,8 @@
         }
       );
       EOF
+
+      colorscheme nord
     '';
 
     extraPackages = [
@@ -229,6 +231,7 @@
       vim-fugitive
       gitsigns-nvim
       gruvbox-nvim
+      nord-nvim
       neorg
       presence-nvim
     ];
