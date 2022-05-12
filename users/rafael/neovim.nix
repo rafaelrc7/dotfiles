@@ -211,8 +211,6 @@
       telescope-fzy-native-nvim
       popup-nvim
       plenary-nvim
-      vim-airline
-      tmuxline-vim
       vimtex
       markdown-preview-nvim
       symbols-outline-nvim
@@ -234,6 +232,7 @@
       nord-nvim
       neorg
       presence-nvim
+      lualine-nvim
     ];
   };
 
