@@ -38,11 +38,11 @@
         "lain": "lain"
       },
       "locked": {
-        "lastModified": 1652226107,
-        "narHash": "sha256-3D6VYo+DfInj2HQ/bn9hss6kCG9bxjA1EhkQWEtP4Ek=",
+        "lastModified": 1652318753,
+        "narHash": "sha256-NAtRntCJ8X8CdsL09VRVt346k9l4CZ1WElElzBG109Y=",
         "owner": "rafaelrc7",
         "repo": "awesomerc",
-        "rev": "f1b6881dd27339f149aca514d241465cc759ff97",
+        "rev": "735f0ee5d9545562817afa738cc920293af8dd81",
         "type": "github"
       },
       "original": {
@@ -89,11 +89,11 @@
     "lain": {
       "flake": false,
       "locked": {
-        "lastModified": 1648318275,
-        "narHash": "sha256-SjlUbiWdLQrxhNIB7p9JvQGwxwcu/4f9LtwjW+LNu78=",
+        "lastModified": 1652285097,
+        "narHash": "sha256-FXD42ClJmFXfGs66NUJJaOnNVC/1SU7ovbyymASF5JU=",
         "owner": "lcpz",
         "repo": "lain",
-        "rev": "0df20e38bbd047c1afea46ab25e8ecf758bb5d45",
+        "rev": "29f8d1fc361ee0f0b11fb08cccaa0a0a5b93aa48",
         "type": "github"
       },
       "original": {
