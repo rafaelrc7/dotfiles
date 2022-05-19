@@ -133,6 +133,12 @@
     enable = true;
   };
 
+  programs.direnv = {
+    enable = true;
+    enableZshIntegration = true;
+    nix-direnv.enable = true;
+  };
+
   services.unclutter = {
     enable = true;
     timeout = 3;
