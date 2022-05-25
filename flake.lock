@@ -38,11 +38,11 @@
         "lain": "lain"
       },
       "locked": {
-        "lastModified": 1652318753,
-        "narHash": "sha256-NAtRntCJ8X8CdsL09VRVt346k9l4CZ1WElElzBG109Y=",
+        "lastModified": 1653519315,
+        "narHash": "sha256-iqj3NBIfcZOeXPGZi5Tp5vpGPJeqZL/+tZfgT9O0r+o=",
         "owner": "rafaelrc7",
         "repo": "awesomerc",
-        "rev": "735f0ee5d9545562817afa738cc920293af8dd81",
+        "rev": "f70dfed5383a132de1f9947cab554c7d5ba05cd2",
         "type": "github"
       },
       "original": {
@@ -230,11 +230,11 @@
     "nvim-config": {
       "flake": false,
       "locked": {
-        "lastModified": 1653510838,
-        "narHash": "sha256-ILV8xkvYOYNwbv5K3A6HwIHwuFQ9E+7GqrYwFZmPaYE=",
+        "lastModified": 1653516360,
+        "narHash": "sha256-PCJ/ArapCUntwtk9VjZHaSQMGLVOog6VogwIvdYDv4M=",
         "owner": "rafaelrc7",
         "repo": "nvimrc",
-        "rev": "1909598d41ce5d6d2959f5b5cd8273cf5b92e344",
+        "rev": "ede335ab7b3d8c61d89b39d3ad051d96da4ac77f",
         "type": "github"
       },
       "original": {

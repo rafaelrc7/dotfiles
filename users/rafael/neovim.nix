@@ -48,7 +48,7 @@
 
       -- Haskell (hls)
       nvim_lsp.hls.setup{
-        cmd = { "${haskell-language-server}/bin/haskell-language-server-wrapper", "--lsp" },
+        cmd = { vim.fn.executable("haskell-language-server-wrapper") == 1 and "haskell-language-server-wrapper" or "${haskell-language-server}/bin/haskell-language-server-wrapper", "--lsp" },
         on_attach = on_attach,
         capabilities = capabilities,
       };
@@ -233,6 +233,7 @@
       neorg
       presence-nvim
       lualine-nvim
+      lualine-lsp-progress
     ];
   };
 
