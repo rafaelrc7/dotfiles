@@ -2,7 +2,7 @@
   description = "My NixOS configurations and dotfiles flake";
 
   inputs = {
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-21.11";
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-22.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-master.url = "github:nixos/nixpkgs";
     nixpkgs.inputs.nixpkgs.follows = "nixpkgs-unstable";
