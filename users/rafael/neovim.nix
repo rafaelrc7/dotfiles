@@ -118,7 +118,7 @@
       table.insert(runtime_path, "lua/?/init.lua")
 
       nvim_lsp.sumneko_lua.setup {
-        cmd = {"${nixpkgs-stable.pkgs.sumneko-lua-language-server}/bin/lua-language-server"},
+        cmd = {"${sumneko-lua-language-server}/bin/lua-language-server"},
         on_attach = on_attach,
         settings = {
           Lua = {
