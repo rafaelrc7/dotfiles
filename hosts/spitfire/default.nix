@@ -17,6 +17,12 @@
     groups.rafael.gid = config.users.users.rafael.uid;
   };
 
+  environment = {
+    systemPackages = with pkgs; [
+      xclip
+    ];
+  };
+
   services.xserver = {
     enable = true;
 
