@@ -77,17 +77,6 @@
     libraspberrypi
   ];
 
-  users = {
-    users.rafael = {
-      isNormalUser = true;
-      createHome = true;
-      group = "rafael";
-      extraGroups = [ "wheel" ];
-    };
-
-    groups.rafael.gid = config.users.users.rafael.uid;
-  };
-
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;

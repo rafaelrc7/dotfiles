@@ -19,12 +19,36 @@ in rec {
       ];
     };
 
-  mkUser = with builtins; { name, homeModules ? [] }: {
+  mkUser = { name, extraGroups ? [], ... }: {
+    inherit name;
+    value = {
+      isNormalUser = true;
+      createHome = true;
+      group = ${name};
+      inherit extraGroups;
+    };
+  };
+
+  mkUserGroup = config: { name, ... }: {
+    inherit name;
+    value = {
+      gid = config.users.users."${name}".uid;
+    };
+  };
+
+  mkUsers = with builtins; users: { config, ... }: {
+    users = {
+      users = listToAttrs (map mkUser users);
+      groups = listToAttrs (map (mkUserGroup config) users);
+    };
+  };
+
+  mkHMUser = with builtins; { name, homeModules ? [], ... }: {
     inherit name;
     value = { imports = [(../users + "/${name}")] ++ homeModules; };
   };
 
-  mkUsers = with builtins; users: listToAttrs (map mkUser users);
+  mkHMUsers = with builtins; users: listToAttrs (map mkHMUser users);
 
   mkHost = { hostName,
              system ? "x86_64-linux",
@@ -43,12 +67,12 @@ in rec {
 
     modules = nixosModules ++ [
       (../hosts + "/${hostName}")
-
+      (mkUsers users)
       inputs.home-manager.nixosModules.home-manager {
         home-manager = {
           useUserPackages = true;
           extraSpecialArgs = { inherit inputs pkgs nixpkgs; };
-          users = mkUsers users;
+          users = mkHMUsers users;
         };
       }
     ];

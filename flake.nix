@@ -69,6 +69,7 @@
               ./users/rafael/gui-pkgs.nix
               ./users/rafael/gui-theme.nix
             ];
+            extraGroups = [ "wheel" ];
           }
         ];
         nixosModules = [
@@ -90,7 +91,11 @@
       "harrier" = utils.mkHost {
         hostName = "harrier";
         system = "aarch64-linux";
-        users = [ { name = "rafael"; } ];
+        users = [
+          { name = "rafael";
+            extraGroups = [ "wheel" ];
+          }
+        ];
         nixosModules = [
           ./modules/nixos/common.nix
           ./modules/nixos/dnscrypt.nix
