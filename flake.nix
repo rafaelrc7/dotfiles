@@ -64,10 +64,16 @@
         users = [
           { name = "rafael";
             homeModules = [
-              ./modules/home/kitty.nix
-              ./modules/home/jetbrains-jdk.nix
+              inputs.awesomerc.setup
+              ./users/rafael/go.nix
               ./users/rafael/gui-pkgs.nix
               ./users/rafael/gui-theme.nix
+              ./users/rafael/jetbrains.nix
+              ./users/rafael/kitty.nix
+              ./users/rafael/mpd.nix
+              ./users/rafael/neovim.nix
+              ./users/rafael/pass.nix
+              ./users/rafael/zsh.nix
             ];
             extraGroups = [ "wheel" ];
           }
@@ -94,6 +100,11 @@
         users = [
           { name = "rafael";
             extraGroups = [ "wheel" ];
+            homeModules = [
+              ./users/rafael/go.nix
+              ./users/rafael/pass.nix
+              ./users/rafael/zsh.nix
+            ];
           }
         ];
         nixosModules = [
@@ -111,10 +122,16 @@
         system = "x86_64-linux";
         username = "rafael";
         homeModules = [
-          ./modules/home/kitty.nix
-          ./modules/home/jetbrains-jdk.nix
+          inputs.awesomerc.setup
+          ./users/rafael/go.nix
           ./users/rafael/gui-pkgs.nix
           ./users/rafael/gui-theme.nix
+          ./users/rafael/jetbrains.nix
+          ./users/rafael/kitty.nix
+          ./users/rafael/mpd.nix
+          ./users/rafael/neovim.nix
+          ./users/rafael/pass.nix
+          ./users/rafael/zsh.nix
           ({ pkgs, ... }: {
             programs.kitty.package = pkgs.writeShellScriptBin "kitty" ''
               ${pkgs.nixgl.auto.nixGLDefault}/bin/nixGL ${pkgs.kitty}/bin/kitty "$@"

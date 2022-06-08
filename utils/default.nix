@@ -24,7 +24,7 @@ in rec {
     value = {
       isNormalUser = true;
       createHome = true;
-      group = ${name};
+      group = "${name}";
       inherit extraGroups;
     };
   };
