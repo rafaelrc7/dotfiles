@@ -1,21 +1,9 @@
 { config, pkgs, ... }: {
   home.sessionVariables = {
-    SSH_ASKPASS = "${pkgs.lxqt.lxqt-openssh-askpass}/bin/lxqt-openssh-askpass";
-
     EDITOR = "nvim";
     BROWSER = "librewolf";
     TERMINAL = "kitty";
-    EXPLORER = "${pkgs.pcmanfm}/bin/pcmanfm";
-
-    IDEA_JDK     = "${pkgs.jetbrains.jdk}";
-    PHPSTORM_JDK = "${pkgs.jetbrains.jdk}";
-    WEBIDE_JDK   = "${pkgs.jetbrains.jdk}";
-    PYCHARM_JDK  = "${pkgs.jetbrains.jdk}";
-    RUBYMINE_JDK = "${pkgs.jetbrains.jdk}";
-    CL_JDK       = "${pkgs.jetbrains.jdk}";
-    DATAGRIP_JDK = "${pkgs.jetbrains.jdk}";
-    GOLAND_JDK   = "${pkgs.jetbrains.jdk}";
-    STUDIO_JDK   = "${pkgs.jetbrains.jdk}";
+    EXPLORER = "pcmanfm";
 
     CABAL_DIR = "$HOME/.local/share/cabal";
     CABAL_CONFIG = "$HOME/.config/cabal/config";
@@ -30,10 +18,5 @@
     LESS_TERMCAP_us = "$'\E[1;32m'";     # begin underline
     LESS_TERMCAP_ue = "$'\E[0m'";        # reset underline
   };
-
-  home.file.".xprofile".text = ''
-    [ -e $HOME/.zshenv ] && . $HOME/.zshenv
-    [ -e $HOME/.profile ] && . $HOME/.profile
-  '';
 }
 

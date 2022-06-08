@@ -19,18 +19,17 @@ in rec {
       ];
     };
 
-  mkUsers = with builtins; { userNames, homeModules ? [] }:
-    listToAttrs (map
-    (name:  let value = { imports = homeModules ++ [(../users + "/${name}")]; };
-            in { inherit name value; })
-    userNames);
+  mkUser = with builtins; { name, homeModules ? [] }: {
+    inherit name;
+    value = { imports = [(../users + "/${name}")] ++ homeModules; };
+  };
+
+  mkUsers = with builtins; users: listToAttrs (map mkUser users);
 
   mkHost = { hostName,
              system ? "x86_64-linux",
-             userNames ? [],
-             extraModules ? [],
+             users ? [],
              nixosModules ? [],
-             homeModules ? [],
              nixpkgs ? inputs.nixpkgs }:
   let
     pkgs = mkPkgs { inherit nixpkgs system; };
@@ -42,14 +41,14 @@ in rec {
       inherit (inputs) home-manager nur;
     };
 
-    modules = nixosModules ++ extraModules ++ [
+    modules = nixosModules ++ [
       (../hosts + "/${hostName}")
 
       inputs.home-manager.nixosModules.home-manager {
         home-manager = {
           useUserPackages = true;
           extraSpecialArgs = { inherit inputs pkgs nixpkgs; };
-          users = mkUsers { inherit userNames homeModules; };
+          users = mkUsers users;
         };
       }
     ];

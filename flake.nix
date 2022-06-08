@@ -61,7 +61,16 @@
       "spitfire" = utils.mkHost {
         hostName = "spitfire";
         system = "x86_64-linux";
-        userNames = [ "rafael" ];
+        users = [
+          { name = "rafael";
+            homeModules = [
+              ./modules/home/kitty.nix
+              ./modules/home/jetbrains-jdk.nix
+              ./users/rafael/gui-pkgs.nix
+              ./users/rafael/gui-theme.nix
+            ];
+          }
+        ];
         nixosModules = [
           ./modules/nixos/common.nix
           ./modules/nixos/awesomewm.nix
@@ -73,8 +82,6 @@
           ./modules/nixos/pipewire.nix
           ./modules/nixos/plasma.nix
           ./modules/nixos/zsh.nix
-        ];
-        extraModules = [
           nixos-hardware.nixosModules.common-cpu-intel
           nixos-hardware.nixosModules.common-pc-laptop
         ];
@@ -83,6 +90,7 @@
       "harrier" = utils.mkHost {
         hostName = "harrier";
         system = "aarch64-linux";
+        users = [ { name = "rafael"; } ];
         nixosModules = [
           ./modules/nixos/common.nix
           ./modules/nixos/dnscrypt.nix
@@ -98,6 +106,10 @@
         system = "x86_64-linux";
         username = "rafael";
         homeModules = [
+          ./modules/home/kitty.nix
+          ./modules/home/jetbrains-jdk.nix
+          ./users/rafael/gui-pkgs.nix
+          ./users/rafael/gui-theme.nix
           ({ pkgs, ... }: {
             programs.kitty.package = pkgs.writeShellScriptBin "kitty" ''
               ${pkgs.nixgl.auto.nixGLDefault}/bin/nixGL ${pkgs.kitty}/bin/kitty "$@"
