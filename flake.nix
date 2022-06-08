@@ -83,6 +83,13 @@
       "harrier" = utils.mkHost {
         hostName = "harrier";
         system = "aarch64-linux";
+        nixosModules = [
+          ./modules/nixos/common.nix
+          ./modules/nixos/dnscrypt.nix
+          ./modules/nixos/geoclue.nix
+          ./modules/nixos/nix.nix
+          ./modules/nixos/zsh.nix
+        ];
       };
     };
 
