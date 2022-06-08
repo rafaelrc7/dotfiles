@@ -27,7 +27,7 @@ in rec {
 
   mkHost = { hostName,
              system ? "x86_64-linux",
-             userNames,
+             userNames ? [],
              extraModules ? [],
              nixosModules ? [],
              homeModules ? [],

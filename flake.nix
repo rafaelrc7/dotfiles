@@ -79,6 +79,11 @@
           nixos-hardware.nixosModules.common-pc-laptop
         ];
       };
+
+      "harrier" = utils.mkHost {
+        hostName = "harrier";
+        system = "aarch64-linux";
+      };
     };
 
     homeConfigurations = {
