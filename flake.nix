@@ -112,6 +112,7 @@
           ./modules/nixos/dnscrypt.nix
           ./modules/nixos/geoclue.nix
           ./modules/nixos/nix.nix
+          ./modules/nixos/pihole.nix
           ./modules/nixos/zsh.nix
         ];
       };
