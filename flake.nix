@@ -63,6 +63,7 @@
         system = "x86_64-linux";
         users = [
           { name = "rafael";
+            extraGroups = [ "wheel" ];
             homeModules = [
               inputs.awesomerc.setup
               ./users/rafael/git.nix
@@ -76,7 +77,6 @@
               ./users/rafael/pass.nix
               ./users/rafael/zsh.nix
             ];
-            extraGroups = [ "wheel" ];
           }
         ];
         nixosModules = [
@@ -103,6 +103,7 @@
             extraGroups = [ "wheel" ];
             homeModules = [
               ./users/rafael/git.nix
+              ./users/rafael/neovim-nolsp.nix
               ./users/rafael/pass.nix
               ./users/rafael/zsh.nix
             ];
