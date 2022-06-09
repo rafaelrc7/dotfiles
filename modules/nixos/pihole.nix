@@ -35,5 +35,10 @@
 
   systemd.services."podman-pihole".postStart =''
   '';
+
+  systemd.services."podman-pihole".preStart =''
+    mkdir -p /etc/pihole
+    mkdir -p /etc/dnsmasq.d
+  '';
 }
 
