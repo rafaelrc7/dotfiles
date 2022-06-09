@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ config, pkgs, ... }: {
   programs.direnv = {
     enable = true;
     enableZshIntegration = true;
@@ -19,7 +19,7 @@
     history = {
       size = 10000;
       expireDuplicatesFirst = true;
-      path = ".cache/zsh/history";
+      path = "${config.xdg.cacheHome}/zsh/history";
     };
 
     shellAliases = {
