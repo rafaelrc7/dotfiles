@@ -89,6 +89,7 @@ in rec {
     homeDirectory = "/home/${username}";
   in inputs.home-manager.lib.homeManagerConfiguration {
     inherit system username homeDirectory pkgs;
+    stateVersion = "22.05";
     extraSpecialArgs = { inherit inputs pkgs nixpkgs system username; };
     configuration.imports = homeModules ++ [(../users + "/${username}")];
   };
