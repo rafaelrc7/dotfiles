@@ -65,6 +65,7 @@
           { name = "rafael";
             homeModules = [
               inputs.awesomerc.setup
+              ./users/rafael/git.nix
               ./users/rafael/go.nix
               ./users/rafael/gui-pkgs.nix
               ./users/rafael/gui-theme.nix
@@ -101,7 +102,7 @@
           { name = "rafael";
             extraGroups = [ "wheel" ];
             homeModules = [
-              ./users/rafael/go.nix
+              ./users/rafael/git.nix
               ./users/rafael/pass.nix
               ./users/rafael/zsh.nix
             ];
@@ -124,6 +125,7 @@
         username = "rafael";
         homeModules = [
           inputs.awesomerc.setup
+          ./users/rafael/git.nix
           ./users/rafael/go.nix
           ./users/rafael/gui-pkgs.nix
           ./users/rafael/gui-theme.nix
