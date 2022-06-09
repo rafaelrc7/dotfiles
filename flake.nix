@@ -64,6 +64,7 @@
         users = [
           { name = "rafael";
             extraGroups = [ "wheel" ];
+            sshKeys = import ./users/rafael/sshkeys.nix;
             homeModules = [
               inputs.awesomerc.setup
               ./users/rafael/git.nix
@@ -101,6 +102,7 @@
         users = [
           { name = "rafael";
             extraGroups = [ "wheel" ];
+            sshKeys = import ./users/rafael/sshkeys.nix;
             homeModules = [
               ./users/rafael/git.nix
               ./users/rafael/neovim-nolsp.nix

@@ -19,12 +19,13 @@ in rec {
       ];
     };
 
-  mkUser = { name, extraGroups ? [], ... }: {
+  mkUser = { name, extraGroups ? [], sshKeys ? [], ... }: {
     inherit name;
     value = {
       isNormalUser = true;
       createHome = true;
       group = "${name}";
+      openssh.authorizedKeys.keys = sshKeys;
       inherit extraGroups;
     };
   };
