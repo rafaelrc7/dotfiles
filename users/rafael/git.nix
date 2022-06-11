@@ -2,7 +2,7 @@
   programs.git = {
     enable = true;
     userName = "rafaelrc7";
-    userEmail = "rafaelrc7@gmail.com";
+    userEmail = "contact@rafaelrc.com";
     delta.enable = true;
     extraConfig = {
       init.defaultBranch = "master";
@@ -13,7 +13,7 @@
     };
     signing = {
       signByDefault = true;
-      key = "03F104A08E5D7DFE";
+      key = "A021D05707D44720";
     };
   };
 
