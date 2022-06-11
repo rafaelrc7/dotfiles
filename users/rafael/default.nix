@@ -28,15 +28,21 @@
 
   programs.ssh = {
     enable = true;
-    extraConfig = ''
-      AddKeysToAgent yes
-    '';
     matchBlocks = {
       "aur.archlinux.org" = {
         identityFile = "$HOME/.ssh/aur";
         user = "aur";
       };
     };
+  };
+
+  services.gpg-agent = {
+    enable = true;
+    enableSshSupport = true;
+    enableZshIntegration = true;
+    sshKeys = [
+      "72C0B9E758F6099D4F7F6B4B44E4DD530867E7A9"
+    ];
   };
 
   systemd.user.startServices = "sd-switch";

@@ -67,10 +67,6 @@
     enable = true;
     pinentryFlavor = "qt";
   };
-  programs.ssh = {
-    startAgent = true;
-    agentTimeout = "30m";
-  };
 
   system.stateVersion = "22.05";
 }
