@@ -1,6 +1,7 @@
 { pkgs, ... }: {
   home.packages = with pkgs; [
     discord
+    discord-canary
     gimp
     gparted
     jetbrains.idea-ultimate
