@@ -63,7 +63,7 @@
         system = "x86_64-linux";
         users = [
           { name = "rafael";
-            extraGroups = [ "wheel" ];
+            extraGroups = [ "wheel" "adbusers" ];
             sshKeys = import ./users/rafael/sshkeys.nix;
             homeModules = [
               inputs.awesomerc.setup
@@ -82,6 +82,7 @@
         ];
         nixosModules = [
           ./modules/nixos/common.nix
+          ./modules/nixos/android.nix
           ./modules/nixos/awesomewm.nix
           ./modules/nixos/boot.nix
           ./modules/nixos/btrfs.nix
