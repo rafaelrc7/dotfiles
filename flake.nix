@@ -156,6 +156,17 @@
           })
         ];
       };
+
+      "work" = utils.mkHome {
+        system = "x86_64-linux";
+        username = "rafael";
+        homeModules = [
+          ./users/rafael/git-work.nix
+          ./users/rafael/neovim-nolsp.nix
+          ./users/rafael/pass.nix
+          ./users/rafael/zsh.nix
+        ];
+      };
     };
   };
 }
