@@ -8,7 +8,9 @@
 
   environment = {
     systemPackages = with pkgs; [
-
+      libva-utils
+      glxinfo
+      xclip
     ];
   };
 
@@ -20,9 +22,22 @@
   };
 
   services.xserver.videoDrivers = [ "nvidia" ];
-  hardware.opengl.enable = true;
-  hardware.nvidia.modesetting.enable = true;
-  hardware.nvidia.powerManagement.enable = true;
+  hardware = {
+    opengl = {
+      enable = true;
+      driSupport = true;
+      driSupport32Bit = true;
+      extraPackages = with pkgs; [
+        nvidia-vaapi-driver
+        vaapiVdpau
+        libvdpau-va-gl
+      ];
+    };
+    nvidia = {
+      modesetting.enable = true;
+      powerManagement.enable = true;
+    };
+  };
 
   services.xserver = {
     enable = true;
