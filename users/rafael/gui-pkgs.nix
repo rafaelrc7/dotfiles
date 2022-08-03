@@ -1,4 +1,6 @@
-{ pkgs, ... }: {
+{ pkgs, ... }: let
+  pass-otp = pkgs.pass.withExtensions (exts: [ exts.pass-otp ]);
+in {
   home.packages = with pkgs; [
     discord
     discord-canary
@@ -20,7 +22,7 @@
   ];
 
   home.file.".librewolf/native-messaging-hosts/passff.json".source =
-    "${pkgs.passff-host}/share/passff-host/passff.json";
+    "${pkgs.passff-host.override {pass = pass-otp;}}/share/passff-host/passff.json";
 
   home.sessionVariables.SSH_ASKPASS =
     "${pkgs.lxqt.lxqt-openssh-askpass}/bin/lxqt-openssh-askpass";
