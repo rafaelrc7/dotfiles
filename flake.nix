@@ -58,6 +58,47 @@
     utils = import ./utils inputs;
   in {
     nixosConfigurations = {
+      "vulcan" = utils.mkHost {
+        hostName = "vulcan";
+        system = "x86_64-linux";
+        users = [
+          { name = "rafael";
+            extraGroups = [ "wheel" "adbusers" ];
+            sshKeys = import ./users/rafael/sshkeys.nix;
+            homeModules = [
+              inputs.awesomerc.setup
+              ./users/rafael/git.nix
+              ./users/rafael/go.nix
+              ./users/rafael/gui-pkgs.nix
+              ./users/rafael/gui-theme.nix
+              ./users/rafael/jetbrains.nix
+              ./users/rafael/kitty.nix
+              ./users/rafael/mpd.nix
+              ./users/rafael/neovim.nix
+              ./users/rafael/pass.nix
+              ./users/rafael/zsh.nix
+            ];
+          }
+        ];
+        nixosModules = [
+          ./modules/nixos/common.nix
+          ./modules/nixos/android.nix
+          ./modules/nixos/awesomewm.nix
+          ./modules/nixos/boot.nix
+          ./modules/nixos/btrfs.nix
+          ./modules/nixos/geoclue.nix
+          ./modules/nixos/nix.nix
+          ./modules/nixos/pipewire.nix
+          ./modules/nixos/plasma.nix
+          ./modules/nixos/zsh.nix
+          nixos-hardware.nixosModules.common-pc
+          nixos-hardware.nixosModules.common-pc-ssd
+          nixos-hardware.nixosModules.common-cpu-amd
+          nixos-hardware.nixosModules.common-cpu-amd-pstate
+          nixos-hardware.nixosModules.common-gpu-nvidia
+        ];
+      };
+
       "spitfire" = utils.mkHost {
         hostName = "spitfire";
         system = "x86_64-linux";
