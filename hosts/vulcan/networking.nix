@@ -34,6 +34,8 @@
         enable = true;
         matchConfig.Name = "br0";
         DHCP = "no";
+        gateway = [ "10.0.0.1" ];
+        address = [ "10.0.0.10/24" ];
         dhcpV4Config = {
           UseDNS = false;
           Anonymize = true;
