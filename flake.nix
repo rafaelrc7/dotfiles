@@ -90,6 +90,7 @@
           ./modules/nixos/nix.nix
           ./modules/nixos/pipewire.nix
           ./modules/nixos/plasma.nix
+          ./modules/nixos/steam.nix
           ./modules/nixos/zsh.nix
           nixos-hardware.nixosModules.common-pc
           nixos-hardware.nixosModules.common-pc-ssd
