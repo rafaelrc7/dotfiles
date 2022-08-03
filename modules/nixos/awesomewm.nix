@@ -1,4 +1,4 @@
-{ inputs, pkgs, ... }: {
+{ inputs, pkgs, lib, ... }: {
   services.xserver = {
     windowManager.awesome = {
       enable = true;
@@ -9,7 +9,7 @@
       })).override { lua = pkgs.lua5_3; };
     };
 
-    layout = "us";
+    layout = lib.mkDefault "us";
   };
 }
 

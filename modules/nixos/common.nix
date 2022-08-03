@@ -34,7 +34,7 @@
 
   console = {
     font = "Lat2-Terminus16";
-    keyMap = lib.mkForce "us";
+    keyMap = lib.mkDefault "us";
   };
 
   documentation = {

@@ -12,6 +12,18 @@
     ];
   };
 
+  console.keyMap = "br-abnt2";
+  services.xserver = {
+    layout = "br";
+    xkbModel = "abnt2";
+    xkbVariant = "abnt2";
+  };
+
+  services.xserver.videoDrivers = [ "nvidia" ];
+  hardware.opengl.enable = true;
+  hardware.nvidia.modesetting.enable = true;
+  hardware.nvidia.powerManagement.enable = true;
+
   services.xserver = {
     enable = true;
 

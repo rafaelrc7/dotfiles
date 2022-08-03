@@ -1,11 +1,11 @@
-{ ... }: {
+{ lib, ... }: {
   services.xserver = {
     desktopManager.plasma5 = {
       enable = true;
       runUsingSystemd = true;
     };
 
-    layout = "us";
+    layout = lib.mkDefault "us";
   };
 }
 
