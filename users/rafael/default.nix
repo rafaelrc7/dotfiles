@@ -13,9 +13,12 @@
   colorscheme = inputs.nix-colors.colorSchemes.nord;
 
   home.packages = with pkgs; [
+    feh
     gcc
+    neovim-qt
     ripgrep
     speedtest-cli
+    zathura
   ];
 
   home.sessionPath = [ "$HOME/.local/bin" ];

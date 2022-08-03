@@ -76,6 +76,7 @@
               ./users/rafael/mpd.nix
               ./users/rafael/neovim.nix
               ./users/rafael/pass.nix
+              ./users/rafael/xdg.nix
               ./users/rafael/zsh.nix
             ];
           }
@@ -117,6 +118,7 @@
               ./users/rafael/mpd.nix
               ./users/rafael/neovim.nix
               ./users/rafael/pass.nix
+              ./users/rafael/xdg.nix
               ./users/rafael/zsh.nix
             ];
           }
@@ -179,6 +181,7 @@
           ./users/rafael/mpd.nix
           ./users/rafael/neovim.nix
           ./users/rafael/pass.nix
+          ./users/rafael/xdg.nix
           ./users/rafael/zsh.nix
           ({ pkgs, ... }: {
             programs.kitty.package = pkgs.writeShellScriptBin "kitty" ''
