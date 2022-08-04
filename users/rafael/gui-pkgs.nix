@@ -2,8 +2,8 @@
   pass-otp = pkgs.pass.withExtensions (exts: [ exts.pass-otp ]);
 in {
   home.packages = with pkgs; [
-    discord
-    discord-canary
+    (discord.override { nss = nss_latest; })
+    (discord-canary.override { nss = nss_latest; })
     gimp
     gparted
     jetbrains.idea-ultimate
