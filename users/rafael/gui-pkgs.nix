@@ -4,6 +4,7 @@ in {
   home.packages = with pkgs; [
     (discord.override { nss = nss_latest; })
     (discord-canary.override { nss = nss_latest; })
+    calibre
     gimp
     gparted
     jetbrains.idea-ultimate
