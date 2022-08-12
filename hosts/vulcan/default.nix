@@ -9,6 +9,7 @@
   environment = {
     systemPackages = with pkgs; [
       libva-utils
+      lutris
       glxinfo
       xclip
     ];

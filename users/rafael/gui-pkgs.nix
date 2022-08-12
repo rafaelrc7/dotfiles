@@ -14,6 +14,7 @@ in {
     pavucontrol
     pcmanfm
     slack
+    spotify
     tdesktop
     thunderbird
     ungoogled-chromium
