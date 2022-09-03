@@ -16,6 +16,7 @@
       wineWowPackages.staging
       winetricks
       protontricks
+      qbittorrent
     ];
   };
 
