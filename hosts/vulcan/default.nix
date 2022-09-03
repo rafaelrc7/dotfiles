@@ -13,6 +13,9 @@
       lutris
       glxinfo
       xclip
+      wineWowPackages.staging
+      winetricks
+      protontricks
     ];
   };
 
