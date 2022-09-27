@@ -9,6 +9,11 @@
           "firefox.desktop"
           "chromium-browser.desktop"
         ];
+        "x-scheme-handler/http" = [
+          "librewolf.desktop"
+          "firefox.desktop"
+          "chromium-browser.desktop"
+        ];
         "application/x-extension-html" = [
           "librewolf.desktop"
           "firefox.desktop"
@@ -21,8 +26,8 @@
           "firefox.desktop"
           "org.kde.krita.desktop"
         ];
-        "application/pdf" = "zathura.desktop";
-        "text/*" = "nvim-qt.desktop";
+        "application/pdf" = "org.kde.okular.desktop";
+        "text/*" = "nvim.desktop";
       };
     };
   };
