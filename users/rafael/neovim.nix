@@ -19,6 +19,20 @@
       local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
       local function on_attach()
+        vim.api.nvim_create_autocmd("CursorHold", {
+          buffer = bufnr,
+          callback = function()
+            local opts = {
+              focusable = false,
+              close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
+              border = 'rounded',
+              source = 'always',
+              prefix = ' ',
+              scope = 'cursor',
+            }
+            vim.diagnostic.open_float(nil, opts)
+          end
+        })
       end
 
       vim.g.completion_matching_strategy_list = {"exact", "substring", "fuzzy"};
@@ -189,6 +203,7 @@
       EOF
 
       colorscheme nord
+      au FileType * silent! LspStart
     '';
 
     extraPackages = [
