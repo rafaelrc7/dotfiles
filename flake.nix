@@ -7,34 +7,20 @@
     nixpkgs-master.url = "github:nixos/nixpkgs";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
-    nixos-hardware = {
-      url = "github:nixos/nixos-hardware/master";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    flake-utils = {
-      url = "github:numtide/flake-utils";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    flake-utils.url = "github:numtide/flake-utils";
+    nixos-hardware.url = "github:nixos/nixos-hardware/master";
+    nix-colors.url = "github:misterio77/nix-colors";
+    nur.url = "github:nix-community/nur";
+    awesomerc.url = "github:rafaelrc7/awesomerc";
 
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nur = {
-      url = "github:nix-community/nur";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     nixgl = {
       url = "github:guibou/nixgl";
       inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    nix-colors = {
-        url = "github:misterio77/nix-colors";
-        inputs.nixpkgs.follows = "nixpkgs";
     };
 
     nvim-config = {
@@ -47,10 +33,6 @@
       url = "github:awesomewm/awesome";
     };
 
-    awesomerc = {
-      url = "github:rafaelrc7/awesomerc";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs = inputs@{ nixpkgs, home-manager, nixos-hardware, nixgl, ... }:
