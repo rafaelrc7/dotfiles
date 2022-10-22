@@ -3,7 +3,7 @@
     enable = true;
     font = {
       package = pkgs.nerdfonts;
-      name = "FiraCode Nerd Font Mono";
+      name = "Caskaydia Cove Nerd Font Mono";
       size = 12;
     };
     settings = {

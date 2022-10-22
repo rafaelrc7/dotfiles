@@ -17,7 +17,7 @@
   gtk = {
     enable = true;
     font = {
-      name = "FiraCode Nerd Font";
+      name = "Caskaydia Cove Nerd Font";
       size = 10;
       package = pkgs.nerdfonts;
     };
