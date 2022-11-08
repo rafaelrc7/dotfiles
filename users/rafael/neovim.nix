@@ -212,8 +212,8 @@
     ];
 
     plugins = with vimPlugins; [
-      #nvim-treesitter
-      (nvim-treesitter.withPlugins (plugins: tree-sitter.allGrammars))
+      nvim-treesitter
+      #(nvim-treesitter.withPlugins (plugins: tree-sitter.allGrammars))
       nvim-lspconfig
       cmp-nvim-lsp
       cmp-buffer
