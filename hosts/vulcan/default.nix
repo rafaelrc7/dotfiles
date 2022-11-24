@@ -17,6 +17,7 @@
       winetricks
       protontricks
       qbittorrent
+      zoom
     ];
   };
 
