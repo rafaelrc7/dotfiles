@@ -9,6 +9,10 @@
   environment = {
     systemPackages = with pkgs; [
       mons
+      lutris
+      glxinfo
+      wineWowPackages.staging
+      winetricks
       xclip
     ];
   };
@@ -41,6 +45,12 @@
 
   hardware.bluetooth.enable = true;
   services.blueman.enable = true;
+
+  hardware.opengl = {
+    enable = true;
+    driSupport = true;
+    driSupport32Bit = true;
+  };
 
   services = {
     printing = {
