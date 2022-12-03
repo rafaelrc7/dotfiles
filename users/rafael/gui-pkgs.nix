@@ -7,7 +7,6 @@ in {
     calibre
     gimp
     gparted
-    jetbrains.idea-ultimate
     libreoffice-fresh
     librewolf
     obs-studio

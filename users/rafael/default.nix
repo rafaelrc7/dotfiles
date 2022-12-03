@@ -14,10 +14,8 @@
 
   home.packages = with pkgs; [
     feh
-    gcc
     neovim-qt
     ripgrep
-    speedtest-cli
     zathura
   ];
 
