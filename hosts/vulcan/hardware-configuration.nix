@@ -19,7 +19,11 @@
       options = [ "subvol=@" "ssd" ];
     };
 
-  boot.initrd.luks.devices."root".device = "/dev/disk/by-partlabel/cryptroot";
+  boot.initrd.luks.reusePassphrases = true;
+  boot.initrd.luks.devices = {
+    "root".device = "/dev/disk/by-partlabel/cryptroot";
+    "snd".device = "/dev/disk/by-partlabel/cryptsnd";
+  };
 
   fileSystems."/home" =
     { device = "/dev/mapper/root";
@@ -60,6 +64,23 @@
   fileSystems."/boot" =
     { device = "/dev/disk/by-uuid/EA94-FCDF";
       fsType = "vfat";
+    };
+
+  fileSystems."/media/backup" =
+    { device = "/dev/disk/by-partlabel/backup";
+      fsType = "btrfs";
+      options = [ "subvol=@" ];
+    };
+
+  fileSystems."/media/snd" =
+    { device = "/dev/mapper/snd";
+      fsType = "btrfs";
+      options = [ "subvol=@" ];
+    };
+
+  fileSystems."/media/thd" =
+    { device = "/dev/disk/by-uuid/519d60bc-9e95-44c5-ad1d-346077cc3ca4";
+      fsType = "ext4";
     };
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
