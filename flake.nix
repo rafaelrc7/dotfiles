@@ -75,6 +75,7 @@
           ./modules/nixos/plasma.nix
           #./modules/nixos/steam.nix
           ./modules/nixos/zsh.nix
+          ./modules/nixos/podman.nix
           nixos-hardware.nixosModules.common-pc
           nixos-hardware.nixosModules.common-pc-ssd
           nixos-hardware.nixosModules.common-cpu-amd
