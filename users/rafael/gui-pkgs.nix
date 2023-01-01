@@ -29,8 +29,12 @@ in {
     "${pkgs.lxqt.lxqt-openssh-askpass}/bin/lxqt-openssh-askpass";
 
   home.file.".xprofile".text = ''
+    #!/bin/sh
     [ -e $HOME/.zshenv ] && . $HOME/.zshenv
     [ -e $HOME/.profile ] && . $HOME/.profile
+
+    # nix flatpak fix for opening links and other non-flatpak default apps
+    sh -c "systemctl --user import-environment PATH && systemctl --user restart xdg-desktop-portal.service" &
   '';
 
   services.unclutter = {
