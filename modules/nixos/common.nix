@@ -24,12 +24,7 @@
       usbutils
       wget
     ];
-    shells = with pkgs; [ bashInteractive zsh ];
     variables = { EDITOR = "nvim"; };
-  };
-
-  users = {
-    defaultUserShell = pkgs.zsh;
   };
 
   console = {
