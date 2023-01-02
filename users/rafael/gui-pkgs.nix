@@ -25,6 +25,9 @@ in {
   home.file.".librewolf/native-messaging-hosts/passff.json".source =
     "${pkgs.passff-host.override {pass = pass-otp;}}/share/passff-host/passff.json";
 
+  home.file.".librewolf/native-messaging-hosts/ff2mpv.json".source =
+    "${pkgs.ff2mpv}/lib/mozilla/native-messaging-hosts/ff2mpv.json";
+
   home.sessionVariables.SSH_ASKPASS =
     "${pkgs.lxqt.lxqt-openssh-askpass}/bin/lxqt-openssh-askpass";
 
