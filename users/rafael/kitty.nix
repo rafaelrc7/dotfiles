@@ -2,8 +2,8 @@
   programs.kitty = {
     enable = true;
     font = {
-      package = pkgs.nerdfonts;
       name = "FiraCode Nerd Font Mono";
+      package = (pkgs.nerdfonts.override { fonts = [ "FiraCode" ]; });
       size = 12;
     };
     settings = {

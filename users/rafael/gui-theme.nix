@@ -18,8 +18,8 @@
     enable = true;
     font = {
       name = "FiraCode Nerd Font";
+      package = (pkgs.nerdfonts.override { fonts = [ "FiraCode" ]; });
       size = 10;
-      package = pkgs.nerdfonts;
     };
     theme = {
       name = "Nordic-darker";

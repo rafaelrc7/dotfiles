@@ -76,6 +76,7 @@
           #./modules/nixos/steam.nix
           ./modules/nixos/zsh.nix
           ./modules/nixos/podman.nix
+          ./modules/nixos/fonts.nix
           nixos-hardware.nixosModules.common-pc
           nixos-hardware.nixosModules.common-pc-ssd
           nixos-hardware.nixosModules.common-cpu-amd
@@ -118,6 +119,7 @@
           ./modules/nixos/pipewire.nix
           ./modules/nixos/plasma.nix
           ./modules/nixos/zsh.nix
+          ./modules/nixos/fonts.nix
           nixos-hardware.nixosModules.common-cpu-intel
           nixos-hardware.nixosModules.common-pc-laptop
         ];
@@ -145,6 +147,7 @@
           ./modules/nixos/nix.nix
           ./modules/nixos/pihole.nix
           ./modules/nixos/zsh.nix
+          ./modules/nixos/fonts.nix
         ];
       };
     };
