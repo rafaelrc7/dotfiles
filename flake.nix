@@ -69,6 +69,7 @@
           ./modules/nixos/awesomewm.nix
           ./modules/nixos/boot.nix
           ./modules/nixos/btrfs.nix
+          ./modules/nixos/flatpak.nix
           ./modules/nixos/geoclue.nix
           ./modules/nixos/nix.nix
           ./modules/nixos/pipewire.nix
@@ -77,6 +78,10 @@
           ./modules/nixos/zsh.nix
           ./modules/nixos/podman.nix
           ./modules/nixos/fonts.nix
+          ./modules/nixos/cryptswap.nix
+          ./modules/nixos/man.nix
+          ./modules/nixos/ssh.nix
+          ./modules/nixos/git.nix
           nixos-hardware.nixosModules.common-pc
           nixos-hardware.nixosModules.common-pc-ssd
           nixos-hardware.nixosModules.common-cpu-amd
@@ -120,6 +125,10 @@
           ./modules/nixos/plasma.nix
           ./modules/nixos/zsh.nix
           ./modules/nixos/fonts.nix
+          ./modules/nixos/cryptswap.nix
+          ./modules/nixos/man.nix
+          ./modules/nixos/ssh.nix
+          ./modules/nixos/git.nix
           nixos-hardware.nixosModules.common-cpu-intel
           nixos-hardware.nixosModules.common-pc-laptop
         ];

@@ -1,10 +1,12 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+let mountOps = [ "compress=zstd" "noatime" "nodiratime" "discard=async" ];
+in {
 
-  fileSystems."/".options           = [ "compress=zstd" "noatime" "nodiratime" "discard" ];
-  fileSystems."/home".options       = [ "compress=zstd" "noatime" "nodiratime" "discard" ];
-  fileSystems."/root".options       = [ "compress=zstd" "noatime" "nodiratime" "discard" ];
-  fileSystems."/tmp".options        = [ "compress=zstd" "noatime" "nodiratime" "discard" ];
-  fileSystems."/.snapshots".options = [ "compress=zstd" "noatime" "nodiratime" "discard" ];
+  fileSystems."/".options           = mountOps;
+  fileSystems."/home".options       = mountOps;
+  fileSystems."/root".options       = mountOps;
+  fileSystems."/tmp".options        = mountOps;
+  fileSystems."/.snapshots".options = mountOps;
   fileSystems."/var".options        = [ "compress=zstd" "discard" ];
 
   swapDevices = [

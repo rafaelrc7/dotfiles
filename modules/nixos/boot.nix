@@ -1,20 +1,24 @@
-{ pkgs, ... }: {
+{ pkgs, lib, ... }:
+let inherit (lib) mkDefault mkForce;
+in {
   boot = {
-    kernelPackages = pkgs.linuxPackages_latest;
+    kernelPackages = mkForce pkgs.linuxPackages_latest;
+
+    supportedFilesystems = mkDefault [ "vfat" "btrfs" "ext4 "];
 
     loader = {
-      efi.canTouchEfiVariables = true;
-      timeout = 3;
+      efi.canTouchEfiVariables = mkDefault true;
+      timeout = mkDefault 3;
 
       systemd-boot = {
-        enable= true;
+        enable= mkDefault true;
         consoleMode = "max";
-        editor = false;
-        memtest86.enable = true;
+        editor = mkDefault false;
+        memtest86.enable = mkDefault true;
       };
     };
 
-    cleanTmpDir = true;
+    cleanTmpDir = mkDefault true;
   };
 }
 

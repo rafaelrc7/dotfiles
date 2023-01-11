@@ -32,24 +32,5 @@
     keyMap = lib.mkDefault "us";
   };
 
-  documentation = {
-    man.enable = true;
-    dev.enable = true;
-    nixos.enable = true;
-  };
-
-  programs.zsh.enable = true;
-
-  programs.git = {
-    enable = true;
-    package = pkgs.gitFull;
-    lfs.enable = true;
-  };
-
-  services.openssh = {
-    enable = true;
-    passwordAuthentication = false;
-    permitRootLogin = "no";
-  };
 }
 
