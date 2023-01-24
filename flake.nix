@@ -71,6 +71,7 @@
           ./modules/nixos/btrfs.nix
           ./modules/nixos/flatpak.nix
           ./modules/nixos/geoclue.nix
+          ./modules/nixos/mullvad.nix
           ./modules/nixos/nix.nix
           ./modules/nixos/pipewire.nix
           #./modules/nixos/plasma.nix
