@@ -49,6 +49,7 @@
             sshKeys = import ./users/rafael/sshkeys.nix;
             homeModules = [
               inputs.awesomerc.setup
+              ./users/rafael/crypto.nix
               ./users/rafael/git.nix
               ./users/rafael/go.nix
               ./users/rafael/gui-pkgs.nix
