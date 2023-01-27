@@ -14,6 +14,7 @@
 
   home.packages = with pkgs; [
     feh
+    fzf
     neovim-qt
     ripgrep
     zathura
