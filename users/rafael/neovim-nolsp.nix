@@ -178,7 +178,8 @@
       );
       EOF
 
-      colorscheme nord
+      set background=dark
+      colorscheme gruvbox
     '';
 
     extraPackages = [

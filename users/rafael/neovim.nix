@@ -193,7 +193,8 @@
       );
       EOF
 
-      colorscheme nord
+      set background=dark
+      colorscheme gruvbox
       au FileType * silent! LspStart
     '';
 
