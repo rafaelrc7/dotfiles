@@ -22,12 +22,12 @@
       size = 10;
     };
     theme = {
-      name = "Nordic-darker";
-      package = pkgs.nordic;
+      name = "gruvbox-dark";
+      package = pkgs.gruvbox-dark-gtk;
     };
     iconTheme = {
-      name = "Arc";
-      package = pkgs.arc-icon-theme;
+      name = "Gruvbox-Dark";
+      package = pkgs.gruvbox-dark-icons-gtk;
     };
     cursorTheme = {
       name = "breeze_cursors";

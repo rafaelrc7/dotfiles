@@ -18,7 +18,7 @@ in {
       };
     };
 
-    cleanTmpDir = mkDefault true;
+    tmp.cleanOnBoot = mkDefault true;
   };
 }
 

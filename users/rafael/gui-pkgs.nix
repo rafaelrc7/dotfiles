@@ -8,14 +8,14 @@ in {
     gimp
     gparted
     libreoffice-fresh
-    librewolf
+    librewolf firefox
     obs-studio
     pavucontrol
     pcmanfm
     slack
     spotify
     tdesktop
-    thunderbird
+    thunderbird protonmail-bridge
     ungoogled-chromium
     unityhub
     v4l-utils

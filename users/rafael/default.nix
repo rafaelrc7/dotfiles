@@ -10,7 +10,7 @@
     ./environment_variables.nix
   ];
 
-  colorscheme = inputs.nix-colors.colorSchemes.nord;
+  colorscheme = inputs.nix-colors.colorSchemes.gruvbox-dark-hard;
 
   home.packages = with pkgs; [
     feh
@@ -32,7 +32,7 @@
     enable = true;
     matchBlocks = {
       "aur.archlinux.org" = {
-        identityFile = "$HOME/.ssh/aur";
+        identityFile = "${config.home.homeDirectory}/.ssh/aur";
         user = "aur";
       };
     };

@@ -1,8 +1,10 @@
 { lib, ... }: {
   services.openssh = {
     enable = true;
-    passwordAuthentication = false;
-    permitRootLogin = lib.mkForce "no";
+    settings = {
+      PermitRootLogin = lib.mkForce "no";
+      PasswordAuthentication = false;
+    };
   };
 }
 
