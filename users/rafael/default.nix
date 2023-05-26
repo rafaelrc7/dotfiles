@@ -32,7 +32,7 @@
     enable = true;
     matchBlocks = {
       "aur.archlinux.org" = {
-        identityFile = "$HOME/.ssh/aur";
+        identityFile = "${config.home.homeDirectory}/.ssh/aur";
         user = "aur";
       };
     };

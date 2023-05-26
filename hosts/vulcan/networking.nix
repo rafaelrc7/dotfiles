@@ -3,8 +3,8 @@
     useDHCP = false;
     firewall = {
       enable = true;
-      allowedTCPPorts = [ 25565 9512 ];
-      allowedUDPPorts = [ 9512 ];
+      allowedTCPPorts = [ 25565 9512 7240 7241 7242 ];
+      allowedUDPPorts = [       9512 7240 7241 7242 ];
     };
   };
 

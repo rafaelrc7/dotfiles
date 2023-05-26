@@ -8,8 +8,10 @@ in {
 
   boot.initrd.availableKernelModules = [ "cryptd" "aesni_intel" "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod" ];
   boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ "kvm-amd" ];
-  boot.extraModulePackages = [ ];
+  boot.kernelModules = [ "kvm-amd" "v4l2loopback" ];
+  boot.extraModulePackages = with config.boot.kernelPackages; [ v4l2loopback ];
+
+  environment.systemPackages = with pkgs; [ v4l-utils ];
 
   boot.initrd.luks.reusePassphrases = true;
   boot.initrd.luks.devices = {
@@ -89,7 +91,5 @@ in {
   # networking.interfaces.enp42s0.useDHCP = lib.mkDefault true;
 
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
-  # high-resolution display
-  hardware.video.hidpi.enable = lib.mkDefault true;
 }
 

@@ -11,7 +11,6 @@
     pulse.enable = true;
     jack.enable = true;
 
-    media-session.enable = false;
     wireplumber.enable = true;
   };
 }
