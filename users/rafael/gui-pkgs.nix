@@ -8,14 +8,14 @@ in {
     gimp
     gparted
     libreoffice-fresh
-    librewolf
+    librewolf firefox
     obs-studio
     pavucontrol
     pcmanfm
     slack
     spotify
     tdesktop
-    thunderbird
+    thunderbird protonmail-bridge
     ungoogled-chromium
     unityhub
     v4l-utils
@@ -38,6 +38,8 @@ in {
 
     # nix flatpak fix for opening links and other non-flatpak default apps
     sh -c "systemctl --user import-environment PATH && systemctl --user restart xdg-desktop-portal.service" &
+
+    protonmail-bridge -n &
   '';
 
   services.unclutter = {
