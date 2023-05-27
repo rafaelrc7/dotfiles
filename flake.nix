@@ -122,7 +122,7 @@
           ./modules/nixos/awesomewm.nix
           ./modules/nixos/boot.nix
           ./modules/nixos/btrfs.nix
-          ./modules/nixos/dnscrypt.nix
+          #./modules/nixos/dnscrypt.nix
           ./modules/nixos/geoclue.nix
           ./modules/nixos/nix.nix
           ./modules/nixos/pipewire.nix
@@ -131,6 +131,7 @@
           ./modules/nixos/fonts.nix
           ./modules/nixos/cryptswap.nix
           ./modules/nixos/man.nix
+          ./modules/nixos/mullvad.nix
           ./modules/nixos/ssh.nix
           ./modules/nixos/git.nix
           nixos-hardware.nixosModules.common-cpu-intel

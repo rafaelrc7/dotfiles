@@ -53,7 +53,7 @@
           IPv6PrivacyExtensions = true;
           DNSSEC = true;
         };
-        dns = [ "127.0.0.1" "::1" ];
+        dns = [ "10.0.0.20" "1.1.1.1" "1.0.0.1" ];
       };
 
       "10-ethernet-bond0" = {
