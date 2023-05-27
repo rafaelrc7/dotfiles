@@ -8,6 +8,7 @@
 
   environment = {
     systemPackages = with pkgs; [
+      brightnessctl
       mons
       lutris
       glxinfo
@@ -79,6 +80,14 @@
   programs.gnupg.agent = {
     enable = true;
     pinentryFlavor = "qt";
+  };
+
+  systemd.services.brightness = {
+    enable = true;
+    script = ''
+      ${pkgs.brightnessctl}/bin/brightnessctl set 30%
+    '';
+    wantedBy = [ "multi-user.target" ];
   };
 
   system.stateVersion = "22.05";
