@@ -45,7 +45,7 @@
         system = "x86_64-linux";
         users = [
           { name = "rafael";
-            extraGroups = [ "wheel" "adbusers" ];
+            extraGroups = [ "wheel" "adbusers" "libvirtd" ];
             sshKeys = import ./users/rafael/sshkeys.nix;
             homeModules = [
               inputs.awesomerc.setup
@@ -73,6 +73,7 @@
           ./modules/nixos/btrfs.nix
           ./modules/nixos/flatpak.nix
           ./modules/nixos/geoclue.nix
+          ./modules/nixos/libvirtd.nix
           ./modules/nixos/mullvad.nix
           ./modules/nixos/nix.nix
           ./modules/nixos/pipewire.nix
