@@ -45,7 +45,7 @@
         system = "x86_64-linux";
         users = [
           { name = "rafael";
-            extraGroups = [ "wheel" "adbusers" "libvirtd" ];
+            extraGroups = [ "wheel" "adbusers" "libvirtd" "dialout" ];
             sshKeys = import ./users/rafael/sshkeys.nix;
             homeModules = [
               inputs.awesomerc.setup
