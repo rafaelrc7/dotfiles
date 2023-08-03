@@ -2,7 +2,7 @@
   fonts = {
     fontDir.enable = true;
     enableGhostscriptFonts = true;
-    fonts = with pkgs; [
+    packages = with pkgs; [
       (nerdfonts.override {
         fonts = [ "FiraCode" "Hasklig" "Monoid" "JetBrainsMono" ];
       })
