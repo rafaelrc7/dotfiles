@@ -30,7 +30,10 @@
           "org.kde.krita.desktop"
         ];
         "application/pdf" = "org.kde.okular.desktop";
-        "text/*" = "nvim.desktop";
+        "text/*" = [
+          "nvim.desktop"
+          "nvim-qt.desktop"
+        ];
       };
     };
   };
