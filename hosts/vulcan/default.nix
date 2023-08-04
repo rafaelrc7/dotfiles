@@ -32,28 +32,35 @@
     xkbVariant = "abnt2";
   };
 
-  services.xserver.videoDrivers = [ "nvidia" ];
+  services.xserver.videoDrivers = [ "modesetting" ];
   hardware = {
     opengl = {
       enable = true;
       driSupport = true;
       driSupport32Bit = true;
       extraPackages = with pkgs; [
-        nvidia-vaapi-driver
         vaapiVdpau
         libvdpau-va-gl
+
+        rocm-opencl-icd
+        rocm-opencl-runtime
       ];
-    };
-    nvidia = {
-      modesetting.enable = true;
-      powerManagement.enable = true;
+      extraPackages32 = with pkgs; [
+        driversi686Linux.vaapiVdpau
+        driversi686Linux.libvdpau-va-gl
+      ];
     };
   };
 
-  environment.sessionVariables = {
-    LIBVA_DRIVER_NAME = "nvidia";
-    VDPAU_DRIVER = "nvidia";
+  environment.variables = {
+    LIBVA_DRIVER_NAME = "radeonsi";
+    VDPAU_DRIVER = "radeonsi";
+    AMD_VULKAN_ICD = "RADV";
   };
+
+  systemd.tmpfiles.rules = [
+    "L+    /opt/rocm/hip   -    -    -     -    ${pkgs.hip}"
+  ];
 
   services.xserver = {
     enable = true;
