@@ -11,13 +11,11 @@ in {
     librewolf firefox
     obs-studio
     pavucontrol
-    pcmanfm
-    slack
+    pcmanfm dolphin
     spotify
     tdesktop
     thunderbird protonmail-bridge
     ungoogled-chromium
-    unityhub
     v4l-utils
     zoom-us
   ];
@@ -46,7 +44,7 @@ in {
   };
 
   services.flameshot = {
-    enable = true;
+    enable = false;
     settings = {
       General.showStartupLaunchMessage = false;
     };
