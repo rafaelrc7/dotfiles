@@ -56,6 +56,11 @@
       zmodload zsh/complist
     '';
 
+    initExtraFirst = ''
+      # Fix vim cursor on foot
+      [ "$TERM" = "foot" ] && export ZVM_TERM="xterm-256color"
+    '';
+
     initExtra = ''
       # Binds arrows to history search
       autoload -U up-line-or-beginning-search
