@@ -26,6 +26,7 @@
     alt         = "Mod1";
   in rec {
     enable = true;
+    package = null;
     config = rec {
       ## Keyboard ##
       modifier = mod;
