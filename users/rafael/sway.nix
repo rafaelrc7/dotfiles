@@ -1,6 +1,21 @@
 { pkgs, lib, ... }: {
   xdg.configFile."sway/wallpaper".source = ./imgs/wallpaper.png;
 
+  home.packages = with pkgs; [
+      swaybg
+      swaylock
+      swayidle
+      wl-clipboard
+      mako
+      grim
+      slurp
+      wofi
+      libnotify
+      imv
+      glfw-wayland
+      waylogout
+  ];
+
   wayland.windowManager.sway = let
     terminal    = "${pkgs.foot}/bin/foot";
     browser     = "${pkgs.librewolf}/bin/librewolf";
@@ -11,7 +26,6 @@
     alt         = "Mod1";
   in rec {
     enable = true;
-    package = null; # Installed through nixos
     config = rec {
       ## Keyboard ##
       modifier = mod;
@@ -111,7 +125,7 @@
         { window_type = "menu"; }
       ];
 
-      bars = [ ];
+      bars = [{ command = "${pkgs.waybar}/bin/waybar"; }];
 
     };
 
@@ -122,6 +136,19 @@
     '';
 
     extraSessionCommands = ''
+      export SDL_VIDEODRIVER=wayland
+      export QT_QPA_PLATFORM=wayland
+      export QT_WAYLAND_DISABLE_WINDOWDECORATION="1"
+      export _JAVA_AWT_WM_NONREPARENTING=1
+      export MOZ_ENABLE_WAYLAND=1
+      export CLUTTER_BACKEND="wayland";
+      export XDG_SESSION_TYPE="wayland";
+
+      # https://github.com/swaywm/sway/wiki#gtk-applications-take-20-seconds-to-start
+      dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
+
+      # For flatpak to be able to use PATH programs
+      sh -c "systemctl --user import-environment PATH && systemctl --user restart xdg-desktop-portal.service" &
     '';
 
     systemd.enable = true;
@@ -131,11 +158,6 @@
 
   programs.waybar = {
     enable = true;
-
-    systemd = {
-      enable = true;
-      target = "sway-session.target";
-    };
 
     settings = {
 
