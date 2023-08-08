@@ -5,7 +5,7 @@
     terminal    = "${pkgs.foot}/bin/foot";
     browser     = "${pkgs.librewolf}/bin/librewolf";
     fileManager = "${pkgs.dolphin}/bin/dolphin";
-    screenlock  = "${pkgs.swaylock}/bin/swaylock -Ffk";
+    screenlock  = "${pkgs.swaylock}/bin/swaylock -Ffk -c 000000";
     printClip   = "slurp | grim -g - - | wl-copy";
     mod         = "Mod4";
     alt         = "Mod1";
@@ -146,12 +146,12 @@
   services.swayidle = {
     enable = true;
     timeouts = [
-      { timeout = 300; command = "${pkgs.swaylock}/bin/swaylock -Ffk"; }
-      { timeout = 600; command = "${pkgs.sway}/bin/swaymsg \"output * power off\""; }
+      { timeout = 300; command = "${pkgs.swaylock}/bin/swaylock -Ffk -c 000000"; }
+      { timeout = 600; command = "${pkgs.sway}/bin/swaymsg \"output * power off\"";
+                       resumeCommand = "${pkgs.sway}/bin/swaymsg \"output * power on\""; }
     ];
     events = [
-      { event = "before-sleep"; command = "${pkgs.swaylock}/bin/swaylock -Ffk"; }
-      { event = "after-resume";       command = "${pkgs.sway}/bin/swaymsg \"output * power on\""; }
+      { event = "before-sleep"; command = "${pkgs.swaylock}/bin/swaylock -Ffk -c 000000"; }
     ];
   };
 }
