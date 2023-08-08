@@ -111,6 +111,8 @@
         { window_type = "menu"; }
       ];
 
+      bars = [ ];
+
     };
 
     extraConfigEarly = ''
@@ -127,6 +129,22 @@
     xwayland = true;
   };
 
+  programs.waybar = {
+    enable = true;
+
+    systemd = {
+      enable = true;
+      target = "sway-session.target";
+    };
+
+    settings = {
+
+    };
+
+    style = ''
+    '';
+  };
+
   programs.foot = {
     enable = true;
     settings = {
@@ -135,8 +153,17 @@
         dpi-aware = "yes";
       };
 
+      cursor = {
+        style = "beam";
+        blink = "yes";
+      };
+
       mouse = {
         hide-when-typing = "yes";
+      };
+
+      colors = {
+        alpha = 0.9;
       };
     };
   };
@@ -145,6 +172,7 @@
 
   services.swayidle = {
     enable = true;
+    systemdTarget = "sway-session.target";
     timeouts = [
       { timeout = 300; command = "${pkgs.swaylock}/bin/swaylock -Ffk -c 000000"; }
       { timeout = 600; command = "${pkgs.sway}/bin/swaymsg \"output * power off\"";
