@@ -16,6 +16,8 @@
     '';
   };
 
+  services.mpdris2.enable = true;
+
   programs.ncmpcpp = {
     enable = true;
     package = pkgs.ncmpcpp.override { visualizerSupport = true; };
