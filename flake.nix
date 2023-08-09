@@ -79,7 +79,7 @@
           ./modules/nixos/nix.nix
           ./modules/nixos/pipewire.nix
           #./modules/nixos/plasma.nix
-          #./modules/nixos/steam.nix
+          ./modules/nixos/steam.nix
           ./modules/nixos/zsh.nix
           ./modules/nixos/podman.nix
           ./modules/nixos/fonts.nix
