@@ -82,12 +82,11 @@
       workspaceLayout = "default";
 
       ## Decorations ##
-      gaps = {
+      gaps = rec {
         smartBorders = "on";
         smartGaps = true;
         inner = 4;
-        outer = 0;
-        top = 0;
+        outer = -inner;
       };
 
       floating = {
