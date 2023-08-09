@@ -11,6 +11,11 @@
       fira
       fira-code
       fira-mono
+      font-awesome_5
+      font-awesome
+      roboto
+      roboto-mono
+      liberation_ttf
       inconsolata
       noto-fonts
       noto-fonts-emoji
@@ -23,7 +28,7 @@
         sansSerif = [ "DejaVu Sans" ];
         serif = [ "DejaVu Serif" ];
         monospace = [ "FiraCode Nerd Font" ];
-        emoji = [ "Noto Color Emoji" ];
+        emoji = [ "Font Awesome 5 Free" "Noto Color Emoji" ];
       };
     };
   };
