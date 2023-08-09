@@ -21,7 +21,7 @@
     browser     = "${pkgs.librewolf}/bin/librewolf";
     fileManager = "${pkgs.dolphin}/bin/dolphin";
     screenlock  = "${pkgs.swaylock}/bin/swaylock -Ffk -c 000000";
-    printClip   = "slurp | grim -g - - | wl-copy";
+    printClip   = "${pkgs.slurp}/bin/slurp | ${pkgs.grim}/bin/grim -g - - | ${pkgs.wl-clipboard}/bin/wl-copy";
     mod         = "Mod4";
     alt         = "Mod1";
   in rec {
@@ -142,8 +142,8 @@
       export QT_WAYLAND_DISABLE_WINDOWDECORATION="1"
       export _JAVA_AWT_WM_NONREPARENTING=1
       export MOZ_ENABLE_WAYLAND=1
-      export CLUTTER_BACKEND="wayland";
-      export XDG_SESSION_TYPE="wayland";
+      export CLUTTER_BACKEND="wayland"
+      export XDG_SESSION_TYPE="wayland"
 
       # https://github.com/swaywm/sway/wiki#gtk-applications-take-20-seconds-to-start
       dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
