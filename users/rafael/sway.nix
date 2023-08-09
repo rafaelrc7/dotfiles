@@ -22,6 +22,7 @@
     fileManager = "${pkgs.dolphin}/bin/dolphin";
     screenlock  = "${pkgs.swaylock}/bin/swaylock -Ffk -c 000000";
     printClip   = "${pkgs.slurp}/bin/slurp | ${pkgs.grim}/bin/grim -g - - | ${pkgs.wl-clipboard}/bin/wl-copy";
+    calculator  = "${pkgs.qalculate-qt}/bin/qalculate-qt";
     mod         = "Mod4";
     alt         = "Mod1";
   in rec {
@@ -56,6 +57,7 @@
         "ctrl+${alt}+l" = "exec --no-startup-id ${screenlock}";
         "${mod}+q"      = "exec ${browser}";
         "${mod}+e"      = "exec ${fileManager}";
+        "${mod}+c"      = "exec ${calculator}";
         "Print"         = "exec ${printClip}";
 
         "ctrl+${mod}+space" = "exec ${pkgs.mako}/bin/makoctl dismiss -a";
@@ -121,8 +123,10 @@
         { window_role = "task_dialog"; }
         { window_role = "Preferences"; }
 
-        { window_type = "dialog"; }
-        { window_type = "menu"; }
+        { window_type = "dialog";      }
+        { window_type = "menu";        }
+
+        { title = "Qalculate!";        }
       ];
 
       bars = [{ command = "${pkgs.waybar}/bin/waybar"; }];
