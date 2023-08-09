@@ -22,12 +22,12 @@
       size = 10;
     };
     theme = {
-      name = "gruvbox-dark";
-      package = pkgs.gruvbox-dark-gtk;
+      name = "Dracula";
+      package = pkgs.dracula-theme;
     };
     iconTheme = {
-      name = "Gruvbox-Dark";
-      package = pkgs.gruvbox-dark-icons-gtk;
+      name = "Dracula";
+      package = pkgs.dracula-icon-theme;
     };
     cursorTheme = {
       name = "breeze_cursors";
@@ -63,7 +63,24 @@
   qt = {
     enable = true;
     platformTheme = "gtk";
+    style.name = "kvantum"; # set QT_STYLE_OVERRIDE
   };
 
+  home.packages = with pkgs; [
+    libsForQt5.qtstyleplugins
+    libsForQt5.qtstyleplugin-kvantum
+  ];
+
+  xdg.configFile = {
+    "Kvantum/kvantum.kvconfig".text = ''
+      [General]
+      theme=Dracula-Solid
+    '';
+
+    "Kvantum/Dracula".source = "${pkgs.dracula-theme}/share/Kvantum/Dracula";
+    "Kvantum/Dracula-Solid".source = "${pkgs.dracula-theme}/share/Kvantum/Dracula-Solid";
+    "Kvantum/Dracula-purple".source = "${pkgs.dracula-theme}/share/Kvantum/Dracula-purple";
+    "Kvantum/Dracula-purple-solid".source = "${pkgs.dracula-theme}/share/Kvantum/Dracula-purple-solid";
+  };
 }
 

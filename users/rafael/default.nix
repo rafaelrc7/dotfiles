@@ -10,7 +10,7 @@
     ./environment_variables.nix
   ];
 
-  colorscheme = inputs.nix-colors.colorSchemes.gruvbox-dark-hard;
+  colorscheme = inputs.nix-colors.colorSchemes.dracula;
 
   home.packages = with pkgs; [
     feh

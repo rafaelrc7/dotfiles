@@ -72,12 +72,12 @@
         greeters.gtk = {
           enable = true;
           theme = {
-            name = "gruvbox-dark";
-            package = pkgs.gruvbox-dark-gtk;
+            name = "Dracula";
+            package = pkgs.dracula-theme;
           };
           iconTheme = {
-            name = "Gruvbox-Dark";
-            package = pkgs.gruvbox-dark-icons-gtk;
+            name = "Dracula";
+            package = pkgs.dracula-icon-theme;
           };
           cursorTheme = {
             name = "breeze_cursors";
