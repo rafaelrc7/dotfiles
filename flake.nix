@@ -99,7 +99,7 @@
         system = "x86_64-linux";
         users = [
           { name = "rafael";
-            extraGroups = [ "wheel" "adbusers" ];
+            extraGroups = [ "wheel" "adbusers" "dialout" ];
             sshKeys = import ./users/rafael/sshkeys.nix;
             homeModules = [
               inputs.awesomerc.setup
