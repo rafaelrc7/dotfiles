@@ -14,6 +14,15 @@
     };
   };
 
+  programs.foot = {
+    settings = {
+      colors = {
+        foreground = "${config.colorscheme.colors.base05}";
+        background = "${config.colorscheme.colors.base00}";
+      };
+    };
+  };
+
   gtk = {
     enable = true;
     font = {
