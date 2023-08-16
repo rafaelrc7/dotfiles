@@ -11,12 +11,19 @@
       brightnessctl
       mons
       lutris
+      libva-utils
       glxinfo
       wineWowPackages.staging
       winetricks
       xclip
+      qbittorrent
+      zoom
     ];
   };
+
+  programs.java.enable = true;
+
+  services.gnome.gnome-keyring.enable = true;
 
   services.xserver = {
     enable = true;
@@ -42,6 +49,53 @@
         };
       };
     };
+  };
+
+  programs.sway = {
+    enable = true;
+    wrapperFeatures.gtk = true;
+
+    extraPackages = with pkgs; [
+      swaybg
+      swaylock
+      swayidle
+      wl-clipboard
+      mako
+      grim
+      slurp
+      wofi
+      libnotify
+      imv
+      glfw-wayland
+      waylogout
+    ];
+
+    extraSessionCommands = ''
+      export SDL_VIDEODRIVER=wayland
+      export QT_QPA_PLATFORM=wayland
+      export QT_WAYLAND_DISABLE_WINDOWDECORATION="1"
+      export _JAVA_AWT_WM_NONREPARENTING=1
+      export MOZ_ENABLE_WAYLAND=1
+      export CLUTTER_BACKEND="wayland"
+      export XDG_SESSION_TYPE="wayland"
+
+      # Flatpak
+      systemctl --user import-environment PATH
+    '';
+  };
+
+  security.polkit.enable = true;
+
+  xdg.portal= {
+    enable = true;
+    wlr.enable = true;
+    extraPortals = with pkgs; [
+      xdg-desktop-portal-wlr
+      xdg-desktop-portal-gtk
+      xdg-desktop-portal-kde
+    ];
+
+    xdgOpenUsePortal = true;
   };
 
   hardware.bluetooth.enable = true;
