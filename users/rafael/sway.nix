@@ -34,7 +34,7 @@
       floating.modifier = mod;
       left = "h"; right = "l"; down = "j"; up = "k";
       input = {
-        "*" = {
+        "*" = lib.mkDefault {
           xkb_layout = "br";
           xkb_model = "abnt2";
           xkb_variant = "abnt2";
@@ -328,7 +328,7 @@
     settings = {
       main = {
         font = "FiraCode Nerd Font Mono:size=11";
-        dpi-aware = "yes";
+        dpi-aware = "no";
       };
 
       cursor = {

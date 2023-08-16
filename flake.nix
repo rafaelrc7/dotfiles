@@ -114,6 +114,7 @@
               ./users/rafael/neovim.nix
               ./users/rafael/pass.nix
               ./users/rafael/sway.nix
+              ./users/rafael/sway-us.nix
               ./users/rafael/xdg.nix
               ./users/rafael/zsh.nix
             ];
