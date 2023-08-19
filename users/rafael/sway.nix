@@ -360,5 +360,15 @@
       { event = "before-sleep"; command = "${pkgs.swaylock}/bin/swaylock -Ffk -c 000000"; }
     ];
   };
+
+  services.gammastep = {
+    enable = true;
+    provider = "geoclue2";
+    tray = true;
+    settings.general = {
+      fade = "1";
+      adjustment-method = "wayland";
+    };
+  };
 }
 
