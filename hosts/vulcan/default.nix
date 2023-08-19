@@ -93,6 +93,7 @@
     wrapperFeatures.gtk = true;
 
     extraPackages = with pkgs; [
+      cliphist
       swaybg
       swaylock
       swayidle

@@ -7,6 +7,7 @@ in {
   xdg.configFile."sway/wallpaper".source = ./imgs/wallpaper.png;
 
   home.packages = with pkgs; [
+      cliphist
       swaybg
       swaylock
       swayidle
@@ -53,6 +54,7 @@ in {
         { command = "--no-startup-id ${pkgs.mako}/bin/mako"; }
         { command = "--no-startup-id ${fileManager} --daemon"; }
         { command = "--no-startup-id ${pkgs.swaybg}/bin/swaybg -i ~/.config/sway/wallpaper -m fill"; }
+        { command = "--no-startup-id ${pkgs.wl-clipboard}/bin/wl-paste --watch ${pkgs.cliphist}/bin/cliphist store"; }
       ];
 
       ## Programs/Addons ##
@@ -66,6 +68,9 @@ in {
         "${mod}+q"       = "exec ${browser}";
         "${mod}+e"       = "exec ${fileManager}";
         "${mod}+c"       = "exec ${calculator}";
+        "${mod}+p"       = "exec ${pkgs.cliphist}/bin/cliphist list | ${pkgs.wofi}/bin/wofi -p \"Copy\" -dmenu --insensitive --allow-images --hide-scroll | ${pkgs.cliphist}/bin/cliphist decode | ${pkgs.wl-clipboard}/bin/wl-copy";
+        "${mod}+shift+p" = "exec ${pkgs.cliphist}/bin/cliphist list | ${pkgs.wofi}/bin/wofi -p \"Delete from history\" -dmenu --insensitive --allow-images --hide-scroll | ${pkgs.cliphist}/bin/cliphist delete";
+        "${mod}+alt+p" = "exec ${pkgs.cliphist}/bin/cliphist wipe";
         "Print"          = "exec ${printClip}";
 
         "${mod}+g"      = "layout toggle split";
