@@ -1,4 +1,9 @@
-{ pkgs, lib, ... }: {
+{ pkgs, lib, ... }: let
+  toggle-qt = pkgs.writeShellScriptBin "toggle-qt" ''
+    QALCULATE=`pgrep qalculate`
+    [ x"$QALCULATE" == "x" ] && ${pkgs.qalculate-qt}/bin/qalculate-qt || kill -s TERM "$QALCULATE"
+  '';
+in {
   xdg.configFile."sway/wallpaper".source = ./imgs/wallpaper.png;
 
   home.packages = with pkgs; [
@@ -24,7 +29,7 @@
     fileManager = "${pkgs.dolphin}/bin/dolphin";
     screenlock  = "${pkgs.swaylock}/bin/swaylock -Ffk -c 000000";
     printClip   = "${pkgs.slurp}/bin/slurp | ${pkgs.grim}/bin/grim -g - - | ${pkgs.wl-clipboard}/bin/wl-copy";
-    calculator  = "${pkgs.qalculate-qt}/bin/qalculate-qt";
+    calculator  = "${toggle-qt}/bin/toggle-qt";
     mod         = "Mod4";
     alt         = "Mod1";
   in rec {
