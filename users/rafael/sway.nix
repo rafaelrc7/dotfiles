@@ -51,7 +51,6 @@ in {
 
       ## Startup ##
       startup = [
-        { command = "--no-startup-id ${pkgs.mako}/bin/mako"; }
         { command = "--no-startup-id ${fileManager} --daemon"; }
         { command = "--no-startup-id ${pkgs.swaybg}/bin/swaybg -i ~/.config/sway/wallpaper -m fill"; }
         { command = "--no-startup-id ${pkgs.wl-clipboard}/bin/wl-paste --watch ${pkgs.cliphist}/bin/cliphist store"; }
@@ -372,6 +371,15 @@ in {
     events = [
       { event = "before-sleep"; command = "${pkgs.swaylock}/bin/swaylock -Ffk -c 000000"; }
     ];
+  };
+
+  services.mako = {
+    enable = true;
+    actions = true;
+    anchor = "top-right";
+    icons = true;
+    defaultTimeout = 7000; # 7s
+    ignoreTimeout = true;
   };
 
   services.gammastep = {
