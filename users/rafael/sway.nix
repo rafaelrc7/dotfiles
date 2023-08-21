@@ -390,6 +390,10 @@ in {
       fade = "1";
       adjustment-method = "wayland";
     };
+    temperature = {
+      day   = 5500;
+      night = 2700;
+    };
   };
 
   xdg.configFile."waylogout/config".text = ''
