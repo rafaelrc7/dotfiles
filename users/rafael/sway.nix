@@ -1,6 +1,6 @@
-{ pkgs, lib, ... }: let
+{ config, pkgs, lib, ... }: let
   toggle-qt = pkgs.writeShellScriptBin "toggle-qt" ''
-    QALCULATE=`pgrep qalculate`
+    QALCULATE=`pgrep -u ${config.home.username} qalculate`
     [ x"$QALCULATE" == "x" ] && ${pkgs.qalculate-qt}/bin/qalculate-qt || kill -s TERM "$QALCULATE"
   '';
 in {
