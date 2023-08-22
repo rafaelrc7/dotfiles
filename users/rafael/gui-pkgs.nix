@@ -14,10 +14,13 @@ in {
     pcmanfm dolphin
     spotify
     tdesktop
-    thunderbird protonmail-bridge
     ungoogled-chromium
     v4l-utils
     zoom-us
+  ];
+
+  imports = [
+    ./thunderbird-protonmail.nix
   ];
 
   home.file.".librewolf/native-messaging-hosts/passff.json".source =
