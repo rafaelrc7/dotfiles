@@ -138,6 +138,7 @@
           ./modules/nixos/mullvad.nix
           ./modules/nixos/ssh.nix
           ./modules/nixos/git.nix
+          ./modules/nixos/udev-media-keys.nix
           nixos-hardware.nixosModules.common-cpu-intel
           nixos-hardware.nixosModules.common-pc-laptop
         ];
