@@ -47,6 +47,12 @@ in {
           xkb_model = "abnt2";
           xkb_variant = "abnt2";
         };
+
+        "type:touchpad" = {
+          dwt = "enabled";
+          tap = "enabled";
+          middle_emulation = "enabled";
+        };
       };
 
       ## Startup ##
