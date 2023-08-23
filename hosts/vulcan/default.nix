@@ -81,7 +81,7 @@
           };
           cursorTheme = {
             name = "breeze_cursors";
-            package = pkgs.libsForQt5.breeze-icons;
+            package = pkgs.libsForQt5.breeze-qt5;
           };
         };
       };

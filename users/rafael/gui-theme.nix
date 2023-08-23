@@ -1,7 +1,7 @@
 { config, pkgs, ... }: {
   home.pointerCursor = {
     name = "breeze_cursors";
-    package = pkgs.libsForQt5.breeze-icons;
+    package = pkgs.libsForQt5.breeze-qt5;
     size = 16;
     x11.enable = true;
     gtk.enable = true;
@@ -40,7 +40,7 @@
     };
     cursorTheme = {
       name = "breeze_cursors";
-      package = pkgs.libsForQt5.breeze-icons;
+      package = pkgs.libsForQt5.breeze-qt5;
     };
 
     gtk2.extraConfig = ''
