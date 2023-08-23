@@ -11,7 +11,6 @@
       fira
       fira-code
       fira-mono
-      font-awesome_5
       font-awesome
       roboto
       roboto-mono
@@ -25,11 +24,19 @@
     fontconfig= {
       enable = true;
       defaultFonts = {
-        sansSerif = [ "DejaVu Sans" ];
-        serif = [ "DejaVu Serif" ];
-        monospace = [ "FiraCode Nerd Font" ];
-        emoji = [ "Font Awesome 5 Free" "Noto Color Emoji" ];
+        sansSerif = [ "DejaVu Sans" "Font Awesome 6 Free" ];
+        serif = [ "DejaVu Serif" "Font Awesome 6 Free" ];
+        monospace = [ "FiraCode Nerd Font" "Font Awesome 6 Free" ];
+        emoji = [ "Noto Color Emoji" "Font Awesome 6 Free" ];
       };
+      localConf = ''
+        <alias>
+            <family>FontAwesome</family>
+            <prefer>
+                <family>Font Awesome 6 Free</family>
+            </prefer>
+        </alias>
+      '';
     };
   };
 }
