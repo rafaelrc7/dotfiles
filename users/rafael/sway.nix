@@ -151,6 +151,12 @@ in {
         { title = "Qalculate!";        }
       ];
 
+      seat = {
+        "*" = {
+          hide_cursor = "5000";
+        };
+      };
+
     };
 
     extraConfigEarly = ''
