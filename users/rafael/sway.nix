@@ -20,8 +20,6 @@ in {
       imv
       glfw-wayland
       waylogout
-
-      font-awesome
   ];
 
   wayland.windowManager.sway = let

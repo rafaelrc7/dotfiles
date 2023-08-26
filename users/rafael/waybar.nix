@@ -1,4 +1,9 @@
 { config, pkgs, lib, ... }: {
+
+  home.packages = with pkgs; [
+    font-awesome roboto roboto-mono
+  ];
+
   wayland.windowManager.sway.config.bars = [{ command = "${pkgs.waybar}/bin/waybar"; }];
 
   programs.waybar = {
@@ -140,10 +145,10 @@
 
       pulseaudio = {
           scroll-step = 1;
-          format = "{volume}% {icon} {format_source}";
-          format-bluetooth = "{volume}% {icon} {format_source}";
-          format-bluetooth-muted = " {icon} {format_source}";
-          format-muted = " {format_source}";
+          format = "{volume}% {icon}  {format_source}";
+          format-bluetooth = "{volume}% {icon}  {format_source}";
+          format-bluetooth-muted = " {icon}  {format_source}";
+          format-muted = "   {format_source}";
           format-source = "{volume}% ";
           format-source-muted = "";
           format-icons = {
@@ -162,7 +167,7 @@
     style = ''
       * {
           /* `otf-font-awesome` is required to be installed for icons */
-          font-family: FiraCode Nerd Font, "Font Awesome 6 Free";
+          font-family: Roboto, "Font Awesome 6 Free";
           font-size: 13px;
       }
 
