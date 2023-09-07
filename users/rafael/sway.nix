@@ -164,6 +164,9 @@ in {
     '';
 
     extraSessionCommands = ''
+      [ -e $HOME/.zshenv ] && . $HOME/.zshenv
+      [ -e $HOME/.profile ] && . $HOME/.profile
+
       export SDL_VIDEODRIVER=wayland
       export QT_QPA_PLATFORM=wayland
       export QT_WAYLAND_DISABLE_WINDOWDECORATION="1"
