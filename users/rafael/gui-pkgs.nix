@@ -29,6 +29,22 @@ in {
   home.file.".librewolf/native-messaging-hosts/ff2mpv.json".source =
     "${pkgs.ff2mpv}/lib/mozilla/native-messaging-hosts/ff2mpv.json";
 
+  home.file.".librewolf/librewolf.overrides.cfg".text = ''
+    defaultPref("media.eme.enabled", true);
+    defaultPref("media.gmp-widevinecdm.visible", true);
+    defaultPref("media.gmp-widevinecdm.enabled", true);
+    defaultPref("media.gmp-provider.enabled", true);
+    defaultPref("media.gmp-manager.url", "https://aus5.mozilla.org/update/3/GMP/%VERSION%/%BUILD_ID%/%BUILD_TARGET%/%LOCALE%/%CHANNEL%/%OS_VERSION%/%DISTRIBUTION%/%DISTRIBUTION_VERSION%/update.xml");
+
+    defaultPref("webgl.disabled", false);
+    defaultPref("webgl.enable-webgl2", true);
+    defaultPref("media.ffmpeg.vaapi.enabled", true)
+
+    defaultPref("ui.context_menus.after_mouseup", true);
+    defaultPref("browser.compactmode.show", true);
+    defaultPref("browser.download.start_downloads_in_tmp_dir", true);
+  '';
+
   home.sessionVariables.SSH_ASKPASS =
     "${pkgs.lxqt.lxqt-openssh-askpass}/bin/lxqt-openssh-askpass";
 
