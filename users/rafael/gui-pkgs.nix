@@ -74,6 +74,11 @@ in {
     config = {
       hwdec = "auto";
     };
+    scripts = with pkgs.mpvScripts; [
+      mpris
+      sponsorblock
+      webtorrent-mpv-hook
+    ];
   };
 }
 
