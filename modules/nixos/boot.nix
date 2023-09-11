@@ -2,7 +2,7 @@
 let inherit (lib) mkDefault mkForce;
 in {
   boot = {
-    kernelPackages = mkForce pkgs.linuxPackages_latest;
+    kernelPackages = mkDefault pkgs.linuxPackages_latest;
 
     supportedFilesystems = mkDefault [ "vfat" "btrfs" "ext4 "];
 

@@ -1,6 +1,8 @@
 { config, inputs, pkgs, nixpkgs, home-manager, ... }: {
   networking.hostName = "vulcan";
 
+  boot.kernelPackages = pkgs.linuxKernel.packages.linux_zen;
+
   imports = [
     ./hardware-configuration.nix
     ./networking.nix
