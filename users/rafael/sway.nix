@@ -40,10 +40,10 @@ in {
       floating.modifier = mod;
       left = "h"; right = "l"; down = "j"; up = "k";
       input = {
-        "*" = lib.mkDefault {
-          xkb_layout = "br";
-          xkb_model = "abnt2";
-          xkb_variant = "abnt2";
+        "type:keyboard" = {
+          xkb_layout = "br,us";
+          xkb_model = "abnt2,";
+          xkb_variant = "abnt2,intl";
         };
 
         "type:touchpad" = {
@@ -161,6 +161,7 @@ in {
     '';
 
     extraConfig = ''
+      input 1:1:AT_Translated_Set_2_keyboard xkb_switch_layout 1
     '';
 
     extraSessionCommands = ''
