@@ -3,7 +3,10 @@
     mimeApps = {
       enable = true;
       defaultApplications = {
-        "inode/directory" = [ "pcmanfm.desktop" ];
+        "inode/directory" = [
+          "org.kde.dolphin.desktop"
+          "pcmanfm.desktop"
+        ];
         "x-scheme-handler/https" = [
           "librewolf.desktop"
           "firefox.desktop"
@@ -25,11 +28,12 @@
         "audio/*" = [ "mpv.desktop" ];
         "video/*" = [ "mpv.desktop" ];
         "image/*" = [
+          "imv.desktop"
           "feh.desktop"
           "firefox.desktop"
           "org.kde.krita.desktop"
         ];
-        "application/pdf" = "org.kde.okular.desktop";
+        "application/pdf" = "org.pwmt.zathura.desktop";
         "text/*" = [
           "nvim.desktop"
           "nvim-qt.desktop"
