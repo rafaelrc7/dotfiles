@@ -9,7 +9,6 @@ in {
     gparted
     libreoffice-fresh
     librewolf firefox
-    obs-studio
     pavucontrol
     pcmanfm dolphin
     spotify
@@ -78,6 +77,14 @@ in {
       mpris
       sponsorblock
       webtorrent-mpv-hook
+    ];
+  };
+
+  programs.obs-studio = {
+    enable = true;
+    plugins = with pkgs.obs-studio-plugins; [
+      wlrobs
+      obs-vkcapture
     ];
   };
 }
