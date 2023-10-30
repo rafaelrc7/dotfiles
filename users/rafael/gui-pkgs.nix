@@ -13,6 +13,7 @@ in {
     pcmanfm dolphin
     spotify
     tdesktop
+    obsidian
     ungoogled-chromium
     v4l-utils
     zoom-us
