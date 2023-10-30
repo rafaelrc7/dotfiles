@@ -77,7 +77,7 @@
           ./modules/nixos/flatpak.nix
           ./modules/nixos/geoclue.nix
           ./modules/nixos/libvirtd.nix
-          ./modules/nixos/mullvad.nix
+          #./modules/nixos/mullvad.nix
           ./modules/nixos/nix.nix
           ./modules/nixos/pipewire.nix
           #./modules/nixos/plasma.nix
@@ -137,7 +137,7 @@
           ./modules/nixos/fonts.nix
           ./modules/nixos/cryptswap.nix
           ./modules/nixos/man.nix
-          ./modules/nixos/mullvad.nix
+          #./modules/nixos/mullvad.nix
           ./modules/nixos/ssh.nix
           ./modules/nixos/git.nix
           ./modules/nixos/udev-media-keys.nix
