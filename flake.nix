@@ -130,6 +130,7 @@
           ./modules/nixos/boot.nix
           ./modules/nixos/btrfs.nix
           #./modules/nixos/dnscrypt.nix
+          ./modules/nixos/flatpak.nix
           ./modules/nixos/geoclue.nix
           ./modules/nixos/nix.nix
           ./modules/nixos/pipewire.nix
