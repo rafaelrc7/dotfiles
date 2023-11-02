@@ -60,7 +60,7 @@
               ./users/rafael/mpd.nix
               ./users/rafael/neovim.nix
               ./users/rafael/pass.nix
-              ./users/rafael/rclone-gdrive.nix
+              ./users/rafael/syncthing.nix
               ./users/rafael/sway.nix
               ./users/rafael/waybar.nix
               ./users/rafael/xdg.nix
@@ -115,7 +115,7 @@
               ./users/rafael/mpd.nix
               ./users/rafael/neovim.nix
               ./users/rafael/pass.nix
-              ./users/rafael/rclone-gdrive.nix
+              ./users/rafael/syncthing.nix
               ./users/rafael/sway.nix
               ./users/rafael/waybar.nix
               ./users/rafael/xdg.nix
