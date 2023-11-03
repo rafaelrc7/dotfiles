@@ -3,8 +3,15 @@
     QALCULATE=`pgrep -u ${config.home.username} qalculate`
     [ x"$QALCULATE" == "x" ] && ${pkgs.qalculate-qt}/bin/qalculate-qt || kill -s TERM "$QALCULATE"
   '';
+  loadWallpaper = pkgs.writeShellScriptBin "loadWallpaper" ''
+    [[ -f ${config.xdg.configHome}/sway/wallpapers/default ]] && WALLPAPER="${config.xdg.configHome}/sway/wallpapers/default"
+    [[ -f ${config.xdg.configHome}/sway/wallpapers/`uname -n` ]] && WALLPAPER="${config.xdg.configHome}/sway/wallpapers/`uname -n`"
+    [[ -f ${config.home.homeDirectory}/.config/wallpaper ]] && WALLPAPER="${config.home.homeDirectory}/.config/wallpaper"
+    [[ -v WALLPAPER ]] && exec -- ${pkgs.swaybg}/bin/swaybg -i "$WALLPAPER" -m fill
+  '';
 in {
-  xdg.configFile."sway/wallpaper".source = ./imgs/wallpaper.png;
+
+  xdg.configFile."sway/wallpapers".source = ./imgs/wallpapers;
 
   home.packages = with pkgs; [
       cliphist
@@ -56,7 +63,7 @@ in {
       ## Startup ##
       startup = [
         { command = "--no-startup-id ${fileManager} --daemon"; }
-        { command = "--no-startup-id ${pkgs.swaybg}/bin/swaybg -i ~/.config/sway/wallpaper -m fill"; }
+        { command = "--no-startup-id ${loadWallpaper}/bin/loadWallpaper"; }
         { command = "--no-startup-id ${pkgs.wl-clipboard}/bin/wl-paste --watch ${pkgs.cliphist}/bin/cliphist store"; }
       ];
 
