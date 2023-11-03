@@ -3,6 +3,7 @@
     "nix/channels/nixpkgs".source = inputs.nixpkgs;
     "nix/channels/nixpkgs-stable".source = inputs.nixpkgs-stable;
     "nix/channels/nixpkgs-unstable".source = inputs.nixpkgs-unstable;
+    "nix/channels/nixpkgs-master".source = inputs.nixpkgs-master;
     "nix/channels/home-manager".source = inputs.home-manager;
   };
 
@@ -13,6 +14,7 @@
       "nixpkgs=/etc/nix/channels/nixpkgs"
       "nixpkgs-stable=/etc/nix/channels/nixpkgs-stable"
       "nixpkgs-unstable=/etc/nix/channels/nixpkgs-unstable"
+      "nixpkgs-master=/etc/nix/channels/nixpkgs-master"
       "home-manager=/etc/nix/channels/home-manager"
     ];
 
