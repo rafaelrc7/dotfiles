@@ -59,6 +59,7 @@
               ./users/rafael/kitty.nix
               ./users/rafael/mpd.nix
               ./users/rafael/neovim.nix
+              ./users/rafael/node.nix
               ./users/rafael/pass.nix
               ./users/rafael/syncthing.nix
               ./users/rafael/sway.nix
@@ -114,6 +115,7 @@
               ./users/rafael/kitty.nix
               ./users/rafael/mpd.nix
               ./users/rafael/neovim.nix
+              ./users/rafael/node.nix
               ./users/rafael/pass.nix
               ./users/rafael/syncthing.nix
               ./users/rafael/sway.nix
