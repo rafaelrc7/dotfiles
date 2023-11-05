@@ -85,7 +85,7 @@
 
       -- TS
       nvim_lsp.tsserver.setup{
-        cmd = {"${nodePackages.typescript-language-server}/bin/tsserver", "--stdio"},
+        cmd = {"${nodePackages.typescript-language-server}/bin/typescript-language-server", "--stdio"},
         on_attach=on_attach,
         capabilities = capabilities,
       };
