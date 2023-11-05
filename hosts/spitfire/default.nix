@@ -1,6 +1,8 @@
 { config, inputs, pkgs, nixpkgs, home-manager, ... }: {
   networking.hostName = "spitfire";
 
+  boot.kernel.sysctl."kernel.sysrq" = 1;
+
   imports = [
     ./hardware-configuration.nix
     ./networking.nix

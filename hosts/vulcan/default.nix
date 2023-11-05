@@ -2,6 +2,7 @@
   networking.hostName = "vulcan";
 
   boot.kernelPackages = pkgs.linuxKernel.packages.linux_zen;
+  boot.kernel.sysctl."kernel.sysrq" = 1;
 
   imports = [
     ./hardware-configuration.nix
