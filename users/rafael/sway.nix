@@ -48,9 +48,9 @@ in {
       left = "h"; right = "l"; down = "j"; up = "k";
       input = {
         "type:keyboard" = {
-          xkb_layout = "br,us";
-          xkb_model = "abnt2,";
-          xkb_variant = "abnt2,intl";
+          xkb_layout = "us,br";
+          xkb_model = ",abnt2";
+          xkb_variant = "intl,abnt2";
         };
 
         "type:touchpad" = {
@@ -165,10 +165,6 @@ in {
     };
 
     extraConfigEarly = ''
-    '';
-
-    extraConfig = ''
-      input 1:1:AT_Translated_Set_2_keyboard xkb_switch_layout 1
     '';
 
     extraSessionCommands = ''
