@@ -51,6 +51,7 @@ in {
           xkb_layout = "us,br";
           xkb_model = ",abnt2";
           xkb_variant = "intl,abnt2";
+          xkb_numlock = "enabled";
         };
 
         "type:touchpad" = {
