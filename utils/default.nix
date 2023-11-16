@@ -15,6 +15,7 @@ in rec {
           nixpkgs-unstable = inputs.nixpkgs-unstable.legacyPackages."${system}";
           nixpkgs-master = inputs.nixpkgs-master.legacyPackages."${system}";
         })
+        inputs.nix-vscode-extensions.overlays.default
         inputs.nixgl.overlay
       ];
     };

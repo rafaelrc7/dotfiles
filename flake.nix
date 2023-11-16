@@ -13,6 +13,11 @@
     nur.url = "github:nix-community/nur";
     awesomerc.url = "github:rafaelrc7/awesomerc";
 
+    nix-vscode-extensions = {
+      url = "github:nix-community/nix-vscode-extensions";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -63,6 +68,7 @@
               ./users/rafael/pass.nix
               ./users/rafael/syncthing.nix
               ./users/rafael/sway.nix
+              ./users/rafael/vscode.nix
               ./users/rafael/waybar.nix
               ./users/rafael/xdg.nix
               ./users/rafael/zsh.nix
@@ -119,6 +125,7 @@
               ./users/rafael/pass.nix
               ./users/rafael/syncthing.nix
               ./users/rafael/sway.nix
+              ./users/rafael/vscode.nix
               ./users/rafael/waybar.nix
               ./users/rafael/xdg.nix
               ./users/rafael/zsh.nix
