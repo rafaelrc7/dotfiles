@@ -67,12 +67,14 @@
       autoload -U down-line-or-beginning-search
       zle -N up-line-or-beginning-search
       zle -N down-line-or-beginning-search
-      bindkey "^[[A" up-line-or-beginning-search
-      bindkey "^[[B" down-line-or-beginning-search
+      bindkey "$key[Up]" up-line-or-beginning-search
+      bindkey "$key[Down]" down-line-or-beginning-search
 
       # Binds arrows and j/k to history search in vim mode
-      bindkey -M viins "^[[A" up-line-or-beginning-search
-      bindkey -M viins "^[[B" down-line-or-beginning-search
+      bindkey -M viins "$key[Up]" up-line-or-beginning-search
+      bindkey -M viins "$key[Down]" down-line-or-beginning-search
+      bindkey -M vicmd "$key[Up]" up-line-or-beginning-search
+      bindkey -M vicmd "$key[Down]" down-line-or-beginning-search
       bindkey -M vicmd "k" up-line-or-beginning-search
       bindkey -M vicmd "j" down-line-or-beginning-search
 
