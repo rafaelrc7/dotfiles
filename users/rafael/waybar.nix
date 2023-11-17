@@ -4,10 +4,15 @@
     font-awesome roboto roboto-mono
   ];
 
-  wayland.windowManager.sway.config.bars = [{ command = "${pkgs.waybar}/bin/waybar"; }];
+  wayland.windowManager.sway.config.bars = [];
 
   programs.waybar = {
     enable = true;
+
+    systemd = {
+      enable = true;
+      target = "sway-session.target";
+    };
 
     settings = [{
       layer = "bottom";
