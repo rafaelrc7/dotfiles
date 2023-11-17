@@ -40,7 +40,6 @@ in {
     alt         = "Mod1";
   in rec {
     enable = true;
-    package = null;
     config = rec {
       ## Keyboard ##
       modifier = mod;
@@ -180,15 +179,17 @@ in {
       export CLUTTER_BACKEND="wayland"
       export XDG_SESSION_TYPE="wayland"
 
-      # https://github.com/swaywm/sway/wiki#gtk-applications-take-20-seconds-to-start
-      dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
-
       # For flatpak to be able to use PATH programs
-      sh -c "systemctl --user import-environment PATH && systemctl --user restart xdg-desktop-portal.service" &
+      sh -c "systemctl --user import-environment PATH" &
     '';
 
     systemd.enable = true;
-    wrapperFeatures.gtk = true;
+
+    wrapperFeatures = {
+      base = true; # https://github.com/swaywm/sway/wiki#gtk-applications-take-20-seconds-to-start
+      gtk = true;
+    };
+
     xwayland = true;
   };
 
