@@ -14,6 +14,7 @@
     };
 
     layout = lib.mkDefault "us";
+    xkbVariant = lib.mkDefault "intl";
   };
 }
 

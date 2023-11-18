@@ -28,9 +28,13 @@
   };
 
   console = {
-    font = "Lat2-Terminus16";
-    keyMap = lib.mkDefault "us";
+    font = lib.mkDefault "Lat2-Terminus16";
+    useXkbConfig = lib.mkDefault true;
   };
 
+  services.xserver = {
+    layout = lib.mkDefault "us";
+    xkbVariant = lib.mkDefault "intl";
+  };
 }
 

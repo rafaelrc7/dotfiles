@@ -28,11 +28,9 @@
 
   services.gnome.gnome-keyring.enable = true;
 
-  console.keyMap = "br-abnt2";
   services.xserver = {
-    layout = "br";
-    xkbModel = "abnt2";
-    xkbVariant = "abnt2";
+    layout = "us";
+    xkbVariant = "intl";
   };
 
   services.xserver.videoDrivers = [ "modesetting" ];
