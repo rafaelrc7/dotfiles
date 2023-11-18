@@ -27,6 +27,7 @@ in {
       imv
       glfw-wayland
       waylogout
+      wdisplays
   ];
 
   wayland.windowManager.sway = let
