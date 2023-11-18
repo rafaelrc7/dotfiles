@@ -9,7 +9,7 @@ in {
     libreoffice-fresh
     librewolf firefox
     pavucontrol
-    pcmanfm dolphin
+    dolphin
     spotify
     tdesktop
     obsidian

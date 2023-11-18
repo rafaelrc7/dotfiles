@@ -3,7 +3,7 @@
     EDITOR = "nvim";
     BROWSER = "librewolf";
     TERMINAL = "kitty";
-    EXPLORER = "pcmanfm";
+    EXPLORER = "dolphin";
 
     CABAL_DIR = "$HOME/.local/share/cabal";
     CABAL_CONFIG = "$HOME/.config/cabal/config";

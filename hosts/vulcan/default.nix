@@ -67,7 +67,6 @@
     enable = false;
 
     displayManager = {
-      defaultSession = "none+awesome";
       lightdm = {
         enable = false;
         greeters.gtk = {

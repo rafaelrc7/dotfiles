@@ -53,7 +53,7 @@
             extraGroups = [ "wheel" "adbusers" "libvirtd" "dialout" ];
             sshKeys = import ./users/rafael/sshkeys.nix;
             homeModules = [
-              inputs.awesomerc.setup
+              #inputs.awesomerc.setup
               ./users/rafael/crypto.nix
               ./users/rafael/git.nix
               ./users/rafael/go.nix
@@ -78,7 +78,7 @@
         nixosModules = [
           ./modules/nixos/common.nix
           ./modules/nixos/android.nix
-          ./modules/nixos/awesomewm.nix
+          #./modules/nixos/awesomewm.nix
           ./modules/nixos/boot.nix
           ./modules/nixos/btrfs.nix
           ./modules/nixos/flatpak.nix
@@ -111,7 +111,7 @@
             extraGroups = [ "wheel" "adbusers" "dialout" ];
             sshKeys = import ./users/rafael/sshkeys.nix;
             homeModules = [
-              inputs.awesomerc.setup
+              #inputs.awesomerc.setup
               ./users/rafael/git.nix
               ./users/rafael/go.nix
               ./users/rafael/gui-pkgs.nix
@@ -135,7 +135,7 @@
         nixosModules = [
           ./modules/nixos/common.nix
           ./modules/nixos/android.nix
-          ./modules/nixos/awesomewm.nix
+          #./modules/nixos/awesomewm.nix
           ./modules/nixos/boot.nix
           ./modules/nixos/btrfs.nix
           #./modules/nixos/dnscrypt.nix
@@ -189,7 +189,7 @@
         system = "x86_64-linux";
         username = "rafael";
         homeModules = [
-          inputs.awesomerc.setup
+          #inputs.awesomerc.setup
           ./users/rafael/git.nix
           ./users/rafael/go.nix
           ./users/rafael/gui-pkgs.nix
