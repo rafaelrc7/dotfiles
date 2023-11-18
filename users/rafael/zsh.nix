@@ -135,7 +135,7 @@
     '';
 
     loginExtra = ''
-      [ "$(tty)" = "/dev/tty2" ] && exec sway
+      [ "$(tty)" = "/dev/tty1" ] && exec sway
     '';
   };
 }
