@@ -180,7 +180,7 @@ in {
       export CLUTTER_BACKEND="wayland"
       export XDG_SESSION_TYPE="wayland"
 
-      export TERMINAL = "foot";
+      export TERMINAL="foot"
 
       # For flatpak to be able to use PATH programs
       sh -c "systemctl --user import-environment PATH" &
