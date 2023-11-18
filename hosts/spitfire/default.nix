@@ -28,12 +28,12 @@
   services.gnome.gnome-keyring.enable = true;
 
   services.xserver = {
-    enable = true;
+    enable = false;
 
     displayManager = {
       defaultSession = "none+awesome";
       lightdm = {
-        enable = true;
+        enable = false;
         greeters.gtk = {
           enable = true;
           theme = {
