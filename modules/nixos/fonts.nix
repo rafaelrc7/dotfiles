@@ -19,13 +19,17 @@
       noto-fonts
       noto-fonts-emoji
       noto-fonts-extra
+      noto-fonts-lgc-plus
+      noto-fonts-cjk-sans
+      noto-fonts-cjk-serif
+      symbola
     ];
 
     fontconfig= {
       enable = true;
       defaultFonts = {
-        sansSerif = [ "DejaVu Sans" "Font Awesome 6 Free" ];
-        serif = [ "DejaVu Serif" "Font Awesome 6 Free" ];
+        sansSerif = [ "DejaVu Sans" "Noto Sans" "Font Awesome 6 Free" ];
+        serif = [ "DejaVu Serif" "Noto Serif" "Font Awesome 6 Free" ];
         monospace = [ "FiraCode Nerd Font" "Font Awesome 6 Free" ];
         emoji = [ "Noto Color Emoji" "Font Awesome 6 Free" ];
       };
