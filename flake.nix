@@ -143,7 +143,7 @@
           ./modules/nixos/geoclue.nix
           ./modules/nixos/nix.nix
           ./modules/nixos/pipewire.nix
-          ./modules/nixos/plasma.nix
+          #./modules/nixos/plasma.nix
           ./modules/nixos/zsh.nix
           ./modules/nixos/fonts.nix
           ./modules/nixos/cryptswap.nix

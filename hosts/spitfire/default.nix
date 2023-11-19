@@ -11,7 +11,6 @@
   environment = {
     systemPackages = with pkgs; [
       brightnessctl
-      mons
       lutris
       libva-utils
       glxinfo
