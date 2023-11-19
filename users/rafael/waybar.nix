@@ -22,7 +22,7 @@
 
       modules-left   = [ "sway/workspaces" "sway/mode" "sway/scratchpad" "custom/media" ];
       modules-center = [ "sway/window" ];
-      modules-right  = [ "tray" "mpd" "idle_inhibitor" "pulseaudio" "network" "cpu" "memory" "temperature" "backlight" "keyboard-state" "sway/language" "battery" "battery#bat2" "clock" ];
+      modules-right  = [ "tray" "mpd" "idle_inhibitor" "custom/audio_idle_inhibitor" "pulseaudio" "network" "cpu" "memory" "temperature" "backlight" "keyboard-state" "sway/language" "battery" "battery#bat2" "clock" ];
 
       "sway/workspaces" = {
         all-outputs = true;
@@ -167,6 +167,18 @@
           };
           on-click = "pavucontrol";
       };
+
+      "custom/audio_idle_inhibitor" = {
+        format = "{icon}";
+        exec = "${pkgs.nixpkgs-master.sway-audio-idle-inhibit}/bin/sway-audio-idle-inhibit --dry-print-both-waybar";
+        return-type = "json";
+        format-icons = {
+          output = "";
+          input = "";
+          output-input = "  ";
+          none = "";
+        };
+      };
     }];
 
     style = ''
@@ -253,6 +265,7 @@
       #backlight,
       #network,
       #pulseaudio,
+      #custom-audio_idle_inhibitor,
       #wireplumber,
       #custom-media,
       #tray,
@@ -340,6 +353,11 @@
       }
 
       #pulseaudio {
+          background-color: #f1c40f;
+          color: #000000;
+      }
+
+      #custom-audio_idle_inhibitor {
           background-color: #f1c40f;
           color: #000000;
       }

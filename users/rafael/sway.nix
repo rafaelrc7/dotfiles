@@ -28,6 +28,7 @@ in {
       glfw-wayland
       waylogout
       wdisplays
+      nixpkgs-master.sway-audio-idle-inhibit
   ];
 
   wayland.windowManager.sway = let
@@ -67,6 +68,7 @@ in {
         { command = "--no-startup-id ${fileManager} --daemon"; }
         { command = "--no-startup-id ${loadWallpaper}/bin/loadWallpaper"; }
         { command = "--no-startup-id ${pkgs.wl-clipboard}/bin/wl-paste --watch ${pkgs.cliphist}/bin/cliphist store"; }
+        { command = "--no-startup-id ${pkgs.nixpkgs-master.sway-audio-idle-inhibit}/bin/sway-audio-idle-inhibit"; }
       ];
 
       ## Programs/Addons ##
