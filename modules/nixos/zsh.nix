@@ -2,6 +2,8 @@
 
 {
   environment.shells = [ pkgs.zsh ];
+  environment.pathsToLink = [ "/share/zsh" ];
+
   users.defaultUserShell = pkgs.zsh;
 
   programs.zsh = {
