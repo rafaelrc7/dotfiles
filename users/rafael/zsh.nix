@@ -29,6 +29,9 @@
       ip = "ip --color=auto";
       ls = "ls --color=auto";
       sudo = "sudo "; # Makes commands after sudo keep colour
+      matlab = "nix run gitlab:doronbehar/nix-matlab";
+      nixdev = "nix develop -c zsh";
+      nixsh = "nix shell";
     };
 
     plugins = with pkgs; [
