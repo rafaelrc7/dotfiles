@@ -20,6 +20,12 @@
         "x-scheme-handler/nxm" = [
           "modorganizer2-nxm-handler.desktop"
         ];
+        "x-scheme-handler/mw-matlab" = [
+          "mw-matlab.desktop"
+        ];
+        "x-scheme-handler/mw-simulink" = [
+          "mw-simulink.desktop"
+        ];
         "application/x-extension-html" = [
           "librewolf.desktop"
           "firefox.desktop"
