@@ -170,7 +170,7 @@
 
       "custom/audio_idle_inhibitor" = {
         format = "{icon}";
-        exec = "${pkgs.nixpkgs-master.sway-audio-idle-inhibit}/bin/sway-audio-idle-inhibit --dry-print-both-waybar";
+        exec = "${pkgs.sway-audio-idle-inhibit}/bin/sway-audio-idle-inhibit --dry-print-both-waybar";
         return-type = "json";
         format-icons = {
           output = "";
