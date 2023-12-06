@@ -46,7 +46,7 @@
         };
         networkConfig = {
           IPv6PrivacyExtensions = true;
-          DNSSEC = true;
+          DNSSEC = false;
         };
         dns = [ "10.0.0.20" "1.1.1.1" "1.0.0.1" ];
       };

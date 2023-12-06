@@ -38,7 +38,7 @@
         };
         networkConfig = {
           IPv6PrivacyExtensions = true;
-          DNSSEC = true;
+          DNSSEC = false;
         };
         dns = [ "127.0.0.1" "::1" ];
       };
