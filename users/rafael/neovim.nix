@@ -2,6 +2,8 @@
   programs.neovim = with pkgs; {
     enable = true;
 
+    defaultEditor = true;
+
     viAlias = true;
     vimAlias = true;
     vimdiffAlias = true;
@@ -201,21 +203,23 @@
     extraPackages = [
       fd
       ripgrep
+      clang
     ];
 
     plugins = with vimPlugins; [
       nvim-treesitter.withAllGrammars
       nvim-lspconfig
+      nvim-cmp
       cmp-nvim-lsp
       cmp-buffer
       cmp-path
       cmp-cmdline
-      nvim-cmp
+      cmp-rg
+      cmp-treesitter
       luasnip
       cmp_luasnip
       telescope-nvim
       telescope-fzy-native-nvim
-      popup-nvim
       plenary-nvim
       vimtex
       markdown-preview-nvim
@@ -225,12 +229,10 @@
       emmet-vim
       nvim-tree-lua
       nvim-web-devicons
-      editorconfig-nvim
       vimspector
       undotree
       nerdcommenter
       nvim-autopairs
-      vim-dispatch-neovim
       tagbar
       vim-fugitive
       gitsigns-nvim
