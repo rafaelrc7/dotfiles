@@ -63,6 +63,8 @@
               ./users/rafael/jetbrains.nix
               ./users/rafael/kitty.nix
               ./users/rafael/mpd.nix
+              ./users/rafael/neomutt.nix
+              ./users/rafael/email.nix
               ./users/rafael/neovim.nix
               ./users/rafael/node.nix
               ./users/rafael/pass.nix
@@ -120,6 +122,8 @@
               ./users/rafael/jetbrains.nix
               ./users/rafael/kitty.nix
               ./users/rafael/mpd.nix
+              ./users/rafael/neomutt.nix
+              ./users/rafael/email.nix
               ./users/rafael/neovim.nix
               ./users/rafael/node.nix
               ./users/rafael/pass.nix
