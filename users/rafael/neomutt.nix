@@ -63,6 +63,11 @@ in {
         key = "S";
         action = "<shell-escape>systemctl --user start mbsync.service <muttemail><enter>";
       }
+      { # from muttwizard
+        map = [ "index" ];
+        key = ''\Co'';
+        action = ''<enter-command>unset wait_key<enter><shell-escape>read -p 'Enter a search term to find with notmuch: ' x; echo \$x >~/.cache/mutt_terms<enter><limit>~i \"\`notmuch search --output=messages \$(cat ~/.cache/mutt_terms) | head -n 600 | perl -le '@a=<>;s/\^id:// for@a;$,=\"|\";print@a' | perl -le '@a=<>; chomp@a; s/\\+/\\\\+/ for@a;print@a' \`\"<enter>" "show only messages matching a notmuch pattern'';
+      }
     ];
   };
 }
