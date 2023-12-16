@@ -40,7 +40,7 @@
 
     # protonmail-bridge settings
     userName = "contact@rafaelrc.com";
-    passwordCommand = "pass show Personal/protonmail-bridge";
+    passwordCommand = ''pass show Personal/protonmail-bridge@`uname -n`'';
 
     imap = {
       host = "127.0.0.1";
