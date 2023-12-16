@@ -24,8 +24,6 @@
 
   programs.java.enable = true;
 
-  services.gnome.gnome-keyring.enable = true;
-
   services.xserver = {
     enable = false;
 

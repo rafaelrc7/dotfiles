@@ -26,8 +26,6 @@
 
   programs.java.enable = true;
 
-  services.gnome.gnome-keyring.enable = true;
-
   services.xserver = {
     layout = "us";
     xkbVariant = "intl";

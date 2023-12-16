@@ -47,6 +47,11 @@
     ];
   };
 
+  services.gnome-keyring = {
+    enable = true;
+    components = [ "pkcs11" "secrets" "ssh" ];
+  };
+
   systemd.user.startServices = "sd-switch";
 
   home.stateVersion = "22.11";

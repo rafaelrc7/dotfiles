@@ -127,9 +127,9 @@
 
     Service = {
       Type = "simple";
+      ExecStartPre = "${pkgs.coreutils}/bin/sleep 3";
       ExecStart = "${pkgs.protonmail-bridge}/bin/protonmail-bridge --noninteractive";
-      Restart = "on-failure";
-      RestartSec = 10;
+      Restart = "always";
     };
 
     Install.WantedBy = [ "default.target" ];
