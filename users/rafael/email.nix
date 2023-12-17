@@ -2,6 +2,9 @@
   accounts.email.maildirBasePath = "${config.xdg.dataHome}/maildir";
 
   accounts.email.accounts.protonmail = let
+    protonmail-bridge-pass = pkgs.writeShellScriptBin "protonmail-bridge-pass" ''
+      pass show Personal/protonmail-bridge@`uname -n`
+    '';
     # Must be manually generated with
     # openssl s_client -starttls imap -connect 127.0.0.1:1143 -showcerts
     certificatesFile = "${config.xdg.dataHome}/certs/protonmail.crt";
@@ -39,7 +42,7 @@
 
     # protonmail-bridge settings
     userName = "contact@rafaelrc.com";
-    passwordCommand = ''pass show Personal/protonmail-bridge@`uname -n`'';
+    passwordCommand = ''${protonmail-bridge-pass}/bin/protonmail-bridge-pass'';
 
     imap = {
       host = "127.0.0.1";
@@ -69,11 +72,22 @@
       create = "maildir";
     };
 
-    neomutt = {
+    imapnotify = {
       enable = true;
-      extraMailboxes = [ "Starred" "Archive" folders.sent folders.drafts folders.trash "Spam" ];
-      extraConfig = ''
-        set pgp_self_encrypt = yes
+      boxes = [ "INBOX" ];
+      extraConfig = {
+        wait = 10;
+        tlsOption = {
+          starttls = true;
+        };
+      };
+
+      onNotify = ''
+        ${pkgs.isync}/bin/mbsync protonmail
+      '';
+
+      onNotifyPost = ''
+        ${pkgs.notmuch}/bin/notmuch new && ${pkgs.libnotify}/bin/notify-send "You've got mail"
       '';
     };
 
@@ -83,36 +97,48 @@
         enable = true;
       };
     };
+
+    neomutt = {
+      enable = true;
+      extraMailboxes = [ "Starred" "Archive" folders.sent folders.drafts folders.trash "Spam" ];
+      extraConfig = ''
+        set pgp_self_encrypt = yes
+      '';
+    };
   };
 
-  programs.mbsync.enable = true;
   programs.msmtp.enable = true;
+  programs.mbsync.enable = true;
+  services.imapnotify = {
+    enable = true;
+    package = (pkgs.goimapnotify.overrideAttrs(old: {
+      src = pkgs.fetchFromGitLab {
+        owner = "rafaelrc7";
+        repo = "goimapnotify";
+        rev = "2.3.x";
+        sha256 = "sha256-RGEHKOmJqy9Cz5GWfck3VBZD6Q3DySoTYg0+Do4sy/4=";
+      };
+    }));
+  };
   programs.notmuch.enable = true;
 
-  # Mail Sync
+  # Runs mbsync once after login
   systemd.user = {
-    services.mbsync = {
-      Unit.Description = "Mailbox synchronization service";
+    services.protonmail-mbsync = {
+      Unit = {
+        Description = "Sync emails on login";
+        Wants = [ "network-online.target" "protonmail-bridge.service" ];
+        After = [ "network-online.target" "protonmail-bridge.service" ];
+      };
 
       Service = {
         Type = "oneshot";
+        ExecStartPre = "${pkgs.coreutils}/bin/sleep 20";
         ExecStart = "${config.programs.mbsync.package}/bin/mbsync -Va";
         ExecStartPost = "${pkgs.notmuch}/bin/notmuch new";
       };
 
       Install.WantedBy = [ "default.target" ];
-    };
-
-    timers.mbsync = {
-      Unit.Description = "Mailbox synchronization service";
-
-      Timer = {
-        OnBootSec="10s";
-        OnUnitActiveSec="1m";
-        Unit="mbsync.service";
-      };
-
-      Install.WantedBy = [ "timers.target" ];
     };
   };
 
