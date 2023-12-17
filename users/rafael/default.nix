@@ -43,7 +43,7 @@
     enableSshSupport = true;
     enableZshIntegration = true;
     sshKeys = [
-      "72C0B9E758F6099D4F7F6B4B44E4DD530867E7A9"
+      "94C7C77450894FC856B6C3121A9232BC13054C83"
     ];
   };
 

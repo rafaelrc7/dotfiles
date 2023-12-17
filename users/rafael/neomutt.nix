@@ -41,6 +41,7 @@ in {
       set mime_forward
       set text_flowed
       set sig_on_top
+      set move = no
 
       set quit
       set beep_new
@@ -61,7 +62,7 @@ in {
       {
         map = [ "index" ];
         key = "S";
-        action = "<shell-escape>systemctl --user start mbsync.service <muttemail><enter>";
+        action = "<shell-escape>systemctl --user start mbsync.service<enter>";
       }
       { # from muttwizard
         map = [ "index" ];

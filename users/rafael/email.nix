@@ -25,10 +25,9 @@
     };
 
     gpg = {
-      # TODO
-      # key = "";
-      # encryptByDefault = true;
-      # signByDefault = true;
+      key = "081F97AC49F2CA9548DB08E7091BB8A361C7B4EB";
+      encryptByDefault = true;
+      signByDefault = true;
     };
 
     folders = {
@@ -74,7 +73,7 @@
       enable = true;
       extraMailboxes = [ "Starred" "Archive" folders.sent folders.drafts folders.trash "Spam" ];
       extraConfig = ''
-        set move = no
+        set pgp_self_encrypt = yes
       '';
     };
 
@@ -108,8 +107,8 @@
       Unit.Description = "Mailbox synchronization service";
 
       Timer = {
-        OnBootSec="1m";
-        OnUnitActiveSec="3m";
+        OnBootSec="10s";
+        OnUnitActiveSec="1m";
         Unit="mbsync.service";
       };
 

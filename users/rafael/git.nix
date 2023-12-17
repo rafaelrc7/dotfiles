@@ -13,7 +13,7 @@
     };
     signing = {
       signByDefault = true;
-      key = "A021D05707D44720";
+      key = "161833317F080B3AC3ECFB01A2E6A1C9A59514A5";
     };
   };
 
