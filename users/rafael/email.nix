@@ -127,8 +127,8 @@
     services.protonmail-mbsync = {
       Unit = {
         Description = "Sync emails on login";
-        Wants = [ "network-online.target" "protonmail-bridge.service" ];
-        After = [ "network-online.target" "protonmail-bridge.service" ];
+        Wants = [ "network-online.target" ];
+        After = [ "network-online.target" ];
       };
 
       Service = {
@@ -136,6 +136,8 @@
         ExecStartPre = "${pkgs.coreutils}/bin/sleep 20";
         ExecStart = "${config.programs.mbsync.package}/bin/mbsync -Va";
         ExecStartPost = "${pkgs.notmuch}/bin/notmuch new";
+        Restart = "on-failure";
+        RestartSec = "5s";
       };
 
       Install.WantedBy = [ "default.target" ];

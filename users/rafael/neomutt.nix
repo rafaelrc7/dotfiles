@@ -62,7 +62,7 @@ in {
       {
         map = [ "index" ];
         key = "S";
-        action = "<shell-escape>${pkgs.isync}/bin/mbsync <muttemail> && ${pkgs.notmuch}/bin/notmuch new<enter>";
+        action = "<shell-escape>${pkgs.isync}/bin/mbsync -Va && ${pkgs.notmuch}/bin/notmuch new<enter>";
       }
       { # from muttwizard
         map = [ "index" ];
