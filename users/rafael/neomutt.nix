@@ -28,7 +28,6 @@ in {
     };
 
     extraConfig = ''
-      set envelope_from
       set edit_headers
       set fast_reply
       set ask_cc

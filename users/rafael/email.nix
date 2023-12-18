@@ -102,7 +102,6 @@
       enable = true;
       extraMailboxes = [ "Starred" "Archive" folders.sent folders.drafts folders.trash "Spam" ];
       extraConfig = ''
-        set pgp_self_encrypt = yes
       '';
     };
   };
