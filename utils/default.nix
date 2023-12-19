@@ -5,7 +5,11 @@ in rec {
   mkPkgs = { nixpkgs ? inputs.nixpkgs, overlays ? [], system }:
     import nixpkgs {
       inherit system;
-      config.allowUnfree = true;
+
+      config = {
+        allowUnfree = true;
+        permittedInsecurePackages = [ "electron-25.9.0" ];
+      };
 
       overlays = overlays ++ [
         inputs.nur.overlay

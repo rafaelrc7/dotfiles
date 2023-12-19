@@ -24,6 +24,8 @@
       text = ''
         att.
           Rafael Carvalho
+
+          pgp key: https://pgp.rafaelrc.com
       '';
     };
 
