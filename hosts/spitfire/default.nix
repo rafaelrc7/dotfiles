@@ -74,7 +74,7 @@
       sh -c "systemctl --user import-environment PATH" &
     '';
   };
-  security.polkit.enable = true;
+
   security.pam.services.swaylock = {};
   services.dbus.enable = true;
 

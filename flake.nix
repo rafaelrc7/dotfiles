@@ -53,7 +53,6 @@
             extraGroups = [ "wheel" "adbusers" "libvirtd" "dialout" ];
             sshKeys = import ./users/rafael/sshkeys.nix;
             homeModules = [
-              #inputs.awesomerc.setup
               ./users/rafael/crypto.nix
               ./users/rafael/git.nix
               ./users/rafael/go.nix
@@ -80,7 +79,6 @@
         nixosModules = [
           ./modules/nixos/common.nix
           ./modules/nixos/android.nix
-          #./modules/nixos/awesomewm.nix
           ./modules/nixos/boot.nix
           ./modules/nixos/btrfs.nix
           ./modules/nixos/flatpak.nix
@@ -89,7 +87,6 @@
           ./modules/nixos/mullvad.nix
           ./modules/nixos/nix.nix
           ./modules/nixos/pipewire.nix
-          #./modules/nixos/plasma.nix
           #./modules/nixos/steam.nix
           ./modules/nixos/zsh.nix
           ./modules/nixos/podman.nix
@@ -98,6 +95,7 @@
           ./modules/nixos/man.nix
           ./modules/nixos/ssh.nix
           ./modules/nixos/git.nix
+          ./modules/nixos/polkit.nix
           nixos-hardware.nixosModules.common-pc
           nixos-hardware.nixosModules.common-pc-ssd
           nixos-hardware.nixosModules.common-cpu-amd
@@ -113,7 +111,6 @@
             extraGroups = [ "wheel" "adbusers" "dialout" ];
             sshKeys = import ./users/rafael/sshkeys.nix;
             homeModules = [
-              #inputs.awesomerc.setup
               ./users/rafael/git.nix
               ./users/rafael/go.nix
               ./users/rafael/gui-pkgs.nix
@@ -139,15 +136,12 @@
         nixosModules = [
           ./modules/nixos/common.nix
           ./modules/nixos/android.nix
-          #./modules/nixos/awesomewm.nix
           ./modules/nixos/boot.nix
           ./modules/nixos/btrfs.nix
-          #./modules/nixos/dnscrypt.nix
           ./modules/nixos/flatpak.nix
           ./modules/nixos/geoclue.nix
           ./modules/nixos/nix.nix
           ./modules/nixos/pipewire.nix
-          #./modules/nixos/plasma.nix
           ./modules/nixos/zsh.nix
           ./modules/nixos/fonts.nix
           ./modules/nixos/cryptswap.nix
@@ -155,6 +149,7 @@
           ./modules/nixos/mullvad.nix
           ./modules/nixos/ssh.nix
           ./modules/nixos/git.nix
+          ./modules/nixos/polkit.nix
           ./modules/nixos/udev-media-keys.nix
           nixos-hardware.nixosModules.common-cpu-intel
           nixos-hardware.nixosModules.common-pc-laptop
@@ -193,7 +188,6 @@
         system = "x86_64-linux";
         username = "rafael";
         homeModules = [
-          #inputs.awesomerc.setup
           ./users/rafael/git.nix
           ./users/rafael/go.nix
           ./users/rafael/gui-pkgs.nix

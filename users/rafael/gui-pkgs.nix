@@ -5,7 +5,7 @@ in {
     (discord.override { nss = nss_latest; })
     calibre
     gimp
-    gparted
+    gnome.gnome-disk-utility
     libreoffice-fresh
     librewolf firefox
     pavucontrol
@@ -15,11 +15,6 @@ in {
     obsidian
     ungoogled-chromium
     v4l-utils
-    zoom-us
-  ];
-
-  imports = [
-    ./thunderbird-protonmail.nix
   ];
 
   home.file.".librewolf/native-messaging-hosts/passff.json".source =
@@ -55,18 +50,6 @@ in {
     # nix flatpak fix for opening links and other non-flatpak default apps
     sh -c "systemctl --user import-environment PATH && systemctl --user restart xdg-desktop-portal.service" &
   '';
-
-  services.unclutter = {
-    enable = true;
-    timeout = 3;
-  };
-
-  services.flameshot = {
-    enable = false;
-    settings = {
-      General.showStartupLaunchMessage = false;
-    };
-  };
 
   programs.mpv = {
     enable = true;
