@@ -5,6 +5,27 @@
     protonmail-bridge-pass = pkgs.writeShellScriptBin "protonmail-bridge-pass" ''
       pass show Personal/protonmail-bridge@`uname -n`
     '';
+
+    # https://unix.stackexchange.com/questions/231184/how-can-i-use-mutt-with-local-storage-imap-and-instant-pushing-of-new-email
+    new-mail-counter = pkgs.writeShellScriptBin "new-mail-counter" ''
+      mail_account="protonmail"
+
+      account_maildir="${config.accounts.email.maildirBasePath}"/"$mail_account"
+
+      mail_count_directory="${config.home.homeDirectory}/.cache/newmailcount"
+      mkdir -p $mail_count_directory
+
+      mail_count_file="$mail_count_directory"/"$mail_account"
+
+      new_count=$(find $account_maildir/Inbox/new -type f | wc -l)
+      if [[ $new_count > 0 ]]; then
+        echo $new_count > "$mail_count_file"
+      else
+        if [[ -f "$mail_count_file" ]]; then
+          rm "$mail_count_file"
+        fi
+      fi
+    '';
     # Must be manually generated with
     # openssl s_client -starttls imap -connect 127.0.0.1:1143 -showcerts
     certificatesFile = "${config.xdg.dataHome}/certs/protonmail.crt";
@@ -30,7 +51,7 @@
     };
 
     gpg = {
-      key = "081F97AC49F2CA9548DB08E7091BB8A361C7B4EB";
+      key = "31DE9B4380A123E50CA4B834227EF83D7E920D08";
       encryptByDefault = true;
       signByDefault = true;
     };
@@ -89,7 +110,7 @@
       '';
 
       onNotifyPost = ''
-        ${pkgs.notmuch}/bin/notmuch new && ${pkgs.libnotify}/bin/notify-send "You've got mail"
+        ${pkgs.notmuch}/bin/notmuch new; ${new-mail-counter}/bin/new-mail-counter; ${pkgs.libnotify}/bin/notify-send --icon=${pkgs.gnome.adwaita-icon-theme}/share/icons/Adwaita/symbolic/status/mail-unread-symbolic.svg "You've got mail (`cat ${config.home.homeDirectory}/.cache/newmailcount/protonmail`)" "New e-mail arrived in the protonmail account."
       '';
     };
 
@@ -104,6 +125,8 @@
       enable = true;
       extraMailboxes = [ "Starred" "Archive" folders.sent folders.drafts folders.trash "Spam" ];
       extraConfig = ''
+        set pgp_default_key = "${gpg.key}"
+        set pgp_self_encrypt = yes
       '';
     };
   };
