@@ -1,4 +1,6 @@
-{ pkgs, config, ... }: {
+args@{ pkgs, config, ... }:
+let email-utils = import ./email-utils.nix args;
+in {
   accounts.email.maildirBasePath = "${config.xdg.dataHome}/maildir";
 
   accounts.email.accounts.protonmail = let
@@ -6,26 +8,6 @@
       pass show Personal/protonmail-bridge@`uname -n`
     '';
 
-    # https://unix.stackexchange.com/questions/231184/how-can-i-use-mutt-with-local-storage-imap-and-instant-pushing-of-new-email
-    new-mail-counter = pkgs.writeShellScriptBin "new-mail-counter" ''
-      mail_account="protonmail"
-
-      account_maildir="${config.accounts.email.maildirBasePath}"/"$mail_account"
-
-      mail_count_directory="${config.home.homeDirectory}/.cache/newmailcount"
-      mkdir -p $mail_count_directory
-
-      mail_count_file="$mail_count_directory"/"$mail_account"
-
-      new_count=$(find $account_maildir/Inbox/new -type f | wc -l)
-      if [[ $new_count > 0 ]]; then
-        echo $new_count > "$mail_count_file"
-      else
-        if [[ -f "$mail_count_file" ]]; then
-          rm "$mail_count_file"
-        fi
-      fi
-    '';
     # Must be manually generated with
     # openssl s_client -starttls imap -connect 127.0.0.1:1143 -showcerts
     certificatesFile = "${config.xdg.dataHome}/certs/protonmail.crt";
@@ -106,11 +88,11 @@
       };
 
       onNotify = ''
-        ${pkgs.isync}/bin/mbsync protonmail
+        ${email-utils.sync-mail}/bin/sync-mail protonmail
       '';
 
       onNotifyPost = ''
-        ${pkgs.notmuch}/bin/notmuch new; ${new-mail-counter}/bin/new-mail-counter; ${pkgs.libnotify}/bin/notify-send --icon=${pkgs.gnome.adwaita-icon-theme}/share/icons/Adwaita/symbolic/status/mail-unread-symbolic.svg "You've got mail (`cat ${config.home.homeDirectory}/.cache/newmailcount/protonmail`)" "New e-mail arrived in the protonmail account."
+        ${email-utils.notify-new-mail}/bin/notify-new-mail protonmail
       '';
     };
 
@@ -158,8 +140,8 @@
       Service = {
         Type = "oneshot";
         ExecStartPre = "${pkgs.coreutils}/bin/sleep 20";
-        ExecStart = "${config.programs.mbsync.package}/bin/mbsync -Va";
-        ExecStartPost = "${pkgs.notmuch}/bin/notmuch new";
+        ExecStart = "${email-utils.sync-mail}/bin/sync-mail";
+        ExecStartPost = "${email-utils.notify-new-mail}/bin/notify-new-mail";
         Restart = "on-failure";
         RestartSec = "5s";
       };

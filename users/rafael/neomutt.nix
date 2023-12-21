@@ -1,10 +1,11 @@
-{ pkgs, config, ... }:
+args@{ pkgs, config, ... }:
 let neomutt_gruvbox = pkgs.fetchFromGitHub {
                         owner = "shuber2";
                         repo = "mutt-gruvbox";
                         rev = "91853cfee609ecad5d2cb7dce821a7dfe6d780ef";
                         hash = "sha256-TFxVG2kp5IDmkhYuzhprEz2IE28AEMAi/rUHILa7OPU=";
                       };
+    email-utils = import ./email-utils.nix args;
 in {
   xdg.configFile."neomutt/mailcap".text = ''
     text/html; $BROWSER %s;
@@ -61,7 +62,7 @@ in {
       {
         map = [ "index" ];
         key = "S";
-        action = "<shell-escape>${pkgs.isync}/bin/mbsync -Va && ${pkgs.notmuch}/bin/notmuch new<enter>";
+        action = "<enter-command>unset wait_key<enter><shell-escape>${email-utils.sync-mail}/bin/sync-mail >/dev/null 2>&1 &<enter><enter-command>set wait_key=yes<enter>";
       }
       { # from muttwizard
         map = [ "index" ];
