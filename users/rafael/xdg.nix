@@ -26,6 +26,9 @@
         "x-scheme-handler/mw-simulink" = [
           "mw-simulink.desktop"
         ];
+        "x-scheme-handler/tg" = [
+          "org.telegram.desktop.desktop"
+        ];
         "application/x-extension-html" = [
           "librewolf.desktop"
           "firefox.desktop"
