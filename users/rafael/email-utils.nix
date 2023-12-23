@@ -84,5 +84,32 @@
       done
     fi
   '';
+
+  mutt_bgrun = pkgs.fetchFromGitHub {
+    owner = "rafaelrc7";
+    repo = "mutt_bgrun";
+    rev = "c6bc073e50f521414566cec214a5a5ba854dd2c6";
+    hash = "sha256-gUROyxImvwIqJpgKqYYDkgtYHS57iuPfqxST21hh4K0=";
+  };
+
+  # https://hund.tty1.se/2021/05/22/better-url-management-in-neomutt-with-urlview.html
+  qutebrowser-tmp = pkgs.writeShellScriptBin "qutebrowser-tmp" ''
+    PROFILEDIR=`mktemp -p /tmp -d tmp-qb-profile.XXXXXX.d`
+    USERPROFILEDIR=`~/.config/qutebrowser/`
+    mkdir $PROFILEDIR/config
+
+    if [[ -d $USERPROFILEDIR ]]; then
+      [[ -a $USERPROFILEDIR/user-stylecheet.css ]] && cp "$USERPROFILEDIR/user-stylecheet.css" "$PROFILEDIR/config/"
+      [[ -a $USERPROFILEDIR/autoconfig.yml ]] && cp "$USERPROFILEDIR/autoconfig.yml" "$PROFILEDIR/config/"
+    fi
+
+    if [[ -d ~/.local/share/qutebrowser/userscripts ]]; then
+      mkdir $PROFILEDIR/data/userscripts/
+      cp ~/.local/share/qutebrowser/userscripts $PROFILEDIR/data/userscripts/
+    fi
+
+    ${pkgs.qutebrowser}/bin/qutebrowser --basedir $PROFILEDIR $1
+    rm -rf $PROFILEDIR
+  '';
 }
 
