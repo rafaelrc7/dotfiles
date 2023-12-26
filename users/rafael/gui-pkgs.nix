@@ -7,7 +7,7 @@ in {
     gimp
     gnome.gnome-disk-utility
     libreoffice-fresh
-    librewolf firefox
+    librewolf firefox qutebrowser
     pavucontrol
     dolphin
     spotify
