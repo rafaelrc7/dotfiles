@@ -32,6 +32,8 @@
       matlab = "nix run gitlab:doronbehar/nix-matlab";
       nixdev = "nix develop -c zsh";
       nixsh = "nix shell";
+      rm = "rm -I";
+      mv = "mv -i";
     };
 
     plugins = with pkgs; [
