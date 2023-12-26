@@ -8,7 +8,7 @@ in {
     gnome.gnome-disk-utility
     libreoffice-fresh
     librewolf firefox qutebrowser
-    pavucontrol
+    pavucontrol helvum
     dolphin
     spotify
     tdesktop
