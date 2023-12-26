@@ -149,11 +149,10 @@ in {
 
       Service = {
         Type = "oneshot";
-        ExecStartPre = "${pkgs.coreutils}/bin/sleep 20";
         ExecStart = "${email-utils.sync-mail}/bin/sync-mail";
         ExecStartPost = "${email-utils.notify-new-mail}/bin/notify-new-mail";
         Restart = "on-failure";
-        RestartSec = "5s";
+        RestartSec = "10s";
       };
 
       Install.WantedBy = [ "default.target" ];
