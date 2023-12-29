@@ -87,13 +87,9 @@ in {
         };
       };
 
-      onNotify = ''
-        ${email-utils.sync-mail}/bin/sync-mail protonmail
-      '';
+      onNotify = ''${email-utils.sync-mail}/bin/sync-mail protonmail'';
 
-      onNotifyPost = ''
-        ${email-utils.notify-new-mail}/bin/notify-new-mail protonmail
-      '';
+      onNotifyPost = ''${email-utils.notify-new-mail}/bin/notify-new-mail protonmail'';
     };
 
     notmuch = {
