@@ -59,8 +59,6 @@ in {
       # Colours
       source ${neomutt_gruvbox}/colors-gruvbox-shuber.muttrc
       source ${neomutt_gruvbox}/colors-gruvbox-shuber-extended.muttrc
-
-      shutdown-hook 'echo `${email-utils.sync-mail}/bin/sync-mail >/dev/null 2>&1 & disown`'
     '';
 
     macros = [

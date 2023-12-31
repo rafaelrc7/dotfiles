@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }: let
+{ inputs, config, pkgs, lib, ... }: let
   toggle-qt = pkgs.writeShellScriptBin "toggle-qt" ''
     QALCULATE=`pgrep -u ${config.home.username} qalculate`
     [ x"$QALCULATE" == "x" ] && ${pkgs.qalculate-qt}/bin/qalculate-qt || kill -s TERM "$QALCULATE"
@@ -28,7 +28,6 @@ in {
       glfw-wayland
       waylogout
       wdisplays
-      sway-audio-idle-inhibit
   ];
 
   wayland.windowManager.sway = let
@@ -68,7 +67,6 @@ in {
         { command = "--no-startup-id ${fileManager} --daemon"; }
         { command = "--no-startup-id ${loadWallpaper}/bin/loadWallpaper"; }
         { command = "--no-startup-id ${pkgs.wl-clipboard}/bin/wl-paste --watch ${pkgs.cliphist}/bin/cliphist store"; }
-        { command = "--no-startup-id ${pkgs.sway-audio-idle-inhibit}/bin/sway-audio-idle-inhibit"; }
       ];
 
       ## Programs/Addons ##
@@ -281,5 +279,20 @@ in {
     line-selection-color=00000000
     selection-label
   '';
+
+  systemd.user.services.wayland-pipewire-idle-inhibit = {
+    Unit = {
+      Description = "Inhibit Wayland idling when media is played through pipewire";
+    };
+
+    Service = {
+      Type = "simple";
+      ExecStart = "${pkgs.wayland-pipewire-idle-inhibit}/bin/wayland-pipewire-idle-inhibit";
+      Restart = "always";
+      Environment = "RUST_LOG=info";
+    };
+
+    Install.WantedBy = [ "sway-session.target" ];
+  };
 }
 
