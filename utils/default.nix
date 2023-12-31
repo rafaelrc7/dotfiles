@@ -16,11 +16,11 @@ in rec {
         #(import ../overlay { inherit inputs sytem; })
         inputs.nix-vscode-extensions.overlays.default
         inputs.nixgl.overlay
+        inputs.wayland-pipewire-idle-inhibit.overlays.default
         (final: prev: {
           nixpkgs-stable = inputs.nixpkgs-stable.legacyPackages."${system}";
           nixpkgs-unstable = inputs.nixpkgs-unstable.legacyPackages."${system}";
           nixpkgs-master = inputs.nixpkgs-master.legacyPackages."${system}";
-          wayland-pipewire-idle-inhibit = inputs.wayland-pipewire-idle-inhibit.defaultPackage."${system}";
         })
       ];
     };
