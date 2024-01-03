@@ -113,14 +113,7 @@ in {
   programs.mbsync.enable = true;
   services.imapnotify = {
     enable = true;
-    package = (pkgs.goimapnotify.overrideAttrs(old: {
-      src = pkgs.fetchFromGitLab {
-        owner = "rafaelrc7";
-        repo = "goimapnotify";
-        rev = "2.3.x";
-        sha256 = "sha256-RGEHKOmJqy9Cz5GWfck3VBZD6Q3DySoTYg0+Do4sy/4=";
-      };
-    }));
+    package = pkgs.nixpkgs-master.goimapnotify;
   };
   programs.notmuch.enable = true;
   programs.abook = {

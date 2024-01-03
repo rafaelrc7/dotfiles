@@ -289,7 +289,6 @@ in {
       Type = "simple";
       ExecStart = "${pkgs.wayland-pipewire-idle-inhibit}/bin/wayland-pipewire-idle-inhibit";
       Restart = "always";
-      Environment = "RUST_LOG=info";
     };
 
     Install.WantedBy = [ "sway-session.target" ];
