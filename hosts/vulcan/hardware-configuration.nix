@@ -1,6 +1,8 @@
 { config, lib, pkgs, modulesPath, ... }:
 let btrfsDefaultOps = [ "defaults" "compress=zstd" "discard=async" "noatime" "nodiratime" ];
     btrfsDefaultSSDOps = [ "ssd" ] ++ btrfsDefaultOps;
+    btrfsDefaultHDOps = [ "autodefrag" ] ++ btrfsDefaultOps;
+    optionalOps = [ "nofail" "x-systemd.device-timeout=10" ];
 in {
   imports =
     [ (modulesPath + "/installer/scan/not-detected.nix")
@@ -16,7 +18,7 @@ in {
   boot.initrd.luks.reusePassphrases = true;
   boot.initrd.luks.devices = {
     "root".device = "/dev/disk/by-partlabel/cryptroot";
-    "snd".device = "/dev/disk/by-partlabel/cryptsnd";
+    "harddrive".device = "/dev/disk/by-partlabel/cryptharddrive";
   };
 
   fileSystems."/" =
@@ -66,21 +68,10 @@ in {
       fsType = "vfat";
     };
 
-  fileSystems."/media/backup" =
-    { device = "/dev/disk/by-partlabel/backup";
+  fileSystems."/media/harddrive" =
+    { device = "/dev/disk/by-label/harddrive";
       fsType = "btrfs";
-      options = [ "subvol=@" ] ++ btrfsDefaultOps;
-    };
-
-  fileSystems."/media/snd" =
-    { device = "/dev/mapper/snd";
-      fsType = "btrfs";
-      options = [ "subvol=@" ] ++ btrfsDefaultOps;
-    };
-
-  fileSystems."/media/thd" =
-    { device = "/dev/disk/by-uuid/519d60bc-9e95-44c5-ad1d-346077cc3ca4";
-      fsType = "ext4";
+      options = [ ] ++ btrfsDefaultHDOps ++ optionalOps;
     };
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
