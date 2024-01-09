@@ -26,7 +26,7 @@
           callback = function()
             local opts = {
               focusable = false,
-              close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
+              close_events = { "BufLeave", "CursorMoved", "InsertEnter" },
               border = 'rounded',
               source = 'always',
               prefix = ' ',
@@ -53,6 +53,14 @@
         cmd = { "${rust-analyzer}/bin/rust-analyzer" },
         on_attach=on_attach,
         capabilities = capabilities,
+        settings = {
+          ['rust-analyzer'] = {
+            check = {
+              command = "clippy",
+              features = "all",
+            },
+          },
+        },
       };
 
       -- Elixir
