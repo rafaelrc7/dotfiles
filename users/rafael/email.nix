@@ -113,7 +113,7 @@ in {
   programs.mbsync.enable = true;
   services.imapnotify = {
     enable = true;
-    package = pkgs.nixpkgs-master.goimapnotify;
+    package = pkgs.goimapnotify;
   };
   programs.notmuch.enable = true;
   programs.abook = {
