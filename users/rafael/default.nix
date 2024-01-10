@@ -54,6 +54,8 @@
     components = [ "pkcs11" "secrets" "ssh" ];
   };
 
+  services.keybase.enable = true;
+
   systemd.user.startServices = "sd-switch";
 
   home.stateVersion = "22.11";
