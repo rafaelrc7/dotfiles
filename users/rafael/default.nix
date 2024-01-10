@@ -18,6 +18,7 @@
     neovim-qt
     ripgrep
     zathura
+    gcr # needed by gnome-keyring
   ];
 
   home.sessionPath = [ "$HOME/.local/bin" ];
