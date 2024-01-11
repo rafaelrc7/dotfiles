@@ -485,11 +485,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1704514735,
-        "narHash": "sha256-ZA0pBxqnXUzDaP/zl/30GDIjygfzMjkvqXt2PssNUbU=",
+        "lastModified": 1704933837,
+        "narHash": "sha256-r9/k9V/1pGqDc6aKy6UjQt1mpz88OkOkmz/jzsRriQc=",
         "owner": "rafaelrc7",
         "repo": "wayland-pipewire-idle-inhibit",
-        "rev": "057f2b28f00081f158443c37d71f016f93b8315d",
+        "rev": "12119f3686c42ddd793478a15d1ae0fa37df7f10",
         "type": "github"
       },
       "original": {

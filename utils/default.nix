@@ -16,7 +16,6 @@ in rec {
         #(import ../overlay { inherit inputs sytem; })
         inputs.nix-vscode-extensions.overlays.default
         inputs.nixgl.overlay
-        inputs.wayland-pipewire-idle-inhibit.overlays.default
         (final: prev: {
           nixpkgs-stable = inputs.nixpkgs-stable.legacyPackages."${system}";
           nixpkgs-unstable = inputs.nixpkgs-unstable.legacyPackages."${system}";
@@ -52,7 +51,8 @@ in rec {
 
   mkHMUser = with builtins; { name, homeModules ? [], ... }: {
     inherit name;
-    value = { imports = [(../users + "/${name}")] ++ homeModules; };
+    value = { imports = [ inputs.wayland-pipewire-idle-inhibit.homeModules.default
+                          (../users + "/${name}")] ++ homeModules; };
   };
 
   mkHMUsers = with builtins; users: listToAttrs (map mkHMUser users);

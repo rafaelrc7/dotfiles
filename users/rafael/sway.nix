@@ -280,18 +280,20 @@ in {
     selection-label
   '';
 
-  systemd.user.services.wayland-pipewire-idle-inhibit = {
-    Unit = {
-      Description = "Inhibit Wayland idling when media is played through pipewire";
+  services.wayland-pipewire-idle-inhibit = {
+    enable = true;
+    systemdTarget = "sway-session.target";
+    settings = {
+      verbosity = "INFO";
+      media_minimum_duration = 10;
+      sink_whitelist = [
+        { name = "Starship/Matisse HD Audio Controller Analog Stereo"; }
+      ];
+      node_blacklist = [
+        { name = "spotify"; }
+        { name = "Music Player Daemon"; }
+      ];
     };
-
-    Service = {
-      Type = "simple";
-      ExecStart = "${pkgs.wayland-pipewire-idle-inhibit}/bin/wayland-pipewire-idle-inhibit";
-      Restart = "always";
-    };
-
-    Install.WantedBy = [ "sway-session.target" ];
   };
 }
 
