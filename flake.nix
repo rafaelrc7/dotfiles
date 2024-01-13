@@ -101,6 +101,7 @@
           ./modules/nixos/ssh.nix
           ./modules/nixos/git.nix
           ./modules/nixos/polkit.nix
+          ./modules/nixos/tailscale.nix
           nixos-hardware.nixosModules.common-pc
           nixos-hardware.nixosModules.common-pc-ssd
           nixos-hardware.nixosModules.common-cpu-amd
