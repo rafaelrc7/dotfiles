@@ -1,11 +1,14 @@
 { config, lib, pkgs, modulesPath, ... }:
-let btrfsDefaultOps = [ "defaults" "compress=zstd" "discard=async" "noatime" "nodiratime" ];
-    btrfsDefaultSSDOps = [ "ssd" ] ++ btrfsDefaultOps;
-    btrfsDefaultHDOps = [ "autodefrag" ] ++ btrfsDefaultOps;
-    optionalOps = [ "nofail" "x-systemd.device-timeout=10" ];
-in {
+let
+  btrfsDefaultOps = [ "defaults" "compress=zstd" "discard=async" "noatime" "nodiratime" ];
+  btrfsDefaultSSDOps = [ "ssd" ] ++ btrfsDefaultOps;
+  btrfsDefaultHDOps = [ "autodefrag" ] ++ btrfsDefaultOps;
+  optionalOps = [ "nofail" "x-systemd.device-timeout=10" ];
+in
+{
   imports =
-    [ (modulesPath + "/installer/scan/not-detected.nix")
+    [
+      (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
   boot.initrd.availableKernelModules = [ "cryptd" "aesni_intel" "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod" ];
@@ -22,54 +25,63 @@ in {
   };
 
   fileSystems."/" =
-    { device = "/dev/mapper/root";
+    {
+      device = "/dev/mapper/root";
       fsType = "btrfs";
       options = [ "subvol=@" ] ++ btrfsDefaultSSDOps;
     };
 
   fileSystems."/home" =
-    { device = "/dev/mapper/root";
+    {
+      device = "/dev/mapper/root";
       fsType = "btrfs";
       options = [ "subvol=@home" ] ++ btrfsDefaultSSDOps;
     };
 
   fileSystems."/root" =
-    { device = "/dev/mapper/root";
+    {
+      device = "/dev/mapper/root";
       fsType = "btrfs";
       options = [ "subvol=@root" ] ++ btrfsDefaultSSDOps;
     };
 
   fileSystems."/tmp" =
-    { device = "/dev/mapper/root";
+    {
+      device = "/dev/mapper/root";
       fsType = "btrfs";
       options = [ "subvol=@tmp" "ssd" ];
     };
 
   fileSystems."/var" =
-    { device = "/dev/mapper/root";
+    {
+      device = "/dev/mapper/root";
       fsType = "btrfs";
       options = [ "subvol=@var" "ssd" "compress=zstd" ];
     };
 
   fileSystems."/nix" =
-    { device = "/dev/mapper/root";
+    {
+      device = "/dev/mapper/root";
       fsType = "btrfs";
       options = [ "subvol=@nix" ] ++ btrfsDefaultSSDOps;
     };
 
   fileSystems."/.snapshots" =
-    { device = "/dev/mapper/root";
+    {
+      device = "/dev/mapper/root";
       fsType = "btrfs";
       options = [ "subvol=@snapshots" ] ++ btrfsDefaultSSDOps;
     };
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/EA94-FCDF";
+    {
+      device = "/dev/disk/by-uuid/EA94-FCDF";
       fsType = "vfat";
     };
 
   fileSystems."/media/harddrive" =
-    { device = "/dev/disk/by-label/harddrive";
+    {
+      device = "/dev/disk/by-label/harddrive";
       fsType = "btrfs";
       options = [ ] ++ btrfsDefaultHDOps ++ optionalOps;
     };

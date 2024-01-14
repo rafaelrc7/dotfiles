@@ -38,19 +38,19 @@
 
     plugins = with pkgs; [
       {
-          name = "zsh-nix-shell";
-          file = "nix-shell.plugin.zsh";
-          src = "${zsh-nix-shell}/share/zsh-nix-shell";
+        name = "zsh-nix-shell";
+        file = "nix-shell.plugin.zsh";
+        src = "${zsh-nix-shell}/share/zsh-nix-shell";
       }
       {
-          name = "zsh-git-prompt";
-          file = "zshrc.sh";
-          src = "${zsh-git-prompt}/share/zsh-git-prompt";
+        name = "zsh-git-prompt";
+        file = "zshrc.sh";
+        src = "${zsh-git-prompt}/share/zsh-git-prompt";
       }
       {
-          name = "zsh-vi-mode";
-          file = "zsh-vi-mode.plugin.zsh";
-          src = "${zsh-vi-mode}/share/zsh-vi-mode";
+        name = "zsh-vi-mode";
+        file = "zsh-vi-mode.plugin.zsh";
+        src = "${zsh-vi-mode}/share/zsh-vi-mode";
       }
     ];
 

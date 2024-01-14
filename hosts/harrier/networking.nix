@@ -3,8 +3,8 @@
     useDHCP = false;
     firewall = {
       enable = true;
-      allowedTCPPorts = [];
-      allowedUDPPorts = [];
+      allowedTCPPorts = [ ];
+      allowedUDPPorts = [ ];
     };
 
     wireless.iwd.enable = true;
@@ -31,7 +31,7 @@
         dhcpV4Config = {
           UseDNS = false;
           Anonymize = true;
-          UseDomains= false;
+          UseDomains = false;
         };
         dhcpV6Config = {
           UseDNS = false;

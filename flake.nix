@@ -50,7 +50,7 @@
   outputs = inputs@{ self, flake-parts, nixpkgs, home-manager, nixos-hardware, nixgl, ... }:
     flake-parts.lib.mkFlake { inherit inputs; } {
       imports = [
-        #inputs.treefmt-nix.flakeModule
+        inputs.treefmt-nix.flakeModule
         ./modules/nixos
         ./modules/home
         ./overlays
@@ -59,55 +59,59 @@
         ./lib
       ];
 
-      flake = let
-        pkgs = self.lib.mkPkgs {
-          inherit (inputs) nixpkgs;
-          overlays = [
-            inputs.nix-vscode-extensions.overlays.default
-            inputs.nur.overlay
-            inputs.nixgl.overlay
-          ];
-          config = { permittedInsecurePackages = [ "electron-25.9.0" ]; };
-        };
-      in{
-        nixosConfigurations = {
-          vulcan = self.lib.mkHost {
-            inherit pkgs;
-            hostName = "vulcan";
-            users = [
-              { name = "rafael";
-                extraGroups = [ "wheel" "adbusers" "libvirtd" "dialout" ];
-                sshKeys = import ./users/rafael/sshkeys.nix;
-              }
+      flake =
+        let
+          pkgs = self.lib.mkPkgs {
+            inherit (inputs) nixpkgs;
+            overlays = [
+              inputs.nix-vscode-extensions.overlays.default
+              inputs.nur.overlay
+              inputs.nixgl.overlay
             ];
+            config = { permittedInsecurePackages = [ "electron-25.9.0" ]; };
+          };
+        in
+        {
+          nixosConfigurations = {
+            vulcan = self.lib.mkHost {
+              inherit pkgs;
+              hostName = "vulcan";
+              users = [
+                {
+                  name = "rafael";
+                  extraGroups = [ "wheel" "adbusers" "libvirtd" "dialout" ];
+                  sshKeys = import ./users/rafael/sshkeys.nix;
+                }
+              ];
+            };
+
+            spitfire = self.lib.mkHost {
+              inherit pkgs;
+              hostName = "spitfire";
+              users = [
+                {
+                  name = "rafael";
+                  extraGroups = [ "wheel" "adbusers" "libvirtd" "dialout" ];
+                  sshKeys = import ./users/rafael/sshkeys.nix;
+                }
+              ];
+            };
           };
 
-          spitfire = self.lib.mkHost {
-            inherit pkgs;
-            hostName = "spitfire";
-            users = [
-              { name = "rafael";
-                extraGroups = [ "wheel" "adbusers" "libvirtd" "dialout" ];
-                sshKeys = import ./users/rafael/sshkeys.nix;
-              }
-            ];
-          };
         };
-
-      };
 
       systems = [ "x86_64-linux" ];
       perSystem = { config, pkgs, system, ... }: rec {
         devShells = import ./shell.nix { inherit pkgs system; };
         packages = import ./pkgs { inherit pkgs; };
 
-        #treefmt.config = {
-          #projectRootFile = "flake.nix";
-          #programs = {
-            #nixpkgs-fmt.enable = true;
-            #prettier.enable = true;
-          #};
-        #};
+        treefmt.config = {
+          projectRootFile = "flake.nix";
+          programs = {
+            nixpkgs-fmt.enable = true;
+            prettier.enable = true;
+          };
+        };
       };
     };
 

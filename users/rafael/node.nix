@@ -6,8 +6,8 @@ in {
     prefix=${npm_user_global_path}
   '';
   programs.zsh.envExtra = ''
-      path+=('${npm_user_global_path}/bin')
-      export PATH
+    path+=('${npm_user_global_path}/bin')
+    export PATH
   '';
 }
 

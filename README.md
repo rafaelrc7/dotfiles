@@ -34,11 +34,13 @@ align="right" alt="Nix logo" width="150">
 > — [NixOS User's Creed](https://github.com/ners/NixOS)
 
 ## Overview
+
 This is the repository of my personal nix flake. It can be used to build
 different NixOS systems or to setup a user configuration in non-nixos systems
 trough home-manager.
 
 ## Goals
+
 My main goal is to make a customisable config that can be easily adapted. For
 instance, I always assume that a system can have multiple users that have
 different settings. Users may be defined trough home-manager and be added to
@@ -54,17 +56,21 @@ cd dotfiles
 ```
 
 ### Host configuration
+
 If building for the first time.
+
 ```sh
 nixos-rebuild --use-remote-sudo switch --flake .#hostname
 ```
 
 If rebuilding a system, as it defaults to use the systems hostname.
+
 ```sh
 nixos-rebuild --use-remote-sudo switch --flake .
 ```
 
 ### Home-Manager configuration
+
 ```sh
 nix build --impure .#homeConfigurations.username.activationPackage && ./result/activate
 ```
@@ -72,67 +78,75 @@ nix build --impure .#homeConfigurations.username.activationPackage && ./result/a
 ## Structure
 
 ### flake.nix
+
 Here all the buildable hosts and users are defined, using utility functions and
 modules.
 
 ### Hosts
-NixOS systems may be defined at the ```hosts/``` directory. Inside it, you may
+
+NixOS systems may be defined at the `hosts/` directory. Inside it, you may
 create a folder for said host.
 
-Inside ```hosts/hostname``` you may define a ```default.nix``` file with all
+Inside `hosts/hostname` you may define a `default.nix` file with all
 expected configurations for a nixos host and any other modules you choose.
 
 ### Home-Manager users
-Home-Manager users may be defined at the ```users``` directory. Inside it, you
+
+Home-Manager users may be defined at the `users` directory. Inside it, you
 may create a folder for each user.
 
-Inside ```users/username``` you may define a ```default.nix``` file with all
+Inside `users/username` you may define a `default.nix` file with all
 expected home-manager configuration.
 
 ### Modules
-You may define shared NixOS modules at ```modules/nixos```.
+
+You may define shared NixOS modules at `modules/nixos`.
 
 ### Utils
-The ```Utils``` folders defines various utility functions used by me, mainly,
-on the definition of the ```flake.nix file```.
+
+The `Utils` folders defines various utility functions used by me, mainly,
+on the definition of the `flake.nix file`.
 
 #### mkHome
-The ```mkHome``` function creates a flake for a home-manager configuration on a
+
+The `mkHome` function creates a flake for a home-manager configuration on a
 non-nixos system.
 
 It's parameters are:
+
 - username
 - system (defaults to "x86_64")
 - homeModules (defaults to empty list)
 
-	List of user nix modules that should be included.
+  List of user nix modules that should be included.
 
 - overlays (defaults to empty list)
 
-	List of overlays to add to user packages.
+  List of overlays to add to user packages.
 
-- nixpkgs (defaults to ```inputs.nixpkgs```)
+- nixpkgs (defaults to `inputs.nixpkgs`)
 
 #### mkHost
-The ```mkHost``` function creates a flake for a NixOS system configuration.
+
+The `mkHost` function creates a flake for a NixOS system configuration.
 
 It's parameters are:
+
 - hostName
 - system (defaults to "x86_64")
 - users (defaults to empty list)
 
-	List of attrsets representing existing home-manager configurations that
-	should be included on the host.
+  List of attrsets representing existing home-manager configurations that
+  should be included on the host.
 
-	The fields of the attrset are:
+  The fields of the attrset are:
 
-	- name
-	- extraGroups (defaults to empty list)
-	- sshKeys (defaults to empty list)
+  - name
+  - extraGroups (defaults to empty list)
+  - sshKeys (defaults to empty list)
 
 - nixosModules (defaults to empty list)
 
-	List of modules to be added to system configuration.
+  List of modules to be added to system configuration.
 
-- nixpkgs (defaults to ```inputs.nixpkgs```)
-
+- nixpkgs (defaults to `inputs.nixpkgs`)

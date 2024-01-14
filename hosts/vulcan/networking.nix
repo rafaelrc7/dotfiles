@@ -4,7 +4,7 @@
     firewall = {
       enable = true;
       allowedTCPPorts = [ 25565 9512 7240 7241 7242 43157 ];
-      allowedUDPPorts = [       9512 7240 7241 7242 43157 ];
+      allowedUDPPorts = [ 9512 7240 7241 7242 43157 ];
     };
   };
 
@@ -39,7 +39,7 @@
         dhcpV4Config = {
           UseDNS = false;
           Anonymize = true;
-          UseDomains= false;
+          UseDomains = false;
         };
         dhcpV6Config = {
           UseDNS = false;

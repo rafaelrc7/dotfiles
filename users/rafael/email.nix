@@ -3,111 +3,113 @@ let email-utils = import ./email-utils.nix args;
 in {
   accounts.email.maildirBasePath = "${config.xdg.dataHome}/maildir";
 
-  accounts.email.accounts.protonmail = let
-    protonmail-bridge-pass = pkgs.writeShellScriptBin "protonmail-bridge-pass" ''
-      pass show Personal/protonmail-bridge@`uname -n`
-    '';
-
-    # Must be manually generated with
-    # openssl s_client -starttls imap -connect 127.0.0.1:1143 -showcerts
-    certificatesFile = "${config.xdg.dataHome}/certs/protonmail.crt";
-  in rec {
-    primary = true;
-    flavor = "plain"; # protonmail, if needed
-
-    realName = "Rafael Carvalho";
-    address = "contact@rafaelrc.com";
-    aliases = [
-      "rafaelrc7@proton.me"
-      "rafaelrc7@pm.me"
-    ];
-
-    signature = {
-      showSignature = "append";
-      text = ''
-        att.
-          Rafael Carvalho
-
-          pgp key: https://pgp.rafaelrc.com
+  accounts.email.accounts.protonmail =
+    let
+      protonmail-bridge-pass = pkgs.writeShellScriptBin "protonmail-bridge-pass" ''
+        pass show Personal/protonmail-bridge@`uname -n`
       '';
-    };
 
-    gpg = {
-      key = "31DE9B4380A123E50CA4B834227EF83D7E920D08";
-      encryptByDefault = true;
-      signByDefault = true;
-    };
+      # Must be manually generated with
+      # openssl s_client -starttls imap -connect 127.0.0.1:1143 -showcerts
+      certificatesFile = "${config.xdg.dataHome}/certs/protonmail.crt";
+    in
+    rec {
+      primary = true;
+      flavor = "plain"; # protonmail, if needed
 
-    folders = {
-      inbox = "Inbox";
-      sent = "Sent";
-      drafts = "Drafts";
-      trash = "Trash";
-    };
+      realName = "Rafael Carvalho";
+      address = "contact@rafaelrc.com";
+      aliases = [
+        "rafaelrc7@proton.me"
+        "rafaelrc7@pm.me"
+      ];
 
-    # protonmail-bridge settings
-    userName = "contact@rafaelrc.com";
-    passwordCommand = ''${protonmail-bridge-pass}/bin/protonmail-bridge-pass'';
+      signature = {
+        showSignature = "append";
+        text = ''
+          att.
+            Rafael Carvalho
 
-    imap = {
-      host = "127.0.0.1";
-      port = 1143;
-      tls = {
-        enable = true;
-        useStartTls = true;
-        inherit certificatesFile;
+            pgp key: https://pgp.rafaelrc.com
+        '';
       };
-    };
 
-    smtp = {
-      host = "127.0.0.1";
-      port = 1025;
-      tls = {
-        enable = true;
-        useStartTls = true;
-        inherit certificatesFile;
+      gpg = {
+        key = "31DE9B4380A123E50CA4B834227EF83D7E920D08";
+        encryptByDefault = true;
+        signByDefault = true;
       };
-    };
 
-    # Tools
-    msmtp.enable = true;
+      folders = {
+        inbox = "Inbox";
+        sent = "Sent";
+        drafts = "Drafts";
+        trash = "Trash";
+      };
 
-    mbsync = {
-      enable = true;
-      create = "maildir";
-    };
+      # protonmail-bridge settings
+      userName = "contact@rafaelrc.com";
+      passwordCommand = ''${protonmail-bridge-pass}/bin/protonmail-bridge-pass'';
 
-    imapnotify = {
-      enable = true;
-      boxes = [ "INBOX" ];
-      extraConfig = {
-        wait = 10;
-        tlsOption = {
-          starttls = true;
+      imap = {
+        host = "127.0.0.1";
+        port = 1143;
+        tls = {
+          enable = true;
+          useStartTls = true;
+          inherit certificatesFile;
         };
       };
 
-      onNotify = ''${email-utils.sync-mail}/bin/sync-mail protonmail'';
+      smtp = {
+        host = "127.0.0.1";
+        port = 1025;
+        tls = {
+          enable = true;
+          useStartTls = true;
+          inherit certificatesFile;
+        };
+      };
 
-      onNotifyPost = ''${email-utils.notify-new-mail}/bin/notify-new-mail protonmail'';
-    };
+      # Tools
+      msmtp.enable = true;
 
-    notmuch = {
-      enable = true;
+      mbsync = {
+        enable = true;
+        create = "maildir";
+      };
+
+      imapnotify = {
+        enable = true;
+        boxes = [ "INBOX" ];
+        extraConfig = {
+          wait = 10;
+          tlsOption = {
+            starttls = true;
+          };
+        };
+
+        onNotify = ''${email-utils.sync-mail}/bin/sync-mail protonmail'';
+
+        onNotifyPost = ''${email-utils.notify-new-mail}/bin/notify-new-mail protonmail'';
+      };
+
+      notmuch = {
+        enable = true;
+        neomutt = {
+          enable = true;
+        };
+      };
+
       neomutt = {
         enable = true;
+        extraMailboxes = [ "Starred" "Archive" folders.sent folders.drafts folders.trash "Spam" ];
+        extraConfig = ''
+          set pgp_default_key = "${gpg.key}"
+          set pgp_self_encrypt = yes
+        '';
       };
     };
-
-    neomutt = {
-      enable = true;
-      extraMailboxes = [ "Starred" "Archive" folders.sent folders.drafts folders.trash "Spam" ];
-      extraConfig = ''
-        set pgp_default_key = "${gpg.key}"
-        set pgp_self_encrypt = yes
-      '';
-    };
-  };
 
   programs.msmtp.enable = true;
   programs.mbsync.enable = true;

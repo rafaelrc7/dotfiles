@@ -1,13 +1,15 @@
 args@{ pkgs, config, ... }:
-let neomutt_gruvbox = pkgs.fetchFromGitHub {
-                        owner = "shuber2";
-                        repo = "mutt-gruvbox";
-                        rev = "91853cfee609ecad5d2cb7dce821a7dfe6d780ef";
-                        hash = "sha256-TFxVG2kp5IDmkhYuzhprEz2IE28AEMAi/rUHILa7OPU=";
-                      };
-    email-utils = import ./email-utils.nix args;
-    mutt_bgrun = "${email-utils.mutt_bgrun}/mutt_bgrun";
-in {
+let
+  neomutt_gruvbox = pkgs.fetchFromGitHub {
+    owner = "shuber2";
+    repo = "mutt-gruvbox";
+    rev = "91853cfee609ecad5d2cb7dce821a7dfe6d780ef";
+    hash = "sha256-TFxVG2kp5IDmkhYuzhprEz2IE28AEMAi/rUHILa7OPU=";
+  };
+  email-utils = import ./email-utils.nix args;
+  mutt_bgrun = "${email-utils.mutt_bgrun}/mutt_bgrun";
+in
+{
   # https://gist.github.com/Konfekt/9797372146e65a70a44c1e24a35ae0a2
   xdg.configFile."neomutt/mailcap".text = ''
     text/html; ${mutt_bgrun} ${email-utils.qutebrowser-tmp}/bin/qutebrowser-tmp %s; nametemplate=%s.html; test=test -n "$DISPLAY";
@@ -72,7 +74,8 @@ in {
         key = "S";
         action = "<enter-command>unset wait_key<enter><shell-escape>${email-utils.sync-mail}/bin/sync-mail >/dev/null 2>&1 &<enter><enter-command>set wait_key=yes<enter>";
       }
-      { # from muttwizard
+      {
+        # from muttwizard
         map = [ "index" ];
         key = ''\Co'';
         action = ''<enter-command>unset wait_key<enter><shell-escape>read -p 'Enter a search term to find with notmuch: ' x; echo \$x >~/.cache/mutt_terms<enter><limit>~i \"\`notmuch search --output=messages \$(cat ~/.cache/mutt_terms) | head -n 600 | perl -le '@a=<>;s/\^id:// for@a;$,=\"|\";print@a' | perl -le '@a=<>; chomp@a; s/\\+/\\\\+/ for@a;print@a' \`\"<enter>" "show only messages matching a notmuch pattern'';

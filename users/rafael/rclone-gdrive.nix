@@ -1,7 +1,8 @@
 { config, pkgs, ... }:
 let
   mount_directory = "${config.home.homeDirectory}/Documents/drive";
-in {
+in
+{
   systemd.user.services = {
     rclone-gdrive = {
       Unit = {

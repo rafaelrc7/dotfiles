@@ -1,14 +1,19 @@
-{ pkgs, ... }: let
+{ pkgs, ... }:
+let
   pass-otp = pkgs.pass.withExtensions (exts: [ exts.pass-otp ]);
-in {
+in
+{
   home.packages = with pkgs; [
     (discord.override { nss = nss_latest; })
     calibre
     gimp
     gnome.gnome-disk-utility
     libreoffice-fresh
-    librewolf firefox qutebrowser
-    pavucontrol helvum
+    librewolf
+    firefox
+    qutebrowser
+    pavucontrol
+    helvum
     dolphin
     spotify
     tdesktop

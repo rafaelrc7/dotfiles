@@ -1,4 +1,5 @@
-{ pkgs, lib, stdenv, ... }: let
+{ pkgs, lib, stdenv, ... }:
+let
   extraLibraries = pkgs: with pkgs; [
     jdk
   ];
@@ -6,23 +7,25 @@
   steamWithExtraLibraries = pkgs.steam.override {
     extraPkgs = extraLibraries;
   };
-  dxvkNative = pkgs.callPackage ({ stdenv, ... }: stdenv.mkDerivation rec {
-    pname = "dxvk-native";
-    version = "2.2";
-    src = pkgs.fetchurl {
-      url = "https://github.com/doitsujin/dxvk/releases/download/v${version}/dxvk-native-${version}-steamrt-sniper.tar.gz";
-      sha256 = "sha256-DZrTIUqXa6HgFcyMIyeHXn0vgkdIh42FI/r4WSC594w=";
-    };
-    sourceRoot = ".";
-    buildInputs = [ pkgs.gnutar ];
-    buildPhase = ''
+  dxvkNative = pkgs.callPackage
+    ({ stdenv, ... }: stdenv.mkDerivation rec {
+      pname = "dxvk-native";
+      version = "2.2";
+      src = pkgs.fetchurl {
+        url = "https://github.com/doitsujin/dxvk/releases/download/v${version}/dxvk-native-${version}-steamrt-sniper.tar.gz";
+        sha256 = "sha256-DZrTIUqXa6HgFcyMIyeHXn0vgkdIh42FI/r4WSC594w=";
+      };
+      sourceRoot = ".";
+      buildInputs = [ pkgs.gnutar ];
+      buildPhase = ''
     '';
-    installPhase = ''
-      mkdir -p $out
-      cp -r ./lib $out/lib
-      cp -r ./lib32 $out/lib32
-    '';
-  }) { };
+      installPhase = ''
+        mkdir -p $out
+        cp -r ./lib $out/lib
+        cp -r ./lib32 $out/lib32
+      '';
+    })
+    { };
   dxvk2lib = "${dxvkNative}/lib";
   wrapSteam = steam: pkgs.writeScriptBin "steam" ''
     unset SDL_VIDEODRIVER
@@ -39,20 +42,23 @@
 
     exec ${steam}/bin/steam
   '';
-in {
+in
+{
   programs.steam = {
     enable = true;
     remotePlay.openFirewall = true;
     dedicatedServer.openFirewall = true;
-    package = lib.makeOverridable (o:
-      let overridenSteam = steamWithExtraLibraries.override o;
-      in (pkgs.symlinkJoin {
-        name = "steam";
-        paths = [
-          (wrapSteam overridenSteam)
-          overridenSteam
-        ];
-      }).overrideAttrs { run = overridenSteam.run; }) { };
+    package = lib.makeOverridable
+      (o:
+        let overridenSteam = steamWithExtraLibraries.override o;
+        in (pkgs.symlinkJoin {
+          name = "steam";
+          paths = [
+            (wrapSteam overridenSteam)
+            overridenSteam
+          ];
+        }).overrideAttrs { run = overridenSteam.run; })
+      { };
   };
 
   hardware.steam-hardware.enable = true;

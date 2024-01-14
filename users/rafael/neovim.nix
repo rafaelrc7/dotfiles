@@ -10,7 +10,7 @@
     withPython3 = true;
     withNodeJs = true;
 
-    extraConfig =''
+    extraConfig = ''
       lua << EOF
       require('init')
 

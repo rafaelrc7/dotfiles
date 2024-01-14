@@ -25,7 +25,7 @@
       symbola
     ];
 
-    fontconfig= {
+    fontconfig = {
       enable = true;
       defaultFonts = {
         sansSerif = [ "DejaVu Sans" "Noto Sans" "Font Awesome 6 Free" ];

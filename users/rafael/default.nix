@@ -48,8 +48,8 @@
 
   xdg.enable = true;
   xdg.userDirs = {
-      enable = true;
-      createDirectories = true;
+    enable = true;
+    createDirectories = true;
   };
 
   programs.ssh = {

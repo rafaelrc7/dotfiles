@@ -1,10 +1,12 @@
 { config, pkgs, lib, ... }: {
 
   home.packages = with pkgs; [
-    font-awesome roboto roboto-mono
+    font-awesome
+    roboto
+    roboto-mono
   ];
 
-  wayland.windowManager.sway.config.bars = [];
+  wayland.windowManager.sway.config.bars = [ ];
 
   programs.waybar = {
     enable = true;
@@ -20,9 +22,9 @@
       height = 25;
       spacing = 5;
 
-      modules-left   = [ "sway/workspaces" "sway/mode" "sway/scratchpad" "custom/media" ];
+      modules-left = [ "sway/workspaces" "sway/mode" "sway/scratchpad" "custom/media" ];
       modules-center = [ "sway/window" ];
-      modules-right  = [ "tray" "mpd" "idle_inhibitor" "custom/audio_idle_inhibitor" "pulseaudio" "network" "cpu" "memory" "temperature" "backlight" "keyboard-state" "sway/language" "battery" "battery#bat2" "clock" ];
+      modules-right = [ "tray" "mpd" "idle_inhibitor" "custom/audio_idle_inhibitor" "pulseaudio" "network" "cpu" "memory" "temperature" "backlight" "keyboard-state" "sway/language" "battery" "battery#bat2" "clock" ];
 
       "sway/workspaces" = {
         all-outputs = true;
@@ -45,127 +47,127 @@
       };
 
       "sway/scratchpad" = {
-          format = "{icon} {count}";
-          show-empty = false;
-          format-icons = ["" ""];
-          tooltip = true;
-          tooltip-format = "{app}: {title}";
+        format = "{icon} {count}";
+        show-empty = false;
+        format-icons = [ "" "" ];
+        tooltip = true;
+        tooltip-format = "{app}: {title}";
       };
 
       mpd = {
-          format = "{stateIcon} {consumeIcon}{randomIcon}{repeatIcon}{singleIcon}{artist} - {album} - {title} ({elapsedTime:%M:%S}/{totalTime:%M:%S}) ⸨{songPosition}|{queueLength}⸩ {volume}% ";
-          format-disconnected = "Disconnected ";
-          format-stopped = "{consumeIcon}{randomIcon}{repeatIcon}{singleIcon} Stopped ";
-          unknown-tag = "N/A";
-          interval = 2;
-          consume-icons = {
-              on = " ";
-          };
-          random-icons = {
-              off = "<span color=\"#f53c3c\"></span> ";
-              on = " ";
-          };
-          repeat-icons = {
-              on = " ";
-          };
-          single-icons = {
-              on = "1 ";
-          };
-          state-icons = {
-              paused = "";
-              playing = "";
-          };
-          tooltip-format = "MPD (connected)";
-          tooltip-format-disconnected = "MPD (disconnected)";
+        format = "{stateIcon} {consumeIcon}{randomIcon}{repeatIcon}{singleIcon}{artist} - {album} - {title} ({elapsedTime:%M:%S}/{totalTime:%M:%S}) ⸨{songPosition}|{queueLength}⸩ {volume}% ";
+        format-disconnected = "Disconnected ";
+        format-stopped = "{consumeIcon}{randomIcon}{repeatIcon}{singleIcon} Stopped ";
+        unknown-tag = "N/A";
+        interval = 2;
+        consume-icons = {
+          on = " ";
+        };
+        random-icons = {
+          off = "<span color=\"#f53c3c\"></span> ";
+          on = " ";
+        };
+        repeat-icons = {
+          on = " ";
+        };
+        single-icons = {
+          on = "1 ";
+        };
+        state-icons = {
+          paused = "";
+          playing = "";
+        };
+        tooltip-format = "MPD (connected)";
+        tooltip-format-disconnected = "MPD (disconnected)";
       };
 
       idle_inhibitor = {
-          format = "{icon}";
-          format-icons = {
-              "activated" = "";
-              "deactivated" = "";
-          };
+        format = "{icon}";
+        format-icons = {
+          "activated" = "";
+          "deactivated" = "";
+        };
       };
 
       tray = {
-          # icon-size = 21;
-          spacing = 10;
+        # icon-size = 21;
+        spacing = 10;
       };
 
       clock = {
-          timezone = lib.mkDefault "America/Sao_Paulo";
-          tooltip-format = "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
-          format = "{:%T %d/%m/%Y}";
-          interval = 1;
+        timezone = lib.mkDefault "America/Sao_Paulo";
+        tooltip-format = "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
+        format = "{:%T %d/%m/%Y}";
+        interval = 1;
       };
 
       cpu = {
-          format = "{usage}% ";
-          tooltip = false;
+        format = "{usage}% ";
+        tooltip = false;
       };
 
       memory = {
-          format = "{}% ";
+        format = "{}% ";
       };
 
       temperature = {
-          # "thermal-zone" = 2;
-          # "hwmon-path" = "/sys/class/hwmon/hwmon2/temp1_input";
-          critical-threshold = 80;
-          # "format-critical" = "{temperatureC}°C {icon}";
-          format = "{temperatureC}°C {icon}";
-          format-icons = ["" "" ""];
+        # "thermal-zone" = 2;
+        # "hwmon-path" = "/sys/class/hwmon/hwmon2/temp1_input";
+        critical-threshold = 80;
+        # "format-critical" = "{temperatureC}°C {icon}";
+        format = "{temperatureC}°C {icon}";
+        format-icons = [ "" "" "" ];
       };
 
       backlight = {
-          # "device" = "acpi_video1";
-          format = "{percent}% {icon}";
-          format-icons = ["" "" "" "" "" "" "" "" ""];
+        # "device" = "acpi_video1";
+        format = "{percent}% {icon}";
+        format-icons = [ "" "" "" "" "" "" "" "" "" ];
       };
 
       battery = {
-          states = {
-              good = 95;
-              warning = 30;
-              critical = 15;
-          };
-          format = "{capacity}% {icon} ";
-          format-charging = "{capacity}%  ";
-          format-plugged = "{capacity}%  ";
-          format-alt = "{time} {icon} ";
-          format-icons = ["" "" "" "" ""];
+        states = {
+          good = 95;
+          warning = 30;
+          critical = 15;
+        };
+        format = "{capacity}% {icon} ";
+        format-charging = "{capacity}%  ";
+        format-plugged = "{capacity}%  ";
+        format-alt = "{time} {icon} ";
+        format-icons = [ "" "" "" "" "" ];
       };
 
       "battery#bat2" = {
-          bat = "BAT2";
+        bat = "BAT2";
       };
 
       network = {
-          format-wifi = "{essid} ({signalStrength}%) ";
-          format-ethernet = "";
-          tooltip-format = "{ifname} via {gwaddr} at {ipaddr} ";
-          format-linked = "{ifname} (No IP) ";
-          format-disconnected = "Disconnected ⚠";
+        format-wifi = "{essid} ({signalStrength}%) ";
+        format-ethernet = "";
+        tooltip-format = "{ifname} via {gwaddr} at {ipaddr} ";
+        format-linked = "{ifname} (No IP) ";
+        format-disconnected = "Disconnected ⚠";
       };
 
       pulseaudio = {
-          scroll-step = 1;
-          format = "{volume}% {icon}  {format_source}";
-          format-bluetooth = "{volume}% {icon}  {format_source}";
-          format-bluetooth-muted = " {icon}  {format_source}";
-          format-muted = "   {format_source}";
-          format-source = "{volume}% ";
-          format-source-muted = "";
-          format-icons = {
-              headphone = "";
-              hands-free = "";
-              headset = "";
-              phone = "";
-              portable = "";
-              car = "";
-              default = ["" "" ""];
-          };
-          on-click = "pavucontrol";
+        scroll-step = 1;
+        format = "{volume}% {icon}  {format_source}";
+        format-bluetooth = "{volume}% {icon}  {format_source}";
+        format-bluetooth-muted = " {icon}  {format_source}";
+        format-muted = "   {format_source}";
+        format-source = "{volume}% ";
+        format-source-muted = "";
+        format-icons = {
+          headphone = "";
+          hands-free = "";
+          headset = "";
+          phone = "";
+          portable = "";
+          car = "";
+          default = [ "" "" "" ];
+        };
+        on-click = "pavucontrol";
       };
 
       "custom/audio_idle_inhibitor" = {

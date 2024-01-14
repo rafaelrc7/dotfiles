@@ -138,10 +138,10 @@
     '';
   };
 
-  security.pam.services.swaylock = {};
+  security.pam.services.swaylock = { };
   services.dbus.enable = true;
 
-  xdg.portal= {
+  xdg.portal = {
     enable = true;
     wlr.enable = true;
     extraPortals = with pkgs; [
@@ -174,7 +174,7 @@
       nssmdns4 = true;
       publish.enable = true;
       publish.addresses = true;
-      publish.userServices= true;
+      publish.userServices = true;
     };
   };
 

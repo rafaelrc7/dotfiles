@@ -77,9 +77,12 @@
 
   home.packages = with pkgs; [
     libsForQt5.qtstyleplugins
-    libsForQt5.qtstyleplugin-kvantum  qt6Packages.qtstyleplugin-kvantum
-    libsForQt5.qt5.qtwayland          qt6.qtwayland
-    libsForQt5.qt5ct                  qt6Packages.qt6ct
+    libsForQt5.qtstyleplugin-kvantum
+    qt6Packages.qtstyleplugin-kvantum
+    libsForQt5.qt5.qtwayland
+    qt6.qtwayland
+    libsForQt5.qt5ct
+    qt6Packages.qt6ct
   ];
 
   xdg.configFile = {
