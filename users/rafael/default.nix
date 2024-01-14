@@ -1,3 +1,4 @@
+{ self, ... }:
 { inputs, config, pkgs, ... }: {
 
   home.username = "rafael";
@@ -7,7 +8,29 @@
 
   imports = [
     inputs.nix-colors.homeManagerModule
+    inputs.wayland-pipewire-idle-inhibit.homeModules.default
     ./environment_variables.nix
+
+    ./crypto.nix
+    ./git.nix
+    ./go.nix
+    ./gui-pkgs.nix
+    ./gui-theme.nix
+    ./gschemas.nix
+    ./jetbrains.nix
+    ./kitty.nix
+    ./mpd.nix
+    ./neomutt.nix
+    ./email.nix
+    ./neovim.nix
+    ./node.nix
+    ./pass.nix
+    ./syncthing.nix
+    ./sway.nix
+    ./vscode.nix
+    ./waybar.nix
+    ./xdg.nix
+    ./zsh.nix
   ];
 
   colorscheme = inputs.nix-colors.colorSchemes.dracula;

@@ -1,11 +1,32 @@
+{ self, ... }: with self.nixosModules;
 { config, inputs, pkgs, nixpkgs, home-manager, ... }: {
   networking.hostName = "spitfire";
 
   boot.kernel.sysctl."kernel.sysrq" = 1;
 
-  imports = [
+  imports = with inputs; [
     ./hardware-configuration.nix
     ./networking.nix
+
+    common
+    android
+    boot
+    btrfs
+    flatpak
+    geoclue
+    nix
+    pipewire
+    zsh
+    fonts
+    cryptswap
+    man
+    mullvad
+    ssh
+    git
+    polkit
+    udev-media-keys
+    nixos-hardware.nixosModules.common-cpu-intel
+    nixos-hardware.nixosModules.common-pc-laptop
   ];
 
   environment = {

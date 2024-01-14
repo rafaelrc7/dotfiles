@@ -1,12 +1,39 @@
+{ self, ... }: with self.nixosModules;
 { config, inputs, pkgs, nixpkgs, home-manager, ... }: {
   networking.hostName = "vulcan";
 
   boot.kernelPackages = pkgs.linuxKernel.packages.linux_zen;
   boot.kernel.sysctl."kernel.sysrq" = 1;
 
-  imports = [
+  imports = with inputs; [
     ./hardware-configuration.nix
     ./networking.nix
+
+    common
+    android
+    boot
+    btrfs
+    flatpak
+    geoclue
+    libvirtd
+    mullvad
+    nix
+    pipewire
+    #steam
+    zsh
+    podman
+    fonts
+    cryptswap
+    man
+    ssh
+    git
+    polkit
+    tailscale
+
+    nixos-hardware.nixosModules.common-pc
+    nixos-hardware.nixosModules.common-pc-ssd
+    nixos-hardware.nixosModules.common-cpu-amd
+    nixos-hardware.nixosModules.common-cpu-amd-pstate
   ];
 
   environment = {
