@@ -11,6 +11,8 @@
   systemd.network = {
     enable = true;
 
+    wait-online.anyInterface = true;
+
     links = {
       "00-random-mac" = {
         enable = true;
