@@ -85,6 +85,18 @@
               ];
             };
 
+            lancaster = self.lib.mkHost {
+              inherit pkgs;
+              hostName = "lancaster";
+              users = [
+                {
+                  name = "rafael";
+                  extraGroups = [ "wheel" "adbusers" "libvirtd" "dialout" ];
+                  sshKeys = import ./users/rafael/sshkeys.nix;
+                }
+              ];
+            };
+
             spitfire = self.lib.mkHost {
               inherit pkgs;
               hostName = "spitfire";
