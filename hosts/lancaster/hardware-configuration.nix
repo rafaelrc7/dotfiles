@@ -11,7 +11,7 @@ in
       (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
-  boot.initrd.availableKernelModules = [ "cryptd" "aesni_intel" "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod" ];
+  boot.initrd.availableKernelModules = [ "cryptd" "aesni_intel" "xhci_pci" "ahci" "ohci_pci" "pata_atiixp" "usb_storage" "usbhid" "sd_mod" ];
   boot.kernelModules = [ "kvm-amd" "v4l2loopback" ];
   boot.extraModulePackages = with config.boot.kernelPackages; [ v4l2loopback ];
 
