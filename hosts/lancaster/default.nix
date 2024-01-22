@@ -9,22 +9,19 @@
     ./networking.nix
 
     common
-    boot
     btrfs
     geoclue
-    libvirtd
-    mullvad
     nix
     pipewire
     zsh
     podman
     fonts
-    cryptswap
     man
     ssh
     git
     polkit
     tailscale
+    palserver
 
     nixos-hardware.nixosModules.common-pc
     nixos-hardware.nixosModules.common-pc-ssd
@@ -36,6 +33,26 @@
     layout = "us";
     xkbVariant = "intl";
   };
+
+  services.monero = {
+    enable = true;
+    extraConfig = ''
+      # prune-blockchain=1
+      # sync-pruned-blocks=1
+      db-sync-mode=safe
+      confirm-external-bind=1
+    '';
+    rpc = {
+      address = "10.0.0.30";
+    };
+    limits = {
+      threads = 1;
+      download = 1 * 1024;
+    };
+  };
+
+  boot.loader.grub.enable = true;
+  boot.loader.grub.device = "/dev/sda";
 
   system.stateVersion = "22.11";
 }

@@ -3,8 +3,13 @@
     useDHCP = false;
     firewall = {
       enable = true;
-      allowedTCPPorts = [ 25565 9512 7240 7241 7242 43157 ];
-      allowedUDPPorts = [ 9512 7240 7241 7242 43157 8211 ];
+      allowedTCPPorts = [
+        18081 # monero RPC
+      ];
+      allowedUDPPorts = [
+        8211 # PalWorld
+        7777 27015 27016 # Steam
+      ];
     };
   };
 
