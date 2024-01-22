@@ -32,7 +32,7 @@ in {
       Group = "palworld";
       WorkingDirectory = "${palserver_path}/.local/share/Steam/Steamapps/common/PalServer";
       ExecStartPre = "${palserver_update}/bin/palserver_update";
-      ExecStart = "${pkgs.steam-run}/bin/steam-run ./PalServer.sh EpicApp=PalServer -publicip=177.209.78.219 -publicport=8211 -port=8211 -useperfthreads -NoAsyncLoadingThread -UseMultithreadForDs";
+      ExecStart = "${pkgs.steam-run}/bin/steam-run ./PalServer.sh EpicApp=PalServer -publicport=8211 -port=8211 -useperfthreads -NoAsyncLoadingThread -UseMultithreadForDs";
       Restart = "always";
       RestartSec = "15s";
     };
