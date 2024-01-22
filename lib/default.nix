@@ -18,7 +18,7 @@
         ];
       };
 
-    mkUser = { name, extraGroups ? [ ], sshKeys ? [ ] }: {
+    mkUser = { name, extraGroups ? [ ], sshKeys ? [ ], ... }: {
       inherit name;
       value = {
         isNormalUser = true;
