@@ -103,8 +103,7 @@ in {
       };
 
       timerConfig = {
-        OnUnitActiveSec = "30min";
-        OnCalendar = "*-*-* 04,16:45,50,55:00";
+        OnCalendar = [ "*-*-* 04,16:45,50,55:00" "*-*-* *:00,30:00" ];
       };
 
       wantedBy = [ "palserver.service" ];
