@@ -7,11 +7,7 @@ in {
   fileSystems."/root".options = mountOps;
   fileSystems."/tmp".options = mountOps;
   fileSystems."/.snapshots".options = mountOps;
-  fileSystems."/var".options = [ "compress=zstd" "discard" ];
-
-  swapDevices = [
-    { device = "/dev/disk/by-partlabel/cryptswap"; randomEncryption.enable = true; }
-  ];
+  fileSystems."/var".options = [ "discard" ];
 
   boot.initrd.supportedFilesystems = [ "btrfs" ];
   environment.systemPackages = with pkgs; [ btrfs-progs compsize ];
