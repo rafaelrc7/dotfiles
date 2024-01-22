@@ -5,6 +5,7 @@
       enable = true;
       allowedTCPPorts = [
         18081 # monero RPC
+        25575 # RCON
       ];
       allowedUDPPorts = [
         8211 # PalWorld
