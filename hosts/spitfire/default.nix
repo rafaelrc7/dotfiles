@@ -24,6 +24,7 @@
     ssh
     git
     polkit
+    tailscale
     udev-media-keys
     nixos-hardware.nixosModules.common-cpu-intel
     nixos-hardware.nixosModules.common-pc-laptop
