@@ -142,6 +142,7 @@
     loginExtra = ''
       ${pkgs.dbus}/bin/dbus-update-activation-environment --systemd --all
       [ "$(tty)" = "/dev/tty1" ] && exec sway
+      true
     '';
   };
 }
