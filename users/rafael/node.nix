@@ -5,9 +5,6 @@ in {
   home.file.".npmrc".text = ''
     prefix=${npm_user_global_path}
   '';
-  programs.zsh.envExtra = ''
-    path+=('${npm_user_global_path}/bin')
-    export PATH
-  '';
+  home.sessionPath = [ "${npm_user_global_path}/bin" ];
 }
 
