@@ -3,8 +3,17 @@
     useDHCP = false;
     firewall = {
       enable = true;
-      allowedTCPPorts = [ 25565 9512 7240 7241 7242 43157 ];
-      allowedUDPPorts = [ 9512 7240 7241 7242 43157 ];
+      allowedTCPPorts = [
+        7240 7241 7242 # M&B Warband
+        8010 # VLC Chromecast
+        9512 # Unified Remote
+        11470 # Stremio
+        25565 # Minecraft
+        43157 # qbittorrent
+      ];
+      allowedUDPPorts = [
+        9512 # Unified Remote
+      ];
     };
   };
 
