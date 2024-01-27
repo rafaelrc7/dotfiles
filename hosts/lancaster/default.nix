@@ -10,6 +10,7 @@
 
     common
     btrfs
+    ddclient
     geoclue
     nix
     pipewire
