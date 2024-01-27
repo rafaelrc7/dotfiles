@@ -43,11 +43,7 @@
       confirm-external-bind=1
     '';
     rpc = {
-      address = "10.0.0.30";
-    };
-    limits = {
-      threads = 1;
-      download = 1 * 1024;
+      address = "100.120.92.101";
     };
   };
 
