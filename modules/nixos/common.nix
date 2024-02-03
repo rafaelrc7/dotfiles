@@ -32,9 +32,9 @@
     useXkbConfig = lib.mkDefault true;
   };
 
-  services.xserver = {
-    layout = lib.mkDefault "us";
-    xkbVariant = lib.mkDefault "intl";
+  services.xserver.xkb = lib.mkDefault {
+    layout = "us";
+    variant = "intl";
   };
 }
 

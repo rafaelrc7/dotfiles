@@ -53,9 +53,9 @@
 
   programs.java.enable = true;
 
-  services.xserver = {
+  services.xserver.xkb = {
     layout = "us";
-    xkbVariant = "intl";
+    variant = "intl";
   };
 
   services.xserver.videoDrivers = [ "modesetting" ];

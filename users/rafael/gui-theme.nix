@@ -9,16 +9,16 @@
 
   programs.kitty = {
     settings = {
-      foreground = "#${config.colorscheme.colors.base05}";
-      background = "#${config.colorscheme.colors.base00}";
+      foreground = "#${config.colorScheme.palette.base05}";
+      background = "#${config.colorScheme.palette.base00}";
     };
   };
 
   programs.foot = {
     settings = {
       colors = {
-        foreground = "${config.colorscheme.colors.base05}";
-        background = "${config.colorscheme.colors.base00}";
+        foreground = "${config.colorScheme.palette.base05}";
+        background = "${config.colorScheme.palette.base00}";
       };
     };
   };

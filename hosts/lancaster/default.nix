@@ -30,9 +30,9 @@
     nixos-hardware.nixosModules.common-cpu-amd-pstate
   ];
 
-  services.xserver = {
+  services.xserver.xkb = {
     layout = "us";
-    xkbVariant = "intl";
+    variant = "intl";
   };
 
   services.monero = {

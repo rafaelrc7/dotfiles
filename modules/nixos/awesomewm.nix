@@ -12,9 +12,6 @@
         '';
       })).override { lua = pkgs.lua5_3; };
     };
-
-    layout = lib.mkDefault "us";
-    xkbVariant = lib.mkDefault "intl";
   };
 }
 
