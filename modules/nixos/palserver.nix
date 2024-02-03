@@ -1,21 +1,23 @@
 { pkgs, config, ... }:
-let palserver_path = "/var/lib/palworld";
-    palserver_update = pkgs.writeShellScriptBin "palserver_update" ''
-      ${pkgs.steamcmd}/bin/steamcmd +login anonymous +app_update 2394010 validate +quit
-      [[ ! -a ~/.steam/sdk32 ]] && ln -s ~/.local/share/Steam/linux32 ~/.steam/sdk32
-      [[ ! -a ~/.steam/sdk64 ]] && ln -s ~/.local/share/Steam/linux64 ~/.steam/sdk64
-      true
-    '';
-    palserver_restart = pkgs.writeShellScriptBin "palserver_restart" ''
-      ${pkgs.rconc}/bin/rconc localhost Save
-      ${pkgs.rconc}/bin/rconc localhost Shutdown 30
-      true
-    '';
-    palserver_reminder = pkgs.writeShellScriptBin "palserver_reminder" ''
-      ${pkgs.rconc}/bin/rconc localhost Broadcast Servidor_Reiniciara_5:00_17:00_automaticamente
-      true
-    '';
-in {
+let
+  palserver_path = "/var/lib/palworld";
+  palserver_update = pkgs.writeShellScriptBin "palserver_update" ''
+    ${pkgs.steamcmd}/bin/steamcmd +login anonymous +app_update 2394010 validate +quit
+    [[ ! -a ~/.steam/sdk32 ]] && ln -s ~/.local/share/Steam/linux32 ~/.steam/sdk32
+    [[ ! -a ~/.steam/sdk64 ]] && ln -s ~/.local/share/Steam/linux64 ~/.steam/sdk64
+    true
+  '';
+  palserver_restart = pkgs.writeShellScriptBin "palserver_restart" ''
+    ${pkgs.rconc}/bin/rconc localhost Save
+    ${pkgs.rconc}/bin/rconc localhost Shutdown 30
+    true
+  '';
+  palserver_reminder = pkgs.writeShellScriptBin "palserver_reminder" ''
+    ${pkgs.rconc}/bin/rconc localhost Broadcast Servidor_Reiniciara_5:00_17:00_automaticamente
+    true
+  '';
+in
+{
   users.users.palworld = {
     isSystemUser = true;
     home = palserver_path;

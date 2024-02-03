@@ -9,7 +9,9 @@
       ];
       allowedUDPPorts = [
         8211 # PalWorld
-        7777 27015 27016 # Steam
+        7777
+        27015
+        27016 # Steam
       ];
     };
   };
