@@ -1,5 +1,4 @@
 { pkgs, ... }: {
-
   home.packages = with pkgs; [
     monero-cli
     p2pool
@@ -7,6 +6,5 @@
     nixpkgs-master.bisq-desktop
     nixpkgs-master.monero-gui
   ];
-
 }
 

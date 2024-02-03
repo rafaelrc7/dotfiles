@@ -6,20 +6,21 @@ in
   home.packages = with pkgs; [
     (discord.override { nss = nss_latest; })
     calibre
+    dolphin
+    firefox
     gimp
     gnome.gnome-disk-utility
+    helvum
     libreoffice-fresh
     librewolf
-    firefox
-    qutebrowser
+    obsidian
     pavucontrol
-    helvum
-    dolphin
+    qutebrowser
     spotify
     tdesktop
-    obsidian
     ungoogled-chromium
     v4l-utils
+    zathura
   ];
 
   home.file.".librewolf/native-messaging-hosts/passff.json".source =

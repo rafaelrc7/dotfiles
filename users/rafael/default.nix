@@ -6,31 +6,33 @@
 
   programs.home-manager.enable = true;
 
-  imports = [
-    inputs.nix-colors.homeManagerModule
-    inputs.wayland-pipewire-idle-inhibit.homeModules.default
-    ./environment_variables.nix
+  imports = with self.homeModules; [
+    crypto
+    gnome-keyring
+    go
+    gschemas
+    jetbrains
+    kitty
+    mpd
+    node
+    pass
+    syncthing
 
-    ./crypto.nix
+    ./email.nix
+    ./environment_variables.nix
     ./git.nix
-    ./go.nix
     ./gui-pkgs.nix
     ./gui-theme.nix
-    ./gschemas.nix
-    ./jetbrains.nix
-    ./kitty.nix
-    ./mpd.nix
     ./neomutt.nix
-    ./email.nix
     ./neovim.nix
-    ./node.nix
-    ./pass.nix
-    ./syncthing.nix
     ./sway.nix
     ./vscode.nix
     ./waybar.nix
     ./xdg.nix
     ./zsh.nix
+
+    inputs.nix-colors.homeManagerModule
+    inputs.wayland-pipewire-idle-inhibit.homeModules.default
   ];
 
   colorscheme = inputs.nix-colors.colorSchemes.dracula;
@@ -40,8 +42,6 @@
     fzf
     neovim-qt
     ripgrep
-    zathura
-    gcr # needed by gnome-keyring
   ];
 
   home.sessionPath = [ "$HOME/.local/bin" ];
@@ -70,11 +70,6 @@
     sshKeys = [
       "94C7C77450894FC856B6C3121A9232BC13054C83"
     ];
-  };
-
-  services.gnome-keyring = {
-    enable = true;
-    components = [ "pkcs11" "secrets" "ssh" ];
   };
 
   services.keybase.enable = true;
