@@ -97,5 +97,22 @@ in
       }
     ];
   };
+
+  accounts.email.accounts.protonmail = with config.accounts.email.accounts.protonmail; {
+    notmuch.neomutt.enable = true;
+    neomutt = {
+      enable = true;
+      extraMailboxes = [ "Starred" "Archive" folders.sent folders.drafts folders.trash "Spam" ];
+
+      extraConfig = ''
+        set pgp_default_key = "${gpg.key}"
+        set pgp_self_encrypt = yes
+
+        # protonmail-bridge already saves sent email to Sent.
+        set copy = no
+      '';
+    };
+  };
+
 }
 

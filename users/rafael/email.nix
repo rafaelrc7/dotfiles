@@ -83,7 +83,7 @@ in {
         enable = true;
         boxes = [ "INBOX" ];
         extraConfig = {
-          wait = 10;
+          wait = 5;
           tlsOption = {
             starttls = true;
           };
@@ -94,21 +94,7 @@ in {
         onNotifyPost = ''${email-utils.notify-new-mail}/bin/notify-new-mail protonmail'';
       };
 
-      notmuch = {
-        enable = true;
-        neomutt = {
-          enable = true;
-        };
-      };
-
-      neomutt = {
-        enable = true;
-        extraMailboxes = [ "Starred" "Archive" folders.sent folders.drafts folders.trash "Spam" ];
-        extraConfig = ''
-          set pgp_default_key = "${gpg.key}"
-          set pgp_self_encrypt = yes
-        '';
-      };
+      notmuch.enable = true;
     };
 
   programs.msmtp.enable = true;
