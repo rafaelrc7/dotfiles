@@ -72,7 +72,7 @@ in
       {
         map = [ "index" ];
         key = "S";
-        action = "<enter-command>unset wait_key<enter><shell-escape>${email-utils.sync-mail}/bin/sync-mail >/dev/null 2>&1 &<enter><enter-command>set wait_key=yes<enter>";
+        action = "<enter-command>unset wait_key<enter><shell-escape>${email-utils.sync-mail}/bin/sync-mail<enter><enter-command>set wait_key=yes<enter><enter-command>exec sync-mailbox<enter>";
       }
       {
         # from muttwizard
