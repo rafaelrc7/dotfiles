@@ -1,14 +1,18 @@
 { inputs, config, pkgs, lib, ... }:
 let
   toggle-qt = pkgs.writeShellScriptBin "toggle-qt" ''
+    set -euo pipefail
     QALCULATE=`pgrep -u ${config.home.username} qalculate`
     [ x"$QALCULATE" == "x" ] && ${pkgs.qalculate-qt}/bin/qalculate-qt || kill -s TERM "$QALCULATE"
+    exit 0
   '';
   loadWallpaper = pkgs.writeShellScriptBin "loadWallpaper" ''
+    set -euo pipefail
     [[ -f ${config.xdg.configHome}/sway/wallpapers/default ]] && WALLPAPER="${config.xdg.configHome}/sway/wallpapers/default"
     [[ -f ${config.xdg.configHome}/sway/wallpapers/`uname -n` ]] && WALLPAPER="${config.xdg.configHome}/sway/wallpapers/`uname -n`"
     [[ -f ${config.xdg.configHome}/wallpaper ]] && WALLPAPER="${config.xdg.configHome}/wallpaper"
     [[ -v WALLPAPER ]] && exec -- ${pkgs.swaybg}/bin/swaybg -i "$WALLPAPER" -m fill
+    exit 0
   '';
 in
 {

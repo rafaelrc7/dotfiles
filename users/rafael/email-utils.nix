@@ -1,7 +1,7 @@
 { pkgs, config, ... }: rec {
   # https://unix.stackexchange.com/questions/231184/how-can-i-use-mutt-with-local-storage-imap-and-instant-pushing-of-new-email
   update-new-mail-count = pkgs.writeShellScriptBin "update-new-mail-count" ''
-    set -e
+    set -euo pipefail
 
     mail_account="''${1:?Missing account name argument}"
     inbox_name="''${2:-Inbox}"
@@ -28,10 +28,12 @@
     else
       [[ -f "$mail_count_file" ]] && rm "$mail_count_file"
     fi
+
+    exit 0
   '';
 
   notify-new-mail = pkgs.writeShellScriptBin "notify-new-mail" ''
-    set -e
+    set -euo pipefail
 
     send-notification () {
       mail_account="''${1:?Missing account name argument}"
@@ -61,10 +63,12 @@
 
       exit 0
     fi
+
+    exit 0
   '';
 
   sync-mail = pkgs.writeShellScriptBin "sync-mail" ''
-    set -e
+    set -euo pipefail
 
     account_name="''${1:--Va}"
 
@@ -83,6 +87,8 @@
         ${update-new-mail-count}/bin/update-new-mail-count "$account_name"
       done
     fi
+
+    exit 0
   '';
 
   mutt_bgrun = pkgs.fetchFromGitHub {
@@ -94,6 +100,8 @@
 
   # https://hund.tty1.se/2021/05/22/better-url-management-in-neomutt-with-urlview.html
   qutebrowser-tmp = pkgs.writeShellScriptBin "qutebrowser-tmp" ''
+    set -euo pipefail
+
     PROFILEDIR=`mktemp -p /tmp -d tmp-qb-profile.XXXXXX.d`
     USERPROFILEDIR=`~/.config/qutebrowser/`
     mkdir $PROFILEDIR/config
