@@ -267,6 +267,7 @@ in
       night = 2700;
     };
   };
+  systemd.user.services.gammastep.Install.WantedBy = lib.mkForce [ "sway-session.target" ];
 
   xdg.configFile."waylogout/config".text = ''
     fade-in=1
