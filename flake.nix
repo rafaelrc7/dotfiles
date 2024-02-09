@@ -116,7 +116,12 @@
       systems = [ "x86_64-linux" ];
       perSystem = { config, pkgs, system, ... }: rec {
         devShells = import ./shell.nix { inherit pkgs system; };
-        packages = import ./pkgs { inherit pkgs; };
+        packages = rec {
+          default = nixos-build;
+          nixos-build = pkgs.writeShellScriptBin "nixos-build" ''
+            nixos-rebuild --option eval-cache false --show-trace --use-remote-sudo --flake . "''${1:-switch}" |& ${pkgs.nix-output-monitor}/bin/nom
+          '';
+        } // import ./pkgs { inherit pkgs; };
 
         treefmt.config = {
           projectRootFile = "flake.nix";

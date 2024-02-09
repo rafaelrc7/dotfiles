@@ -84,7 +84,7 @@ in {
         boxes = [ "INBOX" ];
         extraConfig = {
           wait = 5;
-          tlsOption = {
+          tlsOptions = {
             starttls = true;
           };
         };
