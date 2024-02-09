@@ -65,6 +65,11 @@ in
 
     macros = [
       {
+        map = [ "index" ];
+        key = "q";
+        action = "<enter-command>unset wait_key<enter><enter-command>exec sync-mailbox<enter><shell-escape>sleep 1 && ${email-utils.sync-mail}/bin/sync-mail<enter><quit>";
+      }
+      {
         map = [ "index" "pager" ];
         key = "B";
         action = "<view-attachments><search>html<enter><view-mailcap><exit>";
@@ -72,7 +77,7 @@ in
       {
         map = [ "index" ];
         key = "S";
-        action = "<enter-command>unset wait_key<enter><shell-escape>${email-utils.sync-mail}/bin/sync-mail<enter><enter-command>set wait_key=yes<enter><enter-command>exec sync-mailbox<enter>";
+        action = "<enter-command>unset wait_key<enter><enter-command>exec sync-mailbox<enter><shell-escape>sleep 1 && ${email-utils.sync-mail}/bin/sync-mail<enter><enter-command>set wait_key=yes<enter><enter-command>exec sync-mailbox<enter>";
       }
       {
         # from muttwizard
