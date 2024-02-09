@@ -8,7 +8,6 @@
 
   imports = with self.homeModules; [
     crypto
-    gnome-keyring
     go
     gschemas
     jetbrains

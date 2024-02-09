@@ -14,6 +14,7 @@
     btrfs
     flatpak
     geoclue
+    gnome-keyring
     nix
     pipewire
     zsh

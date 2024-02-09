@@ -15,6 +15,7 @@
     btrfs
     flatpak
     geoclue
+    gnome-keyring
     libvirtd
     mullvad
     nix
