@@ -36,5 +36,7 @@
     layout = "us";
     variant = "intl";
   };
+
+  security.pam.services.login.enableGnomeKeyring = true;
 }
 
