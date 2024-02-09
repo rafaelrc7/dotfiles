@@ -16,6 +16,7 @@
     mpd
     node
     pass
+    protonmail-bridge
     syncthing
 
     ./email.nix

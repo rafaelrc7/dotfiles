@@ -1,4 +1,4 @@
 { self, ... }: {
-  flake.overlays = self.lib.findModules ./.;
+  flake.overlays = builtins.mapAttrs (_: value: import value) (self.lib.findModules ./.);
 }
 

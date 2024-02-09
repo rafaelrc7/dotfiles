@@ -67,6 +67,7 @@
               inputs.nix-vscode-extensions.overlays.default
               inputs.nur.overlay
               inputs.nixgl.overlay
+              self.overlays.protonmail-bridge
             ];
             config = { permittedInsecurePackages = [ "electron-25.9.0" ]; };
           };
