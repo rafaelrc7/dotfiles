@@ -18,7 +18,7 @@
       exit 1
     fi
 
-    mail_count_directory="${config.home.homeDirectory}/.cache/newmailcount"
+    mail_count_directory="${config.xdg.cacheHome}/newmailcount"
     mail_count_file="$mail_count_directory"/"$mail_account"
     [[ ! -d $mail_count_directory ]] && mkdir -p $mail_count_directory
 
@@ -35,7 +35,7 @@
 
     send-notification () {
       mail_account="''${1:?Missing account name argument}"
-      new_mail_counter="${config.home.homeDirectory}/.cache/newmailcount/$mail_account"
+      new_mail_counter="${config.xdg.cacheHome}/newmailcount/$mail_account"
 
       [[ ! -f $new_mail_counter ]] && exit 0
 

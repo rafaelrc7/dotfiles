@@ -1,6 +1,6 @@
 { config, pkgs, ... }:
 let
-  mount_directory = "${config.home.homeDirectory}/Documents/drive";
+  mount_directory = "${config.xdg.userDirs.documents}/drive";
 in
 {
   systemd.user.services = {

@@ -7,7 +7,7 @@ let
   loadWallpaper = pkgs.writeShellScriptBin "loadWallpaper" ''
     [[ -f ${config.xdg.configHome}/sway/wallpapers/default ]] && WALLPAPER="${config.xdg.configHome}/sway/wallpapers/default"
     [[ -f ${config.xdg.configHome}/sway/wallpapers/`uname -n` ]] && WALLPAPER="${config.xdg.configHome}/sway/wallpapers/`uname -n`"
-    [[ -f ${config.home.homeDirectory}/.config/wallpaper ]] && WALLPAPER="${config.home.homeDirectory}/.config/wallpaper"
+    [[ -f ${config.xdg.configHome}/wallpaper ]] && WALLPAPER="${config.xdg.configHome}/wallpaper"
     [[ -v WALLPAPER ]] && exec -- ${pkgs.swaybg}/bin/swaybg -i "$WALLPAPER" -m fill
   '';
 in
