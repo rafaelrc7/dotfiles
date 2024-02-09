@@ -67,7 +67,7 @@
     enable = true;
     enableSshSupport = true;
     enableZshIntegration = true;
-    pinentryFlavor = "qt";
+    pinentryFlavor = "gnome3";
     sshKeys = [
       "94C7C77450894FC856B6C3121A9232BC13054C83"
     ];

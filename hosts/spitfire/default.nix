@@ -168,7 +168,7 @@
   programs.mtr.enable = true;
   programs.gnupg.agent = {
     enable = true;
-    pinentryFlavor = "qt";
+    pinentryFlavor = "gnome3";
   };
 
   systemd.services.brightness = {
