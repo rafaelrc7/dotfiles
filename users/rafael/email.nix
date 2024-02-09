@@ -6,7 +6,7 @@ in {
   accounts.email.accounts.protonmail =
     let
       protonmail-bridge-pass = pkgs.writeShellScriptBin "protonmail-bridge-pass" ''
-        pass show Personal/protonmail-bridge@`uname -n`
+        ${pkgs.libsecret}/bin/secret-tool lookup protonmail-bridge password
       '';
 
       # Must be manually generated with
