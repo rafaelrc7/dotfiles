@@ -25,7 +25,6 @@
       ip = "ip --color=auto";
       ls = "ls --color=auto";
       sudo = "sudo "; # Makes commands after sudo keep colour
-      lutris = "WEBKIT_DISABLE_COMPOSITING_MODE=1 lutris";
     };
 
     shellInit =
