@@ -17,6 +17,7 @@
     geoclue
     gnome-keyring
     libvirtd
+    lutris
     mullvad
     nix
     pipewire

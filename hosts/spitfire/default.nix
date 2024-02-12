@@ -15,6 +15,7 @@
     flatpak
     geoclue
     gnome-keyring
+    lutris
     nix
     pipewire
     zsh
