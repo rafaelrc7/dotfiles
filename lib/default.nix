@@ -14,6 +14,7 @@
             nixpkgs-stable = inputs.nixpkgs-stable.legacyPackages."${system}";
             nixpkgs-unstable = inputs.nixpkgs-unstable.legacyPackages."${system}";
             nixpkgs-master = inputs.nixpkgs-master.legacyPackages."${system}";
+            qutebrowser = inputs.nixpkgs-master.legacyPackages."${system}".qutebrowser;
           })
         ];
       };
