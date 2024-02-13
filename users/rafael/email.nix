@@ -84,9 +84,6 @@ in {
         boxes = [ "INBOX" ];
         extraConfig = {
           wait = 5;
-          tlsOptions = {
-            starttls = true;
-          };
         };
 
         onNotify = ''${email-utils.sync-mail}/bin/sync-mail protonmail'';
