@@ -5,12 +5,21 @@
     userEmail = "contact@rafaelrc.com";
     delta.enable = true;
     extraConfig = {
-      init.defaultBranch = "master";
-      user.editor = "nvim";
       delta.navigate = true;
-      merge.conflictStyle = "diff3";
+      diff.algorithm = "histogram";
+      init.defaultBranch = "master";
+      merge.conflictStyle = "zdiff3";
       pull.rebase = true;
+      rebase.autosquash = true;
+      rerere.enabled = true;
+      user.editor = "vim";
     };
+    ignores = [
+      "*~"
+      "*.swp"
+      ".idea"
+      ".vscode"
+    ];
     signing = {
       signByDefault = true;
       key = "161833317F080B3AC3ECFB01A2E6A1C9A59514A5";
@@ -20,7 +29,7 @@
   programs.gh = {
     enable = true;
     settings = {
-      editor = "nvim";
+      editor = "vim";
       git_protocol = "ssh";
     };
   };
