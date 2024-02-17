@@ -29,7 +29,7 @@
       fwcd.kotlin
 
       ms-vscode.cpptools
-      ms-vscode.cmake-tools
+      #ms-vscode.cmake-tools
 
       #vsciot-vscode.vscode-arduino
     ];
