@@ -3,7 +3,10 @@
     useDHCP = false;
     firewall = {
       enable = true;
-      allowedTCPPorts = [ ];
+      allowedTCPPorts = [
+        8010 # VLC Chromecast
+        11470 # Stremio
+      ];
       allowedUDPPorts = [ ];
     };
 
