@@ -38,7 +38,6 @@
   colorScheme = inputs.nix-colors.colorSchemes.dracula;
 
   home.packages = with pkgs; [
-    feh
     fzf
     neovim-qt
     ripgrep
