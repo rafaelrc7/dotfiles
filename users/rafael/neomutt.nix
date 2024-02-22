@@ -56,6 +56,8 @@ in
       set pipe_decode
       set thorough_search
 
+      unset mark_old
+
       bind editor <Tab> complete-query
 
       # Colours
