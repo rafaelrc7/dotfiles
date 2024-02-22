@@ -46,7 +46,7 @@
 
       ${pkgs.libnotify}/bin/notify-send --icon="$icon"\
         "You've got mail ($new_mail_count)"\
-        "New e-mail arrived in the protonmail account."
+        "New e-mail arrived in the '$mail_account' account."
     }
 
     if [[ ! -z $1 ]]; then
