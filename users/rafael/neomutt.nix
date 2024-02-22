@@ -121,5 +121,10 @@ in
     };
   };
 
+  accounts.email.accounts.tecgraf = with config.accounts.email.accounts.tecgraf; {
+    notmuch.neomutt.enable = true;
+    neomutt.enable = true;
+  };
+
 }
 
