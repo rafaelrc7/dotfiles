@@ -30,7 +30,7 @@ in
     slurp
     wofi
     libnotify
-    imv
+    nixpkgs-stable.imv
     glfw-wayland
     waylogout
     wdisplays
