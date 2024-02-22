@@ -74,7 +74,7 @@
           {
             home-manager = {
               useUserPackages = true;
-              extraSpecialArgs = { inherit inputs pkgs nixpkgs; };
+              extraSpecialArgs = { inherit inputs pkgs nixpkgs self; };
               users = mkHMUsers users;
             };
           }
@@ -92,7 +92,7 @@
       in
       inputs.home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
-        extraSpecialArgs = { inherit inputs pkgs nixpkgs system username; };
+        extraSpecialArgs = { inherit inputs pkgs nixpkgs system username self; };
         modules = [
           {
             home = {
