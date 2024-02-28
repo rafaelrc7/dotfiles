@@ -111,6 +111,14 @@
             };
           };
 
+          homeConfigurations = {
+            rafael = self.lib.mkHome {
+              system = "x86_64-linux";
+              username = "rafael";
+              homeModules = [ ];
+            };
+          };
+
         };
 
       systems = [ "x86_64-linux" ];
