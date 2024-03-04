@@ -24,6 +24,12 @@ in
     zathura
   ];
 
+  home.file.".mozilla/native-messaging-hosts/passff.json".source =
+    "${pkgs.passff-host.override {pass = pass-otp;}}/share/passff-host/passff.json";
+
+  home.file.".mozilla/native-messaging-hosts/ff2mpv.json".source =
+    "${pkgs.ff2mpv}/lib/mozilla/native-messaging-hosts/ff2mpv.json";
+
   home.file.".librewolf/native-messaging-hosts/passff.json".source =
     "${pkgs.passff-host.override {pass = pass-otp;}}/share/passff-host/passff.json";
 
