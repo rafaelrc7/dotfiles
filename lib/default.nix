@@ -86,6 +86,7 @@
       , system ? "x86_64-linux"
       , homeModules ? [ ]
       , pkgs ? (mkPkgs { inherit (inputs) nixpkgs; inherit system; })
+      , userModule ? self.users."${username}"
       }:
       let
         homeDirectory = "/home/${username}";
@@ -100,7 +101,7 @@
               stateVersion = "22.11";
             };
           }
-          (self.users."${username}")
+          userModule
         ] ++ homeModules;
       };
 
