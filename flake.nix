@@ -113,9 +113,16 @@
 
           homeConfigurations = {
             rafael = self.lib.mkHome {
+              inherit pkgs;
               system = "x86_64-linux";
               username = "rafael";
-              homeModules = [ ];
+            };
+
+            rafaelrc = self.lib.mkHome {
+              inherit pkgs;
+              system = "x86_64-linux";
+              username = "rafaelrc";
+              userModule = self.users.rafael;
             };
           };
 
