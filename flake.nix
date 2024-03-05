@@ -94,6 +94,23 @@
                   name = "rafael";
                   extraGroups = [ "wheel" "adbusers" "libvirtd" "dialout" ];
                   sshKeys = import ./users/rafael/sshkeys.nix;
+                  extraArgs = {
+                    crypto = null;
+                    go = null;
+                    gschemas = null;
+                    jetbrains = null;
+                    kitty = null;
+                    mpd = null;
+                    node = null;
+                    protonmail-bridge = null;
+                    email = null;
+                    gui-pkgs = null;
+                    gui-theme = null;
+                    neomutt = null;
+                    sway = null;
+                    vscode = null;
+                    waybar = null;
+                  };
                 }
               ];
             };
@@ -123,6 +140,14 @@
               system = "x86_64-linux";
               username = "rafaelrc";
               userModule = self.users.rafael;
+              extraArgs = {
+                crypto = null;
+                git = ./users/rafael/git-work.nix;
+                go = null;
+                jetbrains = null;
+                mpd = null;
+                node = null;
+              };
             };
           };
 
