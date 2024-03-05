@@ -1,4 +1,27 @@
 { self, ... }:
+{ crypto ? self.homeModules.crypto
+, go ? self.homeModules.go
+, gschemas ? self.homeModules.gschemas
+, jetbrains ? self.homeModules.jetbrains
+, kitty ? self.homeModules.kitty
+, mpd ? self.homeModules.mpd
+, node ? self.homeModules.node
+, pass ? self.homeModules.pass
+, protonmail-bridge ? self.homeModules.protonmail-bridge
+, syncthing ? self.homeModules.syncthing
+, email ? ./email.nix
+, environment_variables ? ./environment_variables.nix
+, git ? ./git.nix
+, gui-pkgs ? ./gui-pkgs.nix
+, gui-theme ? ./gui-theme.nix
+, neomutt ? ./neomutt.nix
+, neovim ? ./neovim.nix
+, sway ? ./sway.nix
+, vscode ? ./vscode.nix
+, waybar ? ./waybar.nix
+, xdg ? ./xdg.nix
+, zsh ? ./zsh.nix
+}:
 { inputs, config, lib, pkgs, ... }: {
 
   home.username = lib.mkDefault "rafael";
@@ -6,7 +29,7 @@
 
   programs.home-manager.enable = true;
 
-  imports = with self.homeModules; [
+  imports = with self.lib; optionalsNotNull [
     crypto
     go
     gschemas
@@ -18,18 +41,18 @@
     protonmail-bridge
     syncthing
 
-    ./email.nix
-    ./environment_variables.nix
-    ./git.nix
-    ./gui-pkgs.nix
-    ./gui-theme.nix
-    ./neomutt.nix
-    ./neovim.nix
-    ./sway.nix
-    ./vscode.nix
-    ./waybar.nix
-    ./xdg.nix
-    ./zsh.nix
+    email
+    environment_variables
+    git
+    gui-pkgs
+    gui-theme
+    neomutt
+    neovim
+    sway
+    vscode
+    waybar
+    xdg
+    zsh
 
     inputs.nix-colors.homeManagerModule
     inputs.wayland-pipewire-idle-inhibit.homeModules.default

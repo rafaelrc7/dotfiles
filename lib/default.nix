@@ -43,10 +43,15 @@
       };
     };
 
-    mkHMUser = with builtins; { name, homeModules ? [ ], ... }: {
+    mkHMUser = with builtins; { name
+                              , homeModules ? [ ]
+                              , userModule ? self.users."${name}"
+                              , extraArgs ? { }
+                              , ... }:
+    {
       inherit name;
       value = {
-        imports = [ (self.users."${name}") ] ++ homeModules;
+        imports = [ (userModule extraArgs) ] ++ homeModules;
       };
     };
 
@@ -87,6 +92,7 @@
       , homeModules ? [ ]
       , pkgs ? (mkPkgs { inherit (inputs) nixpkgs; inherit system; })
       , userModule ? self.users."${username}"
+      , extraArgs ? { }
       }:
       let
         homeDirectory = "/home/${username}";
@@ -101,7 +107,7 @@
               stateVersion = "22.11";
             };
           }
-          userModule
+          (userModule extraArgs)
         ] ++ homeModules;
       };
 
@@ -131,6 +137,9 @@
         )) [ ]) dirFiles;
       in
       listToAttrs modules;
+
+    optionalNotNull = module: lib.lists.optional (module != null) module;
+    optionalsNotNull = modules: builtins.filter (m: m != null) modules;
   };
 }
 
