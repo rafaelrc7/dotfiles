@@ -34,6 +34,7 @@
       nixsh = "nix shell";
       rm = "rm -I";
       mv = "mv -i";
+      ssh = "TERM=xterm-256color ssh";
     };
 
     plugins = with pkgs; [
