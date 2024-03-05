@@ -23,18 +23,7 @@
     };
 
     shellAliases = {
-      diff = "diff --color=auto";
-      dmesg = "dmesg --color=always";
-      grep = "grep --color=auto";
-      ip = "ip --color=auto";
-      ls = "ls --color=auto";
-      sudo = "sudo "; # Makes commands after sudo keep colour
-      matlab = "nix run gitlab:doronbehar/nix-matlab";
       nixdev = "nix develop -c zsh";
-      nixsh = "nix shell";
-      rm = "rm -I";
-      mv = "mv -i";
-      ssh = "TERM=xterm-256color ssh";
     };
 
     plugins = with pkgs; [
