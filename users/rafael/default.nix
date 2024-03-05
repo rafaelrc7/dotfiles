@@ -1,8 +1,8 @@
 { self, ... }:
-{ inputs, config, pkgs, ... }: {
+{ inputs, config, lib, pkgs, ... }: {
 
-  home.username = "rafael";
-  home.homeDirectory = "/home/rafael";
+  home.username = lib.mkDefault "rafael";
+  home.homeDirectory = lib.mkDefault "/home/rafael";
 
   programs.home-manager.enable = true;
 
