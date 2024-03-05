@@ -127,7 +127,7 @@
         packages = rec {
           default = nixos-build;
           nixos-build = pkgs.writeShellScriptBin "nixos-build" ''
-            nixos-rebuild --option eval-cache false --show-trace --use-remote-sudo --flake . "''${1:-switch}" |& ${pkgs.nix-output-monitor}/bin/nom
+            nixos-rebuild -j`nproc` --cores `nproc` --option eval-cache false --show-trace --use-remote-sudo --flake . "''${1:-switch}" |& ${pkgs.nix-output-monitor}/bin/nom
           '';
         } // import ./pkgs { inherit pkgs; };
 
