@@ -47,13 +47,14 @@
                               , homeModules ? [ ]
                               , userModule ? self.users."${name}"
                               , extraArgs ? { }
-                              , ... }:
-    {
-      inherit name;
-      value = {
-        imports = [ (userModule extraArgs) ] ++ homeModules;
+                              , ...
+                              }:
+      {
+        inherit name;
+        value = {
+          imports = [ (userModule extraArgs) ] ++ homeModules;
+        };
       };
-    };
 
     mkHMUsers = with builtins; users: listToAttrs (map mkHMUser users);
 
