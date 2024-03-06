@@ -14,6 +14,9 @@
             nixpkgs-stable = inputs.nixpkgs-stable.legacyPackages."${system}";
             nixpkgs-unstable = inputs.nixpkgs-unstable.legacyPackages."${system}";
             nixpkgs-master = inputs.nixpkgs-master.legacyPackages."${system}";
+            coqPackages.vscoq-language-server = (inputs.vscoq.packages."${system}".default.overrideAttrs (old: {
+              nativeBuildInputs = old.nativeBuildInputs ++ [ prev.coq_8_19 ];
+            }));
           })
         ];
       };

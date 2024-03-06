@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ inputs, pkgs, ... }: {
   programs.vscode = {
     enable = true;
     enableExtensionUpdateCheck = false;
@@ -32,7 +32,12 @@
       #ms-vscode.cmake-tools
 
       #vsciot-vscode.vscode-arduino
+
+      maximedenes.vscoq
     ];
+    userSettings = {
+      vscoq.path = "${pkgs.coqPackages.vscoq-language-server}/bin/vscoqtop";
+    };
   };
 }
 

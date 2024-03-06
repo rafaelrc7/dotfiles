@@ -40,6 +40,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    vscoq = {
+      url = "github:coq-community/vscoq";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     awesome-git = {
       flake = false;
       url = "github:awesomewm/awesome";
