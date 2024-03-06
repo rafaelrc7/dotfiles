@@ -101,7 +101,7 @@
       custom_palette=false
       icon_theme=Dracula
       standard_dialogs=default
-      style=kvantum
+      style=kvantum-dark
 
       [Fonts]
       fixed="DejaVu Sans,12,-1,5,50,0,0,0,0,0"
@@ -135,7 +135,7 @@
       custom_palette=false
       icon_theme=Dracula
       standard_dialogs=default
-      style=kvantum
+      style=kvantum-dark
 
       [Fonts]
       fixed="DejaVu Sans,12,-1,5,400,0,0,0,0,0,0,0,0,0,0,1"
