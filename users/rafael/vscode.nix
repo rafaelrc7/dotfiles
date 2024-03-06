@@ -29,9 +29,11 @@
 
       fwcd.kotlin
 
+      ms-vscode.cpptools-extension-pack
       ms-vscode.cpptools
-      # ms-vscode.makefile-tools # fails to build
-      # ms-vscode.cmake-tools # fails to build
+      ms-vscode.cpptools-themes
+      (ms-vscode.makefile-tools.overrideAttrs (_: { sourceRoot = "extension"; }))
+      (ms-vscode.cmake-tools.overrideAttrs (_: { sourceRoot = "extension"; }))
       twxs.cmake
       dtoplak.vscode-glsllint slevesque.shader
 
