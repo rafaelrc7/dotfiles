@@ -30,7 +30,10 @@
       fwcd.kotlin
 
       ms-vscode.cpptools
-      #ms-vscode.cmake-tools
+      # ms-vscode.makefile-tools # fails to build
+      # ms-vscode.cmake-tools # fails to build
+      twxs.cmake
+      dtoplak.vscode-glsllint slevesque.shader
 
       #vsciot-vscode.vscode-arduino
 
