@@ -12,6 +12,7 @@
       editorconfig.editorconfig
 
       ms-azuretools.vscode-docker
+      ms-vscode-remote.remote-containers
 
       angular.ng-template
       ecmel.vscode-html-css
