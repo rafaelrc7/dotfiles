@@ -19,6 +19,7 @@
       "*.swp"
       ".idea"
       ".vscode"
+      ".direnv"
     ];
     signing = {
       signByDefault = true;
