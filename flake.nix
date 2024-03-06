@@ -145,6 +145,12 @@
               system = "x86_64-linux";
               username = "rafaelrc";
               userModule = self.users.rafael;
+              homeModules = [
+                ({...}: {
+                  accounts.email.accounts.tecgraf.primary = true;
+                  accounts.email.accounts.protonmail.primary = false;
+                })
+              ];
               extraArgs = {
                 crypto = null;
                 git = ./users/rafael/git-work.nix;

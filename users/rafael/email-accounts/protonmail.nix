@@ -1,4 +1,4 @@
-{ pkgs, config, email-utils, ... }:
+{ pkgs, config, email-utils, lib, ... }:
 let
   protonmail-bridge-pass = pkgs.writeShellScriptBin "protonmail-bridge-pass" ''
     ${pkgs.libsecret}/bin/secret-tool lookup protonmail-bridge password
@@ -9,7 +9,7 @@ let
   certificatesFile = "${config.xdg.dataHome}/certs/protonmail.crt";
 in
 rec {
-  primary = true;
+  primary = lib.mkDefault true;
   flavor = "plain"; # protonmail, if needed
 
   # Identity
