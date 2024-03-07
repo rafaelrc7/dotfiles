@@ -37,7 +37,12 @@
       twxs.cmake
       dtoplak.vscode-glsllint slevesque.shader
 
-      #vsciot-vscode.vscode-arduino
+      (vsciot-vscode.vscode-arduino.overrideAttrs (_: { sourceRoot = "extension"; }))
+
+      pinage404.nix-extension-pack
+      jnoortheen.nix-ide
+      arrterian.nix-env-selector
+      mkhl.direnv
 
       maximedenes.vscoq
     ];
