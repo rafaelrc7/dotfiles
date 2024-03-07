@@ -156,8 +156,11 @@
                 git = ./users/rafael/git-work.nix;
                 go = null;
                 jetbrains = null;
+                kitty = null;
                 mpd = null;
                 node = null;
+                sway = null;
+                waybar = null;
               };
             };
           };
