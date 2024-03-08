@@ -38,6 +38,8 @@
       dtoplak.vscode-glsllint slevesque.shader
 
       (vsciot-vscode.vscode-arduino.overrideAttrs (_: { sourceRoot = "extension"; }))
+      (ms-vscode.vscode-serial-monitor.overrideAttrs (_: { sourceRoot = "extension"; }))
+      platformio.platformio-ide
 
       pinage404.nix-extension-pack
       jnoortheen.nix-ide
@@ -48,7 +50,16 @@
     ];
     userSettings = {
       vscoq.path = "${pkgs.coqPackages.vscoq-language-server}/bin/vscoqtop";
+      git.openRepositoryInParentFolders = "never";
     };
   };
+
+  home.file.".platformio/penv/pyvenv.cfg".text = ''
+    home = ${pkgs.python3}/bin
+    include-system-site-packages = false
+    version = ${pkgs.python3.version}
+    executable = ${pkgs.python3}/bin/python
+    command = ${pkgs.python3}/bin/python -m venv /home/rafael/.platformio/penv
+  '';
 }
 
