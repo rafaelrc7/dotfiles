@@ -64,6 +64,7 @@
     fzf
     neovim-qt
     ripgrep
+    gcr
   ];
 
   home.sessionPath = [ "$HOME/.local/bin" ];
