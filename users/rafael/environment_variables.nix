@@ -2,8 +2,6 @@
   home.sessionVariables = {
     EDITOR = "nvim";
     BROWSER = "librewolf";
-    TERMINAL = "kitty";
-    EXPLORER = "dolphin";
 
     CABAL_DIR = "$HOME/.local/share/cabal";
     CABAL_CONFIG = "$HOME/.config/cabal/config";

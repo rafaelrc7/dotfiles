@@ -21,6 +21,7 @@ in
 
   home.packages = with pkgs; [
     cliphist
+    dolphin
     swaybg
     swaylock
     swayidle
@@ -193,6 +194,7 @@ in
         export XDG_SESSION_TYPE="wayland"
 
         export TERMINAL="foot"
+        export EXPLORER="dolphin"
 
         # For flatpak to be able to use PATH programs
         sh -c "systemctl --user import-environment PATH" &

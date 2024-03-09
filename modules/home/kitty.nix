@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ pkgs, lib, ... }: {
   programs.kitty = {
     enable = true;
     font = {
@@ -15,6 +15,10 @@
       scrollback_pager_history_size = 2048;
       mouse_map = "left click ungrabbed no-op";
     };
+  };
+
+  home.sessionVariables = {
+    TERMINAL = lib.mkDefault "kitty";
   };
 }
 

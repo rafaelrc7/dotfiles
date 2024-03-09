@@ -1,22 +1,27 @@
 { self, ... }:
 { crypto ? self.homeModules.crypto
+, email ? ./email.nix
+, environment_variables ? ./environment_variables.nix
+, firefox ? self.homeModules.firefox
+, git ? ./git.nix
 , go ? self.homeModules.go
 , gschemas ? self.homeModules.gschemas
+, gui-pkgs ? ./gui-pkgs.nix
+, gui-theme ? ./gui-theme.nix
 , jetbrains ? self.homeModules.jetbrains
+, keybase ? self.homeModules.keybase
 , kitty ? self.homeModules.kitty
+, librewolf ? self.homeModules.librewolf
 , mpd ? self.homeModules.mpd
+, mpv ? self.homeModules.mpv
+, neomutt ? ./neomutt.nix
+, neovim ? ./neovim.nix
 , node ? self.homeModules.node
 , pass ? self.homeModules.pass
 , protonmail-bridge ? self.homeModules.protonmail-bridge
 , syncthing ? self.homeModules.syncthing
-, email ? ./email.nix
-, environment_variables ? ./environment_variables.nix
-, git ? ./git.nix
-, gui-pkgs ? ./gui-pkgs.nix
-, gui-theme ? ./gui-theme.nix
-, neomutt ? ./neomutt.nix
-, neovim ? ./neovim.nix
 , sway ? ./sway.nix
+, obs ? self.homeModules.obs
 , vscode ? ./vscode.nix
 , waybar ? ./waybar.nix
 , xdg ? ./xdg.nix
@@ -31,15 +36,20 @@
 
   imports = with self.lib; optionalsNotNull [
     crypto
+    firefox
     go
     gschemas
     jetbrains
+    keybase
     kitty
+    librewolf
     mpd
+    mpv
     node
     pass
     protonmail-bridge
     syncthing
+    obs
 
     email
     environment_variables
@@ -109,12 +119,21 @@
     ];
   };
 
+  home.sessionVariables.SSH_ASKPASS =
+    "${pkgs.lxqt.lxqt-openssh-askpass}/bin/lxqt-openssh-askpass";
+
   programs.password-store.settings = {
     PASSWORD_STORE_KEY = "081F97AC49F2CA9548DB08E7091BB8A361C7B4EB";
-    PASSWORD_STORE_DIR = "$HOME/.password-store";
   };
 
-  services.keybase.enable = true;
+  home.file.".xprofile".text = ''
+    #!/bin/sh
+    [ -e $HOME/.zshenv ] && . $HOME/.zshenv
+    [ -e $HOME/.profile ] && . $HOME/.profile
+
+    # nix flatpak fix for opening links and other non-flatpak default apps
+    sh -c "systemctl --user import-environment PATH && systemctl --user restart xdg-desktop-portal.service" &
+  '';
 
   systemd.user.startServices = "sd-switch";
 
