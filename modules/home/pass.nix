@@ -1,8 +1,9 @@
 { pkgs, config, lib, ... }:
 let
   pass-otp = pkgs.pass.withExtensions (exts: [ exts.pass-otp ]);
-  passff-otp-host = pkgs.passff-host.override {pass = pass-otp;};
-in {
+  passff-otp-host = pkgs.passff-host.override { pass = pass-otp; };
+in
+{
   programs.password-store = {
     enable = true;
     package = pass-otp;

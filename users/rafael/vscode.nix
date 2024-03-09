@@ -35,7 +35,9 @@
       (ms-vscode.makefile-tools.overrideAttrs (_: { sourceRoot = "extension"; }))
       (ms-vscode.cmake-tools.overrideAttrs (_: { sourceRoot = "extension"; }))
       twxs.cmake
-      dtoplak.vscode-glsllint slevesque.shader
+
+      slevesque.shader
+      dtoplak.vscode-glsllint
 
       (vsciot-vscode.vscode-arduino.overrideAttrs (_: { sourceRoot = "extension"; }))
       (ms-vscode.vscode-serial-monitor.overrideAttrs (_: { sourceRoot = "extension"; }))

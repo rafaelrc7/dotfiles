@@ -150,7 +150,7 @@
               username = "rafaelrc";
               userModule = self.users.rafael;
               homeModules = [
-                ({...}: {
+                ({ ... }: {
                   accounts.email.accounts.tecgraf.primary = true;
                   accounts.email.accounts.protonmail.primary = false;
                 })
