@@ -16,6 +16,7 @@
 , mpv ? self.homeModules.mpv
 , neomutt ? ./neomutt.nix
 , neovim ? ./neovim.nix
+, nix ? self.homeModules.nix
 , node ? self.homeModules.node
 , pass ? self.homeModules.pass
 , protonmail-bridge ? self.homeModules.protonmail-bridge
@@ -45,6 +46,7 @@
     librewolf
     mpd
     mpv
+    nix
     node
     pass
     protonmail-bridge
