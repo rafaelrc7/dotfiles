@@ -23,6 +23,7 @@
     polkit
     tailscale
     palserver
+    systemd-oomd
 
     nixos-hardware.nixosModules.common-pc
     nixos-hardware.nixosModules.common-pc-ssd

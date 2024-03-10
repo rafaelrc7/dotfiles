@@ -28,6 +28,7 @@
     polkit
     tailscale
     udev-media-keys
+    systemd-oomd
     nixos-hardware.nixosModules.common-cpu-intel
     nixos-hardware.nixosModules.common-pc-laptop
   ];

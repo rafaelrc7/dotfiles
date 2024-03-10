@@ -32,6 +32,7 @@
     polkit
     tailscale
     waydroid
+    systemd-oomd
 
     nixos-hardware.nixosModules.common-pc
     nixos-hardware.nixosModules.common-pc-ssd
