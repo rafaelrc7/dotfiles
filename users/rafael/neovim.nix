@@ -177,9 +177,9 @@
         capabilities = capabilities,
       };
 
-      -- Nix (rnix-lsp)
-      nvim_lsp.rnix.setup{
-        cmd = { "${rnix-lsp}/bin/rnix-lsp" },
+      -- Nix (nixd)
+      nvim_lsp.nixd.setup{
+        cmd = { "${nixd}/bin/nixd" },
         on_attach = on_attach,
         capabilities = capabilities,
       };
