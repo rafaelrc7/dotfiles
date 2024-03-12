@@ -11,9 +11,6 @@
 
       editorconfig.editorconfig
 
-      ms-azuretools.vscode-docker
-      ms-vscode-remote.remote-containers
-
       angular.ng-template
       ecmel.vscode-html-css
       firefox-devtools.vscode-firefox-debug
@@ -49,6 +46,13 @@
       mkhl.direnv
 
       maximedenes.vscoq
+
+      ms-azuretools.vscode-docker
+      ms-vscode-remote.vscode-remote-extensionpack
+      ms-vscode-remote.remote-containers
+      ms-vscode-remote.remote-wsl
+      ms-vscode-remote.remote-ssh
+      ms-vscode.remote-server
     ];
     userSettings = {
       vscoq.path = "${pkgs.coqPackages.vscoq-language-server}/bin/vscoqtop";
