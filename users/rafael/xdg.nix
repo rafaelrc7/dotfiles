@@ -29,6 +29,9 @@
         "x-scheme-handler/tg" = [
           "org.telegram.desktop.desktop"
         ];
+        "x-scheme-handler/zoommtg=us.zoom.Zoom.desktop" = [
+          "us.zoom.Zoom.desktop"
+        ];
         "application/x-extension-html" = [
           "librewolf.desktop"
           "firefox.desktop"
