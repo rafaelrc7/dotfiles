@@ -54,10 +54,29 @@
       ms-vscode-remote.remote-ssh
       ms-vscode.remote-server
     ];
+
     userSettings = {
       vscoq.path = "${pkgs.coqPackages.vscoq-language-server}/bin/vscoqtop";
       git.openRepositoryInParentFolders = "never";
     };
+
+    keybindings = [
+      {
+        key = "tab";
+        command = "selectNextSuggestion";
+        when = "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus";
+      }
+      {
+        key = "shift+tab";
+        command = "selectPrevSuggestion";
+        when = "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus";
+      }
+      {
+        key = "enter";
+        command = "acceptAlternativeSelectedSuggestion";
+        when = "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus";
+      }
+    ];
   };
 
   home.file.".platformio/penv/pyvenv.cfg".text = ''
