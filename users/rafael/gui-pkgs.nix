@@ -14,6 +14,7 @@
     tdesktop
     ungoogled-chromium
     zathura
+    zoom-us
   ];
 }
 
