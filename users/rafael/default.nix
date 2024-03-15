@@ -108,6 +108,15 @@
         identityFile = "${config.home.homeDirectory}/.ssh/aur";
         user = "aur";
       };
+
+      "ncc17004" = {
+        user = "rafaelrc";
+        proxyJump = "ssh2.tecgraf.puc-rio.br";
+      };
+
+      "ssh2.tecgraf.puc-rio.br" = {
+        user = "rafaelrc";
+      };
     };
   };
 
