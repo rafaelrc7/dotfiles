@@ -1,4 +1,4 @@
-{ inputs, pkgs, ... }: {
+{ inputs, config, pkgs, ... }: {
   programs.vscode = {
     enable = true;
     enableExtensionUpdateCheck = false;
@@ -58,6 +58,13 @@
     userSettings = {
       vscoq.path = "${pkgs.coqPackages.vscoq-language-server}/bin/vscoqtop";
       git.openRepositoryInParentFolders = "never";
+      vim = {
+        useSystemClipboard = true;
+        enableNeovim = true;
+        neovimPath = "${pkgs.neovim}/bin/nvim";
+        neovimConfigPath = "${config.xdg.configHome}/nvim/init.lua";
+        neovimUseConfigFile = true;
+      };
     };
 
     keybindings = [
