@@ -21,7 +21,7 @@
     mullvad
     nix
     pipewire
-    #steam
+    steam
     zsh
     podman
     fonts

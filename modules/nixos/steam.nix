@@ -1,7 +1,7 @@
 { pkgs, lib, stdenv, ... }:
 let
   extraLibraries = pkgs: with pkgs; [
-    jdk
+    jdk mangohud
   ];
 
   steamWithExtraLibraries = pkgs.steam.override {
@@ -62,6 +62,9 @@ in
   };
 
   hardware.steam-hardware.enable = true;
+
   programs.java.enable = true;
+  programs.gamescope.enable = true;
+  programs.gamemode.enable = true;
 }
 
