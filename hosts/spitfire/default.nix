@@ -15,6 +15,7 @@
     flatpak
     geoclue
     gnome-keyring
+    gnupg-agent
     lutris
     nix
     pipewire
@@ -171,10 +172,6 @@
 
   programs.dconf.enable = true;
   programs.mtr.enable = true;
-  programs.gnupg.agent = {
-    enable = true;
-    pinentryFlavor = "gnome3";
-  };
 
   systemd.services.brightness = {
     enable = true;

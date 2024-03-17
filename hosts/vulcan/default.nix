@@ -16,6 +16,7 @@
     flatpak
     geoclue
     gnome-keyring
+    gnupg-agent
     libvirtd
     lutris
     mullvad
@@ -190,10 +191,6 @@
 
   programs.dconf.enable = true;
   programs.mtr.enable = true;
-  programs.gnupg.agent = {
-    enable = true;
-    pinentryFlavor = "gnome3";
-  };
 
   system.stateVersion = "22.11";
 }
