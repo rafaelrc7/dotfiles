@@ -5,6 +5,7 @@
     gimp
     gnome.gnome-disk-utility
     helvum
+    jami
     libreoffice-fresh
     obsidian
     pavucontrol
