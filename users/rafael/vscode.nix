@@ -60,10 +60,6 @@
       git.openRepositoryInParentFolders = "never";
       vim = {
         useSystemClipboard = true;
-        enableNeovim = true;
-        neovimPath = "${pkgs.neovim}/bin/nvim";
-        neovimConfigPath = "${config.xdg.configHome}/nvim/init.lua";
-        neovimUseConfigFile = true;
       };
     };
 
