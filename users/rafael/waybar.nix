@@ -10,6 +10,7 @@
 
   programs.waybar = {
     enable = true;
+    package = pkgs.nixpkgs-master.waybar;
 
     systemd = {
       enable = true;

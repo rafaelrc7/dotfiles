@@ -74,7 +74,7 @@
               inputs.nixgl.overlay
               self.overlays.protonmail-bridge
             ];
-            config = { permittedInsecurePackages = [ "electron-25.9.0" "nix-2.16.2" ]; };
+            config = { permittedInsecurePackages = [ "electron-25.9.0" ]; };
           };
         in
         {
