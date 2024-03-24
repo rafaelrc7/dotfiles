@@ -3,8 +3,8 @@ final: prev: {
     src = prev.fetchFromGitHub {
       owner = "rafaelrc7";
       repo = "proton-bridge";
-      rev = "513df54df13a7bf92055cc284802ee5af23b34fe";
-      hash = "sha256-zWNS1YvrktvA4vBBLXToDed/eCbvXillVJmKv9nVXV4=";
+      rev = "818447d7c7ac6d3c07431d51c8830a201618991a";
+      hash = "sha256-PyYTmQ9fq3JgIB31Ao6RXaGCMhl5ytuHMrLObrGwOqs=";
     };
   });
 }
