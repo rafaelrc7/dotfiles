@@ -250,6 +250,7 @@
       presence-nvim
       lualine-nvim
       lualine-lsp-progress
+      Coqtail
     ];
   };
 
