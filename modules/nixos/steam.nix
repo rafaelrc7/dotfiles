@@ -1,7 +1,8 @@
 { pkgs, lib, stdenv, ... }:
 let
   extraLibraries = pkgs: with pkgs; [
-    jdk mangohud
+    jdk
+    mangohud
   ];
 
   steamWithExtraLibraries = pkgs.steam.override {
