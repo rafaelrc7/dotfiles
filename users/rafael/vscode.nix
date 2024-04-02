@@ -61,6 +61,7 @@
       vim = {
         useSystemClipboard = true;
       };
+      makefile.configureOnOpen = true;
     };
 
     keybindings = [
