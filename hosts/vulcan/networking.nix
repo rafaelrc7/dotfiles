@@ -15,6 +15,7 @@
       ];
       allowedUDPPorts = [
         9512 # Unified Remote
+        59010 # SoundWire
       ];
     };
   };
