@@ -197,7 +197,10 @@
             {"CursorHold", "*", "lua vim.diagnostic.open_float()"},
 
             -- Java (jdtls)
-            {"FileType", "java", "lua require('jdtls').start_or_attach({cmd = {'jdtls.sh'}})"}
+
+            {"FileType", "java", [[lua require('jdtls').start_or_attach({
+              cmd = { vim.fn.executable("jdtls.sh") == 1 and "jdtls.sh" or "jdtls" }
+            })]]}
           },
         }
       );
