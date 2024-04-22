@@ -71,7 +71,7 @@
 
   qt = {
     enable = true;
-    platformTheme = "qtct";
+    platformTheme.name = "qtct";
     # style.name = "kvantum"; # set QT_STYLE_OVERRIDE
   };
 
