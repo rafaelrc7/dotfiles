@@ -13,7 +13,7 @@
       killall
       man-pages
       man-pages-posix
-      neofetch
+      fastfetch
       neovim
       parted
       ripgrep
