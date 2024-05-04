@@ -73,6 +73,7 @@
               inputs.nur.overlay
               inputs.nixgl.overlay
               self.overlays.protonmail-bridge
+              (final: prev: self.packages)
             ];
             config = { permittedInsecurePackages = [ ]; };
           };
