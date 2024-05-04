@@ -2,7 +2,7 @@
 let flakeInputs = lib.filterAttrs (_: lib.isType "flake") inputs;
 in {
   nix = {
-    package = lib.mkDefault pkgs.nixUnstable;
+    package = lib.mkDefault pkgs.nixVersions.latest;
 
     settings = {
       experimental-features = [
