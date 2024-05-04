@@ -1,22 +1,30 @@
-{ inputs, pkgs, ... }: {
-  environment.etc = {
-    "nix/channels/nixpkgs".source = inputs.nixpkgs;
-    "nix/channels/nixpkgs-stable".source = inputs.nixpkgs-stable;
-    "nix/channels/nixpkgs-unstable".source = inputs.nixpkgs-unstable;
-    "nix/channels/nixpkgs-master".source = inputs.nixpkgs-master;
-    "nix/channels/home-manager".source = inputs.home-manager;
-  };
-
+{ inputs, lib, pkgs, ... }:
+let flakeInputs = lib.filterAttrs (_: lib.isType "flake") inputs;
+in {
   nix = {
     package = pkgs.nixUnstable;
 
-    nixPath = [
-      "nixpkgs=/etc/nix/channels/nixpkgs"
-      "nixpkgs-stable=/etc/nix/channels/nixpkgs-stable"
-      "nixpkgs-unstable=/etc/nix/channels/nixpkgs-unstable"
-      "nixpkgs-master=/etc/nix/channels/nixpkgs-master"
-      "home-manager=/etc/nix/channels/home-manager"
-    ];
+    settings = {
+      trusted-users = [
+        "root"
+        "@wheel"
+      ];
+      experimental-features = [
+        "nix-command"
+        "flakes"
+        "ca-derivations"
+      ];
+      system-features = [
+        "kvm"
+        "big-parallel"
+        "nixos-test"
+      ];
+      warn-dirty = false;
+      auto-optimise-store = lib.mkDefault true;
+      max-jobs = "auto";
+      cores = 0;
+      flake-registry = ""; # Disable global flake registry
+    };
 
     gc = {
       automatic = true;
@@ -24,13 +32,8 @@
       options = "--delete-older-than 7d";
     };
 
-    registry.nixpkgs.flake = inputs.nixpkgs;
-    settings = {
-      experimental-features = "nix-command flakes";
-      auto-optimise-store = true;
-      max-jobs = "auto";
-      cores = 0;
-    };
+    registry = lib.mapAttrs (_: flake: { inherit flake; }) flakeInputs;
+    nixPath = lib.mapAttrsToList (n: _: "${n}=flake:${n}") flakeInputs;
   };
 }
 

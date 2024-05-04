@@ -1,6 +1,8 @@
 { self, ... }: with self.nixosModules;
-{ config, inputs, pkgs, nixpkgs, home-manager, ... }: {
+{ inputs, pkgs, ... }: {
   networking.hostName = "vulcan";
+
+  systemd.services.nix-daemon.serviceConfig.AllowedCPUs = "2-15";
 
   boot.kernelPackages = pkgs.linuxKernel.packages.linux_zen;
   boot.kernel.sysctl."kernel.sysrq" = 1;
