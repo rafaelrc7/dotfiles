@@ -116,6 +116,7 @@
                     neomutt = null;
                     node = null;
                     protonmail-bridge = null;
+                    rclone-gdrive = null;
                     sway = null;
                     obs = null;
                     vscode = null;
@@ -166,6 +167,7 @@
                 kitty = null;
                 mpd = null;
                 node = null;
+                rclone-gdrive = null;
                 sway = null;
                 obs = null;
                 waybar = null;

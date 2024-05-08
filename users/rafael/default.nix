@@ -20,6 +20,7 @@
 , node ? self.homeModules.node
 , pass ? self.homeModules.pass
 , protonmail-bridge ? self.homeModules.protonmail-bridge
+, rclone-gdrive ? self.homeModules.rclone-gdrive
 , syncthing ? self.homeModules.syncthing
 , sway ? ./sway.nix
 , obs ? self.homeModules.obs
@@ -50,6 +51,7 @@
     node
     pass
     protonmail-bridge
+    rclone-gdrive
     syncthing
     obs
 
