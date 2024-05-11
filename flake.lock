@@ -480,22 +480,6 @@
         "type": "github"
       }
     },
-    "nvim-config": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1714348841,
-        "narHash": "sha256-VFqe3Gw7UgZYwagd+XF3r6rCkLtqTqdi3I++cB91vgw=",
-        "owner": "rafaelrc7",
-        "repo": "nvimrc",
-        "rev": "c4ff6e24a3b826b84b8961c5685715488224c0a8",
-        "type": "github"
-      },
-      "original": {
-        "owner": "rafaelrc7",
-        "repo": "nvimrc",
-        "type": "github"
-      }
-    },
     "root": {
       "inputs": {
         "awesome-git": "awesome-git",
@@ -511,7 +495,6 @@
         "nixpkgs-stable": "nixpkgs-stable",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "nur": "nur",
-        "nvim-config": "nvim-config",
         "treefmt-nix": "treefmt-nix",
         "vscoq": "vscoq",
         "wayland-pipewire-idle-inhibit": "wayland-pipewire-idle-inhibit"

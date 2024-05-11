@@ -20,10 +20,6 @@
     nur.url = "github:nix-community/nur";
 
     awesomerc.url = "github:rafaelrc7/awesomerc";
-    nvim-config = {
-      flake = false;
-      url = "github:rafaelrc7/nvimrc";
-    };
 
     nix-vscode-extensions = {
       url = "github:nix-community/nix-vscode-extensions";
@@ -192,6 +188,7 @@
           programs = {
             nixpkgs-fmt.enable = true;
             prettier.enable = true;
+            stylua.enable = true;
           };
         };
       };

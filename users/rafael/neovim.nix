@@ -1,264 +1,215 @@
-{ inputs, config, pkgs, ... }: {
-  programs.neovim = with pkgs; {
-    enable = true;
-
-    defaultEditor = true;
-
-    viAlias = true;
-    vimAlias = true;
-    vimdiffAlias = true;
-    withPython3 = true;
-    withNodeJs = true;
-
-    extraConfig = ''
-      lua << EOF
-      require('init')
-
-      -- LSP
-      local utils = require "utils"
-      local nvim_lsp = require "lspconfig"
-      local pid = vim.fn.getpid()
-      local capabilities = require("cmp_nvim_lsp").default_capabilities()
-
-      local function on_attach()
-        vim.api.nvim_create_autocmd("CursorHold", {
-          buffer = bufnr,
-          callback = function()
-            local opts = {
-              focusable = false,
-              close_events = { "BufLeave", "CursorMoved", "InsertEnter" },
-              border = 'rounded',
-              source = 'always',
-              prefix = ' ',
-              scope = 'cursor',
-            }
-            vim.diagnostic.open_float(nil, opts)
-          end
-        })
-      end
-
-      vim.g.completion_matching_strategy_list = {"exact", "substring", "fuzzy"};
-
-      -- CLANGD
-      nvim_lsp.clangd.setup {
-        cmd = { "${clang-tools}/bin/clangd" },
-        on_attach = on_attach,
-        filetypes = { "c", "cpp", "h", "hpp", "objc", "objcpp", "cuda" },
-        root_dir = function() return vim.loop.cwd() end,
-        capabilities = capabilities,
-      };
-
-      -- Rust
-      nvim_lsp.rust_analyzer.setup{
-        cmd = { "${rust-analyzer}/bin/rust-analyzer" },
-        on_attach=on_attach,
-        capabilities = capabilities,
-        settings = {
-          ['rust-analyzer'] = {
-            check = {
-              command = "clippy",
-              features = "all",
-            },
-          },
-        },
-      };
-
-      -- Elixir
-      nvim_lsp.elixirls.setup{
-        cmd = { "${elixir_ls}/bin/elixir-ls" },
-        on_attach = on_attach,
-        capabilities = capabilities,
-      };
-
-      -- Haskell (hls)
-      nvim_lsp.hls.setup{
-        cmd = { vim.fn.executable("haskell-language-server-wrapper") == 1 and "haskell-language-server-wrapper" or "${haskell-language-server}/bin/haskell-language-server-wrapper", "--lsp" },
-        on_attach = on_attach,
-        capabilities = capabilities,
-      };
-
-      -- html
-      capabilities.textDocument.completion.completionItem.snippetSupport = true;
-
-      nvim_lsp.html.setup {
-        cmd = {"${nodePackages.vscode-langservers-extracted}/bin/vscode-html-language-server", "--stdio"},
-        on_attach = on_attach,
-        capabilities = capabilities,
-      };
-
-      -- CSS
-      nvim_lsp.cssls.setup {
-        cmd = {"${nodePackages.vscode-langservers-extracted}/bin/vscode-css-language-server", "--stdio"},
-        on_attach = on_attach,
-        capabilities = capabilities,
-      }
-
-      -- TS
-      nvim_lsp.tsserver.setup{
-        cmd = {"${nodePackages.typescript-language-server}/bin/typescript-language-server", "--stdio"},
-        on_attach=on_attach,
-        capabilities = capabilities,
-      };
-
-      -- Json
-      nvim_lsp.jsonls.setup {
-        cmd = {"${nodePackages.vscode-langservers-extracted}/bin/vscode-json-language-server", "--stdio"},
-        on_attach = on_attach,
-        commands = {
-          Format = {
-            function()
-              vim.lsp.buf.range_formatting({},{0,0},{vim.fn.line("$"),0});
-            end
-          },
-        },
-        capabilities = capabilities,
-      };
-
-      -- C# (Omnisharp)
-      nvim_lsp.omnisharp.setup{
-        cmd = { "${omnisharp-roslyn}/bin/omnisharp", "--languageserver" , "--hostPID", tostring(pid) },
-        on_attach = on_attach,
-        root_dir = nvim_lsp.util.root_pattern("*.csproj","*.sln"),
-        capabilities = capabilities,
-      };
-
-      -- Python (pyright)
-      nvim_lsp.pyright.setup{
-        cmd = {"${pyright}/bin/pyright-langserver", "--stdio"},
-        on_attach = on_attach,
-        settings = {
-          python = {
-            analysis = {
-              extraPaths = {".", "src"},
-            },
-          },
-        },
-        capabilities = capabilities,
-      };
-
-      -- Lua
-      require'lspconfig'.lua_ls.setup {
-        cmd = {"${sumneko-lua-language-server}/bin/lua-language-server"},
-      	on_attach = on_attach,
-      	settings = {
-      		Lua = {
-      			runtime = {
-      				-- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-      				version = 'LuaJIT',
-      			},
-      			diagnostics = {
-      				-- Get the language server to recognize the `vim` global
-      				globals = {'vim'},
-      			},
-      			workspace = {
-      				-- Make the server aware of Neovim runtime files
-      				library = vim.api.nvim_get_runtime_file("", true),
-      			},
-      			-- Do not send telemetry data containing a randomized but unique identifier
-      			telemetry = {
-      				enable = false,
-      			},
-      		},
-      	},
-      	capabilities = capabilities,
-      }
-
-      -- LaTeX (texlab)
-      nvim_lsp.texlab.setup{
-        cmd = { "${texlab}/bin/texlab" },
-        on_attach = on_attach,
-        capabilities = capabilities,
-      };
-
-      -- Vim
-      nvim_lsp.vimls.setup{
-        cmd = { "${nodePackages.vim-language-server}/bin/vim-language-server" },
-        on_attach = on_attach,
-        capabilities = capabilities,
-      };
-
-      -- Nix (nixd)
-      nvim_lsp.nixd.setup{
-        cmd = { "${nixd}/bin/nixd" },
-        on_attach = on_attach,
-        capabilities = capabilities,
-      };
-
-      -- GO (gopls)
-      nvim_lsp.gopls.setup{
-        cmd = { "${gopls}/bin/gopls" },
-        on_attach = on_attach,
-        capabilities = capabilities,
-      };
-
-      utils.nvim_create_augroups(
-        {
-          lspconfig = {
-            {"CursorHold", "*", "lua vim.diagnostic.open_float()"},
-
-            -- Java (jdtls)
-
-            {"FileType", "java", [[lua require('jdtls').start_or_attach({
-              cmd = { vim.fn.executable("jdtls.sh") == 1 and "jdtls.sh" or "jdtls" }
-            })]]}
-          },
-        }
-      );
-      EOF
-
-      set background=dark
-      colorscheme gruvbox
-      au FileType * silent! LspStart
-    '';
-
-    extraPackages = [
-      fd
-      ripgrep
-      clang
-    ];
-
-    plugins = with vimPlugins; [
-      nvim-treesitter.withAllGrammars
-      nvim-lspconfig
-      nvim-cmp
-      cmp-nvim-lsp
-      cmp-buffer
-      cmp-path
-      cmp-cmdline
-      cmp-rg
-      cmp-treesitter
-      luasnip
-      cmp_luasnip
-      telescope-nvim
-      telescope-fzy-native-nvim
-      plenary-nvim
-      vimtex
-      markdown-preview-nvim
-      symbols-outline-nvim
-      nvim-jdtls
-      neoformat
-      emmet-vim
-      nvim-tree-lua
-      nvim-web-devicons
-      vimspector
-      undotree
-      nerdcommenter
-      nvim-autopairs
-      tagbar
-      vim-fugitive
-      gitsigns-nvim
-      gruvbox-nvim
-      nord-nvim
-      neorg
-      presence-nvim
-      lualine-nvim
-      lualine-lsp-progress
-      Coqtail
-    ];
-  };
-
+{ pkgs, ... }: {
   xdg.configFile."nvim/lua" = {
-    source = "${inputs.nvim-config}/lua";
+    source = ./nvimrc/lua;
   };
+
+  programs.neovim =
+    let
+      toLua = str: "lua << EOF\n${str}\nEOF\n";
+      toLuaFile = file: "lua << EOF\n${builtins.readFile file}\nEOF\n";
+    in
+    {
+      enable = true;
+
+      defaultEditor = true;
+
+      extraLuaPackages = lps: with lps; [ luautf8 jsregexp ];
+
+      viAlias = true;
+      vimAlias = true;
+      vimdiffAlias = true;
+
+      withPython3 = true;
+      withNodeJs = true;
+
+      extraPackages = with pkgs; [
+        clang
+        fd
+        ripgrep
+
+        # Clipboard
+        wl-clipboard
+        xclip
+
+        # Latex
+        biber
+        pstree
+        texlive.combined.scheme-medium
+        xdotool
+        zathura
+
+        # Commonly used LSPs
+        clang-tools
+        jdt-language-server
+        lua-language-server
+        nixd
+        pyright
+        texlab
+      ];
+
+      extraLuaConfig = ''
+        ${builtins.readFile ./nvimrc/options.lua}
+
+        ${builtins.readFile ./nvimrc/maps.lua}
+
+        ${builtins.readFile ./nvimrc/autocmds.lua}
+      '';
+
+      plugins = with pkgs.vimPlugins; [
+        {
+          plugin = gruvbox-nvim;
+          config = ''
+            set background=dark
+            colorscheme gruvbox
+          '';
+        }
+
+        {
+          plugin = nvim-cmp;
+          config = toLuaFile ./nvimrc/plugin/cmp.lua;
+        }
+        cmp-buffer
+        cmp-cmdline
+        cmp-conjure
+        cmp_luasnip
+        cmp-nvim-lsp
+        cmp-path
+        cmp-rg
+        cmp-treesitter
+
+        luasnip
+
+        {
+          plugin = nvim-lspconfig;
+          config = toLuaFile ./nvimrc/plugin/lsp.lua;
+        }
+
+        {
+          plugin = nvim-jdtls;
+          config = toLuaFile ./nvimrc/plugin/nvim-jdtls.lua;
+        }
+
+        {
+          plugin = lualine-nvim;
+          config = toLuaFile ./nvimrc/plugin/lualine.lua;
+        }
+        lualine-lsp-progress
+
+        {
+          plugin = nvim-autopairs;
+          config = toLuaFile ./nvimrc/plugin/nvim-autopairs.lua;
+        }
+
+        {
+          plugin = nvim-tree-lua;
+          config = toLuaFile ./nvimrc/plugin/nvim-tree.lua;
+        }
+
+        {
+          plugin = telescope-nvim;
+          config = toLuaFile ./nvimrc/plugin/telescope.lua;
+        }
+        telescope-fzy-native-nvim
+
+        {
+          plugin = (nvim-treesitter.withPlugins (p: with p; [
+            yaml
+            xml
+            vimdoc
+            vim
+            typescript
+            toml
+            ssh_config
+            sql
+            scss
+            scheme
+            rust
+            rst
+            regex
+            racket
+            r
+            python
+            perl
+            passwd
+            ocaml
+            ocamllex
+            ocaml_interface
+            objdump
+            nix
+            ninja
+            nasm
+            meson
+            matlab
+            markdown_inline
+            markdown
+            make
+            lua
+            llvm
+            latex
+            kotlin
+            julia
+            json5
+            json
+            jq
+            javascript
+            java
+            ini
+            http
+            html
+            hlsl
+            haskell
+            groovy
+            gpg
+            godot_resource
+            go
+            glsl
+            gitignore
+            gitcommit
+            gitattributes
+            git_rebase
+            git_config
+            git_config
+            gdscript
+            fennel
+            elixir
+            dockerfile
+            diff
+            csv
+            css
+            cpp
+            commonlisp
+            comment
+            cmake
+            c_sharp
+            c
+            bibtex
+            bash
+            awk
+            arduino
+          ]));
+          config = toLuaFile ./nvimrc/plugin/treesitter.lua;
+        }
+
+        {
+          plugin = vimtex;
+          config = toLuaFile ./nvimrc/plugin/vimtex.lua;
+        }
+
+        plenary-nvim
+        markdown-preview-nvim
+        Coqtail
+        conjure
+        emmet-vim
+        symbols-outline-nvim
+        nvim-web-devicons
+        vimspector
+        undotree
+        nerdcommenter
+        tagbar
+        vim-fugitive
+        gitsigns-nvim
+      ];
+
+    };
 }
 
