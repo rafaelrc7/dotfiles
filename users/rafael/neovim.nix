@@ -112,6 +112,11 @@
         telescope-fzy-native-nvim
 
         {
+          plugin = gitsigns-nvim;
+          config = toLua ''require("gitsigns").setup()'';
+        }
+
+        {
           plugin = (nvim-treesitter.withPlugins (p: with p; [
             yaml
             xml
@@ -207,7 +212,6 @@
         nerdcommenter
         tagbar
         vim-fugitive
-        gitsigns-nvim
       ];
 
     };
