@@ -163,6 +163,12 @@ nvim_lsp.gopls.setup({
 	capabilities = capabilities,
 })
 
+-- Racket
+nvim_lsp.racket_langserver.setup({
+	on_attach = on_attach,
+	capabilities = capabilities,
+})
+
 utils.nvim_create_augroups({
 	lsp = {
 		{ "CursorHold", "*", "lua vim.diagnostic.open_float()" },
