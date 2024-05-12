@@ -48,6 +48,7 @@
       ];
 
       extraLuaConfig = ''
+
         ${builtins.readFile ./nvimrc/options.lua}
 
         ${builtins.readFile ./nvimrc/maps.lua}
@@ -58,10 +59,7 @@
       plugins = with pkgs.vimPlugins; [
         {
           plugin = gruvbox-nvim;
-          config = ''
-            set background=dark
-            colorscheme gruvbox
-          '';
+          config = toLuaFile ./nvimrc/plugin/gruvbox.lua;
         }
 
         {
