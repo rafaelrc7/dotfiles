@@ -1,6 +1,6 @@
 require("lualine").setup({
 	options = {
-		theme = "gruvbox_dark",
+		theme = "dracula-nvim",
 		section_separators = "",
 		component_separators = "",
 	},

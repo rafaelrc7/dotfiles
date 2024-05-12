@@ -6,6 +6,12 @@ let
     rev = "91853cfee609ecad5d2cb7dce821a7dfe6d780ef";
     hash = "sha256-TFxVG2kp5IDmkhYuzhprEz2IE28AEMAi/rUHILa7OPU=";
   };
+  mutt_dracula = pkgs.fetchFromGitHub {
+    owner = "dracula";
+    repo = "mutt";
+    rev = "3072ba9aa0af9781c1f9d361e4c8e736c1349ed1";
+    hash = "sha256-mn4mGGxt4XG3lm+lBTTQxV73ljBizs+JkHV9qPwfqxg=";
+  };
   email-utils = import ./email-utils.nix args;
   mutt_bgrun = "${email-utils.mutt_bgrun}/mutt_bgrun";
 in
@@ -61,8 +67,7 @@ in
       bind editor <Tab> complete-query
 
       # Colours
-      source ${neomutt_gruvbox}/colors-gruvbox-shuber.muttrc
-      source ${neomutt_gruvbox}/colors-gruvbox-shuber-extended.muttrc
+      source ${mutt_dracula}/dracula.muttrc
     '';
 
     macros = [

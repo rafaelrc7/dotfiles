@@ -58,8 +58,8 @@
 
       plugins = with pkgs.vimPlugins; [
         {
-          plugin = gruvbox-nvim;
-          config = toLuaFile ./nvimrc/plugin/gruvbox.lua;
+          plugin = dracula-nvim;
+          config = toLuaFile ./nvimrc/plugin/dracula.lua;
         }
 
         {
@@ -196,6 +196,11 @@
         {
           plugin = vimtex;
           config = toLuaFile ./nvimrc/plugin/vimtex.lua;
+        }
+
+        {
+          plugin = nvim-highlight-colors;
+          config = toLua ''require("nvim-highlight-colors").setup({})'';
         }
 
         plenary-nvim

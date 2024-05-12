@@ -36,8 +36,6 @@ opt.completeopt = "menu,menuone,noselect"
 opt.termguicolors = true
 opt.updatetime = 1000
 
-opt.spelllang = "pt,en,cjk"
-
-vim.g.gruvbox_contrast_dark = "hard"
+opt.spelllang = "pt_BR,en_GB"
 
 cmd("filetype plugin on")
