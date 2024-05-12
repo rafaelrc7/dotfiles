@@ -1,7 +1,7 @@
 # My personal Nix Flake
 
 <img
-src="https://raw.githubusercontent.com/NixOS/nixos-artwork/master/logo/nix-snowflake.svg"
+src="https://raw.githubusercontent.com/NixOS/nixos-artwork/master/logo/nix-snowflake-colours.svg"
 align="right" alt="Nix logo" width="150">
 
 > This is my Nix flake. There are many like it, but this one is mine.
