@@ -12,7 +12,7 @@ require("nvim-tree").setup({
 	hijack_netrw = true,
 	open_on_tab = true,
 	filters = {
-		custom = { ".git", "node_modules", ".cache" },
+		custom = { "^.git$", "^node_modules$", "^.cache$" },
 	},
 	actions = {
 		open_file = {
