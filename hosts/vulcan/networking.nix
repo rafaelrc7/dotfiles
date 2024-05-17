@@ -14,6 +14,7 @@
         43157 # qbittorrent
       ];
       allowedUDPPorts = [
+        4212 # VLC Remote
         9512 # Unified Remote
         59010 # SoundWire
       ];

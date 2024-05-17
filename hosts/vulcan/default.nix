@@ -55,6 +55,7 @@
       winetricks
       protontricks
       qbittorrent
+      vlc
       zoom
     ];
   };
