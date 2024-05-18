@@ -494,6 +494,22 @@
         "type": "github"
       }
     },
+    "proton-bridge": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1715918708,
+        "narHash": "sha256-XirmFTYj5lagQw4bhc5rXn2/MsUlZvs+bAjmu8x7JJ0=",
+        "owner": "rafaelrc7",
+        "repo": "proton-bridge",
+        "rev": "94c57006d9b5badd5c11bacc24b2cb4b4568ec7d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "rafaelrc7",
+        "repo": "proton-bridge",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "awesome-git": "awesome-git",
@@ -509,6 +525,7 @@
         "nixpkgs-stable": "nixpkgs-stable",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "nur": "nur",
+        "proton-bridge": "proton-bridge",
         "treefmt-nix": "treefmt-nix",
         "vscoq": "vscoq",
         "wayland-pipewire-idle-inhibit": "wayland-pipewire-idle-inhibit"

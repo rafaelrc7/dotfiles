@@ -39,8 +39,13 @@
     vscoq.url = "github:coq-community/vscoq";
 
     awesome-git = {
-      flake = false;
       url = "github:awesomewm/awesome";
+      flake = false;
+    };
+
+    proton-bridge = {
+      url = "github:rafaelrc7/proton-bridge";
+      flake = false;
     };
 
   };
