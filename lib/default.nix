@@ -3,22 +3,11 @@
 
     mkPkgs = { nixpkgs ? inputs.nixpkgs, system ? "x86_64-linux", overlays ? [ ], config ? { } }:
       import nixpkgs {
-        inherit system;
+        inherit system overlays;
 
         config = {
           allowUnfree = true;
         } // config;
-
-        overlays = overlays ++ [
-          (final: prev: {
-            nixpkgs-stable = inputs.nixpkgs-stable.legacyPackages."${system}";
-            nixpkgs-unstable = inputs.nixpkgs-unstable.legacyPackages."${system}";
-            nixpkgs-master = inputs.nixpkgs-master.legacyPackages."${system}";
-            coqPackages.vscoq-language-server = (inputs.vscoq.packages."${system}".default.overrideAttrs (old: {
-              nativeBuildInputs = old.nativeBuildInputs ++ [ prev.coq_8_19 ];
-            }));
-          })
-        ];
       };
 
     mkUser = { name, extraGroups ? [ ], sshKeys ? [ ], ... }: {

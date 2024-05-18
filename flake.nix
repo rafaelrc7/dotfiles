@@ -61,12 +61,10 @@
         let
           pkgs = self.lib.mkPkgs {
             inherit (inputs) nixpkgs;
-            overlays = [
+            overlays = (self.lib.attrsets.mapAttrsToList (_: v: v) self.overlays) ++ [
               inputs.nix-vscode-extensions.overlays.default
               inputs.nur.overlay
               inputs.nixgl.overlay
-              self.overlays.protonmail-bridge
-              (final: prev: self.packages)
             ];
             config = { permittedInsecurePackages = [ ]; };
           };

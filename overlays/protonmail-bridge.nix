@@ -1,3 +1,4 @@
+_:
 final: prev: {
   protonmail-bridge = prev.protonmail-bridge.overrideAttrs (old: {
     src = prev.fetchFromGitHub {
