@@ -13,7 +13,7 @@
 
     systemd = {
       enable = true;
-      target = "sway-session.target";
+      target = "wayland.target";
     };
 
     settings = [{

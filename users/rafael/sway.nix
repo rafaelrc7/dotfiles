@@ -10,25 +10,15 @@ let
   '';
 in
 {
-
-  xdg.configFile."sway/wallpapers".source = ./imgs/wallpapers;
+  imports = [
+    ./waybar.nix
+    ./wayland.nix
+  ];
 
   home.packages = with pkgs; [
-    cliphist
-    dolphin
     swaybg
-    swaylock
     swayidle
-    wl-clipboard
-    mako
-    grim
-    slurp
-    wofi
-    libnotify
-    imv
-    glfw-wayland
-    waylogout
-    wdisplays
+    swaylock
   ];
 
   wayland.windowManager.sway =
@@ -79,7 +69,6 @@ in
         startup = [
           { command = "--no-startup-id ${fileManager} --daemon"; }
           { command = "--no-startup-id ${loadWallpaper}/bin/loadWallpaper"; }
-          { command = "--no-startup-id ${pkgs.wl-clipboard}/bin/wl-paste --watch ${pkgs.cliphist}/bin/cliphist store"; }
         ];
 
         ## Programs/Addons ##
@@ -87,8 +76,14 @@ in
 
         ## Keybindings ##
         keybindings = lib.mkOptionDefault {
-          "ctrl+${alt}+l" = "exec --no-startup-id ${screenlock}";
-          "${mod}+Shift+e" = "exec ${pkgs.waylogout}/bin/waylogout";
+          "ctrl+${mod}+l" = "exec --no-startup-id ${screenlock}";
+          "${mod}+Shift+e" = ''
+              exec ${pkgs.waylogout}/bin/waylogout \
+                --logout-command="${pkgs.sway}/bin/swaymsg exit" \
+                --reload-command="${pkgs.sway}/bin/swaymsg reload" \
+                --lock-command="${screenlock}"
+          '';
+
           "${mod}+q" = "exec ${browser}";
           "${mod}+e" = "exec ${fileManager}";
           "${mod}+c" = "exec ${calculator}";
@@ -211,31 +206,6 @@ in
       xwayland = true;
     };
 
-  programs.foot = {
-    enable = true;
-    settings = {
-      main = {
-        font = "FiraCode Nerd Font Mono:size=11,Font Awesome 6 Free:size=11";
-        dpi-aware = "no";
-      };
-
-      cursor = {
-        style = "beam";
-        blink = "yes";
-      };
-
-      mouse = {
-        hide-when-typing = "yes";
-      };
-
-      colors = {
-        alpha = 0.9;
-      };
-    };
-  };
-
-  services.playerctld.enable = true;
-
   services.swayidle = {
     enable = true;
     systemdTarget = "sway-session.target";
@@ -252,63 +222,5 @@ in
     ];
   };
 
-  services.mako = {
-    enable = true;
-    actions = true;
-    anchor = "top-right";
-    icons = true;
-    defaultTimeout = 7000; # 7s
-    ignoreTimeout = true;
-  };
-
-  services.gammastep = {
-    enable = true;
-    provider = "geoclue2";
-    tray = true;
-    settings.general = {
-      fade = "1";
-      adjustment-method = "wayland";
-    };
-    temperature = {
-      day = 5500;
-      night = 2700;
-    };
-  };
-  systemd.user.services.gammastep.Install.WantedBy = lib.mkForce [ "sway-session.target" ];
-
-  xdg.configFile."waylogout/config".text = ''
-    fade-in=1
-    poweroff-command="poweroff"
-    reboot-command="reboot"
-    logout-command="${pkgs.sway}/bin/swaymsg exit"
-    reload-command="${pkgs.sway}/bin/swaymsg reload"
-    lock-command="${pkgs.swaylock}/bin/swaylock -Ffk -c 000000"
-    default-action="poweroff"
-    screenshots
-    effect-blur=7x5
-    indicator-thickness=20
-    ring-color=888888aa
-    inside-color=88888866
-    text-color=eaeaeaaa
-    line-color=00000000
-    ring-selection-color=33cc33aa
-    inside-selection-color=33cc3366
-    text-selection-color=eaeaeaaa
-    line-selection-color=00000000
-    selection-label
-  '';
-
-  services.wayland-pipewire-idle-inhibit = {
-    enable = true;
-    systemdTarget = "sway-session.target";
-    settings = {
-      verbosity = "INFO";
-      media_minimum_duration = 10;
-      node_blacklist = [
-        { name = "spotify"; }
-        { app_name = "Music Player Daemon"; }
-      ];
-    };
-  };
 }
 

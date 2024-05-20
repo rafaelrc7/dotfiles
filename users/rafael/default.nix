@@ -26,7 +26,6 @@
 , udiskie ? self.homeModules.udiskie
 , obs ? self.homeModules.obs
 , vscode ? ./vscode.nix
-, waybar ? ./waybar.nix
 , xdg ? ./xdg.nix
 , zsh ? ./zsh.nix
 }:
@@ -66,7 +65,6 @@
     neovim
     sway
     vscode
-    waybar
     xdg
     zsh
 

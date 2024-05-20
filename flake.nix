@@ -117,7 +117,6 @@
                     udiskie = null;
                     obs = null;
                     vscode = null;
-                    waybar = null;
                   };
                 }
               ];
@@ -168,7 +167,6 @@
                 sway = null;
                 udiskie = null;
                 obs = null;
-                waybar = null;
               };
             };
           };
