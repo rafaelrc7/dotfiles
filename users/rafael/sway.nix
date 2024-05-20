@@ -1,15 +1,9 @@
 { inputs, config, pkgs, lib, ... }:
 let
-  toggle-qt = pkgs.writeShellScriptBin "toggle-qt" ''
-    set -eo pipefail
-    QALCULATE=`pgrep -u ${config.home.username} qalculate`
-    [ x"$QALCULATE" == "x" ] && ${pkgs.qalculate-qt}/bin/qalculate-qt || kill -s TERM "$QALCULATE"
-    exit 0
-  '';
   loadWallpaper = pkgs.writeShellScriptBin "loadWallpaper" ''
     set -eo pipefail
-    [[ -f ${config.xdg.configHome}/sway/wallpapers/default ]] && WALLPAPER="${config.xdg.configHome}/sway/wallpapers/default"
-    [[ -f ${config.xdg.configHome}/sway/wallpapers/`uname -n` ]] && WALLPAPER="${config.xdg.configHome}/sway/wallpapers/`uname -n`"
+    [[ -f ${config.xdg.userDirs.pictures}/Wallpapers/default ]] && WALLPAPER="${config.xdg.userDirs.pictures}/Wallpapers/default"
+    [[ -f ${config.xdg.userDirs.pictures}/Wallpapers/`uname -n` ]] && WALLPAPER="${config.xdg.userDirs.pictures}/Wallpapers/`uname -n`"
     [[ -f ${config.xdg.configHome}/wallpaper ]] && WALLPAPER="${config.xdg.configHome}/wallpaper"
     [[ -v WALLPAPER ]] && exec -- ${pkgs.swaybg}/bin/swaybg -i "$WALLPAPER" -m fill
     exit 0
@@ -39,12 +33,13 @@ in
 
   wayland.windowManager.sway =
     let
+      menu = "${pkgs.procps}/bin/pkill wofi || ${pkgs.wofi}/bin/wofi --show=drun --insensitive --allow-images --hide-scroll | ${pkgs.findutils}/bin/xargs swaymsg exec --";
       terminal = "${pkgs.foot}/bin/foot";
       browser = "${pkgs.librewolf}/bin/librewolf";
       fileManager = "${pkgs.dolphin}/bin/dolphin";
       screenlock = "${pkgs.swaylock}/bin/swaylock -Ffk -c 000000";
       printClip = "${pkgs.slurp}/bin/slurp | ${pkgs.grim}/bin/grim -g - - | ${pkgs.wl-clipboard}/bin/wl-copy";
-      calculator = "${toggle-qt}/bin/toggle-qt";
+      calculator = "${pkgs.procps}/bin/pkill qalculate-qt || ${pkgs.qalculate-qt}/bin/qalculate-qt";
       mod = "Mod4";
       alt = "Mod1";
     in
@@ -52,6 +47,12 @@ in
       enable = true;
       package = null;
       config = rec {
+        ## Monitors ##
+        output = {
+          HDMI-A-1.pos = "0 0";
+          DP-3.pos = "2560 0";
+        };
+
         ## Keyboard ##
         modifier = mod;
         floating.modifier = mod;
@@ -82,8 +83,7 @@ in
         ];
 
         ## Programs/Addons ##
-        inherit terminal;
-        menu = "${pkgs.wofi}/bin/wofi --show=drun --insensitive --allow-images --hide-scroll | ${pkgs.findutils}/bin/xargs swaymsg exec --";
+        inherit terminal menu;
 
         ## Keybindings ##
         keybindings = lib.mkOptionDefault {
@@ -186,7 +186,8 @@ in
         [ -e $HOME/.profile ] && . $HOME/.profile
 
         export SDL_VIDEODRIVER=wayland
-        export QT_QPA_PLATFORM=wayland
+        export QT_QPA_PLATFORM=wayland;xcb
+        export GDK_BACKEND=wayland,x11
         export QT_WAYLAND_DISABLE_WINDOWDECORATION="1"
         export _JAVA_AWT_WM_NONREPARENTING=1
         export MOZ_ENABLE_WAYLAND=1
