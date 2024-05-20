@@ -22,11 +22,21 @@
       height = 25;
       spacing = 5;
 
-      modules-left = [ "sway/workspaces" "sway/mode" "sway/scratchpad" "custom/media" ];
-      modules-center = [ "sway/window" ];
-      modules-right = [ "tray" "mpd" "idle_inhibitor" "custom/audio_idle_inhibitor" "pulseaudio" "network" "cpu" "memory" "temperature" "backlight" "keyboard-state" "sway/language" "battery" "battery#bat2" "clock" ];
+      modules-left = [ "sway/workspaces" "hyprland/workspaces" "sway/mode" "hyprland/submap" "sway/scratchpad" "custom/media" ];
+      modules-center = [ "sway/window" "hyprland/window" ];
+      modules-right = [ "tray" "mpd" "idle_inhibitor" "custom/audio_idle_inhibitor" "pulseaudio" "network" "cpu" "memory" "temperature" "backlight" "keyboard-state" "sway/language" "hyprland/language" "battery" "battery#bat2" "clock" ];
 
       "sway/workspaces" = {
+        all-outputs = true;
+        format = "{name}{icon}";
+        format-icons = {
+          "urgent" = " ";
+          "focused" = "";
+          "default" = "";
+        };
+      };
+
+      "hyprland/workspaces" = {
         all-outputs = true;
         format = "{name}{icon}";
         format-icons = {
@@ -244,7 +254,7 @@
           background: rgba(0, 0, 0, 0.2);
       }
 
-      #workspaces button.focused {
+      #workspaces button.focused, #workspaces button.active {
           background-color: #64727D;
           box-shadow: inset 0 -3px #ffffff;
       }

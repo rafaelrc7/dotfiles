@@ -8,6 +8,7 @@
 , gschemas ? self.homeModules.gschemas
 , gui-pkgs ? ./gui-pkgs.nix
 , gui-theme ? ./gui-theme.nix
+, hyprland ? ./hyprland.nix
 , jetbrains ? self.homeModules.jetbrains
 , keybase ? self.homeModules.keybase
 , kitty ? self.homeModules.kitty
@@ -61,6 +62,7 @@
     git
     gui-pkgs
     gui-theme
+    hyprland
     neomutt
     neovim
     sway
