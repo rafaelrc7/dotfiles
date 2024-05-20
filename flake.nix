@@ -114,6 +114,7 @@
                     protonmail-bridge = null;
                     rclone-gdrive = null;
                     sway = null;
+                    udiskie = null;
                     obs = null;
                     vscode = null;
                     waybar = null;
@@ -165,6 +166,7 @@
                 node = null;
                 rclone-gdrive = null;
                 sway = null;
+                udiskie = null;
                 obs = null;
                 waybar = null;
               };

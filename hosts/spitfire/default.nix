@@ -173,6 +173,8 @@
   programs.dconf.enable = true;
   programs.mtr.enable = true;
 
+  services.udisks2.enable = true;
+
   systemd.services.brightness = {
     enable = true;
     script = ''

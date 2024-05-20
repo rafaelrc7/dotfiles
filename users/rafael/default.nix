@@ -23,6 +23,7 @@
 , rclone-gdrive ? self.homeModules.rclone-gdrive
 , syncthing ? self.homeModules.syncthing
 , sway ? ./sway.nix
+, udiskie ? self.homeModules.udiskie
 , obs ? self.homeModules.obs
 , vscode ? ./vscode.nix
 , waybar ? ./waybar.nix
@@ -53,6 +54,7 @@
     protonmail-bridge
     rclone-gdrive
     syncthing
+    udiskie
     obs
 
     email

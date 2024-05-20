@@ -187,6 +187,8 @@
     };
   };
 
+  services.udisks2.enable = true;
+
   hardware.sane = {
     enable = true;
     extraBackends = [ pkgs.epson-escpr ];
