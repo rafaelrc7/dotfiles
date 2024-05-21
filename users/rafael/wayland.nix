@@ -68,20 +68,16 @@
     };
   };
 
-  services.gammastep = {
+  services.wlsunset = {
     enable = true;
-    provider = "geoclue2";
-    tray = true;
-    settings.general = {
-      fade = "1";
-      adjustment-method = "wayland";
-    };
+    systemdTarget = "wayland.target";
     temperature = {
-      day = 5500;
+      day = 6500;
       night = 2700;
     };
+    sunrise = "06:00";
+    sunset = "17:30";
   };
-  systemd.user.services.gammastep.Install.WantedBy = lib.mkForce [ "wayland.target" ];
 
   services.mako = {
     enable = true;
