@@ -97,31 +97,6 @@
     "L+    /opt/rocm/hip   -    -    -     -    ${pkgs.rocmPackages.clr}"
   ];
 
-  services.xserver = {
-    enable = false;
-
-    displayManager = {
-      lightdm = {
-        enable = false;
-        greeters.gtk = {
-          enable = true;
-          theme = {
-            name = "Dracula";
-            package = pkgs.dracula-theme;
-          };
-          iconTheme = {
-            name = "Dracula";
-            package = pkgs.dracula-icon-theme;
-          };
-          cursorTheme = {
-            name = "breeze_cursors";
-            package = pkgs.libsForQt5.breeze-qt5;
-          };
-        };
-      };
-    };
-  };
-
   programs.sway = {
     enable = true;
     wrapperFeatures = {
