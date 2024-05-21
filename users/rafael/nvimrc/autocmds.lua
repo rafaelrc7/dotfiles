@@ -1,13 +1,13 @@
 local api = vim.api
 
-local goGroup = api.nvim_create_augroup("go", { clear = true })
+local goGroup = api.nvim_create_augroup("gofmt", { clear = true })
 api.nvim_create_autocmd("Filetype", {
 	pattern = "go",
 	command = [[autocmd BufWritePost * silent !gofmt -w %]],
 	group = goGroup,
 })
 
-local rustGroup = api.nvim_create_augroup("rust", { clear = true })
+local rustGroup = api.nvim_create_augroup("rustfmt", { clear = true })
 api.nvim_create_autocmd("Filetype", {
 	pattern = "rust",
 	command = [[autocmd BufWritePost * silent !cargo fmt]],

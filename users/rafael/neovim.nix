@@ -1,8 +1,4 @@
 { pkgs, ... }: {
-  xdg.configFile."nvim/lua" = {
-    source = ./nvimrc/lua;
-  };
-
   programs.neovim =
     let
       toLua = str: "lua << EOF\n${str}\nEOF\n";
@@ -56,62 +52,63 @@
         ${builtins.readFile ./nvimrc/autocmds.lua}
       '';
 
-      plugins = with pkgs.vimPlugins; [
+      plugins = let ps = pkgs.vimPlugins; in [
+        ps.plenary-nvim
 
         {
-          plugin = nvim-cmp;
+          plugin = ps.nvim-cmp;
           config = toLuaFile ./nvimrc/plugin/cmp.lua;
         }
-        cmp-buffer
-        cmp-cmdline
-        cmp-conjure
-        cmp_luasnip
-        cmp-nvim-lsp
-        cmp-path
-        cmp-rg
-        cmp-treesitter
+        ps.cmp-buffer
+        ps.cmp-cmdline
+        ps.cmp-conjure
+        ps.cmp_luasnip
+        ps.cmp-nvim-lsp
+        ps.cmp-path
+        ps.cmp-rg
+        ps.cmp-treesitter
 
-        luasnip
+        ps.luasnip
 
         {
-          plugin = nvim-lspconfig;
+          plugin = ps.nvim-lspconfig;
           config = toLuaFile ./nvimrc/plugin/lsp.lua;
         }
 
         {
-          plugin = nvim-jdtls;
+          plugin = ps.nvim-jdtls;
           config = toLuaFile ./nvimrc/plugin/nvim-jdtls.lua;
         }
 
         {
-          plugin = lualine-nvim;
+          plugin = ps.lualine-nvim;
           config = toLuaFile ./nvimrc/plugin/lualine.lua;
         }
-        lualine-lsp-progress
+        ps.lualine-lsp-progress
 
         {
-          plugin = nvim-autopairs;
+          plugin = ps.nvim-autopairs;
           config = toLuaFile ./nvimrc/plugin/nvim-autopairs.lua;
         }
 
         {
-          plugin = nvim-tree-lua;
+          plugin = ps.nvim-tree-lua;
           config = toLuaFile ./nvimrc/plugin/nvim-tree.lua;
         }
 
         {
-          plugin = telescope-nvim;
+          plugin = ps.telescope-nvim;
           config = toLuaFile ./nvimrc/plugin/telescope.lua;
         }
-        telescope-fzy-native-nvim
+        ps.telescope-fzf-native-nvim
 
         {
-          plugin = gitsigns-nvim;
+          plugin = ps.gitsigns-nvim;
           config = toLua ''require("gitsigns").setup()'';
         }
 
         {
-          plugin = (nvim-treesitter.withPlugins (p: with p; [
+          plugin = (ps.nvim-treesitter.withPlugins (p: with p; [
             yaml
             xml
             vimdoc
@@ -190,27 +187,25 @@
         }
 
         {
-          plugin = vimtex;
+          plugin = ps.vimtex;
           config = toLuaFile ./nvimrc/plugin/vimtex.lua;
         }
 
         {
-          plugin = nvim-highlight-colors;
+          plugin = ps.nvim-highlight-colors;
           config = toLua ''require("nvim-highlight-colors").setup({})'';
         }
 
-        plenary-nvim
-        markdown-preview-nvim
-        Coqtail
-        conjure
-        emmet-vim
-        symbols-outline-nvim
-        nvim-web-devicons
-        vimspector
-        undotree
-        nerdcommenter
-        tagbar
-        vim-fugitive
+        ps.markdown-preview-nvim
+        ps.Coqtail
+        ps.conjure
+        ps.emmet-vim
+        ps.symbols-outline-nvim
+        ps.nvim-web-devicons
+        ps.vimspector
+        ps.undotree
+        ps.tagbar
+        ps.vim-fugitive
       ];
 
     };

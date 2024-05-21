@@ -19,7 +19,6 @@ opt.expandtab = false
 opt.tabstop = 4
 opt.softtabstop = 0
 opt.shiftwidth = 4
-opt.backspace = "2"
 opt.hlsearch = true
 opt.incsearch = true
 opt.showmatch = true

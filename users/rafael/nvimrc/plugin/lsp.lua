@@ -1,4 +1,4 @@
-local utils = require("utils")
+local api = vim.api
 
 -- nvim-lsp
 local nvim_lsp = require("lspconfig")
@@ -169,8 +169,11 @@ nvim_lsp.racket_langserver.setup({
 	capabilities = capabilities,
 })
 
-utils.nvim_create_augroups({
-	lsp = {
-		{ "CursorHold", "*", "lua vim.diagnostic.open_float()" },
-	},
+local lspDiagnosticGroup = api.nvim_create_augroup("lsp_diagnostic_float", { clear = true })
+api.nvim_create_autocmd("CursorHold", {
+	pattern = "*",
+	callback = function(_)
+		vim.diagnostic.open_float()
+	end,
+	group = lspDiagnosticGroup,
 })

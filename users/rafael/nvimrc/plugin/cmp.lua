@@ -41,6 +41,7 @@ cmp.setup({
 		{ name = "luasnip" },
 		{ name = "conjure" },
 		{ name = "path" },
+		{ name = "rg" },
 	}, {
 		{ name = "buffer" },
 	}),
