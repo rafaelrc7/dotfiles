@@ -57,10 +57,6 @@
       '';
 
       plugins = with pkgs.vimPlugins; [
-        {
-          plugin = dracula-nvim;
-          config = toLuaFile ./nvimrc/plugin/dracula.lua;
-        }
 
         {
           plugin = nvim-cmp;

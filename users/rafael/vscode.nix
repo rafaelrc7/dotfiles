@@ -53,6 +53,9 @@
       ms-vscode-remote.remote-wsl
       ms-vscode-remote.remote-ssh
       ms-vscode.remote-server
+
+      catppuccin.catppuccin-vsc
+      catppuccin.catppuccin-vsc-icons
     ];
 
     userSettings = {
@@ -62,6 +65,11 @@
         useSystemClipboard = true;
       };
       makefile.configureOnOpen = true;
+
+      catppuccin.accentColor = "blue";
+      workbench.colorTheme = "Catppuccin Mocha";
+      workbench.iconTheme = "catppuccin-mocha";
+      "workbench.iconTheme" = "catppuccin-mocha";
     };
 
     keybindings = [

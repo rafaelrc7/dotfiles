@@ -17,7 +17,7 @@
 
     nixos-hardware.url = "github:nixos/nixos-hardware/master";
     nur.url = "github:nix-community/nur";
-    stylix.url = "github:danth/stylix";
+    catppuccin.url = "github:catppuccin/nix";
 
     awesomerc.url = "github:rafaelrc7/awesomerc";
 

@@ -1,64 +1,141 @@
-{ pkgs, ... }: {
-
-  stylix = {
-    image = ./imgs/wallpapers/vulcan;
-
-    base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
-    polarity = "dark";
-
-    cursor = {
-      name = "breeze_cursors";
-      package = pkgs.libsForQt5.breeze-qt5;
-      size = 16;
+{ config, lib, pkgs, ... }:
+let
+  fonts = {
+    monospace = {
+      name = "FiraCode Nerd Font Mono";
+      package = (pkgs.nerdfonts.override { fonts = [ "FiraCode" ]; });
+    };
+    sansSerif = {
+      name = "DejaVu Sans";
+      package = pkgs.dejavu_fonts;
+    };
+    serif = {
+      name = "DejaVu Serif";
+      package = pkgs.dejavu_fonts;
+    };
+    emoji = {
+      name = "Noto Color Emoji";
+      package = pkgs.noto-fonts-emoji;
+    };
+    awesome = {
+      name = "Font Awesome 6 Free";
+      package = pkgs.font-awesome;
     };
 
-    opacity = {
-      applications = 1.0;
-      terminal = 0.95;
-      desktop = 0.95;
-      popups = 1.0;
+    sizes = {
+      applications = 10;
+      terminal = 10;
+      desktop = 8;
+      popups = 10;
+    };
+  };
+
+  opacity = {
+    applications = 1.0;
+    terminal = 0.95;
+    desktop = 0.95;
+    popups = 1.0;
+  };
+
+  cursor = {
+    name = "breeze_cursors";
+    package = pkgs.libsForQt5.breeze-qt5;
+    size = 16;
+  };
+in
+{
+
+  catppuccin = {
+    accent = "blue";
+    flavour = "mocha";
+  };
+
+  programs = {
+    bat = {
+      enable = true;
+      catppuccin.enable = true;
+    };
+    btop.catppuccin.enable = true;
+    git.delta.catppuccin.enable = true;
+    fzf.catppuccin.enable = true;
+    imv.catppuccin.enable = true;
+    mpv.catppuccin.enable = true;
+    neovim.catppuccin.enable = true;
+    # swaylock.catppuccin.enable = true;
+    tmux.catppuccin.enable = true;
+    waybar.catppuccin.enable = true;
+    zathura.catppuccin.enable = true;
+    zsh.syntaxHighlighting.catppuccin.enable = true;
+  };
+
+  services = {
+    mako.catppuccin.enable = true;
+  };
+
+  i18n.inputMethod.fcitx5.catppuccin.enable = true;
+
+  wayland.windowManager = {
+    hyprland = {
+      catppuccin.enable = true;
+      settings = with fonts; {
+        group.groupbar = {
+          font_family = sansSerif.name;
+          font_size = sizes.desktop;
+        };
+        misc.splash_font_family = sansSerif.name;
+      };
     };
 
-    fonts = {
-      monospace = {
-        name = "FiraCode Nerd Font Mono";
-        package = (pkgs.nerdfonts.override { fonts = [ "FiraCode" ]; });
+    sway = {
+      catppuccin.enable = true;
+      config = {
+        fonts = {
+          names = [ fonts.sansSerif.name fonts.awesome.name ];
+          size = fonts.sizes.desktop + 0.0;
+        };
       };
-      sansSerif = {
-        name = "DejaVu Sans";
-        package = pkgs.dejavu_fonts;
-      };
-      serif = {
-        name = "DejaVu Serif";
-        package = pkgs.dejavu_fonts;
-      };
-      emoji = {
-        name = "Noto Color Emoji";
-        package = pkgs.noto-fonts-emoji;
-      };
-
-      sizes = {
-        applications = 12;
-        terminal = 12;
-        desktop = 10;
-        popups = 10;
-      };
-
     };
+  };
 
-
-    targets = {
-      gtk.enable = true;
-      mangohud.enable = true;
-      xresources.enable = true;
+  programs.foot = {
+    catppuccin.enable = true;
+    settings = {
+      main = {
+        font = with fonts;
+          let size = builtins.toString sizes.terminal;
+          in "${monospace.name}:size=${size}, ${awesome.name}:size=${size}, ${emoji.name}:size=${size}";
+      };
+      colors.alpha = opacity.terminal;
     };
+  };
+
+  programs.kitty = {
+    catppuccin.enable = true;
+    font = {
+      inherit (fonts.monospace) name package;
+      size = fonts.sizes.terminal;
+    };
+    settings.background_opacity = builtins.toString opacity.terminal;
+  };
+
+  home.pointerCursor = {
+    inherit (cursor) name package size;
+    x11.enable = true;
+    gtk.enable = true;
   };
 
   gtk = {
     enable = true;
+
+    catppuccin.enable = true;
     iconTheme = {
       name = "Papirus-Dark";
       package = pkgs.catppuccin-papirus-folders;
+    };
+
+    font = {
+      inherit (fonts.sansSerif) package name;
+      size = fonts.sizes.applications;
     };
 
     gtk2.extraConfig = ''
@@ -87,45 +164,53 @@
     };
   };
 
-   qt = {
+  qt = {
     enable = true;
     platformTheme.name = "qtct";
     style.name = "kvantum";
-   };
-
-   home.packages = with pkgs; [
-     libsForQt5.qtstyleplugins
-     libsForQt5.qtstyleplugin-kvantum
-     qt6Packages.qtstyleplugin-kvantum
-     libsForQt5.qt5.qtwayland
-     qt6.qtwayland
-     libsForQt5.qt5ct
-     qt6Packages.qt6ct
-     catppuccin-papirus-folders
-   ];
-
-  xdg.configFile = let
-    theme = (pkgs.catppuccin-kvantum.override {
-      variant = "Mocha";
-      accent = "Blue";
-    });
-  in {
-    "Kvantum/kvantum.kvconfig".text = ''
-      [General]
-      theme=Catppuccin-Mocha-Blue
-    '';
-    "Kvantum/Catppuccin-Mocha-Blue".source = "${theme}/share/Kvantum/Catppuccin-Mocha-Blue";
-
-    "qt5ct/qt5ct.conf".text = ''
-      [Appearance]
-      icon_theme=Papirus-Dark
-    '';
-
-    "qt6ct/qt6ct.conf".text = ''
-      [Appearance]
-      icon_theme=Papirus-Dark
-    '';
   };
+
+  home.packages = with pkgs; [
+    libsForQt5.qt5ct
+    libsForQt5.qtstyleplugins
+    libsForQt5.qtstyleplugin-kvantum
+    libsForQt5.qt5.qtwayland
+    qt6Packages.qt6ct
+    qt6Packages.qtstyleplugin-kvantum
+    qt6.qtwayland
+    catppuccin-papirus-folders
+  ];
+
+  xdg.configFile =
+    let
+      capitalise = str:
+        let
+          cs = (lib.stringToCharacters str);
+          hd = lib.head cs; # Errors on empty string, this is intended
+          tl = lib.tail cs;
+        in
+        lib.strings.concatStrings ([ (lib.strings.toUpper hd) ] ++ tl);
+      variant = capitalise config.catppuccin.flavour;
+      accent = capitalise config.catppuccin.accent;
+      theme = (pkgs.catppuccin-kvantum.override { inherit variant accent; });
+    in
+    {
+      "Kvantum/kvantum.kvconfig".text = ''
+        [General]
+        theme=Catppuccin-${variant}-${accent}
+      '';
+      "Kvantum/Catppuccin-${variant}-${accent}".source = "${theme}/share/Kvantum/Catppuccin-${variant}-${accent}";
+
+      "qt5ct/qt5ct.conf".text = ''
+        [Appearance]
+        icon_theme=Papirus-Dark
+      '';
+
+      "qt6ct/qt6ct.conf".text = ''
+        [Appearance]
+        icon_theme=Papirus-Dark
+      '';
+    };
 
 }
 

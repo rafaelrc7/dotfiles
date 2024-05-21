@@ -44,7 +44,10 @@
       {
         inherit name;
         value = {
-          imports = [ (userModule extraArgs) ] ++ homeModules;
+          imports = [
+            inputs.catppuccin.homeManagerModules.catppuccin
+            (userModule extraArgs)
+          ] ++ homeModules;
         };
       };
 
@@ -69,6 +72,7 @@
           (self.hosts."${hostName}")
           (mkUsers users)
           inputs.home-manager.nixosModules.home-manager
+          inputs.catppuccin.nixosModules.catppuccin
           {
             home-manager = {
               useUserPackages = true;
@@ -94,7 +98,7 @@
         inherit pkgs;
         extraSpecialArgs = { inherit inputs pkgs nixpkgs system username self; };
         modules = [
-          inputs.stylix.homeManagerModules.stylix
+          inputs.catppuccin.homeManagerModules.catppuccin
           {
             home = {
               inherit username homeDirectory;

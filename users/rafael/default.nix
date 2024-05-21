@@ -71,7 +71,6 @@
     zsh
 
     inputs.wayland-pipewire-idle-inhibit.homeModules.default
-    inputs.stylix.homeManagerModules.stylix
   ];
 
   home.packages = with pkgs; [

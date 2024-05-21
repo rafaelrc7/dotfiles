@@ -12,6 +12,12 @@ let
     rev = "3072ba9aa0af9781c1f9d361e4c8e736c1349ed1";
     hash = "sha256-mn4mGGxt4XG3lm+lBTTQxV73ljBizs+JkHV9qPwfqxg=";
   };
+  mutt_catppuccin = pkgs.fetchFromGitHub {
+    owner = "catppuccin";
+    repo = "neomutt";
+    rev = "f6ce83da47cc36d5639b0d54e7f5f63cdaf69f11";
+    hash = "sha256-ye16nP2DL4VytDKB+JdMkBXU+Y9Z4dHmY+DsPcR2EG0=";
+  };
   email-utils = import ./email-utils.nix args;
   mutt_bgrun = "${email-utils.mutt_bgrun}/mutt_bgrun";
 in
@@ -67,7 +73,7 @@ in
       bind editor <Tab> complete-query
 
       # Colours
-      source ${mutt_dracula}/dracula.muttrc
+      source ${mutt_catppuccin}/neomuttrc
     '';
 
     macros = [
