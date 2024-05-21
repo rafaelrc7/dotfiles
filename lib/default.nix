@@ -94,6 +94,7 @@
         inherit pkgs;
         extraSpecialArgs = { inherit inputs pkgs nixpkgs system username self; };
         modules = [
+          inputs.stylix.homeManagerModules.stylix
           {
             home = {
               inherit username homeDirectory;

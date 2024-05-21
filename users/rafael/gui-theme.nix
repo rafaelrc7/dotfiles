@@ -1,46 +1,64 @@
-{ config, pkgs, ... }: {
-  home.pointerCursor = {
-    name = "breeze_cursors";
-    package = pkgs.libsForQt5.breeze-qt5;
-    size = 16;
-    x11.enable = true;
-    gtk.enable = true;
-  };
+{ pkgs, ... }: {
 
-  programs.kitty = {
-    settings = {
-      foreground = "#${config.colorScheme.palette.base05}";
-      background = "#${config.colorScheme.palette.base00}";
+  stylix = {
+    image = ./imgs/wallpapers/vulcan;
+
+    base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
+    polarity = "dark";
+
+    cursor = {
+      name = "breeze_cursors";
+      package = pkgs.libsForQt5.breeze-qt5;
+      size = 16;
     };
-  };
 
-  programs.foot = {
-    settings = {
-      colors = {
-        foreground = "${config.colorScheme.palette.base05}";
-        background = "${config.colorScheme.palette.base00}";
+    opacity = {
+      applications = 1.0;
+      terminal = 0.95;
+      desktop = 0.95;
+      popups = 1.0;
+    };
+
+    fonts = {
+      monospace = {
+        name = "FiraCode Nerd Font Mono";
+        package = (pkgs.nerdfonts.override { fonts = [ "FiraCode" ]; });
       };
+      sansSerif = {
+        name = "DejaVu Sans";
+        package = pkgs.dejavu_fonts;
+      };
+      serif = {
+        name = "DejaVu Serif";
+        package = pkgs.dejavu_fonts;
+      };
+      emoji = {
+        name = "Noto Color Emoji";
+        package = pkgs.noto-fonts-emoji;
+      };
+
+      sizes = {
+        applications = 12;
+        terminal = 12;
+        desktop = 10;
+        popups = 10;
+      };
+
+    };
+
+
+    targets = {
+      gtk.enable = true;
+      mangohud.enable = true;
+      xresources.enable = true;
     };
   };
 
   gtk = {
     enable = true;
-    font = {
-      name = "FiraCode Nerd Font";
-      package = (pkgs.nerdfonts.override { fonts = [ "FiraCode" ]; });
-      size = 10;
-    };
-    theme = {
-      name = "Dracula";
-      package = pkgs.dracula-theme;
-    };
     iconTheme = {
-      name = "Dracula";
-      package = pkgs.dracula-icon-theme;
-    };
-    cursorTheme = {
-      name = "breeze_cursors";
-      package = pkgs.libsForQt5.breeze-qt5;
+      name = "Papirus-Dark";
+      package = pkgs.catppuccin-papirus-folders;
     };
 
     gtk2.extraConfig = ''
@@ -69,97 +87,45 @@
     };
   };
 
-  qt = {
+   qt = {
     enable = true;
     platformTheme.name = "qtct";
-    # style.name = "kvantum"; # set QT_STYLE_OVERRIDE
-  };
+    style.name = "kvantum";
+   };
 
-  home.packages = with pkgs; [
-    libsForQt5.qtstyleplugins
-    libsForQt5.qtstyleplugin-kvantum
-    qt6Packages.qtstyleplugin-kvantum
-    libsForQt5.qt5.qtwayland
-    qt6.qtwayland
-    libsForQt5.qt5ct
-    qt6Packages.qt6ct
-  ];
+   home.packages = with pkgs; [
+     libsForQt5.qtstyleplugins
+     libsForQt5.qtstyleplugin-kvantum
+     qt6Packages.qtstyleplugin-kvantum
+     libsForQt5.qt5.qtwayland
+     qt6.qtwayland
+     libsForQt5.qt5ct
+     qt6Packages.qt6ct
+     catppuccin-papirus-folders
+   ];
 
-  xdg.configFile = {
+  xdg.configFile = let
+    theme = (pkgs.catppuccin-kvantum.override {
+      variant = "Mocha";
+      accent = "Blue";
+    });
+  in {
     "Kvantum/kvantum.kvconfig".text = ''
       [General]
-      theme=Dracula-Solid
+      theme=Catppuccin-Mocha-Blue
     '';
-
-    "Kvantum/Dracula".source = "${pkgs.dracula-theme}/share/Kvantum/Dracula";
-    "Kvantum/Dracula-Solid".source = "${pkgs.dracula-theme}/share/Kvantum/Dracula-Solid";
-    "Kvantum/Dracula-purple".source = "${pkgs.dracula-theme}/share/Kvantum/Dracula-purple";
-    "Kvantum/Dracula-purple-solid".source = "${pkgs.dracula-theme}/share/Kvantum/Dracula-purple-solid";
+    "Kvantum/Catppuccin-Mocha-Blue".source = "${theme}/share/Kvantum/Catppuccin-Mocha-Blue";
 
     "qt5ct/qt5ct.conf".text = ''
       [Appearance]
-      custom_palette=false
-      icon_theme=Dracula
-      standard_dialogs=default
-      style=kvantum-dark
-
-      [Fonts]
-      fixed="DejaVu Sans,12,-1,5,50,0,0,0,0,0"
-      general="DejaVu Sans,12,-1,5,50,0,0,0,0,0"
-
-      [Interface]
-      activate_item_on_single_click=1
-      buttonbox_layout=0
-      cursor_flash_time=1000
-      dialog_buttons_have_icons=1
-      double_click_interval=400
-      gui_effects=@Invalid()
-      keyboard_scheme=2
-      menus_have_icons=true
-      show_shortcuts_in_context_menus=true
-      stylesheets=@Invalid()
-      toolbutton_style=4
-      underline_shortcut=1
-      wheel_scroll_lines=3
-
-      [SettingsWindow]
-      geometry=@ByteArray(\x1\xd9\xd0\xcb\0\x3\0\0\0\0\0\0\0\0\0\0\0\0\x4\xf9\0\0\x4\x1a\0\0\0\0\0\0\0\0\0\0\x2\xde\0\0\x2\xd9\0\0\0\0\x2\0\0\0\n\0\0\0\0\0\0\0\0\0\0\0\x4\xf9\0\0\x4\x1a)
-
-      [Troubleshooting]
-      force_raster_widgets=1
-      ignored_applications=@Invalid()
+      icon_theme=Papirus-Dark
     '';
 
     "qt6ct/qt6ct.conf".text = ''
       [Appearance]
-      custom_palette=false
-      icon_theme=Dracula
-      standard_dialogs=default
-      style=kvantum-dark
-
-      [Fonts]
-      fixed="DejaVu Sans,12,-1,5,400,0,0,0,0,0,0,0,0,0,0,1"
-      general="DejaVu Sans,12,-1,5,400,0,0,0,0,0,0,0,0,0,0,1"
-
-      [Interface]
-      activate_item_on_single_click=1
-      buttonbox_layout=0
-      cursor_flash_time=1000
-      dialog_buttons_have_icons=1
-      double_click_interval=400
-      gui_effects=@Invalid()
-      keyboard_scheme=2
-      menus_have_icons=true
-      show_shortcuts_in_context_menus=true
-      stylesheets=@Invalid()
-      toolbutton_style=4
-      underline_shortcut=1
-      wheel_scroll_lines=3
-
-      [Troubleshooting]
-      force_raster_widgets=1
-      ignored_applications=@Invalid()
+      icon_theme=Papirus-Dark
     '';
   };
+
 }
 

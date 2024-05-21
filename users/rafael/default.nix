@@ -70,11 +70,9 @@
     xdg
     zsh
 
-    inputs.nix-colors.homeManagerModule
     inputs.wayland-pipewire-idle-inhibit.homeModules.default
+    inputs.stylix.homeManagerModules.stylix
   ];
-
-  colorScheme = inputs.nix-colors.colorSchemes.dracula;
 
   home.packages = with pkgs; [
     fzf

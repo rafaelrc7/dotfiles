@@ -196,13 +196,6 @@ in
         border_size = 2;
         no_border_on_floating = false;
 
-        # TODO: use nix-colours
-        "col.active_border" = "rgb(ffffff)";
-        "col.inactive_border" = "rgb(444444)";
-
-        "col.nogroup_border_active" = "rgb(ff00ff)";
-        "col.nogroup_border" = "rgb(ffaaff)";
-
         resize_on_border = true;
         hover_icon_on_border = true;
       };
@@ -229,7 +222,6 @@ in
         shadow_render_power = 3;
         shadow_offset = "0 0";
         shadow_scale = "1.0";
-        "col.shadow" = "rgba(1a1a1aee)";
 
         dim_inactive = false;
 
@@ -281,39 +273,17 @@ in
         insert_after_current = true;
         focus_removed_window = true;
 
-        # TODO: use nix-colours
-        "col.border_active" = "rgba(ffff0066)";
-        "col.border_inactive" = "rgba(77770066)";
-        "col.border_locked_active" = "rgba(ff550066)";
-        "col.border_locked_inactive" = "77550066";
-
         groupbar = {
           enabled = true;
-          # TODO: set font
-          font_family = "Sans";
-          font_size = 8;
           gradients = true;
           height = 14;
           priority = 3;
           render_titles = true;
           scrolling = true;
-
-          # TODO: use nix-colours
-          "col.active" = "rgba(ffff0066)";
-          "col.inactive" = "rgba(77770066)";
-          "col.locked_active" = "rgba(ff550066)";
-          "col.locked_inactive" = "rgba(77550066)";
         };
       };
 
       misc = {
-        # TODO: use nix-colours
-        "col.splash" = "rgba(ffffffff)";
-        background_color = "rgb(111111)";
-
-        # TODO: set font
-        splash_font_family = "Sans";
-
         vfr = true;
 
         mouse_move_enables_dpms = true;
@@ -425,10 +395,6 @@ in
           monitor = "";
           dots_center = true;
           fade_on_empty = false;
-          # TODO: nix-colours
-          font_color = "rgb(202, 211, 245)";
-          inner_color = "rgb(91, 96, 120)";
-          outer_color = "rgb(24, 25, 38)";
           outline_thickness = 5;
           placeholder_text = ''<span foreground="##cad3f5">Password...</span>'';
           shadow_passes = 2;

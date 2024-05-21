@@ -139,11 +139,6 @@ in
           commands = [ ];
         };
 
-        fonts = {
-          names = [ "FiraCode Nerd Font" "Font Awesome 6 Free" ];
-          size = 8.0;
-        };
-
         ## Focus ##
         focus = {
           followMouse = true;

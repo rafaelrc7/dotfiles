@@ -16,8 +16,8 @@
     treefmt-nix.url = "github:numtide/treefmt-nix";
 
     nixos-hardware.url = "github:nixos/nixos-hardware/master";
-    nix-colors.url = "github:misterio77/nix-colors";
     nur.url = "github:nix-community/nur";
+    stylix.url = "github:danth/stylix";
 
     awesomerc.url = "github:rafaelrc7/awesomerc";
 
