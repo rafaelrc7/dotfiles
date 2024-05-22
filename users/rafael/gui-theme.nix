@@ -6,12 +6,12 @@ let
       package = (pkgs.nerdfonts.override { fonts = [ "FiraCode" ]; });
     };
     sansSerif = {
-      name = "DejaVu Sans";
-      package = pkgs.dejavu_fonts;
+      name = "Roboto";
+      package = pkgs.roboto;
     };
     serif = {
-      name = "DejaVu Serif";
-      package = pkgs.dejavu_fonts;
+      name = "Roboto Serif";
+      package = pkgs.roboto-serif;
     };
     emoji = {
       name = "Noto Color Emoji";
@@ -25,7 +25,7 @@ let
     sizes = {
       applications = 10;
       terminal = 10;
-      desktop = 8;
+      desktop = 10;
       popups = 10;
     };
   };
@@ -44,6 +44,51 @@ let
   };
 in
 {
+  home.packages = (with pkgs; [
+    libsForQt5.qt5ct
+    libsForQt5.qtstyleplugins
+    libsForQt5.qtstyleplugin-kvantum
+    libsForQt5.qt5.qtwayland
+
+    qt6Packages.qt6ct
+    qt6Packages.qtstyleplugin-kvantum
+    qt6.qtwayland
+
+    catppuccin-papirus-folders
+
+    (nerdfonts.override { fonts = [ "FiraCode" ]; })
+    dejavu_fonts
+    font-awesome
+    roboto
+    roboto-serif
+    roboto-mono
+    liberation_ttf
+    noto-fonts
+    noto-fonts-emoji
+    noto-fonts-extra
+    noto-fonts-lgc-plus
+    noto-fonts-cjk-sans
+    noto-fonts-cjk-serif
+    symbola
+  ]) ++ [
+    fonts.monospace.package
+    fonts.sansSerif.package
+    fonts.serif.package
+    fonts.emoji.package
+    fonts.awesome.package
+  ];
+
+  fonts.fontconfig = {
+    enable = true;
+    defaultFonts = with fonts; {
+      monospace = [ monospace.name awesome.name "Noto Sans Mono" ];
+      sansSerif = [ sansSerif.name awesome.name "Noto Sans" ];
+      serif = [ serif.name awesome.name "Noto Serif" ];
+      emoji = [ emoji.name awesome.name ];
+    };
+  };
+
+  xdg.dataFile."fonts".source = config.lib.file.mkOutOfStoreSymlink "/run/current-system/sw/share/X11/fonts";
 
   catppuccin = {
     accent = "blue";
@@ -101,9 +146,9 @@ in
     catppuccin.enable = true;
     settings = {
       main = {
-        font = with fonts;
-          let size = builtins.toString sizes.terminal;
-          in "${monospace.name}:size=${size}, ${awesome.name}:size=${size}, ${emoji.name}:size=${size}";
+        font =
+          let size = builtins.toString fonts.sizes.terminal;
+          in "${fonts.monospace.name}:size=${size}, ${fonts.awesome.name}:size=${size}, ${fonts.emoji.name}:size=${size}";
       };
       colors.alpha = opacity.terminal;
     };
@@ -169,17 +214,6 @@ in
     platformTheme.name = "qtct";
     style.name = "kvantum";
   };
-
-  home.packages = with pkgs; [
-    libsForQt5.qt5ct
-    libsForQt5.qtstyleplugins
-    libsForQt5.qtstyleplugin-kvantum
-    libsForQt5.qt5.qtwayland
-    qt6Packages.qt6ct
-    qt6Packages.qtstyleplugin-kvantum
-    qt6.qtwayland
-    catppuccin-papirus-folders
-  ];
 
   xdg.configFile =
     let

@@ -1,21 +1,18 @@
 { pkgs, ... }: {
   fonts = {
     fontDir.enable = true;
-    enableGhostscriptFonts = true;
+    enableDefaultPackages = true;
     packages = with pkgs; [
       (nerdfonts.override {
-        fonts = [ "FiraCode" "Hasklig" "Monoid" "JetBrainsMono" ];
+        fonts = [ "FiraCode" ];
       })
 
       dejavu_fonts
-      fira
-      fira-code
-      fira-mono
       font-awesome
       roboto
+      roboto-serif
       roboto-mono
       liberation_ttf
-      inconsolata
       noto-fonts
       noto-fonts-emoji
       noto-fonts-extra
