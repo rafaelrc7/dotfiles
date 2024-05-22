@@ -163,6 +163,235 @@ in
     settings.background_opacity = builtins.toString opacity.terminal;
   };
 
+  programs.waybar.style = ''
+    * {
+        /* `otf-font-awesome` is required to be installed for icons */
+        font-family: "${fonts.sansSerif.name}", "${fonts.awesome.name}";
+        font-size: ${builtins.toString fonts.sizes.desktop}pt;
+        min-height: 0;
+        font-weight: bold;
+    }
+
+    window#waybar {
+        background-color: alpha(@base, ${builtins.toString opacity.desktop});
+        color: @text;
+        transition-property: background-color;
+        transition-duration: .5s;
+    }
+
+    window#waybar.hidden {
+        opacity: 0.2;
+    }
+
+    button {
+        /* Use box-shadow instead of border so the text isn't offset */
+        box-shadow: inset 0 -3px transparent;
+        /* Avoid rounded borders under each button name */
+        border: none;
+        border-radius: 0;
+        color: @text;
+    }
+
+    #workspaces button {
+    	padding: 0 5px;
+    	background-color: @base;
+    }
+
+    /* https://github.com/Alexays/Waybar/wiki/FAQ#the-workspace-buttons-have-a-strange-hover-effect */
+    button:hover,
+    #workspaces button:hover
+    {
+        background-color: @crust;
+        box-shadow: inset 0 -3px @blue;
+    }
+
+    #workspaces button.focused,
+    #workspaces button.active
+    {
+    	color: @base;
+    	background-color: @blue;
+    	box-shadow: inset 0 -3px @text;
+    }
+
+    #workspaces button.urgent {
+        background-color: @red;
+    	color: @base;
+    }
+
+    #window,
+    #workspaces {
+        margin: 0 4px;
+    }
+
+    #mode,
+    #submap,
+    #scratchpad,
+    #clock,
+    #tray,
+    #mpd,
+    #pulseaudio,
+    #privacy,
+    #network,
+    #cpu,
+    #memory,
+    #temperature,
+    #battery,
+    #idle_inhibitor,
+    #backlight,
+    #keyboard-state,
+    #language
+    {
+    	color: @text;
+        padding: 2px 5px;
+        margin: 2px 2px;
+    }
+
+    #clock
+    {
+    	background-color: @blue;
+    	color: @base;
+    	border-radius: 30px;
+    	padding: 2px 20px;
+        margin: 3px 10px;
+    }
+
+    #tray
+    {
+    	border-radius: 30px 0 0 30px;
+    }
+
+    #window {
+    	border-radius: 0 30px 30px 0;
+    }
+
+    #window,
+    #tray
+    {
+    	color: @base;
+    	background-color: @blue;
+    	padding: 2px 15px;
+        margin: 3px 10px;
+    }
+
+    #mpd,
+    #pulseaudio
+    {
+    	color: @yellow;
+    	border-bottom: solid 2px @yellow;
+    }
+
+    #mpd.disconnected
+    {
+    	color: @red;
+    	border-bottom: @red;
+    }
+
+    #mpd.stopped,
+    #mpd.paused
+    {
+    	color: @subtext0;
+    	border-color: @subtext0;
+    }
+
+    #pulseaudio.muted {
+    	color: @subtext0;
+    	border-color: @subtext0;
+    }
+
+    #privacy
+    {
+    	color: @peach;
+    	border-bottom: solid 2px @peach;
+    }
+
+    #network,
+    #cpu,
+    #memory,
+    #battery
+    {
+    	color: @green;
+    	border-bottom: solid 2px @green;
+    }
+
+    #network.disconnected {
+    	color: @red;
+    	border-color: @red;
+    }
+
+    #temperature
+    {
+    	color: @sapphire;
+    	border-bottom: solid 2px @sapphire;
+    }
+
+    #temperature.critical {
+        background-color: @red;
+        color: @base;
+    }
+
+    #battery.charging, #battery.plugged {
+    }
+
+    #battery.critical:not(.charging) {
+        background-color: @red;
+        color: @base;
+        animation-name: blink;
+        animation-duration: 0.5s;
+        animation-timing-function: linear;
+        animation-iteration-count: infinite;
+        animation-direction: alternate;
+    }
+
+    #idle_inhibitor,
+    #backlight
+    {
+    	color: @marron;
+    	border-bottom: solid 2px @marron;
+    }
+
+    #idle_inhibitor {
+        min-width: 1rem;
+    }
+
+    #idle_inhibitor.activated {
+    	background-color: @overlay0;
+    }
+
+    #keyboard-state,
+    #language
+    {
+    	color: @lavender;
+    	border-bottom: solid 2px @lavender;
+        min-width: 16px;
+    }
+
+    /* If workspaces is the leftmost module, omit left margin */
+    .modules-left > widget:first-child > #workspaces {
+        margin-left: 0;
+    }
+
+    /* If workspaces is the rightmost module, omit right margin */
+    .modules-right > widget:last-child > #workspaces {
+        margin-right: 0;
+    }
+
+    @keyframes blink {
+        to {
+            background-color: @text;
+            color: @crust;
+        }
+    }
+
+    #tray > .passive {
+        -gtk-icon-effect: dim;
+    }
+
+    #tray > .needs-attention {
+        -gtk-icon-effect: highlight;
+    }
+
+  '';
+
   home.pointerCursor = {
     inherit (cursor) name package size;
     x11.enable = true;
