@@ -80,6 +80,17 @@
     gcr
   ];
 
+  programs.btop = {
+    enable = true;
+  };
+
+  programs.tmux = {
+    enable = true;
+    clock24 = true;
+    keyMode = "vi";
+    mouse = true;
+  };
+
   home.sessionPath = [ "$HOME/.local/bin" ];
 
   home.shellAliases = {

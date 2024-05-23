@@ -18,7 +18,6 @@
       parted
       ripgrep
       stdmanpages
-      tmux
       tree
       unzip
       usbutils
