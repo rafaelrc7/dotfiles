@@ -228,6 +228,7 @@ in
     #scratchpad,
     #clock,
     #tray,
+    #custom-weather,
     #mpd,
     #pulseaudio,
     #privacy,
@@ -271,6 +272,12 @@ in
     	background-color: @blue;
     	padding: 2px 15px;
         margin: 3px 10px;
+    }
+
+    #custom-weather
+    {
+    	color: @flamingo;
+    	border-bottom: solid 2px @flamingo;
     }
 
     #mpd,

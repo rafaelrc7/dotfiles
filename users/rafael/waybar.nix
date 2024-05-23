@@ -26,6 +26,7 @@
 
       modules-right = [
         "tray"
+        "custom/weather"
         "mpd"
         "pulseaudio"
         "privacy"
@@ -250,6 +251,14 @@
         format = "  {}";
         format-en = "en us";
         format-pt = "pt br";
+      };
+
+      "custom/weather" = {
+        format = "{}°";
+        tooltip = true;
+        interval = 3600;
+        exec = ''${pkgs.wttrbar}/bin/wttrbar --location Niteroi --date-format "%d-%m-%Y"'';
+        "return-type" = "json";
       };
     }];
 
