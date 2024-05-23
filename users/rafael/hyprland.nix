@@ -72,6 +72,9 @@ in
           # Clear notifications
           "$mod + CTRL, SPACE, exec, ${pkgs.mako}/bin/makoctl dismiss -a"
 
+          # Toggle waybar
+          "$mod, B, exec, ${pkgs.killall}/bin/killall -s SIGUSR1 -r waybar"
+
           # Fullscreen / maximise
           "$mod, F, fullscreen, 0"
           "$mod, M, fullscreen, 1"
