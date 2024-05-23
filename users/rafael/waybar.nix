@@ -32,7 +32,8 @@
         "network"
         "cpu"
         "memory"
-        "temperature"
+        "temperature#cpu"
+        "temperature#gpu"
         "battery"
         "idle_inhibitor"
         "backlight"
@@ -153,12 +154,18 @@
         format = " {}%";
       };
 
-      temperature = {
+      "temperature#cpu" = {
         critical-threshold = 80;
-        format = "{temperatureC}°C {icon}";
+        format = " {icon}  {temperatureC}°C";
         format-icons = [ "" "" "" ];
-        hwmon-path-abs = "/sys/devices/pci0000:00/0000:00:18.3/hwmon";
-        input-filename = "temp1_input";
+        hwmon-path = [ "/var/run/hwmon_temps/cpu" ];
+      };
+
+      "temperature#gpu" = {
+        critical-threshold = 80;
+        format = " {icon}  {temperatureC}°C";
+        format-icons = [ "" "" "" ];
+        hwmon-path = [ "/var/run/hwmon_temps/gpu" ];
       };
 
       backlight = {

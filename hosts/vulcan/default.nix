@@ -37,6 +37,8 @@
     waydroid
     systemd-oomd
 
+    temperature-symlink
+
     nixos-hardware.nixosModules.common-pc
     nixos-hardware.nixosModules.common-pc-ssd
     nixos-hardware.nixosModules.common-gpu-amd
@@ -172,6 +174,22 @@
 
   programs.dconf.enable = true;
   programs.mtr.enable = true;
+
+  services.hwmonLinks = {
+    enable = true;
+    devices = [
+      {
+        name = "k10temp";
+        target = "cpu";
+        input = "temp1_input";
+      }
+      {
+        name = "amdgpu";
+        target = "gpu";
+        input = "temp1_input";
+      }
+    ];
+  };
 
   system.stateVersion = "22.11";
 }
