@@ -1,3 +1,3 @@
-{ self, ... }:
-final: prev: self.packages
+{ ... }:
+final: prev: import ../pkgs { pkgs = prev; }
 
