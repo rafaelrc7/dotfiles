@@ -1,7 +1,6 @@
 local api = vim.api
 
 -- https://github.com/nvim-tree/nvim-tree.lua/wiki/Auto-Close
-local nvimTreeGroup = api.nvim_create_augroup("nvim_tree_quit", { clear = true })
 api.nvim_create_autocmd("BufEnter", {
 	nested = true,
 	callback = function()
@@ -9,7 +8,7 @@ api.nvim_create_autocmd("BufEnter", {
 			vim.cmd("quit")
 		end
 	end,
-	group = nvimTreeGroup,
+	group = api.nvim_create_augroup("nvim_tree_quit", { clear = true }),
 })
 
 require("nvim-tree").setup({
@@ -28,3 +27,6 @@ require("nvim-tree").setup({
 		highlight_opened_files = "all",
 	},
 })
+
+-- Toggles file tree
+vim.api.nvim_set_keymap("", "<C-n>", ":NvimTreeToggle<CR>", { silent = true })

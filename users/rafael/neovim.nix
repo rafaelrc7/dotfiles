@@ -53,11 +53,15 @@
       '';
 
       plugins = let ps = pkgs.vimPlugins; in [
-        ps.plenary-nvim
+        ps.plenary-nvim # Dependency from multiple plugins
 
         {
           plugin = ps.nvim-cmp;
           config = toLuaFile ./nvimrc/plugin/cmp.lua;
+        }
+        {
+          plugin = ps.cmp-git;
+          config = toLua ''require("cmp_git").setup()'';
         }
         ps.cmp-buffer
         ps.cmp-cmdline
@@ -65,7 +69,6 @@
         ps.cmp_luasnip
         ps.cmp-nvim-lsp
         ps.cmp-path
-        ps.cmp-rg
         ps.cmp-treesitter
 
         ps.luasnip
@@ -101,6 +104,17 @@
           config = toLuaFile ./nvimrc/plugin/telescope.lua;
         }
         ps.telescope-fzf-native-nvim
+        ps.telescope-ui-select-nvim
+
+        {
+          plugin = ps.actions-preview-nvim;
+          config = toLua ''
+            require("actions-preview").setup({
+              require("actions-preview.highlight").delta("${pkgs.delta}/bin/delta --no-gitconfig --side-by-side"),
+            })
+            vim.keymap.set({ "v", "n" }, "<leader>ca", require("actions-preview").code_actions)
+          '';
+        }
 
         {
           plugin = ps.gitsigns-nvim;
@@ -108,6 +122,50 @@
         }
 
         {
+          plugin = ps.trouble-nvim;
+          config = toLuaFile ./nvimrc/plugin/trouble.lua;
+        }
+
+        {
+          plugin = ps.symbols-outline-nvim;
+          config = toLua ''
+            require("symbols-outline").setup()
+            vim.keymap.set({ "v", "n" }, "<leader>ts", ":SymbolsOutline<CR>", { silent = true })
+          '';
+        }
+
+        {
+          plugin = ps.vimtex;
+          config = toLuaFile ./nvimrc/plugin/vimtex.lua;
+        }
+
+        {
+          plugin = ps.nvim-highlight-colors;
+          config = toLua ''require("nvim-highlight-colors").setup({})'';
+        }
+
+        {
+          plugin = ps.markdown-preview-nvim;
+          config = toLua ''vim.api.nvim_set_keymap("n", "<S-m>", ":MarkdownPreview<CR>", { silent = true, noremap = true })'';
+        }
+
+        {
+          plugin = ps.vim-fugitive;
+          config = toLua ''
+            vim.api.nvim_set_keymap("n", "<leader>gs", ":G<CR>", {}) -- git status
+            vim.api.nvim_set_keymap("n", "<leader>gdh", ":diffget //2<CR>", {})
+            vim.api.nvim_set_keymap("n", "<leader>gdl", ":diffget //3<CR>", {})
+          '';
+        }
+
+        ps.Coqtail
+        ps.conjure
+        ps.emmet-vim
+        ps.nvim-web-devicons
+        ps.vimspector
+
+        {
+          config = toLuaFile ./nvimrc/plugin/treesitter.lua;
           plugin = (ps.nvim-treesitter.withPlugins (p: with p; [
             yaml
             xml
@@ -183,29 +241,7 @@
             awk
             arduino
           ]));
-          config = toLuaFile ./nvimrc/plugin/treesitter.lua;
         }
-
-        {
-          plugin = ps.vimtex;
-          config = toLuaFile ./nvimrc/plugin/vimtex.lua;
-        }
-
-        {
-          plugin = ps.nvim-highlight-colors;
-          config = toLua ''require("nvim-highlight-colors").setup({})'';
-        }
-
-        ps.markdown-preview-nvim
-        ps.Coqtail
-        ps.conjure
-        ps.emmet-vim
-        ps.symbols-outline-nvim
-        ps.nvim-web-devicons
-        ps.vimspector
-        ps.undotree
-        ps.tagbar
-        ps.vim-fugitive
       ];
 
     };

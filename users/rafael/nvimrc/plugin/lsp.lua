@@ -23,6 +23,12 @@ local function on_attach()
 	})
 end
 
+local signs = { Error = "󰅚 ", Warn = "󰀪 ", Hint = "󰌶 ", Info = " " }
+for type, icon in pairs(signs) do
+	local hl = "DiagnosticSign" .. type
+	vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+end
+
 vim.g.completion_matching_strategy_list = { "exact", "substring", "fuzzy" }
 
 -- CLANGD
@@ -167,13 +173,4 @@ nvim_lsp.gopls.setup({
 nvim_lsp.racket_langserver.setup({
 	on_attach = on_attach,
 	capabilities = capabilities,
-})
-
-local lspDiagnosticGroup = api.nvim_create_augroup("lsp_diagnostic_float", { clear = true })
-api.nvim_create_autocmd("CursorHold", {
-	pattern = "*",
-	callback = function(_)
-		vim.diagnostic.open_float()
-	end,
-	group = lspDiagnosticGroup,
 })

@@ -1,6 +1,5 @@
 local api = vim.api
 
-local jdtlsGroup = api.nvim_create_augroup("jdtls_autostart", { clear = true })
 api.nvim_create_autocmd("FileType", {
 	pattern = "java",
 	callback = function(_)
@@ -11,5 +10,5 @@ api.nvim_create_autocmd("FileType", {
 			),
 		})
 	end,
-	group = jdtlsGroup,
+	group = api.nvim_create_augroup("jdtls_autostart", { clear = true }),
 })

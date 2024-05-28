@@ -1,13 +1,18 @@
 local map = vim.keymap.set
 
-require("telescope").setup({
+local telescope = require("telescope")
+
+local builtin = require("telescope.builtin")
+local previewers = require("telescope.previewers")
+
+telescope.setup({
 	defaults = {
 		prompt_prefix = " >",
 		color_devicons = true,
 
-		file_previewer = require("telescope.previewers").vim_buffer_cat.new,
-		grep_previewer = require("telescope.previewers").vim_buffer_vimgrep.new,
-		qflist_previewer = require("telescope.previewers").vim_buffer_qflist.new,
+		file_previewer = previewers.vim_buffer_cat.new,
+		grep_previewer = previewers.vim_buffer_vimgrep.new,
+		qflist_previewer = previewers.vim_buffer_qflist.new,
 	},
 	extensions = {
 		fzf = {
@@ -19,11 +24,11 @@ require("telescope").setup({
 	},
 })
 
-require("telescope").load_extension("fzf")
+telescope.load_extension("fzf")
+telescope.load_extension("ui-select")
 
 -- Telescope
-local builtin = require("telescope.builtin")
-map("n", "<leader>fg", builtin.live_grep, {})
+map("n", "<leader>fw", builtin.live_grep, {})
 map({ "n", "v" }, "<leader>f*", builtin.grep_string, {})
 map("n", "<leader>ff", builtin.find_files, {})
 map("n", "<leader>fb", builtin.buffers, {})

@@ -1,17 +1,34 @@
 local api = vim.api
 
-local goGroup = api.nvim_create_augroup("gofmt", { clear = true })
-api.nvim_create_autocmd("Filetype", {
-	pattern = "go",
-	command = [[autocmd BufWritePost * silent !gofmt -w %]],
-	group = goGroup,
+api.nvim_create_autocmd("BufWritePre", {
+	pattern = "*.go",
+	callback = function(_)
+		local saved_view = vim.fn.winsaveview()
+		pcall(function()
+			vim.cmd([[
+			silent %!gofmt
+			if v:shell_error > 0
+				cexpr getline(1, '$')->map({ idx, val -> val->substitute('<standard input>', expand('%'), '') })
+				silent undo
+			endif
+		]])
+		end)
+		vim.fn.winrestview(saved_view)
+	end,
+	group = api.nvim_create_augroup("gofmt", { clear = true }),
 })
 
-local rustGroup = api.nvim_create_augroup("rustfmt", { clear = true })
-api.nvim_create_autocmd("Filetype", {
+api.nvim_create_autocmd("FileType", {
 	pattern = "rust",
 	command = [[autocmd BufWritePost * silent !cargo fmt]],
-	group = rustGroup,
+	group = api.nvim_create_augroup("rustfmt", { clear = true }),
+})
+
+api.nvim_create_autocmd("BufWritePre", {
+	pattern = "*",
+	buffer = bufnr,
+	callback = vim.lsp.buf.format,
+	group = api.nvim_create_augroup("lspformat", { clear = true }),
 })
 
 local indentGroup = api.nvim_create_augroup("indent", { clear = true })
@@ -36,21 +53,25 @@ api.nvim_create_autocmd("FileType", {
 	group = indentGroup,
 })
 
-local trimGroup = api.nvim_create_augroup("trim", { clear = true })
 api.nvim_create_autocmd("BufWritePre", {
 	pattern = "*",
-	command = [[:%s/\s\+$//e]],
-	group = trimGroup,
+	callback = function(_)
+		local saved_view = vim.fn.winsaveview()
+		pcall(function()
+			vim.cmd([[%s/\s\+$//e]])
+		end)
+		vim.fn.winrestview(saved_view)
+	end,
+	group = api.nvim_create_augroup("trim_whitespace_on_save", { clear = true }),
 })
 
-local neomuttGroup = api.nvim_create_augroup("neomutt", { clear = true })
 api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
 	pattern = "*mutt-*",
 	callback = function()
 		vim.opt.textwidth = 72
 		vim.opt.filetype = "mail"
 	end,
-	group = neomuttGroup,
+	group = api.nvim_create_augroup("neomutt", { clear = true }),
 })
 
 local function updateColorColumn()
