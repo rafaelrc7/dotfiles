@@ -54,6 +54,7 @@
 
       plugins = let ps = pkgs.vimPlugins; in [
         ps.plenary-nvim # Dependency from multiple plugins
+        ps.nui-nvim
 
         {
           plugin = ps.nvim-cmp;
@@ -156,6 +157,11 @@
             vim.api.nvim_set_keymap("n", "<leader>gdh", ":diffget //2<CR>", {})
             vim.api.nvim_set_keymap("n", "<leader>gdl", ":diffget //3<CR>", {})
           '';
+        }
+
+        {
+          plugin = ps.remote-nvim;
+          config = toLua ''require("remote-nvim").setup({})'';
         }
 
         ps.Coqtail

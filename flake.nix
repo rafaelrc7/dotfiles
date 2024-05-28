@@ -48,6 +48,11 @@
       flake = false;
     };
 
+    # neovim plugins
+    remote-nvim = {
+      url = "github:amitds1997/remote-nvim.nvim";
+      flake = false;
+    };
   };
 
   outputs = inputs@{ self, flake-parts, ... }:

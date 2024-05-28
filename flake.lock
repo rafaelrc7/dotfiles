@@ -475,6 +475,22 @@
         "type": "github"
       }
     },
+    "remote-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1716691984,
+        "narHash": "sha256-AHMXJdptM6Bckp11NRInxskoCigdrX1EyOrKgDToPbk=",
+        "owner": "amitds1997",
+        "repo": "remote-nvim.nvim",
+        "rev": "2d5158a7b57b90f4d98dfd39eb35ee0dbb1f37cf",
+        "type": "github"
+      },
+      "original": {
+        "owner": "amitds1997",
+        "repo": "remote-nvim.nvim",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "awesome-git": "awesome-git",
@@ -491,6 +507,7 @@
         "nixpkgs-unstable": "nixpkgs-unstable",
         "nur": "nur",
         "proton-bridge": "proton-bridge",
+        "remote-nvim": "remote-nvim",
         "treefmt-nix": "treefmt-nix",
         "vscoq": "vscoq",
         "wayland-pipewire-idle-inhibit": "wayland-pipewire-idle-inhibit"
