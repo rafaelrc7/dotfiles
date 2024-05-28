@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, pkgs, ... }:
 let
   fonts = {
     monospace = {
@@ -88,11 +88,9 @@ in
     };
   };
 
-  xdg.dataFile."fonts".source = config.lib.file.mkOutOfStoreSymlink "/run/current-system/sw/share/X11/fonts";
-
   catppuccin = {
     accent = "blue";
-    flavour = "mocha";
+    flavor = "mocha";
   };
 
   programs = {
@@ -161,6 +159,74 @@ in
       size = fonts.sizes.terminal;
     };
     settings.background_opacity = builtins.toString opacity.terminal;
+  };
+
+  home.pointerCursor = {
+    inherit (cursor) name package size;
+    x11.enable = true;
+    gtk.enable = true;
+  };
+
+  gtk = {
+    enable = true;
+
+    catppuccin.enable = true;
+    iconTheme = {
+      name = "Papirus-Dark";
+      package = pkgs.catppuccin-papirus-folders;
+    };
+
+    font = {
+      inherit (fonts.sansSerif) package name;
+      size = fonts.sizes.applications;
+    };
+
+    gtk2.extraConfig = ''
+      gtk-enable-animations=1
+      gtk-primary-button-warps-slider=0
+      gtk-toolbar-style=3
+      gtk-menu-images=1
+      gtk-button-images=1
+    '';
+
+    gtk3.extraConfig = {
+      gtk-application-prefer-dark-theme = true;
+      gtk-decoration-layout = "icon:minimize,maximize,close";
+      gtk-enable-animations = true;
+      gtk-menu-images = true;
+      gtk-modules = "colorreload-gtk-module:window-decorations-gtk-module";
+      gtk-primary-button-warps-slider = false;
+      gtk-toolbar-style = 3;
+    };
+
+    gtk4.extraConfig = {
+      gtk-application-prefer-dark-theme = true;
+      gtk-decoration-layout = "icon:minimize,maximize,close";
+      gtk-enable-animations = true;
+      gtk-primary-button-warps-slider = false;
+    };
+  };
+
+  qt = {
+    enable = true;
+    platformTheme.name = "qtct";
+    style.name = "kvantum";
+    style.catppuccin = {
+      enable = true;
+      apply = true;
+    };
+  };
+
+  xdg.configFile = {
+    "qt5ct/qt5ct.conf".text = ''
+      [Appearance]
+      icon_theme=Papirus-Dark
+    '';
+
+    "qt6ct/qt6ct.conf".text = ''
+      [Appearance]
+      icon_theme=Papirus-Dark
+    '';
   };
 
   programs.waybar.style = ''
@@ -396,91 +462,7 @@ in
     #tray > .needs-attention {
         -gtk-icon-effect: highlight;
     }
-
   '';
-
-  home.pointerCursor = {
-    inherit (cursor) name package size;
-    x11.enable = true;
-    gtk.enable = true;
-  };
-
-  gtk = {
-    enable = true;
-
-    catppuccin.enable = true;
-    iconTheme = {
-      name = "Papirus-Dark";
-      package = pkgs.catppuccin-papirus-folders;
-    };
-
-    font = {
-      inherit (fonts.sansSerif) package name;
-      size = fonts.sizes.applications;
-    };
-
-    gtk2.extraConfig = ''
-      gtk-enable-animations=1
-      gtk-primary-button-warps-slider=0
-      gtk-toolbar-style=3
-      gtk-menu-images=1
-      gtk-button-images=1
-    '';
-
-    gtk3.extraConfig = {
-      gtk-application-prefer-dark-theme = true;
-      gtk-decoration-layout = "icon:minimize,maximize,close";
-      gtk-enable-animations = true;
-      gtk-menu-images = true;
-      gtk-modules = "colorreload-gtk-module:window-decorations-gtk-module";
-      gtk-primary-button-warps-slider = false;
-      gtk-toolbar-style = 3;
-    };
-
-    gtk4.extraConfig = {
-      gtk-application-prefer-dark-theme = true;
-      gtk-decoration-layout = "icon:minimize,maximize,close";
-      gtk-enable-animations = true;
-      gtk-primary-button-warps-slider = false;
-    };
-  };
-
-  qt = {
-    enable = true;
-    platformTheme.name = "qtct";
-    style.name = "kvantum";
-  };
-
-  xdg.configFile =
-    let
-      capitalise = str:
-        let
-          cs = (lib.stringToCharacters str);
-          hd = lib.head cs; # Errors on empty string, this is intended
-          tl = lib.tail cs;
-        in
-        lib.strings.concatStrings ([ (lib.strings.toUpper hd) ] ++ tl);
-      variant = capitalise config.catppuccin.flavour;
-      accent = capitalise config.catppuccin.accent;
-      theme = (pkgs.catppuccin-kvantum.override { inherit variant accent; });
-    in
-    {
-      "Kvantum/kvantum.kvconfig".text = ''
-        [General]
-        theme=Catppuccin-${variant}-${accent}
-      '';
-      "Kvantum/Catppuccin-${variant}-${accent}".source = "${theme}/share/Kvantum/Catppuccin-${variant}-${accent}";
-
-      "qt5ct/qt5ct.conf".text = ''
-        [Appearance]
-        icon_theme=Papirus-Dark
-      '';
-
-      "qt6ct/qt6ct.conf".text = ''
-        [Appearance]
-        icon_theme=Papirus-Dark
-      '';
-    };
 
 }
 

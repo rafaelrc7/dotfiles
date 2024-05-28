@@ -48,7 +48,7 @@
 
   environment = {
     systemPackages = with pkgs; [
-      dbeaver
+      dbeaver-bin
       libva-utils
       lutris
       glxinfo

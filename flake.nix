@@ -102,7 +102,6 @@
                     firefox = null;
                     go = null;
                     gui-pkgs = null;
-                    gui-theme = null;
                     gschemas = null;
                     jetbrains = null;
                     kitty = null;

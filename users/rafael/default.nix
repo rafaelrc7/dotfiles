@@ -7,7 +7,7 @@
 , go ? self.homeModules.go
 , gschemas ? self.homeModules.gschemas
 , gui-pkgs ? ./gui-pkgs.nix
-, gui-theme ? ./gui-theme.nix
+, theme ? ./theme.nix
 , hyprland ? ./hyprland.nix
 , jetbrains ? self.homeModules.jetbrains
 , keybase ? self.homeModules.keybase
@@ -61,7 +61,7 @@
     environment_variables
     git
     gui-pkgs
-    gui-theme
+    theme
     hyprland
     neomutt
     neovim

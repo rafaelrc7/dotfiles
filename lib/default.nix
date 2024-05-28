@@ -138,6 +138,14 @@
 
     optionalNotNull = module: lib.lists.optional (module != null) module;
     optionalsNotNull = modules: builtins.filter (m: m != null) modules;
+
+    capitalise = str:
+      let
+        cs = (lib.stringToCharacters str);
+        hd = if length cs > 0 then lib.head cs else "";
+        tl = lib.tail cs;
+      in
+      lib.strings.concatStrings (prepend (lib.strings.toUpper hd) tl);
   };
 }
 
