@@ -1,10 +1,10 @@
-{ self, ... }: with self.nixosModules;
-{ config, inputs, pkgs, nixpkgs, home-manager, ... }: {
+{ self, ... }:
+{ inputs, pkgs, ... }: {
   networking.hostName = "spitfire";
 
   boot.kernel.sysctl."kernel.sysrq" = 1;
 
-  imports = with inputs; [
+  imports = (with self.nixosModules; [
     ./hardware-configuration.nix
     ./networking.nix
 
@@ -30,11 +30,12 @@
     tailscale
     udev-media-keys
     systemd-oomd
+  ]) ++ (with inputs; [
     nixos-hardware.nixosModules.common-cpu-intel
     nixos-hardware.nixosModules.common-gpu-intel
     nixos-hardware.nixosModules.common-pc-laptop
     nixos-hardware.nixosModules.common-pc-laptop-ssd
-  ];
+  ]);
 
   environment = {
     systemPackages = with pkgs; [

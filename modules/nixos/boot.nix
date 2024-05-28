@@ -1,5 +1,5 @@
 { pkgs, lib, ... }:
-let inherit (lib) mkDefault mkForce;
+let inherit (lib) mkDefault;
 in {
   boot = {
     kernelPackages = mkDefault pkgs.linuxPackages_latest;

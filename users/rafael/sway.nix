@@ -1,4 +1,4 @@
-{ inputs, config, pkgs, lib, ... }:
+{ config, pkgs, lib, ... }:
 let
   loadWallpaper = pkgs.writeShellScriptBin "loadWallpaper" ''
     set -eo pipefail
@@ -33,7 +33,7 @@ in
       mod = "Mod4";
       alt = "Mod1";
     in
-    rec {
+    {
       enable = true;
       package = null;
       config = rec {

@@ -1,10 +1,10 @@
-{ self, ... }: with self.nixosModules;
-{ config, inputs, pkgs, nixpkgs, home-manager, ... }: {
+{ self, ... }:
+{ inputs, ... }: {
   networking.hostName = "lancaster";
 
   boot.kernel.sysctl."kernel.sysrq" = 1;
 
-  imports = with inputs; [
+  imports = (with self.nixosModules; [
     ./hardware-configuration.nix
     ./networking.nix
 
@@ -24,12 +24,12 @@
     tailscale
     palserver
     systemd-oomd
-
+  ]) ++ (with inputs; [
     nixos-hardware.nixosModules.common-pc
     nixos-hardware.nixosModules.common-pc-ssd
     nixos-hardware.nixosModules.common-cpu-amd
     nixos-hardware.nixosModules.common-cpu-amd-pstate
-  ];
+  ]);
 
   services.xserver.xkb = {
     layout = "us";

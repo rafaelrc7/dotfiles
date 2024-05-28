@@ -50,7 +50,7 @@
 
   };
 
-  outputs = inputs@{ self, flake-parts, nixpkgs, home-manager, nixos-hardware, nixgl, ... }:
+  outputs = inputs@{ self, flake-parts, ... }:
     flake-parts.lib.mkFlake { inherit inputs; } {
       imports = [
         inputs.treefmt-nix.flakeModule
@@ -173,7 +173,7 @@
         };
 
       systems = [ "x86_64-linux" ];
-      perSystem = { config, pkgs, system, ... }: rec {
+      perSystem = { pkgs, system, ... }: {
         devShells = import ./shell.nix { inherit pkgs system; };
         packages = rec {
           default = nixos-build;

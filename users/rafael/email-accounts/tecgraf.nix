@@ -1,10 +1,10 @@
-{ pkgs, config, email-utils, ... }:
+{ pkgs, email-utils, ... }:
 let
   tecgraf-pass = pkgs.writeShellScriptBin "tecgraf-pass" ''
     ${pkgs.libsecret}/bin/secret-tool lookup tecgraf-gmail password
   '';
 in
-rec {
+{
   # Identity
   realName = "Rafael Carvalho";
   address = "rafaelrc@tecgraf.puc-rio.br";

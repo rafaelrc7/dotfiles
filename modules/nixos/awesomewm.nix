@@ -1,4 +1,4 @@
-{ inputs, pkgs, lib, ... }: {
+{ inputs, pkgs, ... }: {
   services.xserver = {
     windowManager.awesome = {
       enable = true;

@@ -1,4 +1,13 @@
-{ self, inputs, lib, ... }: with lib; with builtins; with inputs.nixpkgs.lib; {
+{ self, inputs, lib, ... }:
+let
+  inherit (builtins) length listToAttrs map readDir;
+  inherit (inputs.nixpkgs.lib) nixosSystem;
+  inherit (lib.attrsets) mapAttrsToList nameValuePair;
+  inherit (lib.lists) foldr;
+  inherit (lib.strings) hasSuffix removeSuffix;
+  inherit (self) nixpkgs;
+in
+{
   flake.lib = lib // rec {
 
     mkPkgs = { nixpkgs ? inputs.nixpkgs, system ? "x86_64-linux", overlays ? [ ], config ? { } }:
@@ -28,19 +37,20 @@
       };
     };
 
-    mkUsers = with builtins; users: { config, ... }: {
+    mkUsers = users: { config, ... }: {
       users = {
         users = listToAttrs (map mkUser users);
         groups = listToAttrs (map (mkUserGroup config) users);
       };
     };
 
-    mkHMUser = with builtins; { name
-                              , homeModules ? [ ]
-                              , userModule ? self.users."${name}"
-                              , extraArgs ? { }
-                              , ...
-                              }:
+    mkHMUser =
+      { name
+      , homeModules ? [ ]
+      , userModule ? self.users."${name}"
+      , extraArgs ? { }
+      , ...
+      }:
       {
         inherit name;
         value = {
@@ -51,7 +61,7 @@
         };
       };
 
-    mkHMUsers = with builtins; users: listToAttrs (map mkHMUser users);
+    mkHMUsers = users: listToAttrs (map mkHMUser users);
 
     mkHost =
       { hostName
@@ -109,8 +119,16 @@
         ] ++ homeModules;
       };
 
+    capitalise = str:
+      let
+        cs = (lib.stringToCharacters str);
+        hd = if length cs > 0 then lib.head cs else "";
+        tl = lib.tail cs;
+      in
+      lib.strings.concatStrings (prepend (lib.strings.toUpper hd) tl);
+
     # https://github.com/ners/NixOS/blob/master/profiles/lib/
-    attrsToList = attrsets.mapAttrsToList attrsets.nameValuePair;
+    attrsToList = mapAttrsToList nameValuePair;
 
     prepend = x: xs: [ x ] ++ xs;
     append = x: xs: xs ++ [ x ];
@@ -138,14 +156,6 @@
 
     optionalNotNull = module: lib.lists.optional (module != null) module;
     optionalsNotNull = modules: builtins.filter (m: m != null) modules;
-
-    capitalise = str:
-      let
-        cs = (lib.stringToCharacters str);
-        hd = if length cs > 0 then lib.head cs else "";
-        tl = lib.tail cs;
-      in
-      lib.strings.concatStrings (prepend (lib.strings.toUpper hd) tl);
   };
 }
 

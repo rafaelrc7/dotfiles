@@ -1,4 +1,4 @@
-{ config, inputs, pkgs, ... }: {
+{ config, ... }: {
   networking.firewall.allowedTCPPorts = [ 53 80 ];
   networking.firewall.allowedUDPPorts = [ 53 ];
 

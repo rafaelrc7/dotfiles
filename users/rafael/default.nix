@@ -37,7 +37,7 @@
 
   programs.home-manager.enable = true;
 
-  imports = with self.lib; optionalsNotNull [
+  imports = self.lib.optionalsNotNull [
     crypto
     firefox
     go

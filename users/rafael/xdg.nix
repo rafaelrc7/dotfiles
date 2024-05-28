@@ -1,4 +1,4 @@
-{ config, ... }: {
+{ ... }: {
   xdg = {
     mimeApps = {
       enable = true;

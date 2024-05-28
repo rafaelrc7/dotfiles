@@ -1,4 +1,4 @@
-{ inputs, config, pkgs, lib, ... }:
+{ config, pkgs, lib, ... }:
 let
   loadWallpaper = pkgs.writeShellScriptBin "loadWallpaper" ''
     set -eo pipefail

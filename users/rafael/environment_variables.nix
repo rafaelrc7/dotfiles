@@ -1,4 +1,4 @@
-{ config, pkgs, ... }: {
+{ ... }: {
   home.sessionVariables = {
     EDITOR = "nvim";
     BROWSER = "librewolf";

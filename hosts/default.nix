@@ -1,4 +1,4 @@
-{ self, ... } @ args: with builtins; with self.lib; {
-  flake.hosts = mapAttrs (host: module: import module args) (findModules ./.);
+{ self, ... } @ args: {
+  flake.hosts = builtins.mapAttrs (host: module: import module args) (self.lib.findModules ./.);
 }
 

@@ -1,4 +1,4 @@
-{ inputs, config, pkgs, ... }: {
+{ pkgs, ... }: {
   programs.vscode = {
     enable = true;
     enableExtensionUpdateCheck = false;

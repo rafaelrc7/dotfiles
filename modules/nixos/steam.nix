@@ -1,4 +1,4 @@
-{ pkgs, lib, stdenv, ... }:
+{ pkgs, ... }:
 {
   programs.steam = {
     enable = true;
@@ -9,7 +9,7 @@
         jdk
         mangohud
       ];
-      extraLibraries = p: with p; [
+      extraLibraries = p: [
 
       ];
       extraEnv = {

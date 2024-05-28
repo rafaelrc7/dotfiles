@@ -8,7 +8,7 @@ let
   # openssl s_client -starttls imap -connect 127.0.0.1:1143 -showcerts
   certificatesFile = "${config.xdg.dataHome}/certs/protonmail.crt";
 in
-rec {
+{
   primary = lib.mkDefault true;
   flavor = "plain"; # protonmail, if needed
 

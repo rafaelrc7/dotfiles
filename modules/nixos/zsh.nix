@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 
 {
   environment.shells = [ pkgs.zsh ];
@@ -84,7 +84,7 @@
           "${zsh-vi-mode}/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh"
         ];
         source = map (source: "source ${source}") sources;
-        plugins = concatStringsSep "\n" (source);
+        plugins = concatStringsSep "\n" source;
       in
       ''
         autoload -Uz compinit

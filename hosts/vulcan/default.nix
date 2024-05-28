@@ -1,4 +1,4 @@
-{ self, ... }: with self.nixosModules;
+{ self, ... }:
 { inputs, pkgs, ... }: {
   networking.hostName = "vulcan";
 
@@ -7,7 +7,7 @@
   boot.kernelPackages = pkgs.linuxKernel.packages.linux_zen;
   boot.kernel.sysctl."kernel.sysrq" = 1;
 
-  imports = with inputs; [
+  imports = (with self.nixosModules; [
     ./hardware-configuration.nix
     ./networking.nix
 
@@ -38,13 +38,13 @@
     systemd-oomd
 
     temperature-symlink
-
+  ]) ++ (with inputs; [
     nixos-hardware.nixosModules.common-pc
     nixos-hardware.nixosModules.common-pc-ssd
     nixos-hardware.nixosModules.common-gpu-amd
     nixos-hardware.nixosModules.common-cpu-amd
     nixos-hardware.nixosModules.common-cpu-amd-pstate
-  ];
+  ]);
 
   environment = {
     systemPackages = with pkgs; [
