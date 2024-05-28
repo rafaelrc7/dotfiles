@@ -1,4 +1,9 @@
 { pkgs, ... }: {
+  xdg.dataFile."nvim/site/spell" = {
+    recursive = true;
+    source = "${pkgs.vim-spell-dict}/share/spell";
+  };
+
   programs.neovim =
     let
       toLua = str: "lua << EOF\n${str}\nEOF\n";

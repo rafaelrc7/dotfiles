@@ -35,6 +35,6 @@ opt.completeopt = "menu,menuone,noselect"
 opt.termguicolors = true
 opt.updatetime = 1000
 
-opt.spelllang = "pt_BR,en_GB"
+opt.spelllang = "pt,en_gb"
 
 cmd("filetype plugin on")
