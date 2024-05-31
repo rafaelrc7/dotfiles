@@ -53,6 +53,16 @@
       url = "github:amitds1997/remote-nvim.nvim";
       flake = false;
     };
+
+    trouble-nvim = {
+      url = "github:folke/trouble.nvim";
+      flake = false;
+    };
+
+    lsp-progress-nvim = {
+      url = "github:linrongbin16/lsp-progress.nvim";
+      flake = false;
+    };
   };
 
   outputs = inputs@{ self, flake-parts, ... }:

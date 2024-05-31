@@ -1,24 +1,45 @@
-local map = vim.keymap.set
-
 require("trouble.config").setup({
-	use_diagnostic_signs = true,
+	focus = false,
+	open_no_results = true,
+
+	modes = {
+		lsp = {
+			win = { position = "right" },
+		},
+
+		lsp_document_symbols = {
+			win = { position = "right" },
+		},
+	},
 })
 
+local map = vim.keymap.set
+local trouble = require("trouble")
+
 map("n", "<leader>xx", function()
-	require("trouble").toggle()
-end)
-map("n", "<leader>xw", function()
-	require("trouble").toggle("workspace_diagnostics")
-end)
+	trouble.toggle("diagnostics")
+end, { desc = "Trouble toggle workspace diagnostics" })
+
 map("n", "<leader>xd", function()
-	require("trouble").toggle("document_diagnostics")
-end)
-map("n", "<leader>xq", function()
-	require("trouble").toggle("quickfix")
-end)
+	trouble.toggle({
+		mode = "diagnostics",
+		filter = { buf = 0 },
+		pinned = true,
+	})
+end, { desc = "Trouble toggle [d]ocument diagnostics" })
+
+map("n", "<leader>xs", function()
+	trouble.toggle("lsp_document_symbols")
+end, { desc = "Trouble toggle document [s]ymbols" })
+
 map("n", "<leader>xl", function()
-	require("trouble").toggle("loclist")
-end)
-map("n", "gR", function()
-	require("trouble").toggle("lsp_references")
-end)
+	trouble.toggle("lsp")
+end, { desc = "Trouble toggle [l]sp info" })
+
+map("n", "<leader>xL", function()
+	trouble.toggle("loclist")
+end, { desc = "Trouble toggle [l]oclist" })
+
+map("n", "<leader>xQ", function()
+	trouble.toggle("quickfix")
+end, { desc = "Trouble toggle [q]flist" })

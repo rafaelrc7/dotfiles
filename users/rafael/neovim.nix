@@ -58,8 +58,10 @@
       '';
 
       plugins = let ps = pkgs.vimPlugins; in [
-        ps.plenary-nvim # Dependency from multiple plugins
+        # Dependencies from multiple plugins
+        ps.plenary-nvim
         ps.nui-nvim
+        ps.nvim-nio
 
         {
           plugin = ps.nvim-cmp;
@@ -90,19 +92,8 @@
         }
 
         {
-          plugin = ps.lualine-nvim;
-          config = toLuaFile ./nvimrc/plugin/lualine.lua;
-        }
-        ps.lualine-lsp-progress
-
-        {
           plugin = ps.nvim-autopairs;
           config = toLuaFile ./nvimrc/plugin/nvim-autopairs.lua;
-        }
-
-        {
-          plugin = ps.nvim-tree-lua;
-          config = toLuaFile ./nvimrc/plugin/nvim-tree.lua;
         }
 
         {
@@ -118,13 +109,13 @@
             require("actions-preview").setup({
               require("actions-preview.highlight").delta("${pkgs.delta}/bin/delta --no-gitconfig --side-by-side"),
             })
-            vim.keymap.set({ "v", "n" }, "<leader>ca", require("actions-preview").code_actions)
+            vim.keymap.set({ "v", "n" }, "<leader>ca", require("actions-preview").code_actions, { desc = "[C]ode [a]ctions" })
           '';
         }
 
         {
           plugin = ps.gitsigns-nvim;
-          config = toLua ''require("gitsigns").setup()'';
+          config = toLuaFile ./nvimrc/plugin/gitsigns.lua;
         }
 
         {
@@ -133,16 +124,17 @@
         }
 
         {
-          plugin = ps.symbols-outline-nvim;
-          config = toLua ''
-            require("symbols-outline").setup()
-            vim.keymap.set({ "v", "n" }, "<leader>ts", ":SymbolsOutline<CR>", { silent = true })
-          '';
+          plugin = ps.vimtex;
+          config = toLuaFile ./nvimrc/plugin/vimtex.lua;
         }
 
         {
-          plugin = ps.vimtex;
-          config = toLuaFile ./nvimrc/plugin/vimtex.lua;
+          plugin = ps.oil-nvim;
+          config = toLua ''
+            local oil = require("oil")
+            oil.setup()
+            vim.keymap.set("n", "-", oil.open, { desc = "Open parent directory" })
+          '';
         }
 
         {
@@ -158,22 +150,88 @@
         {
           plugin = ps.vim-fugitive;
           config = toLua ''
-            vim.api.nvim_set_keymap("n", "<leader>gs", ":G<CR>", {}) -- git status
-            vim.api.nvim_set_keymap("n", "<leader>gdh", ":diffget //2<CR>", {})
-            vim.api.nvim_set_keymap("n", "<leader>gdl", ":diffget //3<CR>", {})
+            vim.api.nvim_set_keymap("n", "<leader>gs", ":G<CR>", { silent = true, desc = "[G]it [s]tatus" }) -- git status
+            vim.api.nvim_set_keymap("n", "<leader>gdh", ":diffget //2<CR>", { silent = true, desc = "[G]it [d]iff left ([h])" })
+            vim.api.nvim_set_keymap("n", "<leader>gdl", ":diffget //3<CR>", { silent = true, desc = "[G]it [d]iff right ([l])" })
           '';
         }
 
         {
-          plugin = ps.remote-nvim;
-          config = toLua ''require("remote-nvim").setup({})'';
+          plugin = ps.lsp-progress-nvim;
+          config = toLua ''require("lsp-progress").setup()'';
+        }
+
+        {
+          plugin = ps.nvim-navic;
+          config = toLua ''
+            require("nvim-navic").setup({
+              highlight = true,
+              lsp = { auto_attach = true, },
+            })
+          '';
+        }
+
+        {
+          plugin = ps.lualine-nvim;
+          config = toLuaFile ./nvimrc/plugin/lualine.lua;
+        }
+
+        {
+          plugin = ps.nvim-navbuddy;
+          config = toLua ''
+            require("nvim-navbuddy").setup({
+              lsp = { auto_attach = true, },
+            })
+            vim.keymap.set({ "v", "n" }, "<leader>nb", require("nvim-navbuddy").open, { desc = "[N]av [b]uddy" })
+          '';
+        }
+
+        {
+          plugin = ps.bufferline-nvim;
+          config = toLua ''require("bufferline").setup({})'';
+        }
+
+        {
+          plugin = ps.vim-illuminate;
+          config = toLua ''
+            require("illuminate").configure({
+              filetypes_denylist = { "dirbuf", "dirvish", "fugitive", "NvimTree", },
+            })
+          '';
+        }
+
+        {
+          plugin = ps.toggleterm-nvim;
+          config = toLuaFile ./nvimrc/plugin/toggleterm.lua;
+        }
+
+        {
+          plugin = ps.nvim-dap-ui;
+          config = toLua ''require("dapui").setup()'';
+        }
+
+        {
+          plugin = ps.nvim-dap;
+          config = (toLuaFile ./nvimrc/plugin/dap.lua)
+            + toLua ''require("dap").adapters.gdb.command = "${pkgs.gdb}/bin/gdb"'';
+        }
+
+        {
+          plugin = ps.nvim-dap-virtual-text;
+          config = toLua ''require("nvim-dap-virtual-text").setup()'';
+        }
+
+        {
+          plugin = ps.conjure;
+          config = toLua ''
+            vim.g["conjure#mapping#doc_word"] = false
+            vim.g["conjure#mapping#def_word"] = false
+          '';
         }
 
         ps.Coqtail
-        ps.conjure
         ps.emmet-vim
         ps.nvim-web-devicons
-        ps.vimspector
 
         {
           config = toLuaFile ./nvimrc/plugin/treesitter.lua;

@@ -29,4 +29,4 @@ require("nvim-tree").setup({
 })
 
 -- Toggles file tree
-vim.api.nvim_set_keymap("", "<C-n>", ":NvimTreeToggle<CR>", { silent = true })
+vim.api.nvim_set_keymap("", "<C-n>", ":NvimTreeToggle<CR>", { silent = true, desc = "Toggle nvim-tree" })
