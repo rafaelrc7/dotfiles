@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 let
   fonts = {
     monospace = {
@@ -91,6 +91,24 @@ in
   catppuccin = {
     accent = "blue";
     flavor = "mocha";
+
+    sources = {
+      # https://github.com/catppuccin/foot/issues/12
+      foot = pkgs.stdenv.mkDerivation {
+        name = "foot-catppuccin";
+        phases = [ "unpackPhase" "installPhase" ];
+        src = pkgs.fetchFromGitHub {
+          owner = "catppuccin";
+          repo = "foot";
+          rev = "cfc55016e3d68a59622428e34d7b393447bbc501";
+          hash = "sha256-R95WF6sqvPNCBS8SYx3/3hgNSWDd2sxvLH5wNO4k1/s=";
+        };
+        installPhase = ''
+          mkdir -p $out/themes
+          cp $src/*.ini $out/themes/
+        '';
+      };
+    };
   };
 
   programs = {
