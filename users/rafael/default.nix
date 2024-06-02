@@ -24,6 +24,7 @@
 , rclone-gdrive ? self.homeModules.rclone-gdrive
 , syncthing ? self.homeModules.syncthing
 , sway ? ./sway.nix
+, tmux ? ./tmux.nix
 , udiskie ? self.homeModules.udiskie
 , obs ? self.homeModules.obs
 , vscode ? ./vscode.nix
@@ -50,12 +51,13 @@
     mpv
     nix
     node
+    obs
     pass
     protonmail-bridge
     rclone-gdrive
     syncthing
+    tmux
     udiskie
-    obs
 
     email
     environment_variables
@@ -82,13 +84,6 @@
 
   programs.btop = {
     enable = true;
-  };
-
-  programs.tmux = {
-    enable = true;
-    clock24 = true;
-    keyMode = "vi";
-    mouse = true;
   };
 
   home.sessionPath = [ "$HOME/.local/bin" ];
