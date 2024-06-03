@@ -35,7 +35,6 @@ in
     in
     {
       enable = true;
-      package = null;
       config = rec {
         ## Monitors ##
         output = {
@@ -175,23 +174,45 @@ in
         [ -e $HOME/.zshenv ] && . $HOME/.zshenv
         [ -e $HOME/.profile ] && . $HOME/.profile
 
-        export SDL_VIDEODRIVER=wayland
-        export QT_QPA_PLATFORM=wayland;xcb
-        export GDK_BACKEND=wayland,x11
+        export SDL_VIDEODRIVER="wayland"
+        export QT_QPA_PLATFORM="wayland;xcb"
+        export GDK_BACKEND="wayland,x11"
         export QT_WAYLAND_DISABLE_WINDOWDECORATION="1"
-        export _JAVA_AWT_WM_NONREPARENTING=1
-        export MOZ_ENABLE_WAYLAND=1
+        export _JAVA_AWT_WM_NONREPARENTING="1"
+        export MOZ_ENABLE_WAYLAND="1"
         export CLUTTER_BACKEND="wayland"
         export XDG_SESSION_TYPE="wayland"
 
         export TERMINAL="foot"
         export EXPLORER="dolphin"
-
-        # For flatpak to be able to use PATH programs
-        sh -c "systemctl --user import-environment PATH" &
       '';
 
-      systemd.enable = true;
+      systemd = {
+        enable = true;
+        variables = [
+          "DISPLAY"
+          "WAYLAND_DISPLAY"
+          "SWAYSOCK"
+          "XDG_CURRENT_DESKTOP"
+          "XDG_SESSION_TYPE"
+          "NIXOS_OZONE_WL"
+          "XCURSOR_THEME"
+          "XCURSOR_SIZE"
+          "QT_QPA_PLATFORMTHEME"
+          "QT_QPA_PLATFORM"
+          "QT_PLUGIN_PATH"
+          "QT_STYLE_OVERRIDE"
+          "SDL_VIDEODRIVER"
+          "_JAVA_AWT_WM_NONREPARENTING"
+          "PATH"
+        ];
+
+        extraCommands = [
+          "${pkgs.systemd}/bin/systemctl --user stop sway-session.target"
+          "${pkgs.systemd}/bin/systemctl --user reset-failed"
+          "${pkgs.systemd}/bin/systemctl --user start sway-session.target"
+        ];
+      };
 
       wrapperFeatures = {
         base = true; # https://github.com/swaywm/sway/wiki#gtk-applications-take-20-seconds-to-start

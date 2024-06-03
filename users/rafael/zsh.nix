@@ -141,7 +141,6 @@
     '';
 
     loginExtra = ''
-      ${pkgs.dbus}/bin/dbus-update-activation-environment --systemd --all
       [ "$(tty)" = "/dev/tty1" ] && which Hyprland && exec Hyprland
       true
     '';

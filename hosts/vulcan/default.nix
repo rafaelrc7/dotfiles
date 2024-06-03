@@ -99,31 +99,6 @@
     "L+    /opt/rocm/hip   -    -    -     -    ${pkgs.rocmPackages.clr}"
   ];
 
-  programs.sway = {
-    enable = true;
-    wrapperFeatures = {
-      base = true;
-      gtk = true;
-    };
-    extraSessionCommands = ''
-      [ -e $HOME/.zshenv ] && . $HOME/.zshenv
-      [ -e $HOME/.profile ] && . $HOME/.profile
-
-      export SDL_VIDEODRIVER=wayland
-      export QT_QPA_PLATFORM=wayland
-      export QT_WAYLAND_DISABLE_WINDOWDECORATION="1"
-      export _JAVA_AWT_WM_NONREPARENTING=1
-      export MOZ_ENABLE_WAYLAND=1
-      export CLUTTER_BACKEND="wayland"
-      export XDG_SESSION_TYPE="wayland"
-
-      export TERMINAL="foot"
-
-      # For flatpak to be able to use PATH programs
-      sh -c "systemctl --user import-environment PATH" &
-    '';
-  };
-
   security.pam.services.swaylock = { };
   security.pam.services.hyprlock = { };
   services.dbus.enable = true;
