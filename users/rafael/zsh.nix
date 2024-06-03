@@ -101,6 +101,16 @@
       }
 
       precmd_functions+=prompt
+
+      case $TERM in
+          foot*)
+              title () {print -Pn "\e]0;$1\a"}
+              preexec_functions+=title
+
+              restoretitle () {print -Pn "\e]0;$TERM\a"}
+              precmd_functions+=restoretitle
+          ;;
+      esac
     '';
 
     envExtra = ''
