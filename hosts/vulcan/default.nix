@@ -99,21 +99,6 @@
     "L+    /opt/rocm/hip   -    -    -     -    ${pkgs.rocmPackages.clr}"
   ];
 
-  security.pam.services.swaylock = { };
-  security.pam.services.hyprlock = { };
-  services.dbus.enable = true;
-
-  xdg.portal = {
-    enable = true;
-    wlr.enable = true;
-    extraPortals = with pkgs; [
-      xdg-desktop-portal-gtk
-      xdg-desktop-portal-hyprland
-    ];
-
-    xdgOpenUsePortal = true;
-  };
-
   services.postgresql = {
     enable = true;
     authentication = pkgs.lib.mkOverride 10 ''
@@ -139,8 +124,6 @@
       publish.userServices = true;
     };
   };
-
-  services.udisks2.enable = true;
 
   hardware.sane = {
     enable = true;

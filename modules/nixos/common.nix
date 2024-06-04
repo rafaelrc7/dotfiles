@@ -2,6 +2,8 @@
   time.timeZone = "America/Sao_Paulo";
   i18n.defaultLocale = "en_GB.UTF-8";
 
+  environment.pathsToLink = [ "/share/xdg-desktop-portal" "/share/applications" ];
+
   environment = {
     systemPackages = with pkgs; [
       exfat
@@ -44,5 +46,10 @@
     mask = ''\xff\xff\xff\xff\x00\x00\x00\x00\xff\xff\xff'';
     magicOrExtension = ''\x7fELF....AI\x02'';
   };
+
+  security.pam.services.swaylock = { };
+  security.pam.services.hyprlock = { };
+  services.udisks2.enable = true;
+  services.dbus.enable = true;
 }
 

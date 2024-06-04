@@ -53,21 +53,6 @@
 
   programs.java.enable = true;
 
-  security.pam.services.swaylock = { };
-  security.pam.services.hyprlock = { };
-  services.dbus.enable = true;
-
-  xdg.portal = {
-    enable = true;
-    wlr.enable = true;
-    extraPortals = with pkgs; [
-      xdg-desktop-portal-gtk
-      xdg-desktop-portal-hyprland
-    ];
-
-    xdgOpenUsePortal = true;
-  };
-
   hardware.bluetooth.enable = true;
   services.blueman.enable = true;
 
@@ -123,8 +108,6 @@
 
   programs.dconf.enable = true;
   programs.mtr.enable = true;
-
-  services.udisks2.enable = true;
 
   systemd.services.brightness = {
     enable = true;
