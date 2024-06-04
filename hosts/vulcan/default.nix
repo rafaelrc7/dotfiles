@@ -17,7 +17,6 @@
     btrfs
     flatpak
     geoclue
-    gnome-keyring
     gnupg-agent
     libvirtd
     lutris

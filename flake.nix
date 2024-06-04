@@ -171,6 +171,7 @@
               extraArgs = {
                 crypto = null;
                 git = ./users/rafael/git-work.nix;
+                gnome-keyring = null;
                 go = null;
                 gui-pkgs = ./users/rafael/gui-pkgs-work.nix;
                 jetbrains = null;

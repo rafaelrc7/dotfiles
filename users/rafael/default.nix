@@ -4,6 +4,7 @@
 , environment_variables ? ./environment_variables.nix
 , firefox ? self.homeModules.firefox
 , git ? ./git.nix
+, gnome-keyring ? self.homeModules.gnome-keyring
 , go ? self.homeModules.go
 , gschemas ? self.homeModules.gschemas
 , gui-pkgs ? ./gui-pkgs.nix
@@ -41,6 +42,7 @@
   imports = self.lib.optionalsNotNull [
     crypto
     firefox
+    gnome-keyring
     go
     gschemas
     jetbrains
@@ -79,7 +81,6 @@
     fzf
     neovim-qt
     ripgrep
-    gcr
   ];
 
   programs.btop = {

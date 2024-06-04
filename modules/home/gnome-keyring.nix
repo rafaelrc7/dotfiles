@@ -10,6 +10,7 @@
     libsecret
   ];
 
+  xdg.portal.extraPortals = [ pkgs.gnome.gnome-keyring ];
   xdg.portal.config = {
     common = {
       "org.freedesktop.impl.portal.Secret" = [
