@@ -8,12 +8,12 @@
 
   wayland.windowManager.sway.config.bars = [ ];
 
+  systemd.user.services.waybar.Install.WantedBy = lib.mkForce [ "sway-session.target" "hyprland-session.target" ];
   programs.waybar = {
     enable = true;
 
     systemd = {
       enable = true;
-      target = "wayland.target";
     };
 
     settings = [{

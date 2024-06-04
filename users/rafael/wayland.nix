@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 {
   home.packages = with pkgs; [
     cliphist
@@ -42,8 +42,9 @@
   services.cliphist = {
     enable = true;
     allowImages = true;
-    systemdTarget = "wayland.target";
   };
+  systemd.user.services.cliphist.Install.WantedBy = lib.mkForce [ "sway-session.target" "hyprland-session.target" ];
+  systemd.user.services.cliphist-images.Install.WantedBy = lib.mkForce [ "sway-session.target" "hyprland-session.target" ];
 
   programs.foot = {
     enable = true;
@@ -65,7 +66,6 @@
 
   services.wlsunset = {
     enable = true;
-    systemdTarget = "wayland.target";
     temperature = {
       day = 6500;
       night = 2700;
@@ -73,6 +73,7 @@
     sunrise = "06:00";
     sunset = "17:30";
   };
+  systemd.user.services.wlsunset.Install.WantedBy = lib.mkForce [ "sway-session.target" "hyprland-session.target" ];
 
   services.mako = {
     enable = true;
@@ -87,7 +88,6 @@
 
   services.wayland-pipewire-idle-inhibit = {
     enable = true;
-    systemdTarget = "wayland.target";
     settings = {
       verbosity = "INFO";
       media_minimum_duration = 10;
@@ -97,17 +97,7 @@
       ];
     };
   };
+  systemd.user.services.wayland-pipewire-idle-inhibit.Install.WantedBy = lib.mkForce [ "sway-session.target" "hyprland-session.target" ];
 
-  systemd.user.targets = {
-    wayland = {
-      Install = {
-        WantedBy = [ "sway-session.target" "hyprland-session.target" ];
-      };
-      Unit = {
-        Description = "Wayland compositor session";
-        After = [ "sway-session.target" "hyprland-session.target" ];
-      };
-    };
-  };
 }
 
