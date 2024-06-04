@@ -38,7 +38,29 @@ in
       systemd = {
         enable = true;
         enableXdgAutostart = true;
-        variables = [ "--all" ];
+        variables = [
+          "DISPLAY"
+          "WAYLAND_DISPLAY"
+          "HYPRLAND_INSTANCE_SIGNATURE"
+          "XDG_CURRENT_DESKTOP"
+          "XDG_SESSION_TYPE"
+          "NIXOS_OZONE_WL"
+          "XCURSOR_THEME"
+          "XCURSOR_SIZE"
+          "QT_QPA_PLATFORMTHEME"
+          "QT_QPA_PLATFORM"
+          "QT_PLUGIN_PATH"
+          "QT_STYLE_OVERRIDE"
+          "SDL_VIDEODRIVER"
+          "_JAVA_AWT_WM_NONREPARENTING"
+          "PATH"
+        ];
+
+        extraCommands = [
+          "${pkgs.systemd}/bin/systemctl --user stop hyprland-session.target"
+          "${pkgs.systemd}/bin/systemctl --user reset-failed"
+          "${pkgs.systemd}/bin/systemctl --user start hyprland-session.target"
+        ];
       };
 
       xwayland.enable = true;
