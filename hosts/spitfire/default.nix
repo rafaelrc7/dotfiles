@@ -18,6 +18,7 @@
     lutris
     nix
     pipewire
+    podman
     zsh
     fonts
     cryptswap
@@ -29,9 +30,10 @@
     tailscale
     udev-media-keys
     systemd-oomd
+
+    temperature-symlink
   ]) ++ (with inputs; [
     nixos-hardware.nixosModules.common-cpu-intel
-    nixos-hardware.nixosModules.common-gpu-intel
     nixos-hardware.nixosModules.common-pc-laptop
     nixos-hardware.nixosModules.common-pc-laptop-ssd
   ]);
@@ -46,7 +48,7 @@
       winetricks
       xclip
       qbittorrent
-      zoom
+      vlc
     ];
   };
 
@@ -114,6 +116,17 @@
       ${pkgs.brightnessctl}/bin/brightnessctl set 30%
     '';
     wantedBy = [ "multi-user.target" ];
+  };
+
+  services.hwmonLinks = {
+    enable = true;
+    devices = [
+      {
+        name = "coretemp";
+        target = "cpu";
+        input = "temp1_input";
+      }
+    ];
   };
 
   system.stateVersion = "22.11";

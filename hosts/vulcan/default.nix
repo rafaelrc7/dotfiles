@@ -57,7 +57,6 @@
       protontricks
       qbittorrent
       vlc
-      zoom
     ];
   };
 
