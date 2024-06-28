@@ -69,7 +69,7 @@
     enable = true;
     temperature = {
       day = 6500;
-      night = 2700;
+      night = 4000;
     };
     sunrise = "06:00";
     sunset = "17:30";
