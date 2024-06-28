@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ config, pkgs, ... }: {
   programs.mpv = {
     enable = true;
     config = {
@@ -11,10 +11,14 @@
     ];
   };
 
-  home.file.".mozilla/native-messaging-hosts/ff2mpv.json".source =
-    "${pkgs.ff2mpv}/lib/mozilla/native-messaging-hosts/ff2mpv.json";
+  home.file.".mozilla/native-messaging-hosts/ff2mpv.json" = {
+    enable = config.programs.firefox.enable;
+    source = "${pkgs.ff2mpv}/lib/mozilla/native-messaging-hosts/ff2mpv.json";
+  };
 
-  home.file.".librewolf/native-messaging-hosts/ff2mpv.json".source =
-    "${pkgs.ff2mpv}/lib/mozilla/native-messaging-hosts/ff2mpv.json";
+  home.file.".librewolf/native-messaging-hosts/ff2mpv.json" = {
+    enable = config.programs.librewolf.enable;
+    source = "${pkgs.ff2mpv}/lib/mozilla/native-messaging-hosts/ff2mpv.json";
+  };
 }
 

@@ -12,10 +12,14 @@ in
     };
   };
 
-  home.file.".mozilla/native-messaging-hosts/passff.json".source =
-    "${passff-otp-host}/share/passff-host/passff.json";
+  home.file.".mozilla/native-messaging-hosts/passff.json" = {
+    enable = config.programs.firefox.enable;
+    source = "${passff-otp-host}/share/passff-host/passff.json";
+  };
 
-  home.file.".librewolf/native-messaging-hosts/passff.json".source =
-    "${passff-otp-host}/share/passff-host/passff.json";
+  home.file.".librewolf/native-messaging-hosts/passff.json" = {
+    enable = config.programs.librewolf.enable;
+    source = "${passff-otp-host}/share/passff-host/passff.json";
+  };
 }
 
