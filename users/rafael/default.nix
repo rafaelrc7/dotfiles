@@ -80,14 +80,12 @@
   ];
 
   home.packages = with pkgs; [
-    fzf
     neovim-qt
-    ripgrep
   ];
 
-  programs.btop = {
-    enable = true;
-  };
+  programs.btop.enable = true;
+  programs.fzf.enable = true;
+  programs.ripgrep.enable = true;
 
   home.sessionPath = [ "$HOME/.local/bin" ];
 

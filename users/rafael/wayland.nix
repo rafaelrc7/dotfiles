@@ -5,7 +5,6 @@
     dolphin
     glfw-wayland
     grim
-    imv
     libnotify
     mako
     slurp
@@ -63,6 +62,8 @@
       };
     };
   };
+
+  programs.imv.enable = true;
 
   services.wlsunset = {
     enable = true;
