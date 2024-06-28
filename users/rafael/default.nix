@@ -30,6 +30,7 @@
 , obs ? self.homeModules.obs
 , vscode ? ./vscode.nix
 , xdg ? ./xdg.nix
+, zathura ? self.homeModules.zathura
 , zsh ? ./zsh.nix
 }:
 { inputs, config, lib, pkgs, ... }: {
@@ -72,6 +73,7 @@
     sway
     vscode
     xdg
+    zathura
     zsh
 
     inputs.wayland-pipewire-idle-inhibit.homeModules.default

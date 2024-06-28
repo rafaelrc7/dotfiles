@@ -5,7 +5,6 @@
     obsidian
     slack
     spotify
-    zathura
   ];
 }
 
