@@ -1,12 +1,12 @@
 { pkgs, config, lib, ... }:
 let
-  pass-otp = pkgs.pass.withExtensions (exts: [ exts.pass-otp ]);
-  passff-otp-host = pkgs.passff-host.override { pass = pass-otp; };
+  pass = pkgs.pass.withExtensions (exts: with exts; [ pass-audit pass-genphrase pass-otp pass-update ]);
+  passff-otp-host = pkgs.passff-host.override { pass = pass; };
 in
 {
   programs.password-store = {
     enable = true;
-    package = pass-otp;
+    package = pass;
     settings = {
       PASSWORD_STORE_DIR = lib.mkDefault "${config.xdg.dataHome}/password-store";
     };
