@@ -188,10 +188,9 @@ in
   gtk = {
     enable = true;
 
-    catppuccin.enable = true;
-    iconTheme = {
-      name = "Papirus-Dark";
-      package = pkgs.catppuccin-papirus-folders;
+    catppuccin = {
+      enable = true;
+      icon.enable = true;
     };
 
     font = {
