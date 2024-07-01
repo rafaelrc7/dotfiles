@@ -67,30 +67,23 @@
     variant = "intl";
   };
 
-  services.xserver.videoDrivers = [ "modesetting" ];
+  services.xserver.videoDrivers = [ "amdgpu" ];
   hardware = {
-    opengl = {
+    graphics = {
       enable = true;
-      driSupport = true;
-      driSupport32Bit = true;
+      enable32Bit = true;
       extraPackages = with pkgs; [
-        vaapiVdpau
         libvdpau-va-gl
+        libva-vdpau-driver
 
         rocm-opencl-icd
         rocm-opencl-runtime
       ];
-      extraPackages32 = with pkgs; [
-        driversi686Linux.vaapiVdpau
-        driversi686Linux.libvdpau-va-gl
+      extraPackages32 = with pkgs.driversi686Linux; [
+        libvdpau-va-gl
+        libva-vdpau-driver
       ];
     };
-  };
-
-  environment.variables = {
-    LIBVA_DRIVER_NAME = "radeonsi";
-    VDPAU_DRIVER = "radeonsi";
-    AMD_VULKAN_ICD = "RADV";
   };
 
   systemd.tmpfiles.rules = [
