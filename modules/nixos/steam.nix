@@ -9,8 +9,8 @@
         jdk
         mangohud
       ];
-      extraLibraries = p: [
-
+      extraLibraries = p: with p; [
+        gperftools
       ];
       extraEnv = {
         SDL_VIDEODRIVER = "";
