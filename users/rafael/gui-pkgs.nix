@@ -15,7 +15,6 @@
     spotify
     tdesktop
     ungoogled-chromium
-    zoom-us
   ];
 }
 
