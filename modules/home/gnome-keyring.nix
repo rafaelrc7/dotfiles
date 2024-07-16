@@ -6,11 +6,11 @@
 
   home.packages = with pkgs; [
     gcr # needed by gnome-keyring
-    gnome.gnome-keyring
+    gnome-keyring
     libsecret
   ];
 
-  xdg.portal.extraPortals = [ pkgs.gnome.gnome-keyring ];
+  xdg.portal.extraPortals = [ pkgs.gnome-keyring ];
   xdg.portal.config = {
     common = {
       "org.freedesktop.impl.portal.Secret" = [

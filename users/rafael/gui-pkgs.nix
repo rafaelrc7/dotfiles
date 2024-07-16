@@ -4,9 +4,9 @@
     vesktop
     calibre
     gimp
-    gnome.gnome-disk-utility
+    gnome-disk-utility
     helvum
-    jami
+    nixpkgs-stable.jami
     libreoffice-fresh
     obsidian
     pavucontrol

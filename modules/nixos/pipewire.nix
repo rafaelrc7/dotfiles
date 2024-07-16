@@ -1,6 +1,5 @@
 { lib, ... }: {
 
-  sound.enable = true;
   security.rtkit.enable = true;
   hardware.pulseaudio.enable = lib.mkForce false;
 

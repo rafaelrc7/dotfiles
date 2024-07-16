@@ -41,7 +41,7 @@
 
       [[ ! -f $new_mail_counter ]] && exit 0
 
-      icon=${pkgs.gnome.adwaita-icon-theme}/share/icons/Adwaita/symbolic/status/mail-unread-symbolic.svg
+      icon=${pkgs.adwaita-icon-theme}/share/icons/Adwaita/symbolic/status/mail-unread-symbolic.svg
       new_mail_count=`cat "$new_mail_counter"`
 
       ${pkgs.libnotify}/bin/notify-send --icon="$icon"\

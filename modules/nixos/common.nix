@@ -50,7 +50,7 @@
   security.pam.services.swaylock = { };
   security.pam.services.hyprlock = { };
   security.pam.services.login.enableGnomeKeyring = true;
-  services.dbus.packages = [ pkgs.gnome.gnome-keyring pkgs.gcr ];
+  services.dbus.packages = [ pkgs.gnome-keyring pkgs.gcr ];
 
   services.udisks2.enable = true;
   services.dbus.enable = true;
