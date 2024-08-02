@@ -1,6 +1,7 @@
 local map = vim.api.nvim_set_keymap
 
--- Map leader key to ,
+-- Map leader key to \
+-- Map localleader key to ;
 map("n", ";", "", { noremap = true })
 vim.g.mapleader = "\\"
 vim.g.maplocalleader = ";"

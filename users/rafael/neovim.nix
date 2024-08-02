@@ -4,6 +4,11 @@
     source = "${pkgs.vim-spell-dict}/share/spell";
   };
 
+  xdg.configFile."nvim" = {
+    recursive = true;
+    source = ./nvimrc/nvim;
+  };
+
   programs.neovim =
     let
       toLua = str: "lua << EOF\n${str}\nEOF\n";
@@ -46,6 +51,13 @@
         nixd
         pyright
         texlab
+
+        # Haskell
+        haskellPackages.fast-tags
+
+        # debug
+        gdb
+        haskellPackages.haskell-debug-adapter
       ];
 
       extraLuaConfig = ''
@@ -241,6 +253,7 @@
           '';
         }
 
+        ps.haskell-tools-nvim
         ps.Coqtail
         ps.emmet-vim
         ps.nvim-web-devicons

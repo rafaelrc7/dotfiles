@@ -98,12 +98,6 @@ nvim_lsp.elixirls.setup({
 	capabilities = capabilities,
 })
 
--- Haskell (hls)
-nvim_lsp.hls.setup({
-	on_attach = on_attach,
-	capabilities = capabilities,
-})
-
 -- html
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
