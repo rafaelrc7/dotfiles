@@ -30,6 +30,7 @@
 
       extraPackages = with pkgs; [
         clang
+        curl
         fd
         ripgrep
 
@@ -58,6 +59,7 @@
         # debug
         gdb
         haskellPackages.haskell-debug-adapter
+        haskellPackages.ghci-dap
       ];
 
       extraLuaConfig = ''
@@ -254,6 +256,7 @@
         }
 
         ps.haskell-tools-nvim
+        ps.haskell-snippets-nvim
         ps.Coqtail
         ps.emmet-vim
         ps.nvim-web-devicons
