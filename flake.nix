@@ -116,8 +116,9 @@
                     email = null;
                     firefox = null;
                     go = null;
-                    gui-pkgs = null;
                     gschemas = null;
+                    gui-pkgs = null;
+                    hyprland = null;
                     jetbrains = null;
                     kitty = null;
                     librewolf = null;
@@ -131,6 +132,7 @@
                     udiskie = null;
                     obs = null;
                     vscode = null;
+                    zathura = null;
                   };
                 }
               ];

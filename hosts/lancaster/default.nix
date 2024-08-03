@@ -13,7 +13,6 @@
     ddclient
     geoclue
     nix
-    pipewire
     zsh
     podman
     fonts
