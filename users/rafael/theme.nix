@@ -132,8 +132,6 @@ in
     mako.catppuccin.enable = true;
   };
 
-  i18n.inputMethod.fcitx5.catppuccin.enable = true;
-
   wayland.windowManager = {
     hyprland = {
       catppuccin.enable = true;
