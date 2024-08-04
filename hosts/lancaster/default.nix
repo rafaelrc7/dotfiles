@@ -17,6 +17,7 @@
     podman
     fonts
     man
+    nightscout
     ssh
     git
     polkit
