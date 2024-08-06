@@ -54,5 +54,9 @@
 
   services.udisks2.enable = true;
   services.dbus.enable = true;
+
+  security.pki.certificateFiles = [
+    ./rootCA.crt
+  ];
 }
 
