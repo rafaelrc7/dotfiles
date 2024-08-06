@@ -63,7 +63,7 @@
           IPv6PrivacyExtensions = true;
           DNSSEC = false;
         };
-        dns = [ "10.0.0.20" "1.1.1.1" "1.0.0.1" ];
+        dns = [ "10.0.0.20" ];
       };
 
       "10-eth0" = {
