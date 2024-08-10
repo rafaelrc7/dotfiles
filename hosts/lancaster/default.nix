@@ -14,6 +14,7 @@ let
         "adbusers"
         "dialout"
         "libvirtd"
+        "plugdev"
         "podman"
         "wheel"
       ];
@@ -25,3 +26,4 @@ self.lib.mkNixosConfiguration {
   configuration = ./configuration.nix;
   inherit users;
 }
+

@@ -33,6 +33,15 @@ let
   '';
 in
 {
+  networking.firewall = {
+    allowedTCPPorts = [
+      25575 # RCON
+    ];
+    allowedUDPPorts = [
+      8211 # PalWorld
+    ];
+  };
+
   users.users.palworld = {
     isSystemUser = true;
     home = palserver_path;

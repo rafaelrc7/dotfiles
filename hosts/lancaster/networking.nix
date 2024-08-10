@@ -6,12 +6,9 @@
       enable = true;
       allowedTCPPorts = [
         18081 # monero RPC
-      ];
-      allowedUDPPorts = [
-        8211 # PalWorld
-        7777
-        27015
-        27016 # Steam
+        25565 # Minecraft
+        25575 # RCON
+        25585 # Alternative RCON
       ];
     };
   };

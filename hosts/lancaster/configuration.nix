@@ -7,22 +7,22 @@
       ./hardware-configuration.nix
       ./networking.nix
 
-      common
       btrfs
+      common
       ddclient
-      geoclue
-      nix
-      zsh
-      podman
       fonts
+      geoclue
+      git
       man
       nightscout
-      ssh
-      git
-      polkit
-      tailscale
+      nix
       palserver
+      podman
+      polkit
+      ssh
       systemd-oomd
+      tailscale
+      zsh
     ])
     ++ (with inputs; [
       nixos-hardware.nixosModules.common-pc
@@ -34,19 +34,6 @@
   services.xserver.xkb = {
     layout = "us";
     variant = "intl";
-  };
-
-  services.monero = {
-    enable = true;
-    extraConfig = ''
-      # prune-blockchain=1
-      # sync-pruned-blocks=1
-      db-sync-mode=safe
-      confirm-external-bind=1
-    '';
-    rpc = {
-      address = "100.120.92.101";
-    };
   };
 
   programs.dconf.enable = true;
