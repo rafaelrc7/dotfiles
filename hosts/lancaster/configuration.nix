@@ -7,8 +7,9 @@
       ./hardware-configuration.nix
       ./networking.nix
 
-      btrfs
       common
+      bitcoind
+      btrfs
       ddclient
       fonts
       geoclue
