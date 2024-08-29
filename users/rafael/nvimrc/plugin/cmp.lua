@@ -2,7 +2,7 @@ local cmp = require("cmp")
 local luasnip = require("luasnip")
 
 luasnip.setup({
-	region_check_events = { "CursorMoved", "CursorHold", "InsertEnter" }
+	region_check_events = { "CursorMoved", "CursorHold", "InsertEnter" },
 })
 
 cmp.setup({
