@@ -225,10 +225,6 @@ in
           hover_icon_on_border = true;
         };
 
-        render = {
-          direct_scanout = true;
-        };
-
         dwindle = {
           pseudotile = true;
           preserve_split = true;
