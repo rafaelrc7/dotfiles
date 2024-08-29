@@ -18,6 +18,7 @@
     flatpak
     geoclue
     gnupg-agent
+    heroic
     libvirtd
     lutris
     mullvad
@@ -49,7 +50,6 @@
     systemPackages = with pkgs; [
       dbeaver-bin
       libva-utils
-      lutris
       glxinfo
       xclip
       wineWowPackages.staging

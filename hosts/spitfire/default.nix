@@ -15,6 +15,7 @@
     flatpak
     geoclue
     gnupg-agent
+    heroic
     lutris
     nix
     pipewire
@@ -41,7 +42,6 @@
   environment = {
     systemPackages = with pkgs; [
       brightnessctl
-      lutris
       libva-utils
       glxinfo
       wineWowPackages.staging
