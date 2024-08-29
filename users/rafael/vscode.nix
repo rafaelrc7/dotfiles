@@ -4,59 +4,62 @@
     enableExtensionUpdateCheck = false;
     enableUpdateCheck = false;
     mutableExtensionsDir = true;
-    extensions = with pkgs.vscode-marketplace; [
-      vscodevim.vim
+    extensions =
+      let
+        vscode-marketplace = pkgs.vscode-marketplace;
+        vscode-extensions = pkgs.vscode-extensions;
+      in
+      [
+        vscode-extensions.vscodevim.vim
 
-      eamodio.gitlens
+        vscode-extensions.eamodio.gitlens
 
-      editorconfig.editorconfig
+        vscode-extensions.editorconfig.editorconfig
 
-      angular.ng-template
-      ecmel.vscode-html-css
-      firefox-devtools.vscode-firefox-debug
+        vscode-extensions.angular.ng-template
+        vscode-extensions.ecmel.vscode-html-css
+        vscode-extensions.firefox-devtools.vscode-firefox-debug
 
-      #visualstudioexptteam.vscodeintellicode
-      redhat.java
-      vscjava.vscode-java-debug
-      vscjava.vscode-maven
-      vscjava.vscode-java-test
-      vscjava.vscode-java-dependency
-      vscjava.vscode-gradle
-      vscjava.vscode-spring-initializr
+        vscode-extensions.redhat.java
+        vscode-extensions.vscjava.vscode-java-debug
+        vscode-extensions.vscjava.vscode-maven
+        vscode-extensions.vscjava.vscode-java-test
+        vscode-extensions.vscjava.vscode-java-dependency
+        vscode-extensions.vscjava.vscode-gradle
+        vscode-extensions.vscjava.vscode-spring-initializr
 
-      fwcd.kotlin
+        vscode-marketplace.fwcd.kotlin
 
-      ms-vscode.cpptools-extension-pack
-      ms-vscode.cpptools
-      ms-vscode.cpptools-themes
-      (ms-vscode.makefile-tools.overrideAttrs (_: { sourceRoot = "extension"; }))
-      (ms-vscode.cmake-tools.overrideAttrs (_: { sourceRoot = "extension"; }))
-      twxs.cmake
+        vscode-extensions.ms-vscode.cpptools-extension-pack
+        vscode-extensions.ms-vscode.cpptools
+        vscode-extensions.ms-vscode.makefile-tools
+        vscode-extensions.ms-vscode.cmake-tools
+        vscode-extensions.twxs.cmake
 
-      slevesque.shader
-      dtoplak.vscode-glsllint
+        vscode-marketplace.slevesque.shader
+        vscode-marketplace.dtoplak.vscode-glsllint
 
-      (vsciot-vscode.vscode-arduino.overrideAttrs (_: { sourceRoot = "extension"; }))
-      (ms-vscode.vscode-serial-monitor.overrideAttrs (_: { sourceRoot = "extension"; }))
-      platformio.platformio-ide
+        (vscode-marketplace.vsciot-vscode.vscode-arduino.overrideAttrs (_: { sourceRoot = "extension"; }))
+        (vscode-marketplace.ms-vscode.vscode-serial-monitor.overrideAttrs (_: { sourceRoot = "extension"; }))
+        vscode-marketplace.platformio.platformio-ide
 
-      pinage404.nix-extension-pack
-      jnoortheen.nix-ide
-      arrterian.nix-env-selector
-      mkhl.direnv
+        vscode-marketplace.pinage404.nix-extension-pack
+        vscode-extensions.jnoortheen.nix-ide
+        vscode-extensions.arrterian.nix-env-selector
+        vscode-extensions.mkhl.direnv
 
-      maximedenes.vscoq
+        vscode-extensions.maximedenes.vscoq
 
-      ms-azuretools.vscode-docker
-      ms-vscode-remote.vscode-remote-extensionpack
-      ms-vscode-remote.remote-containers
-      ms-vscode-remote.remote-wsl
-      ms-vscode-remote.remote-ssh
-      ms-vscode.remote-server
+        vscode-extensions.ms-azuretools.vscode-docker
+        vscode-marketplace.ms-vscode-remote.vscode-remote-extensionpack
+        vscode-extensions.ms-vscode-remote.remote-containers
+        vscode-extensions.ms-vscode-remote.remote-wsl
+        vscode-extensions.ms-vscode-remote.remote-ssh
+        vscode-marketplace.ms-vscode.remote-server
 
-      catppuccin.catppuccin-vsc
-      catppuccin.catppuccin-vsc-icons
-    ];
+        vscode-extensions.catppuccin.catppuccin-vsc
+        vscode-extensions.catppuccin.catppuccin-vsc-icons
+      ];
 
     userSettings = {
       vscoq.path = "${pkgs.coqPackages.vscoq-language-server}/bin/vscoqtop";

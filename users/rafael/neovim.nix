@@ -319,7 +319,6 @@
             gitattributes
             git_rebase
             git_config
-            git_config
             gdscript
             fennel
             elixir

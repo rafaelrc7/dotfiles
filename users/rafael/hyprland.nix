@@ -225,6 +225,10 @@ in
           hover_icon_on_border = true;
         };
 
+        render = {
+          direct_scanout = true;
+        };
+
         dwindle = {
           pseudotile = true;
           preserve_split = true;
@@ -316,8 +320,6 @@ in
           enable_swallow = true;
           swallow_regex = "^(kitty|footclient|foot)$";
           swallow_exception_regex = "^(nix run nixpkgs##)?(ssh.*|wev|(xorg\.)?xev)$";
-
-          no_direct_scanout = false;
 
           mouse_move_focuses_monitor = true;
 
