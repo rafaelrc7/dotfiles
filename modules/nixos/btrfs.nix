@@ -10,6 +10,6 @@ in {
   fileSystems."/var".options = [ "discard" ];
 
   boot.initrd.supportedFilesystems = [ "btrfs" ];
-  environment.systemPackages = with pkgs; [ btrfs-progs nixpkgs-stable.compsize ];
+  environment.systemPackages = with pkgs; [ btrfs-progs compsize ];
 }
 

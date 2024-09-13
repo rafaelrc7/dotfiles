@@ -6,7 +6,7 @@
     gimp
     gnome-disk-utility
     helvum
-    nixpkgs-stable.jami
+    jami
     libreoffice-fresh
     obsidian
     pavucontrol
