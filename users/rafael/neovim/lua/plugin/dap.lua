@@ -82,3 +82,38 @@ dap.configurations.rust = {
 		stopAtBeginningOfMainSubprogram = false,
 	},
 }
+
+dap.adapters.haskell = {
+	type = "executable",
+	command = "haskell-debug-adapter",
+}
+
+dap.configurations.haskell = {
+	{
+		type = "ghc",
+		request = "launch",
+		name = "haskell(cabal)",
+		internalConsoleOptions = "openOnSessionStart",
+		workspace = "${workspaceFolder}",
+		startup = function()
+			return vim.g.dap_startup_file and vim.g.dap_startup_file or "${file}"
+		end,
+		startupFunc = function()
+			return vim.g.dap_startup_func and vim.g.dap_startup_func or "main"
+		end,
+		startupArgs = function()
+			return vim.g.dap_startup_func_args and vim.g.dap_startup_func_args or ""
+		end,
+		mainArgs = function()
+			return vim.g.dap_cli_args and vim.g.dap_cli_args or ""
+		end,
+		stopOnEntry = true, -- some programs may error before the first breakpoint
+		ghciPrompt = "H>>= ",
+		ghciInitialPrompt = "> ",
+		ghciCmd = "cabal exec -- ghci-dap --interactive -i -i${workspaceFolder}/app -i${workspaceFolder}/src",
+		ghciEnv = vim.empty_dict(),
+		logFile = vim.fn.stdpath("data") .. "/haskell-dap.log",
+		logLevel = "WARNING",
+		forceInspect = false,
+	},
+}

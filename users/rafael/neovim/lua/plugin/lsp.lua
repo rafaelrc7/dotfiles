@@ -30,7 +30,7 @@ local function on_attach(_, bufnr)
 			desc = "LSP: " .. desc
 		end
 
-		vim.keymap.set("n", keys, func, { buffer = bufnr, desc = desc })
+		vim.keymap.set("n", keys, func, { buffer = bufnr, desc = desc, silent = true })
 	end
 
 	map("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
@@ -41,6 +41,7 @@ local function on_attach(_, bufnr)
 	map("<leader>D", vim.lsp.buf.type_definition, "Type [D]efinition")
 	map("<leader>ds", require("telescope.builtin").lsp_document_symbols, "[D]ocument [S]ymbols")
 	map("<leader>ws", require("telescope.builtin").lsp_dynamic_workspace_symbols, "[W]orkspace [S]ymbols")
+	map("<leader>cl", vim.lsp.codelens.run, "[C]ode [L]ens")
 
 	map("K", vim.lsp.buf.hover, "Hover Documentation")
 	map("<C-k>", vim.lsp.buf.signature_help, "Signature Documentation")

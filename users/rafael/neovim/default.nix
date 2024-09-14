@@ -67,8 +67,6 @@
 
       # debug
       gdb
-      haskellPackages.haskell-debug-adapter
-      haskellPackages.ghci-dap
     ];
   };
 }
