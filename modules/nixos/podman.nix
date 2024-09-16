@@ -1,5 +1,12 @@
 { pkgs, ... }: {
-  virtualisation.containers.enable = true;
+  virtualisation.containers = {
+    enable = true;
+    containersConf.settings.engine = {
+      compose_providers = [ "${pkgs.docker-compose}/bin/docker-compose" ];
+      compose_warning_logs = false;
+    };
+  };
+
   virtualisation.podman = {
     enable = true;
     dockerCompat = true;
