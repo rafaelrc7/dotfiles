@@ -116,18 +116,6 @@
         identityFile = "${config.home.homeDirectory}/.ssh/aur";
         user = "aur";
       };
-
-      "ncc17004" = {
-        user = "rafaelrc";
-        proxyJump = "ssh2.tecgraf.puc-rio.br";
-        forwardAgent = true;
-        forwardX11 = true;
-        forwardX11Trusted = true;
-      };
-
-      "ssh2.tecgraf.puc-rio.br" = {
-        user = "rafaelrc";
-      };
     };
 
     extraConfig = ''
