@@ -28,7 +28,9 @@
     ssh
     git
     polkit
+    powertop
     tailscale
+    tlp
     udev-media-keys
     systemd-oomd
 
