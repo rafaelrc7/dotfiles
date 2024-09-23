@@ -54,7 +54,6 @@
       xclip
       wineWowPackages.staging
       winetricks
-      protontricks
       qbittorrent
       vlc
     ];
