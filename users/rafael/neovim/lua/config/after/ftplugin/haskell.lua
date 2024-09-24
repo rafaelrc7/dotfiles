@@ -15,3 +15,9 @@ vim.keymap.set("n", "<localleader>rf", function()
 	ht.repl.toggle(vim.api.nvim_buf_get_name(0))
 end, opts)
 vim.keymap.set("n", "<localleader>rq", ht.repl.quit, opts)
+
+vim.opt_local.tabstop = 8
+vim.opt_local.shiftwidth = 2
+vim.opt_local.softtabstop = 2
+vim.opt_local.expandtab = true
+

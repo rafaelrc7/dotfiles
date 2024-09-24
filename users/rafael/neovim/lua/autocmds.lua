@@ -1,67 +1,9 @@
 local api = vim.api
 
 api.nvim_create_autocmd("BufWritePre", {
-	pattern = "*.go",
-	callback = function(ev)
-		local saved_view = vim.fn.winsaveview()
-
-		local lines = vim.api.nvim_buf_get_lines(ev.buf, 0, -1, false)
-		local gofmt = vim.system({ "gofmt" }, { text = true, stdin = lines }):wait()
-
-		if gofmt.code == 0 then
-			lines = {}
-			for line in gofmt.stdout:gmatch("(.-)\n") do
-				table.insert(lines, line)
-			end
-
-			vim.api.nvim_buf_set_lines(ev.buf, 0, -1, false, lines)
-		elseif gofmt.stderr ~= nil then
-			lines = {}
-			local err = gofmt.stderr:gsub("<standard input>", vim.fn.expand("%"))
-			for line in err:gmatch("(.-)\n") do
-				table.insert(lines, line)
-			end
-
-			vim.fn.setqflist({}, " ", { bufnr = ev.buf, lines = lines })
-		end
-
-		vim.fn.winrestview(saved_view)
-	end,
-	group = api.nvim_create_augroup("gofmt", { clear = true }),
-})
-
-api.nvim_create_autocmd("FileType", {
-	pattern = "rust",
-	command = [[autocmd BufWritePost * silent !cargo fmt]],
-	group = api.nvim_create_augroup("rustfmt", { clear = true }),
-})
-
-api.nvim_create_autocmd("BufWritePre", {
 	pattern = "*",
 	callback = vim.lsp.buf.format,
 	group = api.nvim_create_augroup("lspformat", { clear = true }),
-})
-
-local indentGroup = api.nvim_create_augroup("indent", { clear = true })
-api.nvim_create_autocmd("FileType", {
-	pattern = { "haskell", "cabal" },
-	command = [[:setlocal shiftwidth=2 softtabstop=2 tabstop=8 expandtab]],
-	group = indentGroup,
-})
-api.nvim_create_autocmd("FileType", {
-	pattern = "nix",
-	command = [[:setlocal shiftwidth=2 softtabstop=2 tabstop=2 expandtab]],
-	group = indentGroup,
-})
-api.nvim_create_autocmd("FileType", {
-	pattern = "elixir",
-	command = [[:setlocal shiftwidth=2 softtabstop=2 tabstop=2 expandtab]],
-	group = indentGroup,
-})
-api.nvim_create_autocmd("FileType", {
-	pattern = "asm",
-	command = [[:setlocal shiftwidth=8 tabstop=8]],
-	group = indentGroup,
 })
 
 api.nvim_create_autocmd("BufWritePre", {
@@ -105,3 +47,4 @@ api.nvim_create_autocmd("BufEnter", {
 	callback = updateColorColumn,
 	group = colorColumnGroup,
 })
+
