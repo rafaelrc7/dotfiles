@@ -2,12 +2,6 @@ local api = vim.api
 
 api.nvim_create_autocmd("BufWritePre", {
 	pattern = "*",
-	callback = vim.lsp.buf.format,
-	group = api.nvim_create_augroup("lspformat", { clear = true }),
-})
-
-api.nvim_create_autocmd("BufWritePre", {
-	pattern = "*",
 	callback = function(_)
 		local saved_view = vim.fn.winsaveview()
 		pcall(function() vim.cmd [[%s/\s\+$//e]] end)

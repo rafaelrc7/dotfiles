@@ -1,10 +1,10 @@
 local api = vim.api
 
 -- nvim-lsp
-local nvim_lsp = require("lspconfig")
+local nvim_lsp = require "lspconfig"
 
 local pid = vim.fn.getpid()
-local home_dir = os.getenv("HOME")
+local home_dir = os.getenv "HOME"
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
@@ -13,22 +13,27 @@ vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "Previous [d]iagnos
 vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Next [d]iagnostic" })
 vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Add to loclist" })
 
-vim.keymap.set("n", "<leader>e", function()
-	vim.diagnostic.open_float({
-		focusable = false,
-		close_events = { "BufLeave", "CursorMoved", "InsertEnter" },
-		scope = "line",
-		severity_sort = true,
-		border = "rounded",
-		source = true,
-	})
-end, { desc = "Open diagnostic float" })
+vim.keymap.set(
+	"n",
+	"<leader>e",
+	function()
+		vim.diagnostic.open_float {
+			focusable = false,
+			close_events = { "BufLeave", "CursorMoved", "InsertEnter" },
+			scope = "line",
+			severity_sort = true,
+			border = "rounded",
+			source = true,
+		}
+	end,
+	{ desc = "Open diagnostic float" }
+)
 
-local function on_attach(_, bufnr)
+local formattingAugroup = vim.api.nvim_create_augroup("LspFormatting", { clear = true })
+
+local function on_attach(client, bufnr)
 	local map = function(keys, func, desc)
-		if desc then
-			desc = "LSP: " .. desc
-		end
+		if desc then desc = "LSP: " .. desc end
 
 		vim.keymap.set("n", keys, func, { buffer = bufnr, desc = desc, silent = true })
 	end
@@ -49,9 +54,11 @@ local function on_attach(_, bufnr)
 	map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
 	map("<leader>wa", vim.lsp.buf.add_workspace_folder, "[W]orkspace [A]dd Folder")
 	map("<leader>wr", vim.lsp.buf.remove_workspace_folder, "[W]orkspace [R]emove Folder")
-	map("<leader>wl", function()
-		print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-	end, "[W]orkspace [L]ist Folders")
+	map(
+		"<leader>wl",
+		function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end,
+		"[W]orkspace [L]ist Folders"
+	)
 
 	-- Create a command `:Format` local to the LSP buffer
 	vim.api.nvim_buf_create_user_command(bufnr, "Format", function(_)
@@ -61,6 +68,15 @@ local function on_attach(_, bufnr)
 			vim.lsp.buf.formatting()
 		end
 	end, { desc = "Format current buffer with LSP" })
+
+	if client.supports_method "textDocument/formatting" then
+		vim.api.nvim_clear_autocmds { group = formattingAugroup, buffer = bufnr }
+		vim.api.nvim_create_autocmd("BufWritePre", {
+			buffer = bufnr,
+			callback = function(ev) vim.lsp.buf.format { bufnr = ev.buf } end,
+			group = formattingAugroup,
+		})
+	end
 end
 
 local signs = { Error = "󰅚 ", Warn = "󰀪 ", Hint = "󰌶 ", Info = " " }
@@ -72,14 +88,14 @@ end
 vim.g.completion_matching_strategy_list = { "exact", "substring", "fuzzy" }
 
 -- CLANGD
-nvim_lsp.clangd.setup({
+nvim_lsp.clangd.setup {
 	filetypes = { "c", "cpp", "h", "hpp", "objc", "objcpp", "cuda" },
 	on_attach = on_attach,
 	capabilities = capabilities,
-})
+}
 
 -- Rust
-nvim_lsp.rust_analyzer.setup({
+nvim_lsp.rust_analyzer.setup {
 	settings = {
 		["rust-analyzer"] = {
 			check = {
@@ -90,58 +106,62 @@ nvim_lsp.rust_analyzer.setup({
 	},
 	on_attach = on_attach,
 	capabilities = capabilities,
-})
+}
 
 -- Elixir
-nvim_lsp.elixirls.setup({
+nvim_lsp.elixirls.setup {
 	cmd = { "elixir-ls" },
 	on_attach = on_attach,
 	capabilities = capabilities,
-})
+}
 
 -- html
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
-nvim_lsp.html.setup({
+nvim_lsp.html.setup {
 	on_attach = on_attach,
 	capabilities = capabilities,
-})
+}
 
 -- CSS
-nvim_lsp.cssls.setup({
+nvim_lsp.cssls.setup {
 	on_attach = on_attach,
 	capabilities = capabilities,
-})
+}
 
 -- TS
-nvim_lsp.tsserver.setup({
+nvim_lsp.tsserver.setup {
 	on_attach = on_attach,
 	capabilities = capabilities,
-})
+}
 
 -- Json
-nvim_lsp.jsonls.setup({
+nvim_lsp.jsonls.setup {
 	commands = {
 		Format = {
-			function()
-				vim.lsp.buf.range_formatting({}, { 0, 0 }, { vim.fn.line("$"), 0 })
-			end,
+			function() vim.lsp.buf.range_formatting({}, { 0, 0 }, { vim.fn.line "$", 0 }) end,
 		},
 	},
 	on_attach = on_attach,
 	capabilities = capabilities,
-})
+}
+
+-- XML
+nvim_lsp.lemminx.setup {
+	on_attach = on_attach,
+	capabilities = capabilities,
+}
 
 -- C# (Omnisharp)
-nvim_lsp.omnisharp.setup({
+nvim_lsp.omnisharp.setup {
 	cmd = { "omnisharp", "--languageserver", "--hostPID", tostring(pid) },
 	root_dir = nvim_lsp.util.root_pattern("*.csproj", "*.sln"),
 	on_attach = on_attach,
 	capabilities = capabilities,
-})
+}
 
 -- Python (pyright)
-nvim_lsp.pyright.setup({
+nvim_lsp.pyright.setup {
 	settings = {
 		python = {
 			analysis = {
@@ -151,10 +171,10 @@ nvim_lsp.pyright.setup({
 	},
 	on_attach = on_attach,
 	capabilities = capabilities,
-})
+}
 
 -- Lua
-nvim_lsp.lua_ls.setup({
+nvim_lsp.lua_ls.setup {
 	settings = {
 		Lua = {
 			runtime = {
@@ -177,34 +197,34 @@ nvim_lsp.lua_ls.setup({
 	},
 	on_attach = on_attach,
 	capabilities = capabilities,
-})
+}
 
 -- LaTeX (texlab)
-nvim_lsp.texlab.setup({
+nvim_lsp.texlab.setup {
 	on_attach = on_attach,
 	capabilities = capabilities,
-})
+}
 
 -- Vim
-nvim_lsp.vimls.setup({
+nvim_lsp.vimls.setup {
 	on_attach = on_attach,
 	capabilities = capabilities,
-})
+}
 
 -- Nix (nixd)
-nvim_lsp.nixd.setup({
+nvim_lsp.nixd.setup {
 	on_attach = on_attach,
 	capabilities = capabilities,
-})
+}
 
 -- GO (gopls)
-nvim_lsp.gopls.setup({
+nvim_lsp.gopls.setup {
 	on_attach = on_attach,
 	capabilities = capabilities,
-})
+}
 
 -- Racket
-nvim_lsp.racket_langserver.setup({
+nvim_lsp.racket_langserver.setup {
 	on_attach = on_attach,
 	capabilities = capabilities,
-})
+}

@@ -61,6 +61,8 @@
       nixd
       pyright
       texlab
+      vscode-langservers-extracted
+      lemminx
 
       # Haskell
       haskellPackages.fast-tags

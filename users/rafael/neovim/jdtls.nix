@@ -32,7 +32,7 @@
           )
         )
 
-        local function on_attach(_, bufnr)
+        local function on_attach(client, bufnr)
           local map = function(keys, func, desc)
             if desc then
               desc = "LSP: " .. desc
@@ -76,23 +76,33 @@
 
     	  augroup = vim.api.nvim_create_augroup("jdtls_extra", { clear = true }),
         vim.api.nvim_create_autocmd({ "LspAttach" }, {
-          group = augroup,
-          pattern = { "*.java" },
+          buffer = bufnr,
           callback = function(args)
             local status_ok, jdtls_dap = pcall(require, "jdtls.dap")
             if status_ok then
               jdtls_dap.setup_dap_main_class_configs()
             end
           end,
+          group = augroup,
         })
 
         vim.api.nvim_create_autocmd({ "BufWritePost" }, {
-          group = augroup,
-          pattern = { "*.java" },
+          buffer = bufnr,
           callback = function()
             local _, _ = pcall(vim.lsp.codelens.refresh)
           end,
+          group = augroup,
         })
+
+        if client.supports_method("textDocument/formatting") then
+          vim.api.nvim_create_autocmd("BufWritePre", {
+            buffer = bufnr,
+            callback = function(ev)
+              vim.lsp.buf.format({ bufnr = ev.buf, })
+            end,
+            group = augroup,
+          })
+        end
 
         local os_config = vim.fn.has "mac" == 1 and "mac" or "linux"
 
