@@ -107,6 +107,12 @@
           references = {
             includeDecompiledSources = true,
           },
+          sources = {
+            organizeImports = {
+              starThreshold = 5,
+              staticStarThreshold = 5,
+            },
+          },
           inlayHints = {
             parameterNames = {
               enabled = "all", -- literals, all, none
