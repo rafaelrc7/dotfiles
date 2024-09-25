@@ -3,4 +3,3 @@ vim.api.nvim_create_autocmd("BufWritePost", {
 	command = [[silent !cargo fmt]],
 	group = vim.api.nvim_create_augroup("rustfmt", { clear = true }),
 })
-

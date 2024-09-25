@@ -10,9 +10,7 @@ api.nvim_create_autocmd("BufWritePre", {
 	pattern = "*",
 	callback = function(_)
 		local saved_view = vim.fn.winsaveview()
-		pcall(function()
-			vim.cmd([[%s/\s\+$//e]])
-		end)
+		pcall(function() vim.cmd [[%s/\s\+$//e]] end)
 		vim.fn.winrestview(saved_view)
 	end,
 	group = api.nvim_create_augroup("trim_whitespace_on_save", { clear = true }),
@@ -47,4 +45,3 @@ api.nvim_create_autocmd("BufEnter", {
 	callback = updateColorColumn,
 	group = colorColumnGroup,
 })
-

@@ -8,15 +8,15 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 
 		if gofmt.code == 0 then
 			lines = {}
-			for line in gofmt.stdout:gmatch("(.-)\n") do
+			for line in gofmt.stdout:gmatch "(.-)\n" do
 				table.insert(lines, line)
 			end
 
 			vim.api.nvim_buf_set_lines(ev.buf, 0, -1, false, lines)
 		elseif gofmt.stderr ~= nil then
 			lines = {}
-			local err = gofmt.stderr:gsub("<standard input>", vim.fn.expand("%"))
-			for line in err:gmatch("(.-)\n") do
+			local err = gofmt.stderr:gsub("<standard input>", vim.fn.expand "%")
+			for line in err:gmatch "(.-)\n" do
 				table.insert(lines, line)
 			end
 
@@ -27,4 +27,3 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 	end,
 	group = vim.api.nvim_create_augroup("gofmt", { clear = true }),
 })
-
