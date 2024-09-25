@@ -37,6 +37,7 @@
     temperature-symlink
   ]) ++ (with inputs; [
     nixos-hardware.nixosModules.common-cpu-intel
+    "${nixos-hardware}/common/gpu/intel/tiger-lake"
     nixos-hardware.nixosModules.common-pc-laptop
     nixos-hardware.nixosModules.common-pc-laptop-ssd
   ]);
