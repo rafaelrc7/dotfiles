@@ -41,7 +41,7 @@
           vim.keymap.set("n", keys, func, { buffer = bufnr, desc = desc, silent = true })
         end
 
-        map("<leader>oi", require('jdtls').organize_imports, "[O]rganise [I]mports")
+        map("<localleader>oi", require('jdtls').organize_imports, "[O]rganise [I]mports")
 
         require("jdtls").setup_dap({ hotcodereplace = "auto" })
         local status_ok, jdtls_dap = pcall(require, "jdtls.dap")
