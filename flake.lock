@@ -246,22 +246,6 @@
         "type": "github"
       }
     },
-    "lsp-progress-nvim": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1721008335,
-        "narHash": "sha256-OafRT5AnxRTOh7MYofRFjti0+pobKQihymZs/kr5w0A=",
-        "owner": "linrongbin16",
-        "repo": "lsp-progress.nvim",
-        "rev": "d5f4d28efe75ce636bfbe271eb45f39689765aab",
-        "type": "github"
-      },
-      "original": {
-        "owner": "linrongbin16",
-        "repo": "lsp-progress.nvim",
-        "type": "github"
-      }
-    },
     "nix-vscode-extensions": {
       "inputs": {
         "flake-compat": "flake-compat",
@@ -498,7 +482,6 @@
         "catppuccin": "catppuccin",
         "flake-parts": "flake-parts",
         "home-manager": "home-manager",
-        "lsp-progress-nvim": "lsp-progress-nvim",
         "nix-vscode-extensions": "nix-vscode-extensions",
         "nixgl": "nixgl",
         "nixos-hardware": "nixos-hardware",
@@ -510,7 +493,6 @@
         "proton-bridge": "proton-bridge",
         "remote-nvim": "remote-nvim",
         "treefmt-nix": "treefmt-nix",
-        "trouble-nvim": "trouble-nvim",
         "vscoq": "vscoq",
         "wayland-pipewire-idle-inhibit": "wayland-pipewire-idle-inhibit"
       }
@@ -596,22 +578,6 @@
       "original": {
         "owner": "numtide",
         "repo": "treefmt-nix",
-        "type": "github"
-      }
-    },
-    "trouble-nvim": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1721651093,
-        "narHash": "sha256-db/riM3Kq+QgGUqRxJHA4HYXJE31276hrUrDj4UhC2g=",
-        "owner": "folke",
-        "repo": "trouble.nvim",
-        "rev": "6efc446226679fda0547c0fd6a7892fd5f5b15d8",
-        "type": "github"
-      },
-      "original": {
-        "owner": "folke",
-        "repo": "trouble.nvim",
         "type": "github"
       }
     },
