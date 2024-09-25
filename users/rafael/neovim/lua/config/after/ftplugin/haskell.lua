@@ -1,16 +1,20 @@
 local ht = require "haskell-tools"
 local bufnr = vim.api.nvim_get_current_buf()
-local opts = { noremap = true, silent = true, buffer = bufnr }
+
+local function map(mode, keys, func, desc)
+	if desc then desc = "Haskell " .. desc end
+	vim.keymap.set(mode, keys, func, { noremap = true, buffer = bufnr, desc = desc, silent = true })
+end
 
 -- Hoogle search for the type signature of the definition under the cursor
-vim.keymap.set("n", "<localleader>hs", ht.hoogle.hoogle_signature, opts)
+map("n", "<localleader>hs", ht.hoogle.hoogle_signature, "[H]oogle [S]ignature")
 -- Evaluate all code snippets
-vim.keymap.set("n", "<localleader>ea", ht.lsp.buf_eval_all, opts)
+map("n", "<localleader>ea", ht.lsp.buf_eval_all, "Buffer [e]val [a]ll")
 -- Toggle a GHCi repl for the current package
-vim.keymap.set("n", "<localleader>rr", ht.repl.toggle, opts)
+map("n", "<localleader>rr", ht.repl.toggle, "[R]epl toggle")
 -- Toggle a GHCi repl for the current buffer
-vim.keymap.set("n", "<localleader>rf", function() ht.repl.toggle(vim.api.nvim_buf_get_name(0)) end, opts)
-vim.keymap.set("n", "<localleader>rq", ht.repl.quit, opts)
+map("n", "<localleader>rf", function() ht.repl.toggle(vim.api.nvim_buf_get_name(0)) end, "[R]epl toggle in [f]ile")
+map("n", "<localleader>rq", ht.repl.quit, "[R]epl [q]uit")
 
 vim.opt_local.tabstop = 8
 vim.opt_local.shiftwidth = 2

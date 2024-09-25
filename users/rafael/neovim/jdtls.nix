@@ -37,7 +37,7 @@
       buffer = bufnr,
       callback = function()
         local map = function(keys, func, desc)
-          if desc then desc = "LSP: " .. desc end
+          if desc then desc = "LSP " .. desc end
           vim.keymap.set("n", keys, func, { buffer = bufnr, desc = desc, silent = true })
         end
 

@@ -39,9 +39,9 @@ vim.api.nvim_create_autocmd({ "LspAttach" }, {
 		local bufnr = ev.buf
 		local client = vim.lsp.get_client_by_id(ev.data.client_id)
 
-		local map = function(keys, func, desc)
-			if desc then desc = "LSP: " .. desc end
-			vim.keymap.set("n", keys, func, { buffer = bufnr, desc = desc, silent = true })
+		local map = function(mode, keys, func, desc)
+			if desc then desc = "LSP " .. desc end
+			vim.keymap.set(mode, keys, func, { buffer = bufnr, desc = desc, silent = true })
 		end
 
 		local format = function(opts)
@@ -51,31 +51,27 @@ vim.api.nvim_create_autocmd({ "LspAttach" }, {
 		local _, _ = pcall(vim.lsp.codelens.refresh)
 		vim.bo[ev.buf].omnifunc = "v:lua.vim.lsp.omnifunc"
 
-		map("<leader>D", vim.lsp.buf.type_definition, "Type [D]efinition")
-		map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
-		map("gd", vim.lsp.buf.definition, "[G]oto [D]efinition")
-		map("K", vim.lsp.buf.hover, "Hover Documentation")
-		map("<C-k>", vim.lsp.buf.signature_help, "Signature Documentation")
-		map("gi", vim.lsp.buf.implementation, "[G]oto [I]mplementation")
-		map("<leader>wa", vim.lsp.buf.add_workspace_folder, "[W]orkspace [A]dd Folder")
-		map("<leader>wr", vim.lsp.buf.remove_workspace_folder, "[W]orkspace [R]emove Folder")
+		map("n", "<leader>D", vim.lsp.buf.type_definition, "Type [D]efinition")
+		map("n", "gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
+		map("n", "gd", vim.lsp.buf.definition, "[G]oto [D]efinition")
+		map("n", "K", vim.lsp.buf.hover, "Hover Documentation")
+		map("n", "<C-k>", vim.lsp.buf.signature_help, "Signature Documentation")
+		map("n", "gi", vim.lsp.buf.implementation, "[G]oto [I]mplementation")
+		map("n", "<leader>wa", vim.lsp.buf.add_workspace_folder, "[W]orkspace [A]dd Folder")
+		map("n", "<leader>wr", vim.lsp.buf.remove_workspace_folder, "[W]orkspace [R]emove Folder")
 		map(
+			"n",
 			"<leader>wl",
 			function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end,
 			"[W]orkspace [L]ist Folders"
 		)
-		map("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
-		map("gr", require("telescope.builtin").lsp_references, "[G]oto [R]eferences")
-		map("<leader>ds", require("telescope.builtin").lsp_document_symbols, "[D]ocument [S]ymbols")
-		map("<leader>ws", require("telescope.builtin").lsp_dynamic_workspace_symbols, "[W]orkspace [S]ymbols")
-		map("<leader>cl", vim.lsp.codelens.run, "[C]ode [L]ens")
-		map("<leader>fr", function() format { async = true, bufnr = bufnr } end, "[F]o[r]mat")
-		vim.keymap.set(
-			{ "n", "v" },
-			"<leader>cA",
-			vim.lsp.buf.code_action,
-			{ buffer = bufnr, desc = "LSP: [C]ode [A]ction", silent = true }
-		)
+		map("n", "<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
+		map("n", "gr", require("telescope.builtin").lsp_references, "[G]oto [R]eferences")
+		map("n", "<leader>ds", require("telescope.builtin").lsp_document_symbols, "[D]ocument [S]ymbols")
+		map("n", "<leader>ws", require("telescope.builtin").lsp_dynamic_workspace_symbols, "[W]orkspace [S]ymbols")
+		map("n", "<leader>cl", vim.lsp.codelens.run, "[C]ode [L]ens")
+		map("n", "<leader>fr", function() format { async = true, bufnr = bufnr } end, "[F]o[r]mat")
+		map({ "n", "v" }, "<leader>cA", vim.lsp.buf.code_action, "[C]ode [A]ction")
 
 		-- Format on save
 		vim.api.nvim_clear_autocmds { group = formattingAugroup, buffer = bufnr }

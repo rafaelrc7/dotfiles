@@ -10,6 +10,8 @@ in
     ps.nui-nvim
     ps.nvim-nio
 
+    ps.which-key-nvim
+
     {
       plugin = ps.nvim-cmp;
       config = toLuaFile ./lua/plugin/cmp.lua;
