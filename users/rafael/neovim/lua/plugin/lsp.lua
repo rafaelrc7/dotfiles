@@ -1,10 +1,7 @@
-local api = vim.api
-
--- nvim-lsp
 local nvim_lsp = require "lspconfig"
+local on_attach = require "lsp.on_attach"()
 
 local pid = vim.fn.getpid()
-local home_dir = os.getenv "HOME"
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
@@ -28,56 +25,6 @@ vim.keymap.set(
 	end,
 	{ desc = "Open diagnostic float" }
 )
-
-local formattingAugroup = vim.api.nvim_create_augroup("LspFormatting", { clear = true })
-
-local function on_attach(client, bufnr)
-	local map = function(keys, func, desc)
-		if desc then desc = "LSP: " .. desc end
-
-		vim.keymap.set("n", keys, func, { buffer = bufnr, desc = desc, silent = true })
-	end
-
-	map("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
-	map("<leader>cA", vim.lsp.buf.code_action, "[C]ode [A]ction")
-	map("gd", vim.lsp.buf.definition, "[G]oto [D]efinition")
-	map("gr", require("telescope.builtin").lsp_references, "[G]oto [R]eferences")
-	map("gI", vim.lsp.buf.implementation, "[G]oto [I]mplementation")
-	map("<leader>D", vim.lsp.buf.type_definition, "Type [D]efinition")
-	map("<leader>ds", require("telescope.builtin").lsp_document_symbols, "[D]ocument [S]ymbols")
-	map("<leader>ws", require("telescope.builtin").lsp_dynamic_workspace_symbols, "[W]orkspace [S]ymbols")
-	map("<leader>cl", vim.lsp.codelens.run, "[C]ode [L]ens")
-
-	map("K", vim.lsp.buf.hover, "Hover Documentation")
-	map("<C-k>", vim.lsp.buf.signature_help, "Signature Documentation")
-
-	map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
-	map("<leader>wa", vim.lsp.buf.add_workspace_folder, "[W]orkspace [A]dd Folder")
-	map("<leader>wr", vim.lsp.buf.remove_workspace_folder, "[W]orkspace [R]emove Folder")
-	map(
-		"<leader>wl",
-		function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end,
-		"[W]orkspace [L]ist Folders"
-	)
-
-	-- Create a command `:Format` local to the LSP buffer
-	vim.api.nvim_buf_create_user_command(bufnr, "Format", function(_)
-		if vim.lsp.buf.format then
-			vim.lsp.buf.format()
-		elseif vim.lsp.buf.formatting then
-			vim.lsp.buf.formatting()
-		end
-	end, { desc = "Format current buffer with LSP" })
-
-	if client.supports_method "textDocument/formatting" then
-		vim.api.nvim_clear_autocmds { group = formattingAugroup, buffer = bufnr }
-		vim.api.nvim_create_autocmd("BufWritePre", {
-			buffer = bufnr,
-			callback = function(ev) vim.lsp.buf.format { bufnr = ev.buf } end,
-			group = formattingAugroup,
-		})
-	end
-end
 
 local signs = { Error = "󰅚 ", Warn = "󰀪 ", Hint = "󰌶 ", Info = " " }
 for type, icon in pairs(signs) do
@@ -137,11 +84,6 @@ nvim_lsp.tsserver.setup {
 
 -- Json
 nvim_lsp.jsonls.setup {
-	commands = {
-		Format = {
-			function() vim.lsp.buf.range_formatting({}, { 0, 0 }, { vim.fn.line "$", 0 }) end,
-		},
-	},
 	on_attach = on_attach,
 	capabilities = capabilities,
 }
