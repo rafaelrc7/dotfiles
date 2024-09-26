@@ -1,10 +1,5 @@
 local nvim_lsp = require "lspconfig"
 
-local pid = vim.fn.getpid()
-
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
-
 vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "Previous [d]iagnostic" })
 vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Next [d]iagnostic" })
 vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Add to loclist" })
@@ -84,141 +79,139 @@ vim.api.nvim_create_autocmd({ "LspAttach" }, {
 	group = vim.api.nvim_create_augroup("UserLspConfig", { clear = true }),
 })
 
+local function get_default_capabilities()
+	return require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
+end
+
+local function merge_tables(old, new)
+	for k, v in pairs(new) do
+		old[k] = v
+	end
+	return old
+end
+
 local function on_attach(_, _) end
+local default_capabilities = get_default_capabilities()
 
--- CLANGD
-nvim_lsp.clangd.setup {
-	filetypes = { "c", "cpp", "h", "hpp", "objc", "objcpp", "cuda" },
-	on_attach = on_attach,
-	capabilities = capabilities,
-}
+local function lsp_setup(lsp, extra_settings)
+	local settings = {
+		on_attach = on_attach,
+		capabilities = default_capabilities,
+	}
+	nvim_lsp[lsp].setup(merge_tables(settings, extra_settings))
+end
 
--- Rust
-nvim_lsp.rust_analyzer.setup {
-	settings = {
-		["rust-analyzer"] = {
-			check = {
-				command = "clippy",
-				features = "all",
-			},
-		},
-	},
-	on_attach = on_attach,
-	capabilities = capabilities,
-}
+-- html/css/json
+local vscode_langservers_capabilities = get_default_capabilities()
+vscode_langservers_capabilities.textDocument.completion.completionItem.snippetSupport = true
 
--- Elixir
-nvim_lsp.elixirls.setup {
-	cmd = { "elixir-ls" },
-	on_attach = on_attach,
-	capabilities = capabilities,
-}
-
--- html
-capabilities.textDocument.completion.completionItem.snippetSupport = true
-
-nvim_lsp.html.setup {
-	on_attach = on_attach,
-	capabilities = capabilities,
-}
-
--- CSS
-nvim_lsp.cssls.setup {
-	on_attach = on_attach,
-	capabilities = capabilities,
-}
-
--- TS
-nvim_lsp.tsserver.setup {
-	on_attach = on_attach,
-	capabilities = capabilities,
-}
-
--- Json
-nvim_lsp.jsonls.setup {
-	on_attach = on_attach,
-	capabilities = capabilities,
-}
-
--- XML
-nvim_lsp.lemminx.setup {
-	on_attach = on_attach,
-	capabilities = capabilities,
-}
-
--- C# (Omnisharp)
-nvim_lsp.omnisharp.setup {
-	cmd = { "omnisharp", "--languageserver", "--hostPID", tostring(pid) },
-	root_dir = nvim_lsp.util.root_pattern("*.csproj", "*.sln"),
-	on_attach = on_attach,
-	capabilities = capabilities,
-}
-
--- Python (pyright)
-nvim_lsp.pyright.setup {
-	settings = {
-		python = {
-			analysis = {
-				extraPaths = { ".", "src" },
-			},
-		},
-	},
-	on_attach = on_attach,
-	capabilities = capabilities,
-}
-
--- Lua
-nvim_lsp.lua_ls.setup {
-	settings = {
-		Lua = {
-			runtime = {
-				-- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-				version = "LuaJIT",
-			},
-			diagnostics = {
-				-- Get the language server to recognize the `vim` global
-				globals = { "vim" },
+local lsps = {
+	"angularls",
+	"asm_lsp",
+	"autotools_ls",
+	"bashls",
+	"cmake",
+	"docker_compose_language_service",
+	"dockerls",
+	"emmet_language_server",
+	"eslint",
+	"glsl_analyzer",
+	"gopls",
+	"gradle_ls",
+	"kotlin_language_server",
+	"lemminx",
+	"nixd",
+	"postgres_lsp",
+	"prolog_ls",
+	"racket_langserver",
+	"scheme_langserver",
+	"texlab",
+	"vimls",
+	arduino_language_server = {
+		capabilities = merge_tables(get_default_capabilities(), {
+			textDocument = {
+				semanticTokens = vim.NIL
 			},
 			workspace = {
-				-- Make the server aware of Neovim runtime files
-				library = vim.api.nvim_get_runtime_file("", true),
-			},
-			-- Do not send telemetry data containing a randomized but unique identifier
-			telemetry = {
-				enable = false,
+				semanticTokens = vim.NIL
+			}
+		})
+	},
+	clangd = {
+		capabilities = merge_tables(get_default_capabilities(), {
+			offsetEncoding = { "utf-8" },
+		})
+	},
+	cssls = {
+		capabilities = vscode_langservers_capabilities,
+	},
+	elixirls = {
+		cmd = { "elixir-ls" },
+	},
+	html = {
+		capabilities = vscode_langservers_capabilities,
+	},
+	jsonls = {
+		capabilities = vscode_langservers_capabilities,
+	},
+	lua_ls = {
+		settings = {
+			Lua = {
+				runtime = {
+					-- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+					version = "LuaJIT",
+				},
+				diagnostics = {
+					-- Get the language server to recognize the `vim` global
+					globals = { "vim" },
+				},
+				workspace = {
+					-- Make the server aware of Neovim runtime files
+					library = vim.api.nvim_get_runtime_file("", true),
+				},
+				-- Do not send telemetry data containing a randomized but unique identifier
+				telemetry = {
+					enable = false,
+				},
 			},
 		},
 	},
-	on_attach = on_attach,
-	capabilities = capabilities,
+	omnisharp = {
+		cmd = { "omnisharp", "--languageserver", "--hostPID", tostring(vim.fn.getpid()) },
+	},
+	pyright = {
+		settings = {
+			python = {
+				analysis = {
+					extraPaths = { ".", "src" },
+					autoSearchPaths = true,
+					diagnosticMode = "openFilesOnly",
+					useLibraryCodeForTypes = true,
+				},
+			},
+		},
+	},
+	rust_analyzer = {
+		settings = {
+			["rust-analyzer"] = {
+				check = {
+					command = "clippy",
+					features = "all",
+				},
+			},
+		},
+		capabilities = merge_tables(get_default_capabilities(), {
+			experimental = {
+				serverStatusNotification = true
+			}
+		})
+	},
 }
 
--- LaTeX (texlab)
-nvim_lsp.texlab.setup {
-	on_attach = on_attach,
-	capabilities = capabilities,
-}
-
--- Vim
-nvim_lsp.vimls.setup {
-	on_attach = on_attach,
-	capabilities = capabilities,
-}
-
--- Nix (nixd)
-nvim_lsp.nixd.setup {
-	on_attach = on_attach,
-	capabilities = capabilities,
-}
-
--- GO (gopls)
-nvim_lsp.gopls.setup {
-	on_attach = on_attach,
-	capabilities = capabilities,
-}
-
--- Racket
-nvim_lsp.racket_langserver.setup {
-	on_attach = on_attach,
-	capabilities = capabilities,
-}
+for k, v in pairs(lsps) do
+	if type(k) == "number" then
+		lsp_setup(v, {})
+	elseif type(k) == "string" then
+		lsp_setup(k, v)
+	end
+end
