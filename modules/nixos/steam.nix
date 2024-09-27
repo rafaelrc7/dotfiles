@@ -15,6 +15,7 @@
     ];
     protontricks.enable = true;
     package = pkgs.steam.override {
+      extraArgs = "-console -nochatui -nofriendsui";
       extraPkgs = p: with p; [
         glxinfo
         jdk
