@@ -19,6 +19,8 @@
     source = ./imgs/wallpapers;
   };
 
+  home.sessionVariables.NIXOS_OZONE_WL = "1";
+
   xdg.configFile."waylogout/config".text = ''
     fade-in=1
     poweroff-command="poweroff"
