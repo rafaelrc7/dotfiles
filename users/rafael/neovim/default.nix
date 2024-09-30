@@ -57,6 +57,7 @@
 
       # Commonly used LSPs
       clang-tools
+      nodePackages.bash-language-server
       lua-language-server
       nixd
       pyright
