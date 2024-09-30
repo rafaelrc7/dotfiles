@@ -130,17 +130,17 @@ local lsps = {
 	arduino_language_server = {
 		capabilities = merge_tables(get_default_capabilities(), {
 			textDocument = {
-				semanticTokens = vim.NIL
+				semanticTokens = vim.NIL,
 			},
 			workspace = {
-				semanticTokens = vim.NIL
-			}
-		})
+				semanticTokens = vim.NIL,
+			},
+		}),
 	},
 	clangd = {
 		capabilities = merge_tables(get_default_capabilities(), {
 			offsetEncoding = { "utf-8" },
-		})
+		}),
 	},
 	cssls = {
 		capabilities = vscode_langservers_capabilities,
@@ -202,9 +202,9 @@ local lsps = {
 		},
 		capabilities = merge_tables(get_default_capabilities(), {
 			experimental = {
-				serverStatusNotification = true
-			}
-		})
+				serverStatusNotification = true,
+			},
+		}),
 	},
 }
 
