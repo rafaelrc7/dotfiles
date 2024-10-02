@@ -10,7 +10,6 @@
 , gui-pkgs ? ./gui-pkgs.nix
 , theme ? ./theme.nix
 , hyprland ? ./hyprland.nix
-, jetbrains ? self.homeModules.jetbrains
 , keybase ? self.homeModules.keybase
 , kitty ? self.homeModules.kitty
 , librewolf ? self.homeModules.librewolf
@@ -24,14 +23,13 @@
 , protonmail-bridge ? self.homeModules.protonmail-bridge
 , rclone-gdrive ? self.homeModules.rclone-gdrive
 , syncthing ? self.homeModules.syncthing
-, sway ? ./sway.nix
 , tmux ? ./tmux.nix
 , udiskie ? self.homeModules.udiskie
 , obs ? self.homeModules.obs
-, vscode ? ./vscode.nix
 , xdg ? ./xdg.nix
 , zathura ? self.homeModules.zathura
 , zsh ? ./zsh.nix
+, ...
 }:
 { inputs, config, lib, pkgs, ... }: {
 
@@ -46,7 +44,6 @@
     gnome-keyring
     go
     gschemas
-    jetbrains
     keybase
     kitty
     librewolf
@@ -70,8 +67,6 @@
     hyprland
     neomutt
     neovim
-    sway
-    vscode
     xdg
     zathura
     zsh
@@ -83,7 +78,6 @@
     neovim-qt
   ];
 
-  programs.btop.enable = true;
   programs.fzf.enable = true;
   programs.ripgrep.enable = true;
 

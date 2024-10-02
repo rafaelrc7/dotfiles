@@ -11,7 +11,6 @@
     obsidian
     pavucontrol
     qutebrowser
-    slack
     spotify
     tdesktop
     ungoogled-chromium
