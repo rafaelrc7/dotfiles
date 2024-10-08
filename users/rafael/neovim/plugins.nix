@@ -62,7 +62,10 @@ in
 
     {
       plugin = ps.vimtex;
-      config = toLuaFile ./lua/plugin/vimtex.lua;
+      config = toLua /* lua */ ''
+        vim.g.tex_flavor = "latex"
+        vim.g.vimtex_view_method = "${pkgs.zathura}/bin/zathura"
+      '';
     }
 
     {
