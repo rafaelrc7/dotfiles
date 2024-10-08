@@ -36,6 +36,7 @@ in
       plugin = ps.nvim-lspconfig;
       config = toLuaFile ./lua/plugin/lsp.lua;
     }
+    ps.actions-preview-nvim
 
     {
       plugin = ps.nvim-autopairs;
@@ -48,16 +49,6 @@ in
     }
     ps.telescope-fzf-native-nvim
     ps.telescope-ui-select-nvim
-
-    {
-      plugin = ps.actions-preview-nvim;
-      config = toLua /* lua */ ''
-        require("actions-preview").setup({
-          require("actions-preview.highlight").delta("${pkgs.delta}/bin/delta --no-gitconfig --side-by-side"),
-        })
-        vim.keymap.set({ "v", "n" }, "<leader>ca", require("actions-preview").code_actions, { desc = "[C]ode [a]ctions" })
-      '';
-    }
 
     {
       plugin = ps.gitsigns-nvim;
