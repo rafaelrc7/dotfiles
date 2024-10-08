@@ -85,13 +85,6 @@ in
     }
 
     {
-      plugin = ps.markdown-preview-nvim;
-      config = toLua /* lua */ ''
-        vim.api.nvim_set_keymap("n", "<S-m>", ":MarkdownPreview<CR>", { silent = true, noremap = true })
-      '';
-    }
-
-    {
       plugin = ps.vim-fugitive;
       config = toLua /* lua */ ''
         vim.api.nvim_set_keymap("n", "<leader>gs", ":G<CR>", { silent = true, desc = "[G]it [s]tatus" }) -- git status
@@ -200,6 +193,7 @@ in
     ps.Coqtail
     ps.emmet-vim
     ps.nvim-web-devicons
+    ps.markdown-preview-nvim
   ];
 }
 
