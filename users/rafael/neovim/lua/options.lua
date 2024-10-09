@@ -30,7 +30,7 @@ opt.backup = false
 opt.undofile = true
 opt.foldmethod = "syntax"
 opt.foldlevelstart = 99 -- By default all folds are open
-opt.undodir = os.getenv("HOME") .. "/.local/share/nvim/undo"
+opt.undodir = os.getenv "HOME" .. "/.local/share/nvim/undo"
 opt.colorcolumn = { "80", "120" }
 opt.completeopt = "menu,menuone,noselect"
 opt.termguicolors = true
@@ -38,4 +38,4 @@ opt.updatetime = 1000
 
 opt.spelllang = "pt,en_gb"
 
-cmd("filetype plugin on")
+cmd "filetype plugin on"

@@ -77,9 +77,9 @@ vim.api.nvim_create_autocmd({ "LspAttach" }, {
 		})
 
 		-- Code actions
-		require("actions-preview").setup({
-			require("actions-preview.highlight").delta("${pkgs.delta}/bin/delta --no-gitconfig --side-by-side"),
-		})
+		require("actions-preview").setup {
+			require("actions-preview.highlight").delta "${pkgs.delta}/bin/delta --no-gitconfig --side-by-side",
+		}
 		map({ "v", "n" }, "<leader>ca", require("actions-preview").code_actions, "[C]ode [a]ctions")
 	end,
 	group = vim.api.nvim_create_augroup("UserLspConfig", { clear = true }),

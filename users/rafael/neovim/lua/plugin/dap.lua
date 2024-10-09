@@ -1,36 +1,32 @@
-local dap, dapui = require("dap"), require("dapui")
+local dap, dapui = require "dap", require "dapui"
 local map = vim.keymap.set
 local sign_define = vim.fn.sign_define
 
-dap.listeners.before.attach.dapui_config = function()
-	dapui.open()
-end
+dap.listeners.before.attach.dapui_config = function() dapui.open() end
 
-dap.listeners.before.launch.dapui_config = function()
-	dapui.open()
-end
+dap.listeners.before.launch.dapui_config = function() dapui.open() end
 
-dap.listeners.before.event_terminated.dapui_config = function()
-	dapui.close()
-end
+dap.listeners.before.event_terminated.dapui_config = function() dapui.close() end
 
-dap.listeners.before.event_exited.dapui_config = function()
-	dapui.close()
-end
+dap.listeners.before.event_exited.dapui_config = function() dapui.close() end
 
 map("n", "<Leader>dt", dapui.toggle, { desc = "[D]ap-ui [t]oggle" })
-map("n", "<Leader>dr", function()
-	dapui.open({ reset = true })
-end, { desc = "[D]ap-ui [r]eset" })
+map("n", "<Leader>dr", function() dapui.open { reset = true } end, { desc = "[D]ap-ui [r]eset" })
 
 map("n", "<Leader>db", dap.toggle_breakpoint, { desc = "Toggle [d]ebug [b]reakpoint" })
 map("n", "<Leader>dBB", dap.set_breakpoint, { desc = "Set debug [[b]]reakpoint" })
-map("n", "<Leader>dBL", function()
-	dap.set_breakpoint(nil, nil, vim.fn.input("Log point message: "))
-end, { desc = "Toggle [b]reakpoint [l]og" })
-map("n", "<Leader>dBC", function()
-	dap.set_breakpoint(vim.fn.input("Breakpoint Condition: "), nil, nil)
-end, { desc = "Toggle [b]reakpoint [c]onditional" })
+map(
+	"n",
+	"<Leader>dBL",
+	function() dap.set_breakpoint(nil, nil, vim.fn.input "Log point message: ") end,
+	{ desc = "Toggle [b]reakpoint [l]og" }
+)
+map(
+	"n",
+	"<Leader>dBC",
+	function() dap.set_breakpoint(vim.fn.input "Breakpoint Condition: ", nil, nil) end,
+	{ desc = "Toggle [b]reakpoint [c]onditional" }
+)
 
 map("n", "<Leader>dc", dap.continue, { desc = "[D]ebug [c]ontinue" })
 map("n", "<Leader>do", dap.step_over, { desc = "[D]ebug step [o]ver" })
@@ -95,24 +91,16 @@ dap.configurations.haskell = {
 		name = "haskell(cabal)",
 		internalConsoleOptions = "openOnSessionStart",
 		workspace = "${workspaceFolder}",
-		startup = function()
-			return vim.g.dap_startup_file and vim.g.dap_startup_file or "${file}"
-		end,
-		startupFunc = function()
-			return vim.g.dap_startup_func and vim.g.dap_startup_func or "main"
-		end,
-		startupArgs = function()
-			return vim.g.dap_startup_func_args and vim.g.dap_startup_func_args or ""
-		end,
-		mainArgs = function()
-			return vim.g.dap_cli_args and vim.g.dap_cli_args or ""
-		end,
+		startup = function() return vim.g.dap_startup_file and vim.g.dap_startup_file or "${file}" end,
+		startupFunc = function() return vim.g.dap_startup_func and vim.g.dap_startup_func or "main" end,
+		startupArgs = function() return vim.g.dap_startup_func_args and vim.g.dap_startup_func_args or "" end,
+		mainArgs = function() return vim.g.dap_cli_args and vim.g.dap_cli_args or "" end,
 		stopOnEntry = true, -- some programs may error before the first breakpoint
 		ghciPrompt = "H>>= ",
 		ghciInitialPrompt = "> ",
 		ghciCmd = "cabal exec -- ghci-dap --interactive -i -i${workspaceFolder}/app -i${workspaceFolder}/src",
 		ghciEnv = vim.empty_dict(),
-		logFile = vim.fn.stdpath("data") .. "/haskell-dap.log",
+		logFile = vim.fn.stdpath "data" .. "/haskell-dap.log",
 		logLevel = "WARNING",
 		forceInspect = false,
 	},
