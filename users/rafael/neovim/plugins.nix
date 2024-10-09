@@ -116,16 +116,6 @@ in
     }
 
     {
-      plugin = ps.nvim-navbuddy;
-      config = toLua /* lua */ ''
-        require("nvim-navbuddy").setup({
-          lsp = { auto_attach = true, },
-        })
-        vim.keymap.set({ "v", "n" }, "<leader>nb", require("nvim-navbuddy").open, { desc = "[N]av [b]uddy" })
-      '';
-    }
-
-    {
       plugin = ps.bufferline-nvim;
       config = toLua /* lua */ ''
         require("bufferline").setup({})
@@ -193,12 +183,21 @@ in
       config = toLuaFile ./lua/plugin/markview.lua;
     }
 
+    {
+      plugin = ps.leap-nvim;
+      config = toLua /* lua */ ''
+        require('leap').create_default_mappings()
+      '';
+    }
+
     ps.haskell-tools-nvim
     ps.haskell-snippets-nvim
     ps.Coqtail
     ps.emmet-vim
     ps.nvim-web-devicons
     ps.markdown-preview-nvim
+    ps.vim-surround
+    ps.diffview-nvim
   ];
 }
 
