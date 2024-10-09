@@ -53,6 +53,11 @@
       url = "github:amitds1997/remote-nvim.nvim";
       flake = false;
     };
+
+    markview-nvim = {
+      url = "github:OXY2DEV/markview.nvim";
+      flake = false;
+    };
   };
 
   outputs = inputs@{ self, flake-parts, ... }:

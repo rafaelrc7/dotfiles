@@ -246,6 +246,22 @@
         "type": "github"
       }
     },
+    "markview-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1728267073,
+        "narHash": "sha256-x23NtAaOP/p7U460o9lRqYvJdGqzW4/kPgBbUBgV0j4=",
+        "owner": "OXY2DEV",
+        "repo": "markview.nvim",
+        "rev": "493c054c6463156f1c584cffe006b2fc9ed2d34c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "OXY2DEV",
+        "repo": "markview.nvim",
+        "type": "github"
+      }
+    },
     "nix-vscode-extensions": {
       "inputs": {
         "flake-compat": "flake-compat",
@@ -482,6 +498,7 @@
         "catppuccin": "catppuccin",
         "flake-parts": "flake-parts",
         "home-manager": "home-manager",
+        "markview-nvim": "markview-nvim",
         "nix-vscode-extensions": "nix-vscode-extensions",
         "nixgl": "nixgl",
         "nixos-hardware": "nixos-hardware",

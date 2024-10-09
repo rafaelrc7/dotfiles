@@ -188,6 +188,11 @@ in
       '';
     }
 
+    {
+      plugin = ps.markview-nvim;
+      config = toLuaFile ./lua/plugin/markview.lua;
+    }
+
     ps.haskell-tools-nvim
     ps.haskell-snippets-nvim
     ps.Coqtail
