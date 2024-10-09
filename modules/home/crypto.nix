@@ -3,8 +3,8 @@
     monero-cli
     p2pool
     wasabiwallet
-    nixpkgs-master.bisq-desktop
-    nixpkgs-master.monero-gui
+    bisq-desktop
+    monero-gui
   ];
 }
 
