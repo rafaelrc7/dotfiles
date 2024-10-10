@@ -190,7 +190,21 @@ in
       '';
     }
 
-    ps.haskell-tools-nvim
+    {
+      plugin = ps.haskell-tools-nvim;
+      config = toLua /* lua */ ''
+        vim.g.haskell_tools = {
+        	hls = {
+        		settings = {
+        			haskell = {
+        				formattingProvider = "stylish-haskell",
+        			},
+        		},
+        	},
+        }
+      '';
+    }
+
     ps.haskell-snippets-nvim
     ps.Coqtail
     ps.emmet-vim

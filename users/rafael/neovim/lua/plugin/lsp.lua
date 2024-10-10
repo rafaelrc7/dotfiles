@@ -61,9 +61,9 @@ vim.api.nvim_create_autocmd({ "LspAttach" }, {
 			"[W]orkspace [L]ist Folders"
 		)
 		map("n", "<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
-		map("n", "gr", require("telescope.builtin").lsp_references, "[G]oto [R]eferences")
-		map("n", "<leader>ds", require("telescope.builtin").lsp_document_symbols, "[D]ocument [S]ymbols")
-		map("n", "<leader>ws", require("telescope.builtin").lsp_dynamic_workspace_symbols, "[W]orkspace [S]ymbols")
+		map("n", "gr", require "telescope.builtin".lsp_references, "[G]oto [R]eferences")
+		map("n", "<leader>ds", require "telescope.builtin".lsp_document_symbols, "[D]ocument [S]ymbols")
+		map("n", "<leader>ws", require "telescope.builtin".lsp_dynamic_workspace_symbols, "[W]orkspace [S]ymbols")
 		map("n", "<leader>cl", vim.lsp.codelens.run, "[C]ode [L]ens")
 		map("n", "<leader>fr", function() format { async = true, bufnr = bufnr } end, "[F]o[r]mat")
 		map({ "n", "v" }, "<leader>cA", vim.lsp.buf.code_action, "[C]ode [A]ction")
@@ -77,16 +77,16 @@ vim.api.nvim_create_autocmd({ "LspAttach" }, {
 		})
 
 		-- Code actions
-		require("actions-preview").setup {
-			require("actions-preview.highlight").delta "${pkgs.delta}/bin/delta --no-gitconfig --side-by-side",
+		require "actions-preview".setup {
+			require "actions-preview.highlight".delta "${pkgs.delta}/bin/delta --no-gitconfig --side-by-side",
 		}
-		map({ "v", "n" }, "<leader>ca", require("actions-preview").code_actions, "[C]ode [a]ctions")
+		map({ "v", "n" }, "<leader>ca", require "actions-preview".code_actions, "[C]ode [a]ctions")
 	end,
 	group = vim.api.nvim_create_augroup("UserLspConfig", { clear = true }),
 })
 
 local function get_default_capabilities()
-	return require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
+	return require "cmp_nvim_lsp".default_capabilities(vim.lsp.protocol.make_client_capabilities())
 end
 
 local function merge_tables(old, new)
@@ -100,10 +100,7 @@ local function on_attach(_, _) end
 local default_capabilities = get_default_capabilities()
 
 local function lsp_setup(lsp, extra_settings)
-	local settings = {
-		on_attach = on_attach,
-		capabilities = default_capabilities,
-	}
+	local settings = { on_attach = on_attach, capabilities = default_capabilities }
 	nvim_lsp[lsp].setup(merge_tables(settings, extra_settings))
 end
 
@@ -135,12 +132,8 @@ local lsps = {
 	"vimls",
 	arduino_language_server = {
 		capabilities = merge_tables(get_default_capabilities(), {
-			textDocument = {
-				semanticTokens = vim.NIL,
-			},
-			workspace = {
-				semanticTokens = vim.NIL,
-			},
+			textDocument = { semanticTokens = vim.NIL },
+			workspace = { semanticTokens = vim.NIL },
 		}),
 	},
 	clangd = {
@@ -148,18 +141,10 @@ local lsps = {
 			offsetEncoding = { "utf-8" },
 		}),
 	},
-	cssls = {
-		capabilities = vscode_langservers_capabilities,
-	},
-	elixirls = {
-		cmd = { "elixir-ls" },
-	},
-	html = {
-		capabilities = vscode_langservers_capabilities,
-	},
-	jsonls = {
-		capabilities = vscode_langservers_capabilities,
-	},
+	cssls = { capabilities = vscode_langservers_capabilities },
+	elixirls = { cmd = { "elixir-ls" } },
+	html = { capabilities = vscode_langservers_capabilities },
+	jsonls = { capabilities = vscode_langservers_capabilities },
 	lua_ls = {
 		settings = {
 			Lua = {
@@ -175,16 +160,32 @@ local lsps = {
 					-- Make the server aware of Neovim runtime files
 					library = vim.api.nvim_get_runtime_file("", true),
 				},
-				-- Do not send telemetry data containing a randomized but unique identifier
-				telemetry = {
-					enable = false,
+				format = {
+					enable = true,
+					defaultConfig = {
+						charset = "utf-8",
+						max_line_length = "120",
+						end_of_line = "lf",
+						insert_final_newline = "true",
+						trim_trailing_whitespace = "true",
+						indent_style = "tab",
+						indent_size = "4",
+						tab_width = "4",
+						continuation_indent = "4",
+						quote_style = "double",
+						table_separator_style = "comma",
+						trailing_table_separator = "smart",
+						call_arg_parentheses = "remove",
+						space_after_comment_dash = "true",
+						end_statement_with_semicolon = "same_line",
+					},
 				},
+				-- Do not send telemetry data containing a randomized but unique identifier
+				telemetry = { enable = false },
 			},
 		},
 	},
-	omnisharp = {
-		cmd = { "omnisharp", "--languageserver", "--hostPID", tostring(vim.fn.getpid()) },
-	},
+	omnisharp = { cmd = { "omnisharp", "--languageserver", "--hostPID", tostring(vim.fn.getpid()) } },
 	pyright = {
 		settings = {
 			python = {
