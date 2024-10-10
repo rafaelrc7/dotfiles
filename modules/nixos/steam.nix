@@ -32,8 +32,6 @@
         QT_QPA_PLATFORM = "";
         QT_WAYLAND_DISABLE_WINDOWDECORATION = "";
         XDG_SESSION_TYPE = "";
-
-        MANGOHUD = true;
       };
     };
   };
