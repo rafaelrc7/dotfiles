@@ -44,6 +44,13 @@ in
     }
 
     {
+      plugin = ps.nvim-ts-autotag;
+      config = toLua /* lua */ ''
+        require "nvim-ts-autotag".setup {}
+      '';
+    }
+
+    {
       plugin = ps.telescope-nvim;
       config = toLuaFile ./lua/plugin/telescope.lua;
     }
