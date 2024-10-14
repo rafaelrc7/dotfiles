@@ -197,6 +197,13 @@ in
       '';
     }
 
+    ps.nvim-notify
+
+    {
+      plugin = ps.noice-nvim;
+      config = toLuaFile ./lua/plugin/noice.lua;
+    }
+
     {
       plugin = ps.haskell-tools-nvim;
       config = toLua /* lua */ ''
