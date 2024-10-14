@@ -1,5 +1,4 @@
-local navic = require("nvim-navic")
-local lspprogress = require("lsp-progress")
+local navic = require "nvim-navic"
 
 local navic_module = {
 	"navic",
@@ -11,7 +10,7 @@ local navic_module = {
 	end,
 }
 
-require("lualine").setup({
+require "lualine".setup {
 	options = {
 		icons_enabled = true,
 		theme = "auto",
@@ -19,9 +18,6 @@ require("lualine").setup({
 	sections = {
 		lualine_c = {
 			"filename",
-			function()
-				return lspprogress.progress()
-			end,
 		},
 	},
 	winbar = {
@@ -34,4 +30,4 @@ require("lualine").setup({
 			navic_module,
 		},
 	},
-})
+}

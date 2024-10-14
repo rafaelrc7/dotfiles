@@ -101,13 +101,6 @@ in
     }
 
     {
-      plugin = ps.lsp-progress-nvim;
-      config = toLua /* lua */ ''
-        require("lsp-progress").setup()
-      '';
-    }
-
-    {
       plugin = ps.nvim-navic;
       config = toLua /* lua */ ''
         require("nvim-navic").setup({
@@ -185,6 +178,7 @@ in
       '';
     }
 
+    ps.markdown-preview-nvim
     {
       plugin = ps.markview-nvim;
       config = toLuaFile ./lua/plugin/markview.lua;
@@ -223,7 +217,6 @@ in
     ps.Coqtail
     ps.emmet-vim
     ps.nvim-web-devicons
-    ps.markdown-preview-nvim
     ps.vim-surround
     ps.diffview-nvim
   ];
