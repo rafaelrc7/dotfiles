@@ -24,6 +24,9 @@ in
     "harddrive".device = "/dev/disk/by-partlabel/cryptharddrive";
   };
 
+  # Allow discards for ssd devices
+  boot.initrd.luks.devices."root".allowDiscards = true;
+
   fileSystems."/" =
     {
       device = "/dev/mapper/root";
