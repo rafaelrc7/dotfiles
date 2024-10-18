@@ -34,6 +34,8 @@
       ${builtins.readFile ./lua/maps.lua}
 
       ${builtins.readFile ./lua/autocmds.lua}
+
+      ${builtins.readFile ./lua/bigfileft.lua}
     '';
 
     extraLuaPackages = lps: with lps; [ luautf8 jsregexp ];
