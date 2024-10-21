@@ -1,7 +1,5 @@
 { pkgs, ... }:
 let
-  toLua = str: "lua << EOF\n${str}\nEOF\n";
-  toLuaFile = file: "lua << EOF\n${builtins.readFile file}\nEOF\n";
 in
 {
   programs.neovim.plugins = let ps = pkgs.vimPlugins; in [
@@ -14,11 +12,13 @@ in
 
     {
       plugin = ps.nvim-cmp;
-      config = toLuaFile ./lua/plugin/cmp.lua;
+      type = "lua";
+      config = builtins.readFile ./lua/plugin/cmp.lua;
     }
     {
       plugin = ps.cmp-git;
-      config = toLua /* lua */ ''
+      type = "lua";
+      config = /* lua */ ''
         require("cmp_git").setup()
       '';
     }
@@ -34,42 +34,49 @@ in
 
     {
       plugin = ps.nvim-lspconfig;
-      config = toLuaFile ./lua/plugin/lsp.lua;
+      type = "lua";
+      config = builtins.readFile ./lua/plugin/lsp.lua;
     }
     ps.actions-preview-nvim
 
     {
       plugin = ps.nvim-autopairs;
-      config = toLuaFile ./lua/plugin/nvim-autopairs.lua;
+      type = "lua";
+      config = builtins.readFile ./lua/plugin/nvim-autopairs.lua;
     }
 
     {
       plugin = ps.nvim-ts-autotag;
-      config = toLua /* lua */ ''
+      type = "lua";
+      config = /* lua */ ''
         require "nvim-ts-autotag".setup {}
       '';
     }
 
     {
       plugin = ps.telescope-nvim;
-      config = toLuaFile ./lua/plugin/telescope.lua;
+      type = "lua";
+      config = builtins.readFile ./lua/plugin/telescope.lua;
     }
     ps.telescope-fzf-native-nvim
     ps.telescope-ui-select-nvim
 
     {
       plugin = ps.gitsigns-nvim;
-      config = toLuaFile ./lua/plugin/gitsigns.lua;
+      type = "lua";
+      config = builtins.readFile ./lua/plugin/gitsigns.lua;
     }
 
     {
       plugin = ps.trouble-nvim;
-      config = toLuaFile ./lua/plugin/trouble.lua;
+      type = "lua";
+      config = builtins.readFile ./lua/plugin/trouble.lua;
     }
 
     {
       plugin = ps.vimtex;
-      config = toLua /* lua */ ''
+      type = "lua";
+      config = /* lua */ ''
         vim.g.tex_flavor = "latex"
         vim.g.vimtex_view_method = "${pkgs.zathura}/bin/zathura"
       '';
@@ -77,7 +84,8 @@ in
 
     {
       plugin = ps.oil-nvim;
-      config = toLua /* lua */ ''
+      type = "lua";
+      config = /* lua */ ''
         local oil = require("oil")
         oil.setup()
         vim.keymap.set("n", "-", oil.open, { desc = "Open parent directory" })
@@ -86,14 +94,16 @@ in
 
     {
       plugin = ps.nvim-highlight-colors;
-      config = toLua /* lua */ ''
+      type = "lua";
+      config = /* lua */ ''
         require("nvim-highlight-colors").setup({})
       '';
     }
 
     {
       plugin = ps.vim-fugitive;
-      config = toLua /* lua */ ''
+      type = "lua";
+      config = /* lua */ ''
         vim.api.nvim_set_keymap("n", "<leader>gs", ":G<CR>", { silent = true, desc = "[G]it [s]tatus" }) -- git status
         vim.api.nvim_set_keymap("n", "<leader>gdh", ":diffget //2<CR>", { silent = true, desc = "[G]it [d]iff left ([h])" })
         vim.api.nvim_set_keymap("n", "<leader>gdl", ":diffget //3<CR>", { silent = true, desc = "[G]it [d]iff right ([l])" })
@@ -102,7 +112,8 @@ in
 
     {
       plugin = ps.nvim-navic;
-      config = toLua /* lua */ ''
+      type = "lua";
+      config = /* lua */ ''
         require("nvim-navic").setup({
           highlight = true,
           lsp = { auto_attach = true, },
@@ -112,19 +123,22 @@ in
 
     {
       plugin = ps.lualine-nvim;
-      config = toLuaFile ./lua/plugin/lualine.lua;
+      type = "lua";
+      config = builtins.readFile ./lua/plugin/lualine.lua;
     }
 
     {
       plugin = ps.bufferline-nvim;
-      config = toLua /* lua */ ''
+      type = "lua";
+      config = /* lua */ ''
         require("bufferline").setup({})
       '';
     }
 
     {
       plugin = ps.vim-illuminate;
-      config = toLua /* lua */ ''
+      type = "lua";
+      config = /* lua */ ''
         require("illuminate").configure({
           filetypes_denylist = { "dirbuf", "dirvish", "fugitive", "NvimTree", },
         })
@@ -133,34 +147,39 @@ in
 
     {
       plugin = ps.toggleterm-nvim;
-      config = toLuaFile ./lua/plugin/toggleterm.lua;
+      type = "lua";
+      config = builtins.readFile ./lua/plugin/toggleterm.lua;
     }
 
     {
       plugin = ps.nvim-dap-ui;
-      config = toLua /* lua */ ''
+      type = "lua";
+      config = /* lua */ ''
         require("dapui").setup()
       '';
     }
 
     {
       plugin = ps.nvim-dap;
-      config = (toLuaFile ./lua/plugin/dap.lua)
-        + toLua /* lua */ ''
+      type = "lua";
+      config = (builtins.readFile ./lua/plugin/dap.lua)
+        + /* lua */ ''
         require("dap").adapters.gdb.command = "${pkgs.gdb}/bin/gdb"
       '';
     }
 
     {
       plugin = ps.nvim-dap-virtual-text;
-      config = toLua /* lua */ ''
+      type = "lua";
+      config = /* lua */ ''
         require("nvim-dap-virtual-text").setup()
       '';
     }
 
     {
       plugin = ps.conjure;
-      config = toLua /* lua */ ''
+      type = "lua";
+      config = /* lua */ ''
         vim.g["conjure#mapping#doc_word"] = false
         vim.g["conjure#mapping#def_word"] = false
       '';
@@ -168,7 +187,8 @@ in
 
     {
       plugin = ps.vim-tmux-navigator;
-      config = toLua /* lua */ ''
+      type = "lua";
+      config = /* lua */ ''
         vim.g.tmux_navigator_no_mappings = 1
 
         vim.api.nvim_set_keymap("n", "<C-h>", ":<C-U>TmuxNavigateLeft<CR>", { noremap = true, silent = true })
@@ -181,12 +201,14 @@ in
     ps.markdown-preview-nvim
     {
       plugin = ps.markview-nvim;
-      config = toLuaFile ./lua/plugin/markview.lua;
+      type = "lua";
+      config = builtins.readFile ./lua/plugin/markview.lua;
     }
 
     {
       plugin = ps.leap-nvim;
-      config = toLua /* lua */ ''
+      type = "lua";
+      config = /* lua */ ''
         require('leap').create_default_mappings()
       '';
     }
@@ -195,12 +217,14 @@ in
 
     {
       plugin = ps.noice-nvim;
-      config = toLuaFile ./lua/plugin/noice.lua;
+      type = "lua";
+      config = builtins.readFile ./lua/plugin/noice.lua;
     }
 
     {
       plugin = ps.haskell-tools-nvim;
-      config = toLua /* lua */ ''
+      type = "lua";
+      config = /* lua */ ''
         vim.g.haskell_tools = {
         	hls = {
         		settings = {

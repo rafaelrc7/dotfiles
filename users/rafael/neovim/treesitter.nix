@@ -1,10 +1,8 @@
 { pkgs, ... }:
-let
-  toLuaFile = file: "lua << EOF\n${builtins.readFile file}\nEOF\n";
-in
 {
   programs.neovim.plugins = [{
-    config = toLuaFile ./lua/plugin/treesitter.lua;
+    type = "lua";
+    config = builtins.readFile ./lua/plugin/treesitter.lua;
     plugin = (pkgs.vimPlugins.nvim-treesitter.withPlugins (p: with p; [
       yaml
       xml
