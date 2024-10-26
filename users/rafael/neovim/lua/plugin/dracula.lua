@@ -1,4 +1,4 @@
-require("dracula").setup({
+require("dracula").setup {
 	-- show the '~' characters after the end of buffers
 	show_end_of_buffer = true,
 
@@ -8,6 +8,6 @@ require("dracula").setup({
 	},
 
 	lualine_bg_color = "#21222C", -- bgdark
-})
+}
 
-vim.cmd.colorscheme("dracula")
+vim.cmd.colorscheme "dracula"

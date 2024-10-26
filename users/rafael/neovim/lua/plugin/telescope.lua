@@ -1,11 +1,11 @@
 local map = vim.keymap.set
 
-local telescope = require("telescope")
+local telescope = require "telescope"
 
-local builtin = require("telescope.builtin")
-local previewers = require("telescope.previewers")
+local builtin = require "telescope.builtin"
+local previewers = require "telescope.previewers"
 
-telescope.setup({
+telescope.setup {
 	defaults = {
 		prompt_prefix = " >",
 		color_devicons = true,
@@ -22,10 +22,10 @@ telescope.setup({
 			case_mode = "smart_case",
 		},
 	},
-})
+}
 
-telescope.load_extension("fzf")
-telescope.load_extension("ui-select")
+telescope.load_extension "fzf"
+telescope.load_extension "ui-select"
 
 -- Telescope
 map("n", "<leader>fw", builtin.live_grep, { desc = "Telescope [f]ind [w]ord (grep)" })

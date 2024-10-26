@@ -61,9 +61,9 @@ vim.api.nvim_create_autocmd({ "LspAttach" }, {
 			"[W]orkspace [L]ist Folders"
 		)
 		map("n", "<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
-		map("n", "gr", require "telescope.builtin".lsp_references, "[G]oto [R]eferences")
-		map("n", "<leader>ds", require "telescope.builtin".lsp_document_symbols, "[D]ocument [S]ymbols")
-		map("n", "<leader>ws", require "telescope.builtin".lsp_dynamic_workspace_symbols, "[W]orkspace [S]ymbols")
+		map("n", "gr", require("telescope.builtin").lsp_references, "[G]oto [R]eferences")
+		map("n", "<leader>ds", require("telescope.builtin").lsp_document_symbols, "[D]ocument [S]ymbols")
+		map("n", "<leader>ws", require("telescope.builtin").lsp_dynamic_workspace_symbols, "[W]orkspace [S]ymbols")
 		map("n", "<leader>cl", vim.lsp.codelens.run, "[C]ode [L]ens")
 		map("n", "<leader>fr", function() format { async = true, bufnr = bufnr } end, "[F]o[r]mat")
 		map({ "n", "v" }, "<leader>cA", vim.lsp.buf.code_action, "[C]ode [A]ction")
@@ -77,16 +77,16 @@ vim.api.nvim_create_autocmd({ "LspAttach" }, {
 		})
 
 		-- Code actions
-		require "actions-preview".setup {
-			require "actions-preview.highlight".delta "${pkgs.delta}/bin/delta --no-gitconfig --side-by-side",
+		require("actions-preview").setup {
+			require("actions-preview.highlight").delta "${pkgs.delta}/bin/delta --no-gitconfig --side-by-side",
 		}
-		map({ "v", "n" }, "<leader>ca", require "actions-preview".code_actions, "[C]ode [a]ctions")
+		map({ "v", "n" }, "<leader>ca", require("actions-preview").code_actions, "[C]ode [a]ctions")
 	end,
 	group = vim.api.nvim_create_augroup("UserLspConfig", { clear = true }),
 })
 
 local function get_default_capabilities()
-	return require "cmp_nvim_lsp".default_capabilities(vim.lsp.protocol.make_client_capabilities())
+	return require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
 end
 
 local function merge_tables(old, new)
