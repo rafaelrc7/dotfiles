@@ -75,8 +75,8 @@
         libvdpau-va-gl
         libva-vdpau-driver
 
-        rocm-opencl-icd
-        rocm-opencl-runtime
+        rocmPackages.clr
+        rocmPackages.clr.icd
       ];
       extraPackages32 = with pkgs.driversi686Linux; [
         libvdpau-va-gl

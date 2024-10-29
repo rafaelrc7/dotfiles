@@ -171,18 +171,16 @@ in
           "$mod, 0, workspace, 10"
 
           # Move window between workspaces
-          # Welp this is awkward
-          # TODO: Chang alt to shift when new version arrives
-          "$mod + ALT, 1, movetoworkspacesilent, 1"
-          "$mod + ALT, 2, movetoworkspacesilent, 2"
-          "$mod + ALT, 3, movetoworkspacesilent, 3"
-          "$mod + ALT, 4, movetoworkspacesilent, 4"
-          "$mod + ALT, 5, movetoworkspacesilent, 5"
-          "$mod + ALT, 6, movetoworkspacesilent, 6"
-          "$mod + ALT, 7, movetoworkspacesilent, 7"
-          "$mod + ALT, 8, movetoworkspacesilent, 8"
-          "$mod + ALT, 9, movetoworkspacesilent, 9"
-          "$mod + ALT, 0, movetoworkspacesilent, 10"
+          "$mod + SHIFT, 1, movetoworkspacesilent, 1"
+          "$mod + SHIFT, 2, movetoworkspacesilent, 2"
+          "$mod + SHIFT, 3, movetoworkspacesilent, 3"
+          "$mod + SHIFT, 4, movetoworkspacesilent, 4"
+          "$mod + SHIFT, 5, movetoworkspacesilent, 5"
+          "$mod + SHIFT, 6, movetoworkspacesilent, 6"
+          "$mod + SHIFT, 7, movetoworkspacesilent, 7"
+          "$mod + SHIFT, 8, movetoworkspacesilent, 8"
+          "$mod + SHIFT, 9, movetoworkspacesilent, 9"
+          "$mod + SHIFT, 0, movetoworkspacesilent, 10"
         ];
 
         bindel = [
