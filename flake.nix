@@ -95,7 +95,7 @@
               users = [
                 {
                   name = "rafael";
-                  extraGroups = [ "wheel" "adbusers" "libvirtd" "dialout" "podman" ];
+                  extraGroups = [ "wheel" "adbusers" "libvirtd" "dialout" "podman" "plugdev" ];
                   sshKeys = import ./users/rafael/sshkeys.nix;
                 }
               ];
@@ -142,7 +142,7 @@
               users = [
                 {
                   name = "rafael";
-                  extraGroups = [ "wheel" "adbusers" "libvirtd" "dialout" "podman" ];
+                  extraGroups = [ "wheel" "adbusers" "libvirtd" "dialout" "podman" "plugdev" ];
                   sshKeys = import ./users/rafael/sshkeys.nix;
                 }
               ];

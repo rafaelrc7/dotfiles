@@ -33,6 +33,7 @@
     ssh
     git
     polkit
+    rtl-sdr
     tailscale
     waydroid
     systemd-oomd

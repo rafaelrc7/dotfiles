@@ -29,6 +29,7 @@
     git
     polkit
     powertop
+    rtl-sdr
     tailscale
     tlp
     udev-media-keys
