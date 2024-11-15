@@ -81,9 +81,6 @@ in
   imapnotify = {
     enable = true;
     boxes = [ "INBOX" ];
-    extraConfig = {
-      tlsOption.starttls = true; # temporary fix
-    };
     onNotify = ''${email-utils.sync-mail}/bin/sync-mail protonmail'';
     onNotifyPost = ''${email-utils.notify-new-mail}/bin/notify-new-mail protonmail'';
   };
