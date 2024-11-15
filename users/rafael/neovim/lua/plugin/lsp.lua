@@ -97,23 +97,11 @@ vim.api.nvim_create_autocmd({ "LspAttach" }, {
 })
 
 local function get_default_capabilities()
-	return require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
-end
-
-local function merge_tables(old, new)
-	for k, v in pairs(new) do
-		old[k] = v
-	end
-	return old
+	return require "cmp_nvim_lsp".default_capabilities(vim.lsp.protocol.make_client_capabilities())
 end
 
 local function on_attach(_, _) end
 local default_capabilities = get_default_capabilities()
-
-local function lsp_setup(lsp, extra_settings)
-	local settings = { on_attach = on_attach, capabilities = default_capabilities }
-	nvim_lsp[lsp].setup(merge_tables(settings, extra_settings))
-end
 
 -- html/css/json
 local vscode_langservers_capabilities = get_default_capabilities()
@@ -142,13 +130,13 @@ local lsps = {
 	"texlab",
 	"vimls",
 	arduino_language_server = {
-		capabilities = merge_tables(get_default_capabilities(), {
+		capabilities = vim.tbl_extend("force", get_default_capabilities(), {
 			textDocument = { semanticTokens = vim.NIL },
 			workspace = { semanticTokens = vim.NIL },
 		}),
 	},
 	clangd = {
-		capabilities = merge_tables(get_default_capabilities(), {
+		capabilities = vim.tbl_extend("force", get_default_capabilities(), {
 			offsetEncoding = { "utf-8" },
 		}),
 	},
@@ -220,13 +208,18 @@ local lsps = {
 				},
 			},
 		},
-		capabilities = merge_tables(get_default_capabilities(), {
+		capabilities = vim.tbl_extend("force", get_default_capabilities(), {
 			experimental = {
 				serverStatusNotification = true,
 			},
 		}),
 	},
 }
+
+local function lsp_setup(lsp, extra_settings)
+	local settings = { on_attach = on_attach, capabilities = default_capabilities }
+	nvim_lsp[lsp].setup(vim.tbl_extend("force", settings, extra_settings))
+end
 
 for k, v in pairs(lsps) do
 	if type(k) == "number" then
