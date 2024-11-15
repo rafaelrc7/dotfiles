@@ -66,13 +66,24 @@ vim.api.nvim_create_autocmd({ "LspAttach" }, {
 		map("n", "<leader>ws", require("telescope.builtin").lsp_dynamic_workspace_symbols, "[W]orkspace [S]ymbols")
 		map("n", "<leader>cl", vim.lsp.codelens.run, "[C]ode [L]ens")
 		map("n", "<leader>fr", function() format { async = true, bufnr = bufnr } end, "[F]o[r]mat")
+		map("n", "<leader>af", function()
+			vim.b.do_not_format = not vim.b.do_not_format
+			vim.notify("Autoformat on save was " .. (vim.b.do_not_format and "DISABLED" or "ENABLED"),
+				vim.log.levels.INFO)
+		end, "Toggle [a]uto [f]ormat for current buffer")
 		map({ "n", "v" }, "<leader>cA", vim.lsp.buf.code_action, "[C]ode [A]ction")
 
 		-- Format on save
 		vim.api.nvim_clear_autocmds { group = formattingAugroup, buffer = bufnr }
 		vim.api.nvim_create_autocmd("BufWritePre", {
 			buffer = bufnr,
-			callback = function(_) format { bufnr = bufnr } end,
+			callback = function(_)
+				if vim.b.do_not_format then
+					return
+				end
+
+				format { bufnr = bufnr }
+			end,
 			group = formattingAugroup,
 		})
 
