@@ -9,21 +9,12 @@ api.nvim_create_autocmd("BufWritePre", {
 	group = api.nvim_create_augroup("trim_whitespace_on_save", { clear = true }),
 })
 
-api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
-	pattern = "*mutt-*",
-	callback = function()
-		vim.opt.textwidth = 72
-		vim.opt.filetype = "mail"
-	end,
-	group = api.nvim_create_augroup("neomutt", { clear = true }),
-})
-
 local function updateColorColumn()
-	local textwidth = vim.opt.textwidth:get()
+	local textwidth = vim.opt_local.textwidth:get()
 	if not textwidth or textwidth == 0 then
-		vim.opt.colorcolumn = { "80", "120" }
+		vim.opt_local.colorcolumn = { "80", "120" }
 	else
-		vim.opt.colorcolumn = tostring(textwidth)
+		vim.opt_local.colorcolumn = tostring(textwidth)
 	end
 end
 

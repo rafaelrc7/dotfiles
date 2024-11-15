@@ -35,7 +35,7 @@
 
       ${builtins.readFile ./lua/autocmds.lua}
 
-      ${builtins.readFile ./lua/bigfileft.lua}
+      ${builtins.readFile ./lua/filetypes.lua}
     '';
 
     extraLuaPackages = lps: with lps; [ luautf8 jsregexp ];
