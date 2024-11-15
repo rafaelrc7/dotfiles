@@ -16,4 +16,8 @@ vim.filetype.add {
 		-- mutt mail
 		[".*mutt-.*"] = "mail",
 	},
+
+	filename = {
+		["docker-compose.yml"] = "yaml.docker-compose",
+	},
 }
