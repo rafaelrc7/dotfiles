@@ -228,7 +228,6 @@ in
         dwindle = {
           pseudotile = true;
           preserve_split = true;
-          no_gaps_when_only = 1;
         };
 
         master = {
@@ -242,13 +241,15 @@ in
           inactive_opacity = 1.0;
           fullscreen_opacity = 1.0;
 
-          drop_shadow = true;
-          shadow_range = 4;
-          shadow_render_power = 3;
-          shadow_offset = "0 0";
-          shadow_scale = "1.0";
-
           dim_inactive = false;
+
+          shadow = {
+            enabled = true;
+            range = 4;
+            render_power = 3;
+            offset = "0 0";
+            scale = "1.0";
+          };
 
           blur = {
             enabled = true;
