@@ -16,7 +16,6 @@ npairs.setup {
 npairs.get_rules("'")[1].not_filetypes = { "scheme", "lisp" }
 require("nvim-autopairs").get_rules("'")[1]:with_pair(function(opts)
 	local prev = string.sub(opts.text, 1, opts.col)
-	print(string.match(prev, "%w+'*$"))
 	return not string.match(prev, "%w+'*$")
 end)
 
