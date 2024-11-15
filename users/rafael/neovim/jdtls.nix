@@ -9,6 +9,8 @@
   };
 
   xdg.configFile."nvim/ftplugin/java.lua".text = /* lua */ ''
+    local bufnr = vim.api.nvim_get_current_buf()
+
     local jdtls = require "jdtls"
 
     local home_path = vim.env.HOME

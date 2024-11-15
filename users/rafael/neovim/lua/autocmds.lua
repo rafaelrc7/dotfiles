@@ -1,7 +1,6 @@
 local api = vim.api
 
 api.nvim_create_autocmd("BufWritePre", {
-	pattern = "*",
 	callback = function(_)
 		local saved_view = vim.fn.winsaveview()
 		pcall(function() vim.cmd [[%s/\s\+$//e]] end)
@@ -35,7 +34,6 @@ api.nvim_create_autocmd("OptionSet", {
 	group = colorColumnGroup,
 })
 api.nvim_create_autocmd("BufEnter", {
-	pattern = "*",
 	callback = updateColorColumn,
 	group = colorColumnGroup,
 })

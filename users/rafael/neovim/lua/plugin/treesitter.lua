@@ -26,7 +26,6 @@ require("nvim-treesitter.configs").setup {
 }
 
 vim.api.nvim_create_autocmd("FileType", {
-	pattern = { "*" },
 	group = vim.api.nvim_create_augroup("treesitter_fold_enable", { clear = true }),
 	callback = function()
 		if queries.has_folds(parsers.get_buf_lang()) then
