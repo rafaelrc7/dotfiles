@@ -40,7 +40,10 @@ vim.api.nvim_create_autocmd({ "LspAttach" }, {
 		end
 
 		local format = function(opts)
-			if client ~= nil and client.supports_method "textDocument/formatting" then vim.lsp.buf.format(opts) end
+			if client ~= nil and client.supports_method "textDocument/formatting" then
+				vim.lsp.buf.format(opts)
+				vim.diagnostic.show(nil, bufnr)
+			end
 		end
 
 		local _, _ = pcall(vim.lsp.codelens.refresh)
