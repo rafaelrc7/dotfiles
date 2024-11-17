@@ -352,10 +352,6 @@ in
           "EXPLORER,dolphin"
         ];
 
-        render = {
-          explicit_sync = 0;
-        };
-
         cursor = {
           no_warps = false;
           inactive_timeout = 5;
