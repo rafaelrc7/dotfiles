@@ -14,7 +14,7 @@ vim.filetype.add {
 		},
 
 		-- mutt mail
-		[".*mutt-.*"] = "mail",
+		[".*mutt%-.*"] = "mail",
 	},
 
 	filename = {
