@@ -45,6 +45,7 @@
       curl
       fd
       ripgrep
+      graphviz
 
       # Clipboard
       wl-clipboard
@@ -72,6 +73,8 @@
 
       # debug
       gdb
+      lldb
+      vscode-extensions.vadimcn.vscode-lldb.adapter
     ];
   };
 }

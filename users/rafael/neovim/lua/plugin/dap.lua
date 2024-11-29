@@ -45,6 +45,15 @@ dap.adapters.gdb = {
 	args = { "-i", "dap" },
 }
 
+dap.adapters.lldb = {
+	type = "server",
+	port = "${port}",
+	executable = {
+		command = "codelldb",
+		args = { "--port", "${port}" },
+	},
+}
+
 local cxxConfig = {
 	name = "Launch",
 	type = "gdb",
@@ -63,20 +72,6 @@ dap.configurations.c = {
 
 dap.configurations.cpp = {
 	cxxConfig,
-}
-
-dap.configurations.rust = {
-	{
-		name = "Launch",
-		type = "gdb",
-		request = "launch",
-		program = function()
-			local cwd = vim.fn.getcwd()
-			return vim.fn.input("Path to executable: ", cwd .. "/target/debug/" .. vim.fs.basename(cwd), "file")
-		end,
-		cwd = "${workspaceFolder}",
-		stopAtBeginningOfMainSubprogram = false,
-	},
 }
 
 dap.adapters.haskell = {

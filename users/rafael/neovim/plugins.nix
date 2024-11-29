@@ -165,6 +165,7 @@ in
       config = (builtins.readFile ./lua/plugin/dap.lua)
         + /* lua */ ''
         require("dap").adapters.gdb.command = "${pkgs.gdb}/bin/gdb"
+        require("dap").adapters.lldb.command = "${pkgs.vscode-extensions.vadimcn.vscode-lldb.adapter}/bin/codelldb"
       '';
     }
 
@@ -219,6 +220,26 @@ in
       plugin = ps.noice-nvim;
       type = "lua";
       config = builtins.readFile ./lua/plugin/noice.lua;
+    }
+
+    {
+      plugin = ps.rustaceanvim;
+      type = "lua";
+      config = /* lua */ ''
+        vim.g.rustaceanvim = {
+          tools = {
+            enable_clippy = true,
+          },
+          server = {
+            default_settings = {
+              ['rust-analyzer'] = {
+              },
+            },
+          },
+          dap = {
+          },
+        }
+      '';
     }
 
     {

@@ -202,21 +202,6 @@ local lsps = {
 			},
 		},
 	},
-	rust_analyzer = {
-		settings = {
-			["rust-analyzer"] = {
-				check = {
-					command = "clippy",
-					features = "all",
-				},
-			},
-		},
-		capabilities = vim.tbl_extend("force", get_default_capabilities(), {
-			experimental = {
-				serverStatusNotification = true,
-			},
-		}),
-	},
 }
 
 local function lsp_setup(lsp, extra_settings)
