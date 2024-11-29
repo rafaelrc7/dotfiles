@@ -32,6 +32,7 @@ map("n", "<Leader>dc", dap.continue, { desc = "[D]ebug [c]ontinue" })
 map("n", "<Leader>do", dap.step_over, { desc = "[D]ebug step [o]ver" })
 map("n", "<Leader>di", dap.step_into, { desc = "[D]ebug step [i]nto" })
 map("n", "<Leader>dO", dap.step_out, { desc = "[D]ebug step [o]ut" })
+map("n", "<Leader>dK", dap.terminate, { desc = "[D]ebug [K]ill" })
 
 sign_define("DapBreakpoint", { text = "", texthl = "DapBreakpoint" })
 sign_define("DapBreakpointCondition", { text = "", texthl = "DapBreakpoint" })
