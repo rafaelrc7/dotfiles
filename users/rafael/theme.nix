@@ -3,7 +3,7 @@ let
   fonts = {
     monospace = {
       name = "FiraCode Nerd Font Mono";
-      package = (pkgs.nerdfonts.override { fonts = [ "FiraCode" ]; });
+      package = pkgs.nerd-fonts.fira-code;
     };
     sansSerif = {
       name = "Roboto";
@@ -56,7 +56,7 @@ in
 
     catppuccin-papirus-folders
 
-    (nerdfonts.override { fonts = [ "FiraCode" ]; })
+    nerd-fonts.fira-code
     dejavu_fonts
     font-awesome
     roboto

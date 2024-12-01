@@ -3,9 +3,7 @@
     fontDir.enable = true;
     enableDefaultPackages = true;
     packages = with pkgs; [
-      (nerdfonts.override {
-        fonts = [ "FiraCode" ];
-      })
+      nerd-fonts.fira-code
 
       dejavu_fonts
       font-awesome
