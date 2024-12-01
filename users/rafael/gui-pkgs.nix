@@ -1,6 +1,7 @@
 { pkgs, ... }: {
   home.packages = with pkgs; [
     (discord.override { nss = nss_latest; })
+    (discord-canary.override { nss = nss_latest; })
     vesktop
     calibre
     gimp
