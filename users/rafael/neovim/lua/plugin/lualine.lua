@@ -10,7 +10,15 @@ local navic_module = {
 	end,
 }
 
-require("lualine").setup {
+local noice = require "noice"
+
+local macro_recording_module = {
+	noice.api.status.mode.get,
+	cond = noice.api.status.mode.has,
+	color = { gui = "bold", fg = "orange" },
+}
+
+require "lualine".setup {
 	options = {
 		icons_enabled = true,
 		theme = "auto",
@@ -18,6 +26,9 @@ require("lualine").setup {
 	sections = {
 		lualine_c = {
 			"filename",
+		},
+		lualine_x = {
+			macro_recording_module,
 		},
 	},
 	winbar = {
