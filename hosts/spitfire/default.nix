@@ -30,6 +30,7 @@
     polkit
     powertop
     rtl-sdr
+    steam
     tailscale
     tlp
     udev-media-keys
