@@ -112,8 +112,7 @@ in
           "$mod + SHIFT, SPACE, togglefloating"
 
           # Exit/logout
-          # TODO: logout screen
-          "$mod + SHIFT, E, exit"
+          "$mod + SHIFT, E, exec, ${pkgs.wlogout}/bin/wlogout"
           "$mod + CTRL, L, exec, ${screenlock} --immediate"
 
           # Clipboard manager
