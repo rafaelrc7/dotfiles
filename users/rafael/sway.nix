@@ -76,12 +76,7 @@ in
         ## Keybindings ##
         keybindings = lib.mkOptionDefault {
           "ctrl+${mod}+l" = "exec --no-startup-id ${screenlock}";
-          "${mod}+Shift+e" = ''
-            exec ${pkgs.waylogout}/bin/waylogout \
-              --logout-command="${pkgs.sway}/bin/swaymsg exit" \
-              --reload-command="${pkgs.sway}/bin/swaymsg reload" \
-              --lock-command="${screenlock}"
-          '';
+          "${mod}+Shift+e" = "exec ${pkgs.wlogout}/bin/wlogout";
 
           "${mod}+q" = "exec ${browser}";
           "${mod}+e" = "exec ${fileManager}";

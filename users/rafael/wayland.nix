@@ -8,11 +8,46 @@
     libnotify
     mako
     slurp
-    waylogout
     wdisplays
     wl-clipboard
     wofi
   ];
+
+  programs.wlogout = {
+    enable = true;
+    layout = [
+      {
+          label = "lock";
+          action = "loginctl lock-session";
+          text = "Lock";
+          keybind = "l";
+      }
+      {
+          label = "logout";
+          action = "loginctl terminate-user $USER";
+          text = "Logout";
+          keybind = "e";
+      }
+      {
+          label = "shutdown";
+          action = "systemctl poweroff";
+          text = "Shutdown";
+          keybind = "s";
+      }
+      {
+          label = "suspend";
+          action = "systemctl suspend";
+          text = "Suspend";
+          keybind = "u";
+      }
+      {
+          label = "reboot";
+          action = "systemctl reboot";
+          text = "Reboot";
+          keybind = "r";
+      }
+    ];
+  };
 
   home.file."${config.xdg.userDirs.pictures}/Wallpapers" = {
     recursive = true;
@@ -20,25 +55,6 @@
   };
 
   home.sessionVariables.NIXOS_OZONE_WL = "1";
-
-  xdg.configFile."waylogout/config".text = ''
-    fade-in=1
-    poweroff-command="poweroff"
-    reboot-command="reboot"
-    default-action="poweroff"
-    screenshots
-    effect-blur=7x5
-    indicator-thickness=20
-    ring-color=888888aa
-    inside-color=88888866
-    text-color=eaeaeaaa
-    line-color=00000000
-    ring-selection-color=33cc33aa
-    inside-selection-color=33cc3366
-    text-selection-color=eaeaeaaa
-    line-selection-color=00000000
-    selection-label
-  '';
 
   services.cliphist = {
     enable = true;
