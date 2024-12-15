@@ -28,7 +28,6 @@ in
       terminal = "${pkgs.foot}/bin/foot";
       browser = "${pkgs.librewolf}/bin/librewolf";
       fileManager = "${pkgs.dolphin}/bin/dolphin";
-      screenlock = "${pkgs.hyprlock}/bin/hyprlock";
       printClip = "${pkgs.slurp}/bin/slurp | ${pkgs.grim}/bin/grim -g - - | ${pkgs.wl-clipboard}/bin/wl-copy";
       calculator = "${pkgs.procps}/bin/pkill qalculate-qt || ${pkgs.qalculate-qt}/bin/qalculate-qt";
     in
@@ -69,9 +68,14 @@ in
 
       settings = {
         monitor = [
-          "HDMI-A-1, preferred, 0x0,    1"
-          "DP-3,     preferred, 2560x0, 1"
-          ",         preferred, auto,   1"
+          "desc:LG Electronics LG ULTRAWIDE 0x01010101, preferred, 0x0,    1"
+          "desc:LG Electronics LG FULL HD 0x01010101,   preferred, 2560x0, 1"
+          ",                                            preferred, auto,   1"
+        ];
+
+        workspace = [
+          "10, monitor:desc:LG Electronics LG FULL HD 0x01010101, default:true"
+          "9,  monitor:desc:XXX Beyond TV 0x00010000,             default:true"
         ];
 
         "$mod" = "SUPER";
@@ -113,11 +117,11 @@ in
 
           # Exit/logout
           "$mod + SHIFT, E, exec, ${pkgs.wlogout}/bin/wlogout"
-          "$mod + CTRL, L, exec, ${screenlock} --immediate"
+          "$mod + CTRL, L, exec, ${pkgs.systemd}/bin/loginctl lock-session"
 
           # Clipboard manager
-          "$mod, P, exec, ${pkgs.cliphist}/bin/cliphist list | ${pkgs.wofi}/bin/wofi -p \"Copy\" -dmenu --insensitive --allow-images --hide-scroll | ${pkgs.cliphist}/bin/cliphist decode | ${pkgs.wl-clipboard}/bin/wl-copy"
-          "$mod + SHIFT, P, exec, ${pkgs.cliphist}/bin/cliphist list | ${pkgs.wofi}/bin/wofi -p \"Delete from history\" -dmenu --insensitive --allow-images --hide-scroll | ${pkgs.cliphist}/bin/cliphist delete"
+          "$mod, P, exec, ${pkgs.procps}/bin/pkill wofi || ${pkgs.cliphist}/bin/cliphist list | ${pkgs.wofi}/bin/wofi -p \"Copy\" -dmenu --insensitive --allow-images --hide-scroll | ${pkgs.cliphist}/bin/cliphist decode | ${pkgs.wl-clipboard}/bin/wl-copy"
+          "$mod + SHIFT, P, exec, ${pkgs.procps}/bin/pkill wofi || ${pkgs.cliphist}/bin/cliphist list | ${pkgs.wofi}/bin/wofi -p \"Delete from history\" -dmenu --insensitive --allow-images --hide-scroll | ${pkgs.cliphist}/bin/cliphist delete"
           "$mod + ALT, P, exec, ${pkgs.cliphist}/bin/cliphist wipe"
 
           # Brightness
