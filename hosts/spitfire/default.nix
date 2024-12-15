@@ -33,6 +33,7 @@
     tailscale
     tlp
     udev-media-keys
+    urserver
     systemd-oomd
 
     temperature-symlink
