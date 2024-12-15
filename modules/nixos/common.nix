@@ -52,6 +52,19 @@
   security.pam.services.login.enableGnomeKeyring = true;
   services.dbus.packages = [ pkgs.gnome-keyring pkgs.gcr ];
 
+  systemd.services.lock-on-sleep = {
+    wantedBy = [ "sleep.target" ];
+    unitConfig = {
+      Description = "Lock session on sleep";
+      Before = "sleep.target";
+    };
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = "no";
+      ExecStart = "${pkgs.systemd}/bin/loginctl lock-sessions";
+    };
+  };
+
   services.udisks2.enable = true;
   services.dbus.enable = true;
 
