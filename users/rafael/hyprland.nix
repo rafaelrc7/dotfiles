@@ -367,21 +367,27 @@ in
     enable = true;
     settings = {
       general = {
-        after_sleep_cmd = "hyprctl dispatch dpms on";
+        lock_cmd = "${pkgs.procps}/bin/pidof hyprlock || ${pkgs.hyprlock}/bin/hyprlock";
+        unlock_cmd = "${pkgs.procps}/bin/pkill -USR1 hyprlock";
+        before_sleep_cmd = "${pkgs.systemd}/bin/loginctl lock-session";
+        after_sleep_cmd = "${pkgs.hyprland}/bin/hyprctl dispatch dpms on";
         ignore_dbus_inhibit = false;
-        lock_cmd = "${pkgs.hyprlock}/bin/hyprlock --immediate";
         ignore_systemd_inhibit = false;
       };
 
       listener = [
         {
-          timeout = 300;
-          on-timeout = "${pkgs.hyprlock}/bin/hyprlock";
+          timeout = 300; # 5m
+          on-timeout = "${pkgs.systemd}/bin/loginctl lock-session";
         }
         {
-          timeout = 600;
-          on-timeout = "hyprctl dispatch dpms off";
-          on-resume = "hyprctl dispatch dpms on";
+          timeout = 330; # 5.5m
+          on-timeout = "${pkgs.hyprland}/bin/hyprctl dispatch dpms off";
+          on-resume = "${pkgs.hyprland}/bin/hyprctl dispatch dpms on";
+        }
+        {
+          timeout = 600; # 10m
+          on-timeout = "${pkgs.systemd}/bin/systemctl suspend";
         }
       ];
     };
@@ -394,7 +400,7 @@ in
       general = {
         disable_loading_bar = true;
         hide_cursor = true;
-        grace = 60;
+        grace = 10;
         no_fade_in = false;
         no_fade_out = false;
         text_trim = true;
