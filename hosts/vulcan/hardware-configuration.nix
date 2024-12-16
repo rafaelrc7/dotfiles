@@ -26,6 +26,7 @@ in
 
   # Allow discards for ssd devices
   boot.initrd.luks.devices."root".allowDiscards = true;
+  boot.initrd.luks.devices."swap".allowDiscards = true;
 
   fileSystems."/" =
     {

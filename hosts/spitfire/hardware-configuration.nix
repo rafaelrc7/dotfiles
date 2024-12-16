@@ -17,7 +17,9 @@
     };
 
   boot.initrd.luks.devices."root".device = "/dev/disk/by-partlabel/cryptroot";
+
   boot.initrd.luks.devices."root".allowDiscards = true;
+  boot.initrd.luks.devices."swap".allowDiscards = true;
 
   fileSystems."/home" =
     {
