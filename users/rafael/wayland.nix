@@ -95,6 +95,7 @@
     settings = {
       General = {
         showStartupLaunchMessage = false;
+        disabledGrimWarning = true;
       };
     };
   };
