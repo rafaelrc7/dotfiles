@@ -82,6 +82,18 @@ in
           "bordersize 0, floating:0, onworkspace:w[tv1]"
           "rounding 0,   floating:0, onworkspace:w[tv1]"
 
+          # Fix flameshot on multiple monitors
+          "pin, class:(flameshot), title:(flameshot)"
+          "suppressevent fullscreen, class:(flameshot), title:(flameshot)"
+          "float, class:(flameshot), title:(flameshot)"
+          "monitor 0, class:(flameshot), title:(flameshot)"
+          "move 0 0, class:(flameshot), title:(flameshot)"
+
+          # Fix password dialogs losing focus
+          "stayfocused, class:^(pinentry-)"
+          "stayfocused, class:^(polkit-), title:(Authenticate)"
+          "stayfocused, class:(gcr-prompter)"
+
           # Make qalculate-qt floating by default
           "float,class:^(io.github.Qalculate.qalculate-qt)$"
         ];
