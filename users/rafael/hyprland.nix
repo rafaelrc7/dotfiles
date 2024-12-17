@@ -28,7 +28,7 @@ in
       terminal = "${pkgs.foot}/bin/foot";
       browser = "${pkgs.librewolf}/bin/librewolf";
       fileManager = "${pkgs.dolphin}/bin/dolphin";
-      printClip = "${pkgs.slurp}/bin/slurp | ${pkgs.grim}/bin/grim -g - - | ${pkgs.wl-clipboard}/bin/wl-copy";
+      printClip = "${pkgs.flameshot}/bin/flameshot gui";
       calculator = "${pkgs.procps}/bin/pkill qalculate-qt || ${pkgs.qalculate-qt}/bin/qalculate-qt";
     in
     {

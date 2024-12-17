@@ -3,6 +3,7 @@
   home.packages = with pkgs; [
     cliphist
     dolphin
+    flameshot
     glfw-wayland
     grim
     libnotify
@@ -88,6 +89,15 @@
   };
 
   programs.imv.enable = true;
+
+  services.flameshot = {
+    enable = true;
+    settings = {
+      General = {
+        showStartupLaunchMessage = false;
+      };
+    };
+  };
 
   services.wlsunset = {
     enable = true;
