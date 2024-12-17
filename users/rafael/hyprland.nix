@@ -75,7 +75,15 @@ in
 
         workspace = [
           "10, monitor:desc:LG Electronics LG FULL HD 0x01010101, default:true"
-          "9,  monitor:desc:XXX Beyond TV 0x00010000,             default:true"
+        ];
+
+        windowrulev2 = [
+          # No borders when only tiled window. Keep border on maximised
+          "bordersize 0, floating:0, onworkspace:w[tv1]"
+          "rounding 0,   floating:0, onworkspace:w[tv1]"
+
+          # Make qalculate-qt floating by default
+          "float,class:^(io.github.Qalculate.qalculate-qt)$"
         ];
 
         "$mod" = "SUPER";
@@ -333,10 +341,6 @@ in
           allow_workspace_cycles = true;
           workspace_center_on = 1;
         };
-
-        windowrulev2 = [
-          "float,class:^(io.github.Qalculate.qalculate-qt)$"
-        ];
 
         env = [
           "GDK_BACKEND,wayland,x11"
