@@ -171,7 +171,7 @@ in
 
         export SDL_VIDEODRIVER="wayland"
         export QT_QPA_PLATFORM="wayland;xcb"
-        export GDK_BACKEND="wayland,x11"
+        export GDK_BACKEND="wayland,x11,*"
         export QT_WAYLAND_DISABLE_WINDOWDECORATION="1"
         export _JAVA_AWT_WM_NONREPARENTING="1"
         export MOZ_ENABLE_WAYLAND="1"

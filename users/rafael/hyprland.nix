@@ -83,11 +83,13 @@ in
           "rounding 0,   floating:0, onworkspace:w[tv1]"
 
           # Fix flameshot on multiple monitors
-          "pin, class:(flameshot), title:(flameshot)"
+          "pin,                      class:(flameshot), title:(flameshot)"
           "suppressevent fullscreen, class:(flameshot), title:(flameshot)"
-          "float, class:(flameshot), title:(flameshot)"
-          "monitor 0, class:(flameshot), title:(flameshot)"
-          "move 0 0, class:(flameshot), title:(flameshot)"
+          "float,                    class:(flameshot), title:(flameshot)"
+          "monitor 0,                class:(flameshot), title:(flameshot)"
+          "move 0 0,                 class:(flameshot), title:(flameshot)"
+          "bordersize 0,             class:(flameshot), title:(flameshot)"
+          "rounding 0,               class:(flameshot), title:(flameshot)"
 
           # Fix password dialogs losing focus
           "stayfocused, class:^(pinentry-)"
@@ -355,7 +357,7 @@ in
         };
 
         env = [
-          "GDK_BACKEND,wayland,x11"
+          "GDK_BACKEND,wayland,x11,*"
           "QT_QPA_PLATFORM,wayland;xcb"
           "SDL_VIDEODRIVER,wayland"
           "CLUTTER_BACKEND,wayland"
