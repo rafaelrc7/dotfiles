@@ -29,7 +29,7 @@ in
       browser = "${pkgs.librewolf}/bin/librewolf";
       fileManager = "${pkgs.dolphin}/bin/dolphin";
       printClip = "${pkgs.flameshot}/bin/flameshot gui";
-      calculator = "${pkgs.procps}/bin/pkill qalculate-qt || ${pkgs.qalculate-qt}/bin/qalculate-qt";
+      calculator = "${pkgs.qalculate-qt}/bin/qalculate-qt";
     in
     {
       enable = true;
@@ -75,6 +75,8 @@ in
 
         workspace = [
           "10, monitor:desc:LG Electronics LG FULL HD 0x01010101, default:true"
+          "special:scratchpad, on-created-empty:${terminal}"
+          "special:calculator, on-created-empty:${calculator}"
         ];
 
         windowrulev2 = [
@@ -97,7 +99,11 @@ in
           "stayfocused, class:(gcr-prompter)"
 
           # Make qalculate-qt floating by default
-          "float,class:^(io.github.Qalculate.qalculate-qt)$"
+          "float, class:^(io.github.Qalculate.qalculate-qt)$"
+
+          # Make scratchpad and calculator workspaces floating
+          "float, onworkspace:n[s:special:scratchpad]"
+          "float, onworkspace:n[s:special:calculator]"
         ];
 
         "$mod" = "SUPER";
@@ -112,7 +118,6 @@ in
           "$mod, D, exec, ${menu}"
           "$mod, Q, exec, ${browser}"
           "$mod, E, exec, ${fileManager}"
-          "$mod, C, exec, ${calculator}"
 
           # Screenshot
           ", Print, exec, ${printClip}"
@@ -162,10 +167,10 @@ in
           # Dwindle
           "$mod, O, pseudo,"
           "$mod, S, togglesplit"
-          "$mod + CTRL, H, layoutmsg, preselect, l"
-          "$mod + CTRL, J, layoutmsg, preselect, d"
-          "$mod + CTRL, K, layoutmsg, preselect, u"
-          "$mod + CTRL, L, layoutmsg, preselect, r"
+          "$mod + SHIFT + ALT, H, layoutmsg, preselect l"
+          "$mod + SHIFT + ALT, J, layoutmsg, preselect d"
+          "$mod + SHIFT + ALT, K, layoutmsg, preselect u"
+          "$mod + SHIFT + ALT, L, layoutmsg, preselect r"
 
           # Focus inside tabgroup
           "$mod + ALT, H, changegroupactive, b"
@@ -194,6 +199,9 @@ in
           "$mod, 8, workspace, 8"
           "$mod, 9, workspace, 9"
           "$mod, 0, workspace, 10"
+          "$mod, C,     togglespecialworkspace, calculator"
+          "$mod, minus, togglespecialworkspace, scratchpad"
+          "$mod, equal, exec, ${pkgs.hyprland}/bin/hyprctl workspaces -j | ${pkgs.jq}/bin/jq -r '.[] | .name' | ${pkgs.wofi}/bin/wofi --dmenu | ${pkgs.findutils}/bin/xargs -I {} ${pkgs.hyprland}/bin/hyprctl dispatch workspace name:{}"
 
           # Move window between workspaces
           "$mod + SHIFT, 1, movetoworkspacesilent, 1"
@@ -206,6 +214,8 @@ in
           "$mod + SHIFT, 8, movetoworkspacesilent, 8"
           "$mod + SHIFT, 9, movetoworkspacesilent, 9"
           "$mod + SHIFT, 0, movetoworkspacesilent, 10"
+          "$mod + SHIFT, minus, movetoworkspacesilent, special:scratchpad"
+          "$mod + SHIFT, equal, exec, ${pkgs.hyprland}/bin/hyprctl workspaces -j | ${pkgs.jq}/bin/jq -r '.[] | .name' | ${pkgs.wofi}/bin/wofi --dmenu | ${pkgs.findutils}/bin/xargs -I {} ${pkgs.hyprland}/bin/hyprctl dispatch movetoworkspacesilent name:{}"
         ];
 
         bindel = [
@@ -261,6 +271,8 @@ in
 
         decoration = {
           rounding = 5;
+
+          dim_special = 0.5;
 
           active_opacity = 1.0;
           inactive_opacity = 1.0;
