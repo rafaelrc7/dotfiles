@@ -4,6 +4,7 @@
     p2pool
     wasabiwallet
     bisq-desktop
+    bisq2
     monero-gui
   ];
 }

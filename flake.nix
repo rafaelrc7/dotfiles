@@ -79,7 +79,7 @@
             inherit (inputs) nixpkgs;
             overlays = (self.lib.attrsets.mapAttrsToList (_: v: v) self.overlays) ++ [
               inputs.nix-vscode-extensions.overlays.default
-              inputs.nur.overlay
+              inputs.nur.overlays.default
               inputs.nixgl.overlay
             ];
             config = { permittedInsecurePackages = [ ]; };
