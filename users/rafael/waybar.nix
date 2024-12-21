@@ -45,7 +45,7 @@
         all-outputs = true;
         format = "{name}{icon}";
         format-icons = {
-          urgent = " ";
+          urgent = " 󱈸";
           focused = "";
           default = "";
         };
@@ -55,7 +55,7 @@
         all-outputs = true;
         format = "{name}{icon}";
         format-icons = {
-          urgent = " ";
+          urgent = " 󱈸";
           focused = "";
           default = "";
         };
@@ -66,8 +66,8 @@
         capslock = true;
         format = "{name}{icon}";
         format-icons = {
-          locked = "";
-          unlocked = "";
+          locked = "󰌾";
+          unlocked = "󰌾";
         };
       };
 
@@ -80,26 +80,26 @@
       };
 
       mpd = {
-        format = "{stateIcon} {consumeIcon}{randomIcon}{repeatIcon}{singleIcon}{artist} - {album} - {title} ";
-        format-disconnected = "Disconnected ";
-        format-stopped = " {consumeIcon}{randomIcon}{repeatIcon}{singleIcon} ";
+        format = "{stateIcon}{consumeIcon}{randomIcon}{repeatIcon}{singleIcon}{artist} - {album} - {title} 󰝚";
+        format-disconnected = "Disconnected 󰝚";
+        format-stopped = "󰓛 {consumeIcon}{randomIcon}{repeatIcon}{singleIcon}󰝚";
         unknown-tag = "N/A";
         interval = 2;
         consume-icons = {
-          on = " ";
+          on = "󰩫 ";
         };
         random-icons = {
-          on = " ";
+          on = "󰒝 ";
         };
         repeat-icons = {
-          on = " ";
+          on = "󰑖 ";
         };
         single-icons = {
-          on = "1 ";
+          on = "󰑘 ";
         };
         state-icons = {
-          paused = "";
-          playing = "";
+          paused = "󰏤 ";
+          playing = "󰐊 ";
         };
         tooltip-format = "MPD (connected)";
         tooltip-format-disconnected = "MPD (disconnected)";
@@ -119,7 +119,7 @@
       };
 
       clock = {
-        format = "  {:%T     %a %d/%m/%Y}";
+        format = "󰥔 {:%T  󰃭 %a %d/%m/%Y}";
         timezone = lib.mkDefault "America/Sao_Paulo";
         tooltip-format = "<tt><small>{calendar}</small></tt>";
         calendar = {
@@ -147,25 +147,25 @@
       };
 
       cpu = {
-        format = " {usage}%";
+        format = " {usage}%";
         tooltip = false;
       };
 
       memory = {
-        format = " {}%";
+        format = " {}%";
       };
 
       "temperature#cpu" = {
         critical-threshold = 80;
-        format = " {icon}  {temperatureC}°C";
-        format-icons = [ "" "" "" ];
+        format = " {icon} {temperatureC}°C";
+        format-icons = [ "" "" "" ];
         hwmon-path = [ "/var/run/hwmon_temps/cpu" ];
       };
 
       "temperature#gpu" = {
         critical-threshold = 80;
-        format = " {icon}  {temperatureC}°C";
-        format-icons = [ "" "" "" ];
+        format = "󰢮 {icon} {temperatureC}°C";
+        format-icons = [ "" "" "" ];
         hwmon-path = [ "/var/run/hwmon_temps/gpu" ];
       };
 
@@ -182,43 +182,43 @@
           critical = 15;
         };
         format = "{icon} {capacity}%";
-        format-charging = " {capacity}%";
-        format-plugged = " {capacity}%";
         format-alt = "{icon} {time}";
-        format-icons = [ "" "" "" "" "" ];
+        format-charging = "󰂃 {capacity}%";
+        format-plugged = "󰚥 {capacity}%";
+        format-icons = [ "󰁺" "󰁻" "󰁼" "󰁽" "󰁾" "󰁿" "󰂀" "󰂁" "󰂂" "󰁹" ];
       };
 
       network = {
-        format-wifi = "{essid} ({signalStrength}%) ";
-        format-ethernet = "";
-        tooltip-format = "{ifname} via {gwaddr} at {ipaddr} ";
-        format-linked = "{ifname} (No IP) ";
-        format-disconnected = "Disconnected ⚠";
+        format-wifi = "{essid} ({signalStrength}%) 󰀂";
+        format-ethernet = "󰛳";
+        tooltip-format = "{ifname} via {gwaddr} at {ipaddr}";
+        format-linked = "{ifname} (No IP)";
+        format-disconnected = "Disconnected 󰲛";
       };
 
       pulseaudio = {
         scroll-step = 1;
-        format = "{icon} {volume}%  {format_source}";
-        format-bluetooth = "{icon} {volume}%  {format_source}";
-        format-bluetooth-muted = " {icon}  {format_source}";
-        format-muted = "   {format_source}";
-        format-source = " {volume}%";
-        format-source-muted = "";
+        format = "{icon} {volume}% {format_source}";
+        format-bluetooth = "{icon}󰂯 {volume}% {format_source}";
+        format-bluetooth-muted = "󰝟 {icon}󰂯 {format_source}";
+        format-muted = "󰝟 {format_source}";
+        format-source = "󰍬 {volume}%";
+        format-source-muted = "󰍭";
         format-icons = {
-          headphone = "";
-          hands-free = "";
-          headset = "";
-          phone = "";
-          portable = "";
-          car = "";
-          default = [ "" "" "" ];
+          headphone = "󰋋";
+          hands-free = "󰋎";
+          headset = "󰋎";
+          phone = "󰏲";
+          portable = "󰏲";
+          car = "󰄋";
+          default = [ "󰕿" "󰖀" "󰕾" ];
         };
         on-click = "pavucontrol";
       };
 
       privacy = {
-        icon-spacing = 4;
-        icon-size = 17;
+        icon-spacing = 5;
+        icon-size = 12;
         transition-duration = 250;
         modules = [
           {
@@ -240,7 +240,7 @@
       };
 
       "sway/language" = {
-        format = "  {shortDescription} {short} {variant}";
+        format = "󰌌 {shortDescription} {short} {variant}";
         on-click = "swaymsg input type:keyboard xkb_switch_layout next";
         on-click-right = "swaymsg input type:keyboard xkb_switch_layout previous";
         on-click-middle = "swaymsg input type:keyboard xkb_switch_layout 0";
@@ -248,7 +248,7 @@
       };
 
       "hyprland/language" = {
-        format = "  {}";
+        format = "󰌌 {}";
         format-en = "en us";
         format-pt = "pt br";
       };

@@ -228,8 +228,8 @@ in
   programs.waybar.style = ''
     * {
         /* `otf-font-awesome` is required to be installed for icons */
-        font-family: "${fonts.sansSerif.name}", "${fonts.awesome.name}";
-        font-size: ${builtins.toString fonts.sizes.desktop}pt;
+        font-family: "FiraCode Nerd Font Propo";
+        font-size: 9pt;
         min-height: 0;
         font-weight: bold;
     }
