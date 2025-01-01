@@ -15,6 +15,7 @@
     flatpak
     geoclue
     gnupg-agent
+    gpu-screen-recorder
     heroic
     lutris
     nix

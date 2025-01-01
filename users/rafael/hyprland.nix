@@ -75,8 +75,9 @@ in
 
         workspace = [
           "10, monitor:desc:LG Electronics LG FULL HD 0x01010101, default:true"
-          "special:scratchpad, on-created-empty:${terminal}"
-          "special:calculator, on-created-empty:${calculator}"
+          "special:scratchpad,    on-created-empty:${terminal}"
+          "special:calculator,    on-created-empty:${calculator}"
+          "special:screen-record, on-created-empty:${pkgs.gpu-screen-recorder-gtk}/bin/gpu-screen-recorder-gtk"
         ];
 
         windowrulev2 = [
@@ -104,6 +105,7 @@ in
           # Make scratchpad and calculator workspaces floating
           "float, onworkspace:n[s:special:scratchpad]"
           "float, onworkspace:n[s:special:calculator]"
+          "float, onworkspace:n[s:special:screen-record]"
         ];
 
         "$mod" = "SUPER";
@@ -121,6 +123,9 @@ in
 
           # Screenshot
           ", Print, exec, ${printClip}"
+
+          # Save replay
+          "$mod + SHIFT, R, exec, ${pkgs.killall}/bin/killall -s SIGUSR1 gpu-screen-recorder"
 
           # Clear notifications
           "$mod + CTRL, SPACE, exec, ${pkgs.mako}/bin/makoctl dismiss -a"
@@ -199,8 +204,9 @@ in
           "$mod, 8, workspace, 8"
           "$mod, 9, workspace, 9"
           "$mod, 0, workspace, 10"
-          "$mod, C,     togglespecialworkspace, calculator"
           "$mod, minus, togglespecialworkspace, scratchpad"
+          "$mod, C,     togglespecialworkspace, calculator"
+          "$mod, R,     togglespecialworkspace, screen-record"
           "$mod, equal, exec, ${pkgs.hyprland}/bin/hyprctl workspaces -j | ${pkgs.jq}/bin/jq -r '.[] | .name' | ${pkgs.wofi}/bin/wofi --dmenu | ${pkgs.findutils}/bin/xargs -I {} ${pkgs.hyprland}/bin/hyprctl dispatch workspace name:{}"
 
           # Move window between workspaces
