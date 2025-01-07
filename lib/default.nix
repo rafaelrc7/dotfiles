@@ -9,15 +9,18 @@ let
 in
 {
   flake.lib = lib // rec {
-
-    mkPkgs = { nixpkgs ? inputs.nixpkgs, system ? "x86_64-linux", overlays ? [ ], config ? { } }:
-      import nixpkgs {
-        inherit system overlays;
-
+    nixpkgsConfig = { overlays ? [ ], config ? { } }: {
+      nixpkgs = {
         config = {
           allowUnfree = true;
         } // config;
+        overlays = overlays ++ (self.lib.attrsets.mapAttrsToList (_: v: v) self.overlays) ++ [
+          inputs.nix-vscode-extensions.overlays.default
+          inputs.nur.overlays.default
+          inputs.nixgl.overlay
+        ];
       };
+    };
 
     mkUser = { name, extraGroups ? [ ], sshKeys ? [ ], ... }: {
       inherit name;
@@ -68,17 +71,17 @@ in
       , system ? "x86_64-linux"
       , users ? [ ]
       , nixosModules ? [ ]
-      , pkgs ? (mkPkgs { inherit (inputs) nixpkgs; inherit system; })
       }:
       nixosSystem {
         inherit system;
 
         specialArgs = {
-          inherit pkgs inputs system nixpkgs;
+          inherit inputs system nixpkgs;
           inherit (inputs) home-manager nur;
         };
 
         modules = nixosModules ++ [
+          (nixpkgsConfig { })
           (self.hosts."${hostName}")
           (mkUsers users)
           inputs.home-manager.nixosModules.home-manager
@@ -86,7 +89,8 @@ in
           {
             home-manager = {
               useUserPackages = true;
-              extraSpecialArgs = { inherit inputs pkgs nixpkgs self; };
+              useGlobalPkgs = true;
+              extraSpecialArgs = { inherit inputs nixpkgs self; };
               users = mkHMUsers users;
             };
           }
@@ -97,7 +101,6 @@ in
       { username
       , system ? "x86_64-linux"
       , homeModules ? [ ]
-      , pkgs ? (mkPkgs { inherit (inputs) nixpkgs; inherit system; })
       , userModule ? self.users."${username}"
       , extraArgs ? { }
       }:
@@ -105,9 +108,9 @@ in
         homeDirectory = "/home/${username}";
       in
       inputs.home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
-        extraSpecialArgs = { inherit inputs pkgs nixpkgs system username self; };
+        extraSpecialArgs = { inherit inputs nixpkgs system username self; };
         modules = [
+          (nixpkgsConfig { })
           inputs.catppuccin.homeManagerModules.catppuccin
           {
             home = {

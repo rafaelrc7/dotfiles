@@ -74,22 +74,9 @@
         ./lib
       ];
 
-      flake =
-        let
-          pkgs = self.lib.mkPkgs {
-            inherit (inputs) nixpkgs;
-            overlays = (self.lib.attrsets.mapAttrsToList (_: v: v) self.overlays) ++ [
-              inputs.nix-vscode-extensions.overlays.default
-              inputs.nur.overlays.default
-              inputs.nixgl.overlay
-            ];
-            config = { permittedInsecurePackages = [ ]; };
-          };
-        in
-        {
+      flake = {
           nixosConfigurations = {
             vulcan = self.lib.mkHost {
-              inherit pkgs;
               hostName = "vulcan";
               users = [
                 {
@@ -101,7 +88,6 @@
             };
 
             lancaster = self.lib.mkHost {
-              inherit pkgs;
               hostName = "lancaster";
               users = [
                 {
@@ -136,7 +122,6 @@
             };
 
             spitfire = self.lib.mkHost {
-              inherit pkgs;
               hostName = "spitfire";
               users = [
                 {
@@ -150,7 +135,6 @@
 
           homeConfigurations = {
             rafael = self.lib.mkHome {
-              inherit pkgs;
               system = "x86_64-linux";
               username = "rafael";
             };
