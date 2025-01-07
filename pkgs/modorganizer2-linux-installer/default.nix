@@ -2,10 +2,10 @@
 , stdenv
 , fetchurl
 , makeWrapper
-, gnome
 , p7zip
 , protontricks
 , wget
+, zenity
 }:
 stdenv.mkDerivation rec {
   pname = "modorganizer2-linux-installer";
@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
     chmod +x $out/opt/${pname}/install.sh
 
     makeWrapper $out/opt/${pname}/install.sh $out/bin/${pname} \
-      --prefix PATH ":" ${lib.makeBinPath [ gnome.zenity p7zip protontricks wget ]} \
+      --prefix PATH ":" ${lib.makeBinPath [ zenity p7zip protontricks wget ]} \
       --chdir "$out/opt/${pname}"
 
     runHook postInstall
