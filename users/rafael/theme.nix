@@ -90,33 +90,35 @@ in
   catppuccin = {
     accent = "blue";
     flavor = "mocha";
-  };
 
-  programs = {
-    bat = {
+    zathura.enable = true;
+    waybar.enable = true;
+    tmux.enable = true;
+    sway.enable = true;
+    nvim.enable = true;
+    mpv.enable = true;
+    mako.enable = true;
+    kitty.enable = true;
+    imv.enable = true;
+    hyprland.enable = true;
+    fzf.enable = true;
+    foot.enable = true;
+    delta.enable = true;
+    btop.enable = true;
+    bat.enable = true;
+    zsh-syntax-highlighting.enable = true;
+    kvantum = {
       enable = true;
-      catppuccin.enable = true;
+      apply = true;
     };
-    btop.catppuccin.enable = true;
-    git.delta.catppuccin.enable = true;
-    fzf.catppuccin.enable = true;
-    imv.catppuccin.enable = true;
-    mpv.catppuccin.enable = true;
-    neovim.catppuccin.enable = true;
-    # swaylock.catppuccin.enable = true;
-    tmux.catppuccin.enable = true;
-    waybar.catppuccin.enable = true;
-    zathura.catppuccin.enable = true;
-    zsh.syntaxHighlighting.catppuccin.enable = true;
-  };
-
-  services = {
-    mako.catppuccin.enable = true;
+    gtk = {
+      enable = true;
+      icon.enable = true;
+    };
   };
 
   wayland.windowManager = {
     hyprland = {
-      catppuccin.enable = true;
       settings = with fonts; {
         group.groupbar = {
           font_family = sansSerif.name;
@@ -127,7 +129,6 @@ in
     };
 
     sway = {
-      catppuccin.enable = true;
       config = {
         fonts = {
           names = [ fonts.sansSerif.name fonts.awesome.name ];
@@ -138,7 +139,6 @@ in
   };
 
   programs.foot = {
-    catppuccin.enable = true;
     settings = {
       main = {
         font =
@@ -150,7 +150,6 @@ in
   };
 
   programs.kitty = {
-    catppuccin.enable = true;
     font = {
       inherit (fonts.monospace) name package;
       size = fonts.sizes.terminal;
@@ -166,11 +165,6 @@ in
 
   gtk = {
     enable = true;
-
-    catppuccin = {
-      enable = true;
-      icon.enable = true;
-    };
 
     font = {
       inherit (fonts.sansSerif) package name;
@@ -207,10 +201,6 @@ in
     enable = true;
     platformTheme.name = "qtct";
     style.name = "kvantum";
-    style.catppuccin = {
-      enable = true;
-      apply = true;
-    };
   };
 
   xdg.configFile = {
