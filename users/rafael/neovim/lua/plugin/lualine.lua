@@ -18,7 +18,7 @@ local macro_recording_module = {
 	color = { gui = "bold", fg = "orange" },
 }
 
-require "lualine".setup {
+require("lualine").setup {
 	options = {
 		icons_enabled = true,
 		theme = "auto",

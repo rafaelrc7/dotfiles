@@ -71,8 +71,10 @@ vim.api.nvim_create_autocmd({ "LspAttach" }, {
 		map("n", "<leader>fr", function() format { async = true, bufnr = bufnr } end, "[F]o[r]mat")
 		map("n", "<leader>af", function()
 			vim.b.do_not_format = not vim.b.do_not_format
-			vim.notify("Autoformat on save was " .. (vim.b.do_not_format and "DISABLED" or "ENABLED"),
-				vim.log.levels.INFO)
+			vim.notify(
+				"Autoformat on save was " .. (vim.b.do_not_format and "DISABLED" or "ENABLED"),
+				vim.log.levels.INFO
+			)
 		end, "Toggle [a]uto [f]ormat for current buffer")
 		map({ "n", "v" }, "<leader>cA", vim.lsp.buf.code_action, "[C]ode [A]ction")
 
@@ -81,9 +83,7 @@ vim.api.nvim_create_autocmd({ "LspAttach" }, {
 		vim.api.nvim_create_autocmd("BufWritePre", {
 			buffer = bufnr,
 			callback = function(_)
-				if vim.b.do_not_format then
-					return
-				end
+				if vim.b.do_not_format then return end
 
 				format { bufnr = bufnr }
 			end,
@@ -100,7 +100,7 @@ vim.api.nvim_create_autocmd({ "LspAttach" }, {
 })
 
 local function get_default_capabilities()
-	return require "cmp_nvim_lsp".default_capabilities(vim.lsp.protocol.make_client_capabilities())
+	return require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
 end
 
 local function on_attach(_, _) end

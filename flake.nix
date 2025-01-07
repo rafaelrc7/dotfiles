@@ -70,72 +70,72 @@
       ];
 
       flake = {
-          nixosConfigurations = {
-            vulcan = self.lib.mkHost {
-              hostName = "vulcan";
-              users = [
-                {
-                  name = "rafael";
-                  extraGroups = [ "wheel" "adbusers" "libvirtd" "dialout" "podman" "plugdev" ];
-                  sshKeys = import ./users/rafael/sshkeys.nix;
-                }
-              ];
-            };
-
-            lancaster = self.lib.mkHost {
-              hostName = "lancaster";
-              users = [
-                {
-                  name = "rafael";
-                  extraGroups = [ "wheel" "adbusers" "libvirtd" "dialout" "podman" ];
-                  sshKeys = import ./users/rafael/sshkeys.nix;
-                  extraArgs = {
-                    crypto = null;
-                    email = null;
-                    firefox = null;
-                    go = null;
-                    gschemas = null;
-                    gui-pkgs = null;
-                    hyprland = null;
-                    jetbrains = null;
-                    kitty = null;
-                    librewolf = null;
-                    mpd = null;
-                    mpv = null;
-                    neomutt = null;
-                    node = null;
-                    protonmail-bridge = null;
-                    rclone-gdrive = null;
-                    sway = null;
-                    udiskie = null;
-                    obs = null;
-                    vscode = null;
-                    zathura = null;
-                  };
-                }
-              ];
-            };
-
-            spitfire = self.lib.mkHost {
-              hostName = "spitfire";
-              users = [
-                {
-                  name = "rafael";
-                  extraGroups = [ "wheel" "adbusers" "libvirtd" "dialout" "podman" "plugdev" ];
-                  sshKeys = import ./users/rafael/sshkeys.nix;
-                }
-              ];
-            };
+        nixosConfigurations = {
+          vulcan = self.lib.mkHost {
+            hostName = "vulcan";
+            users = [
+              {
+                name = "rafael";
+                extraGroups = [ "wheel" "adbusers" "libvirtd" "dialout" "podman" "plugdev" ];
+                sshKeys = import ./users/rafael/sshkeys.nix;
+              }
+            ];
           };
 
-          homeConfigurations = {
-            rafael = self.lib.mkHome {
-              system = "x86_64-linux";
-              username = "rafael";
-            };
+          lancaster = self.lib.mkHost {
+            hostName = "lancaster";
+            users = [
+              {
+                name = "rafael";
+                extraGroups = [ "wheel" "adbusers" "libvirtd" "dialout" "podman" ];
+                sshKeys = import ./users/rafael/sshkeys.nix;
+                extraArgs = {
+                  crypto = null;
+                  email = null;
+                  firefox = null;
+                  go = null;
+                  gschemas = null;
+                  gui-pkgs = null;
+                  hyprland = null;
+                  jetbrains = null;
+                  kitty = null;
+                  librewolf = null;
+                  mpd = null;
+                  mpv = null;
+                  neomutt = null;
+                  node = null;
+                  protonmail-bridge = null;
+                  rclone-gdrive = null;
+                  sway = null;
+                  udiskie = null;
+                  obs = null;
+                  vscode = null;
+                  zathura = null;
+                };
+              }
+            ];
           };
 
+          spitfire = self.lib.mkHost {
+            hostName = "spitfire";
+            users = [
+              {
+                name = "rafael";
+                extraGroups = [ "wheel" "adbusers" "libvirtd" "dialout" "podman" "plugdev" ];
+                sshKeys = import ./users/rafael/sshkeys.nix;
+              }
+            ];
+          };
         };
+
+        homeConfigurations = {
+          rafael = self.lib.mkHome {
+            system = "x86_64-linux";
+            username = "rafael";
+          };
+        };
+
+      };
 
       systems = [ "x86_64-linux" ];
       perSystem = { pkgs, system, ... }: {

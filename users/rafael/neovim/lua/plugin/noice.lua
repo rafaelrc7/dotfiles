@@ -17,6 +17,4 @@ require("noice").setup {
 	},
 }
 
-vim.keymap.set("n", "<leader>nd", function()
-	require "noice".cmd "dismiss"
-end, { desc = "[N]oice [d]ismiss" })
+vim.keymap.set("n", "<leader>nd", function() require("noice").cmd "dismiss" end, { desc = "[N]oice [d]ismiss" })
