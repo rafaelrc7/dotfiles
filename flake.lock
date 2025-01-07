@@ -717,11 +717,11 @@
     "proton-bridge": {
       "flake": false,
       "locked": {
-        "lastModified": 1728449495,
-        "narHash": "sha256-ZU9pKABA8eLG/YWkOcLZH3xhNyAq1PnXZcbXpMxcrAw=",
+        "lastModified": 1736291264,
+        "narHash": "sha256-WD7tYcZ3jao15/4n89mJZQOaZXDztpsC7euVa/wu30Q=",
         "owner": "rafaelrc7",
         "repo": "proton-bridge",
-        "rev": "4f3f8669a40416ee53c1da50e51986e7a87a5485",
+        "rev": "3e7be53a1d0f9e13c466692f02cb2ddc4ee06a63",
         "type": "github"
       },
       "original": {
