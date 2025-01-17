@@ -85,6 +85,16 @@ in
           "bordersize 0, floating:0, onworkspace:w[tv1]"
           "rounding 0,   floating:0, onworkspace:w[tv1]"
 
+          # Floating Steam dialogs
+          "float, class:steam"
+          "tile,  class:steam, title:Friends List"
+          "tile,  class:steam, title:Steam"
+
+          # No borders on steam games
+          "bordersize 0, class:(steam_app.*)"
+          "rounding 0,   class:(steam_app.*)"
+          "stayfocused,  class:(steam_app.*)"
+
           # Fix flameshot on multiple monitors
           "pin,                      class:(flameshot), title:(flameshot)"
           "suppressevent fullscreen, class:(flameshot), title:(flameshot)"
