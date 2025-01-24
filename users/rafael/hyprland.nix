@@ -95,6 +95,10 @@ in
           "rounding 0,   class:(steam_app.*)"
           "stayfocused,  class:(steam_app.*)"
 
+          # Floating Paradox Launchers
+          "float,              class:(Paradox Launcher)"
+          "center, floating:1, class:(Paradox Launcher)"
+
           # Fix flameshot on multiple monitors
           "pin,                      class:(flameshot), title:(flameshot)"
           "suppressevent fullscreen, class:(flameshot), title:(flameshot)"
