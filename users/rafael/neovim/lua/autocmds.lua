@@ -1,5 +1,10 @@
 local api = vim.api
 
+api.nvim_create_autocmd("VimResized", {
+	command = "wincmd =",
+	group = api.nvim_create_augroup("autoresize_windows_on_terminal_resize", { clear = true }),
+})
+
 api.nvim_create_autocmd("BufWritePre", {
 	callback = function(_)
 		local saved_view = vim.fn.winsaveview()
