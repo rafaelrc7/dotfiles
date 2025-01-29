@@ -6,5 +6,6 @@ in
   epson-escpr = nixpkgs-prev.epson-escpr;
   epson_201207w = nixpkgs-prev.epson_201207w;
   jami = nixpkgs-prev.jami;
+  ollama = nixpkgs-prev.ollama;
 }
 

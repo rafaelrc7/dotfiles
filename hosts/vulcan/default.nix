@@ -141,6 +141,12 @@
     ];
   };
 
+  services.ollama = {
+    enable = true;
+    acceleration = "rocm";
+    rocmOverrideGfx = "11.0.2";
+  };
+
   system.stateVersion = "22.11";
 }
 
