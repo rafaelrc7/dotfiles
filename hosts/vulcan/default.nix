@@ -58,6 +58,8 @@
       winetricks
       qbittorrent
       vlc
+      chatbox
+      lmstudio
     ];
   };
 
