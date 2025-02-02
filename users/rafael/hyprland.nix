@@ -158,6 +158,9 @@ in
           # Close active
           "$mod + SHIFT, Q, killactive"
 
+          # Kill mode
+          "$mod + CTRL, Q, exec, ${pkgs.hyprland}/bin/hyprctl kill"
+
           # Sticky
           "$mod + SHIFT, S, pin"
 
