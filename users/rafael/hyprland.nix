@@ -225,7 +225,7 @@ in
           "$mod, minus, togglespecialworkspace, scratchpad"
           "$mod, C,     togglespecialworkspace, calculator"
           "$mod, R,     togglespecialworkspace, screen-record"
-          "$mod, equal, exec, ${pkgs.hyprland}/bin/hyprctl workspaces -j | ${pkgs.jq}/bin/jq -r '.[] | .name' | ${pkgs.wofi}/bin/wofi --dmenu | ${pkgs.findutils}/bin/xargs -I {} ${pkgs.hyprland}/bin/hyprctl dispatch workspace name:{}"
+          "$mod, equal, exec, ${pkgs.procps}/bin/pkill wofi || ${pkgs.hyprland}/bin/hyprctl workspaces -j | ${pkgs.jq}/bin/jq -r '.[] | .name' | ${pkgs.wofi}/bin/wofi --dmenu | ${pkgs.findutils}/bin/xargs -I {} ${pkgs.hyprland}/bin/hyprctl dispatch workspace name:{}"
 
           # Move window between workspaces
           "$mod + SHIFT, 1, movetoworkspacesilent, 1"
@@ -239,7 +239,7 @@ in
           "$mod + SHIFT, 9, movetoworkspacesilent, 9"
           "$mod + SHIFT, 0, movetoworkspacesilent, 10"
           "$mod + SHIFT, minus, movetoworkspacesilent, special:scratchpad"
-          "$mod + SHIFT, equal, exec, ${pkgs.hyprland}/bin/hyprctl workspaces -j | ${pkgs.jq}/bin/jq -r '.[] | .name' | ${pkgs.wofi}/bin/wofi --dmenu | ${pkgs.findutils}/bin/xargs -I {} ${pkgs.hyprland}/bin/hyprctl dispatch movetoworkspacesilent name:{}"
+          "$mod + SHIFT, equal, exec, ${pkgs.procps}/bin/pkill wofi || ${pkgs.hyprland}/bin/hyprctl workspaces -j | ${pkgs.jq}/bin/jq -r '.[] | .name' | ${pkgs.wofi}/bin/wofi --dmenu | ${pkgs.findutils}/bin/xargs -I {} ${pkgs.hyprland}/bin/hyprctl dispatch movetoworkspacesilent name:{}"
         ];
 
         bindel = [
