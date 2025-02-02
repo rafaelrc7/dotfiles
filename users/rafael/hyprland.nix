@@ -116,7 +116,10 @@ in
           # Make qalculate-qt floating by default
           "float, class:^(io.github.Qalculate.qalculate-qt)$"
 
-          # Make scratchpad and calculator workspaces floating
+          # Move spotify to special workspace
+          "workspace special:music, class:spotify"
+
+          # Make special workspaces floating
           "float, onworkspace:n[s:special:scratchpad]"
           "float, onworkspace:n[s:special:calculator]"
           "float, onworkspace:n[s:special:screen-record]"
@@ -218,6 +221,7 @@ in
           "$mod, 8, workspace, 8"
           "$mod, 9, workspace, 9"
           "$mod, 0, workspace, 10"
+          "$mod + ALT, M, togglespecialworkspace, music"
           "$mod, minus, togglespecialworkspace, scratchpad"
           "$mod, C,     togglespecialworkspace, calculator"
           "$mod, R,     togglespecialworkspace, screen-record"
