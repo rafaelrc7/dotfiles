@@ -9,7 +9,7 @@
     jami
     libreoffice-fresh
     obsidian
-    pavucontrol
+    pwvucontrol
     qutebrowser
     spotify
     tdesktop

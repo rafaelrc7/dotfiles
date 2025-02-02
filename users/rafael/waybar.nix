@@ -213,7 +213,7 @@
           car = "󰄋";
           default = [ "󰕿" "󰖀" "󰕾" ];
         };
-        on-click = "pavucontrol";
+        on-click = "${pkgs.pwvucontrol}/bin/pwvucontrol";
       };
 
       privacy = {
