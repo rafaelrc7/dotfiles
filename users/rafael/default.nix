@@ -84,6 +84,7 @@
 
   home.packages = with pkgs; [
     neovim-qt
+    nh
   ];
 
   programs.fzf.enable = true;

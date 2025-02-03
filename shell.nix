@@ -11,10 +11,11 @@
     # Enable experimental features without having to specify the argument
     NIX_CONFIG = "experimental-features = nix-command flakes";
     nativeBuildInputs = with pkgs; [
-      nix
-      home-manager
       git
+      home-manager
       neovim
+      nh
+      nixVersions.latest
     ];
   };
 }

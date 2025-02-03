@@ -163,12 +163,7 @@
         { pkgs, system, ... }:
         {
           devShells = import ./shell.nix { inherit pkgs system; };
-          packages = rec {
-            default = nixos-build;
-            nixos-build = pkgs.writeShellScriptBin "nixos-build" ''
-              nixos-rebuild -j`nproc` --cores `nproc` --show-trace --use-remote-sudo --flake . "''${1:-switch}" |& ${pkgs.nix-output-monitor}/bin/nom
-            '';
-          } // import ./pkgs { inherit pkgs; };
+          packages = import ./pkgs { inherit pkgs; };
 
           treefmt.config = {
             projectRootFile = "flake.nix";
