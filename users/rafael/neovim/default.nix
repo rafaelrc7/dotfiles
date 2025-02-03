@@ -63,6 +63,7 @@
       nodePackages.bash-language-server
       lua-language-server
       nixd
+      nixfmt-rfc-style
       pyright
       texlab
       vscode-langservers-extracted
