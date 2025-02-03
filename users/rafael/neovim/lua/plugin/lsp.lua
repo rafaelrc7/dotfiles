@@ -165,7 +165,7 @@ local lsps = {
 					},
 				},
 				format = {
-					enable = true,
+					enable = false,
 					defaultConfig = {
 						charset = "utf-8",
 						max_line_length = "120",
