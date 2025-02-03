@@ -67,6 +67,7 @@
       clang-tools
       nodePackages.bash-language-server
       lua-language-server
+      stylua
       nixd
       nixfmt-rfc-style
       pyright

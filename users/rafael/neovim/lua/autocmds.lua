@@ -33,3 +33,13 @@ api.nvim_create_autocmd("BufEnter", {
 	callback = updateColorColumn,
 	group = colorColumnGroup,
 })
+
+local format = require "format"
+
+api.nvim_create_autocmd("BufWritePre", {
+	callback = function(ev)
+		if vim.b.do_not_format then return end
+		format.format(ev.buf, {})
+	end,
+	group = api.nvim_create_augroup("AutoFormatOnSave", { clear = true }),
+})

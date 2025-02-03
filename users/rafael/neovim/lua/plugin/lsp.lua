@@ -28,22 +28,13 @@ end
 
 vim.g.completion_matching_strategy_list = { "exact", "substring", "fuzzy" }
 
-local formattingAugroup = vim.api.nvim_create_augroup("LspFormatting", { clear = true })
 vim.api.nvim_create_autocmd({ "LspAttach" }, {
 	callback = function(ev)
 		local bufnr = ev.buf
-		local client = vim.lsp.get_client_by_id(ev.data.client_id)
 
 		local map = function(mode, keys, func, desc)
 			if desc then desc = "LSP " .. desc end
 			vim.keymap.set(mode, keys, func, { buffer = bufnr, desc = desc, silent = true })
-		end
-
-		local format = function(opts)
-			if client ~= nil and client.supports_method "textDocument/formatting" then
-				vim.lsp.buf.format(opts)
-				vim.diagnostic.show(nil, bufnr)
-			end
 		end
 
 		local _, _ = pcall(vim.lsp.codelens.refresh)
@@ -68,27 +59,7 @@ vim.api.nvim_create_autocmd({ "LspAttach" }, {
 		map("n", "<leader>ds", require("telescope.builtin").lsp_document_symbols, "[D]ocument [S]ymbols")
 		map("n", "<leader>ws", require("telescope.builtin").lsp_dynamic_workspace_symbols, "[W]orkspace [S]ymbols")
 		map("n", "<leader>cl", vim.lsp.codelens.run, "[C]ode [L]ens")
-		map("n", "<leader>fr", function() format { async = true, bufnr = bufnr } end, "[F]o[r]mat")
-		map("n", "<leader>af", function()
-			vim.b.do_not_format = not vim.b.do_not_format
-			vim.notify(
-				"Autoformat on save was " .. (vim.b.do_not_format and "DISABLED" or "ENABLED"),
-				vim.log.levels.INFO
-			)
-		end, "Toggle [a]uto [f]ormat for current buffer")
 		map({ "n", "v" }, "<leader>cA", vim.lsp.buf.code_action, "[C]ode [A]ction")
-
-		-- Format on save
-		vim.api.nvim_clear_autocmds { group = formattingAugroup, buffer = bufnr }
-		vim.api.nvim_create_autocmd("BufWritePre", {
-			buffer = bufnr,
-			callback = function(_)
-				if vim.b.do_not_format then return end
-
-				format { bufnr = bufnr }
-			end,
-			group = formattingAugroup,
-		})
 
 		-- Code actions
 		require("actions-preview").setup {
