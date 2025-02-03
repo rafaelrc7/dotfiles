@@ -1,6 +1,18 @@
-{ pkgs, config, lib, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
 let
-  pass = pkgs.pass.withExtensions (exts: with exts; [ pass-audit pass-genphrase pass-otp pass-update ]);
+  pass = pkgs.pass.withExtensions (
+    exts: with exts; [
+      pass-audit
+      pass-genphrase
+      pass-otp
+      pass-update
+    ]
+  );
   passff-otp-host = pkgs.passff-host.override { pass = pass; };
 in
 {
@@ -22,4 +34,3 @@ in
     source = "${passff-otp-host}/share/passff-host/passff.json";
   };
 }
-

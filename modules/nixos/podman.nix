@@ -1,4 +1,5 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   virtualisation.containers = {
     enable = true;
     containersConf.settings.engine = {
@@ -24,4 +25,3 @@
     DOCKER_HOST = "unix:///run/user/$UID/podman/podman.sock";
   };
 }
-

@@ -1,6 +1,5 @@
 { ... }:
-final: prev:
-{
+final: prev: {
   sdrpp = final.symlinkJoin {
     pname = prev.sdrpp.pname;
     version = prev.sdrpp.version;
@@ -12,4 +11,3 @@ final: prev:
     '';
   };
 }
-

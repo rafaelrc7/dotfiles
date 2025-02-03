@@ -1,4 +1,5 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   imports = [
     ./plugins.nix
     ./treesitter.nix
@@ -38,7 +39,11 @@
       ${builtins.readFile ./lua/filetypes.lua}
     '';
 
-    extraLuaPackages = lps: with lps; [ luautf8 jsregexp ];
+    extraLuaPackages =
+      lps: with lps; [
+        luautf8
+        jsregexp
+      ];
 
     extraPackages = with pkgs; [
       clang
@@ -79,4 +84,3 @@
     ];
   };
 }
-

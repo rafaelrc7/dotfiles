@@ -1,7 +1,8 @@
-{ lib
-, stdenv
-, neovim
-, hunspellDicts
+{
+  lib,
+  stdenv,
+  neovim,
+  hunspellDicts,
 }:
 stdenv.mkDerivation {
   pname = "vim-spell-dict";
@@ -45,4 +46,3 @@ stdenv.mkDerivation {
     maintainers = [ rafaelrc ];
   };
 }
-

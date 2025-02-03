@@ -1,4 +1,5 @@
-{ ... }: {
+{ ... }:
+{
   programs.git = {
     enable = true;
     userName = "rafaelrc7";
@@ -35,4 +36,3 @@
     };
   };
 }
-

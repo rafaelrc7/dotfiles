@@ -1,4 +1,5 @@
-{ lib, ... }: {
+{ lib, ... }:
+{
   programs.librewolf = {
     enable = true;
     settings = {
@@ -7,7 +8,8 @@
       "media.gmp-widevinecdm.visible" = true;
       "media.gmp-widevinecdm.enabled" = true;
       "media.gmp-provider.enabled" = true;
-      "media.gmp-manager.url" = "https://aus5.mozilla.org/update/3/GMP/%VERSION%/%BUILD_ID%/%BUILD_TARGET%/%LOCALE%/%CHANNEL%/%OS_VERSION%/%DISTRIBUTION%/%DISTRIBUTION_VERSION%/update.xml";
+      "media.gmp-manager.url" =
+        "https://aus5.mozilla.org/update/3/GMP/%VERSION%/%BUILD_ID%/%BUILD_TARGET%/%LOCALE%/%CHANNEL%/%OS_VERSION%/%DISTRIBUTION%/%DISTRIBUTION_VERSION%/update.xml";
 
       # Enable hardware acceleration
       "webgl.disabled" = false;
@@ -25,4 +27,3 @@
     BROWSER = lib.mkDefault "librewolf";
   };
 }
-

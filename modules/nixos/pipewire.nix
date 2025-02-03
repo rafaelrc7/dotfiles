@@ -1,4 +1,5 @@
-{ lib, ... }: {
+{ lib, ... }:
+{
 
   security.rtkit.enable = true;
   services.pulseaudio.enable = lib.mkForce false;
@@ -27,4 +28,3 @@
     };
   };
 }
-

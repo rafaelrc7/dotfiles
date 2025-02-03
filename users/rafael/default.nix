@@ -1,37 +1,45 @@
 { self, ... }:
-{ crypto ? self.homeModules.crypto
-, email ? ./email.nix
-, environment_variables ? ./environment_variables.nix
-, firefox ? self.homeModules.firefox
-, git ? ./git.nix
-, gnome-keyring ? self.homeModules.gnome-keyring
-, go ? self.homeModules.go
-, gschemas ? self.homeModules.gschemas
-, gui-pkgs ? ./gui-pkgs.nix
-, theme ? ./theme.nix
-, hyprland ? ./hyprland.nix
-, keybase ? self.homeModules.keybase
-, kitty ? self.homeModules.kitty
-, librewolf ? self.homeModules.librewolf
-, mpd ? self.homeModules.mpd
-, mpv ? self.homeModules.mpv
-, neomutt ? ./neomutt.nix
-, neovim ? ./neovim
-, nix ? self.homeModules.nix
-, node ? self.homeModules.node
-, pass ? self.homeModules.pass
-, protonmail-bridge ? self.homeModules.protonmail-bridge
-, rclone-gdrive ? self.homeModules.rclone-gdrive
-, syncthing ? self.homeModules.syncthing
-, tmux ? ./tmux.nix
-, udiskie ? self.homeModules.udiskie
-, obs ? self.homeModules.obs
-, xdg ? ./xdg.nix
-, zathura ? self.homeModules.zathura
-, zsh ? ./zsh.nix
-, ...
+{
+  crypto ? self.homeModules.crypto,
+  email ? ./email.nix,
+  environment_variables ? ./environment_variables.nix,
+  firefox ? self.homeModules.firefox,
+  git ? ./git.nix,
+  gnome-keyring ? self.homeModules.gnome-keyring,
+  go ? self.homeModules.go,
+  gschemas ? self.homeModules.gschemas,
+  gui-pkgs ? ./gui-pkgs.nix,
+  theme ? ./theme.nix,
+  hyprland ? ./hyprland.nix,
+  keybase ? self.homeModules.keybase,
+  kitty ? self.homeModules.kitty,
+  librewolf ? self.homeModules.librewolf,
+  mpd ? self.homeModules.mpd,
+  mpv ? self.homeModules.mpv,
+  neomutt ? ./neomutt.nix,
+  neovim ? ./neovim,
+  nix ? self.homeModules.nix,
+  node ? self.homeModules.node,
+  pass ? self.homeModules.pass,
+  protonmail-bridge ? self.homeModules.protonmail-bridge,
+  rclone-gdrive ? self.homeModules.rclone-gdrive,
+  syncthing ? self.homeModules.syncthing,
+  tmux ? ./tmux.nix,
+  udiskie ? self.homeModules.udiskie,
+  obs ? self.homeModules.obs,
+  xdg ? ./xdg.nix,
+  zathura ? self.homeModules.zathura,
+  zsh ? ./zsh.nix,
+  ...
 }:
-{ inputs, config, lib, pkgs, ... }: {
+{
+  inputs,
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+{
 
   home.username = lib.mkDefault "rafael";
   home.homeDirectory = lib.mkDefault "/home/rafael";
@@ -127,8 +135,7 @@
     ];
   };
 
-  home.sessionVariables.SSH_ASKPASS =
-    "${pkgs.lxqt.lxqt-openssh-askpass}/bin/lxqt-openssh-askpass";
+  home.sessionVariables.SSH_ASKPASS = "${pkgs.lxqt.lxqt-openssh-askpass}/bin/lxqt-openssh-askpass";
 
   programs.password-store.settings = {
     PASSWORD_STORE_KEY = "081F97AC49F2CA9548DB08E7091BB8A361C7B4EB";
@@ -147,4 +154,3 @@
 
   home.stateVersion = "22.11";
 }
-

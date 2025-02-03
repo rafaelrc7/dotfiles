@@ -4,4 +4,3 @@ final: prev: {
   nixpkgs-unstable = inputs.nixpkgs-unstable.legacyPackages."${final.system}";
   nixpkgs-master = inputs.nixpkgs-master.legacyPackages."${final.system}";
 }
-

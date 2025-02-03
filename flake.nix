@@ -57,7 +57,8 @@
     };
   };
 
-  outputs = inputs@{ self, flake-parts, ... }:
+  outputs =
+    inputs@{ self, flake-parts, ... }:
     flake-parts.lib.mkFlake { inherit inputs; } {
       imports = [
         inputs.treefmt-nix.flakeModule
@@ -76,7 +77,14 @@
             users = [
               {
                 name = "rafael";
-                extraGroups = [ "wheel" "adbusers" "libvirtd" "dialout" "podman" "plugdev" ];
+                extraGroups = [
+                  "wheel"
+                  "adbusers"
+                  "libvirtd"
+                  "dialout"
+                  "podman"
+                  "plugdev"
+                ];
                 sshKeys = import ./users/rafael/sshkeys.nix;
               }
             ];
@@ -87,7 +95,13 @@
             users = [
               {
                 name = "rafael";
-                extraGroups = [ "wheel" "adbusers" "libvirtd" "dialout" "podman" ];
+                extraGroups = [
+                  "wheel"
+                  "adbusers"
+                  "libvirtd"
+                  "dialout"
+                  "podman"
+                ];
                 sshKeys = import ./users/rafael/sshkeys.nix;
                 extraArgs = {
                   crypto = null;
@@ -121,7 +135,14 @@
             users = [
               {
                 name = "rafael";
-                extraGroups = [ "wheel" "adbusers" "libvirtd" "dialout" "podman" "plugdev" ];
+                extraGroups = [
+                  "wheel"
+                  "adbusers"
+                  "libvirtd"
+                  "dialout"
+                  "podman"
+                  "plugdev"
+                ];
                 sshKeys = import ./users/rafael/sshkeys.nix;
               }
             ];
@@ -138,25 +159,26 @@
       };
 
       systems = [ "x86_64-linux" ];
-      perSystem = { pkgs, system, ... }: {
-        devShells = import ./shell.nix { inherit pkgs system; };
-        packages = rec {
-          default = nixos-build;
-          nixos-build = pkgs.writeShellScriptBin "nixos-build" ''
-            nixos-rebuild -j`nproc` --cores `nproc` --show-trace --use-remote-sudo --flake . "''${1:-switch}" |& ${pkgs.nix-output-monitor}/bin/nom
-          '';
-        } // import ./pkgs { inherit pkgs; };
+      perSystem =
+        { pkgs, system, ... }:
+        {
+          devShells = import ./shell.nix { inherit pkgs system; };
+          packages = rec {
+            default = nixos-build;
+            nixos-build = pkgs.writeShellScriptBin "nixos-build" ''
+              nixos-rebuild -j`nproc` --cores `nproc` --show-trace --use-remote-sudo --flake . "''${1:-switch}" |& ${pkgs.nix-output-monitor}/bin/nom
+            '';
+          } // import ./pkgs { inherit pkgs; };
 
-        treefmt.config = {
-          projectRootFile = "flake.nix";
-          programs = {
-            nixfmt.enable = true;
-            prettier.enable = true;
-            stylua.enable = true;
+          treefmt.config = {
+            projectRootFile = "flake.nix";
+            programs = {
+              nixfmt.enable = true;
+              prettier.enable = true;
+              stylua.enable = true;
+            };
           };
         };
-      };
     };
 
 }
-

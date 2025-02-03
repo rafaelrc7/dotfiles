@@ -1,6 +1,10 @@
-{ ... }: {
+{ ... }:
+{
   networking = {
-    nameservers = [ "127.0.0.1" "::1" ];
+    nameservers = [
+      "127.0.0.1"
+      "::1"
+    ];
     resolvconf.enable = false;
     dhcpcd.extraConfig = "nohook resolve.conf";
     networkmanager.dns = "none";
@@ -21,4 +25,3 @@
     };
   };
 }
-

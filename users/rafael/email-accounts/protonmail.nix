@@ -1,4 +1,10 @@
-{ pkgs, config, email-utils, lib, ... }:
+{
+  pkgs,
+  config,
+  email-utils,
+  lib,
+  ...
+}:
 let
   protonmail-bridge-pass = pkgs.writeShellScriptBin "protonmail-bridge-pass" ''
     ${pkgs.libsecret}/bin/secret-tool lookup protonmail-bridge password
@@ -85,4 +91,3 @@ in
     onNotifyPost = ''${email-utils.notify-new-mail}/bin/notify-new-mail protonmail'';
   };
 }
-

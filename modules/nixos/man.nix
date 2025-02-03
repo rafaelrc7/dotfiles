@@ -1,4 +1,5 @@
-{ ... }: {
+{ ... }:
+{
   documentation = {
     man.enable = true;
     man.generateCaches = true;
@@ -6,4 +7,3 @@
     nixos.enable = true;
   };
 }
-

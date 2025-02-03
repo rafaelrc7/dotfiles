@@ -1,5 +1,9 @@
-{ config, ... }: {
-  networking.firewall.allowedTCPPorts = [ 53 80 ];
+{ config, ... }:
+{
+  networking.firewall.allowedTCPPorts = [
+    53
+    80
+  ];
   networking.firewall.allowedUDPPorts = [ 53 ];
 
   services.dnscrypt-proxy2.settings.listen_addresses = [
@@ -33,12 +37,10 @@
     ];
   };
 
-  systemd.services."podman-pihole".postStart = ''
-  '';
+  systemd.services."podman-pihole".postStart = '''';
 
   systemd.services."podman-pihole".preStart = ''
     mkdir -p /etc/pihole
     mkdir -p /etc/dnsmasq.d
   '';
 }
-

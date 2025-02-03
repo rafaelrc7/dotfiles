@@ -1,4 +1,4 @@
-{ ... }: {
+{ ... }:
+{
   services.tlp.enable = true;
 }
-

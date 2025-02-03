@@ -16,17 +16,19 @@
     protontricks.enable = true;
     package = pkgs.steam.override {
       extraArgs = "-console -nochatui -nofriendsui";
-      extraPkgs = p: with p; [
-        glxinfo
-        jdk
-        mangohud
-      ];
-      extraLibraries = p: with p; [
-        gperftools
-        harfbuzz
-        libthai
-        pango
-      ];
+      extraPkgs =
+        p: with p; [
+          glxinfo
+          jdk
+          mangohud
+        ];
+      extraLibraries =
+        p: with p; [
+          gperftools
+          harfbuzz
+          libthai
+          pango
+        ];
       extraEnv = {
         SDL_VIDEODRIVER = "";
         QT_QPA_PLATFORM = "";
@@ -41,4 +43,3 @@
   programs.java.enable = true;
   programs.gamemode.enable = true;
 }
-

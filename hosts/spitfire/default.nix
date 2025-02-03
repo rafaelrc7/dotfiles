@@ -1,50 +1,53 @@
 { self, ... }:
-{ inputs, pkgs, ... }: {
+{ inputs, pkgs, ... }:
+{
   networking.hostName = "spitfire";
 
   boot.kernel.sysctl."kernel.sysrq" = 1;
 
-  imports = (with self.nixosModules; [
-    ./hardware-configuration.nix
-    ./networking.nix
+  imports =
+    (with self.nixosModules; [
+      ./hardware-configuration.nix
+      ./networking.nix
 
-    common
-    android
-    boot
-    btrfs
-    flatpak
-    geoclue
-    gnupg-agent
-    gpu-screen-recorder
-    heroic
-    lutris
-    nix
-    pipewire
-    podman
-    zsh
-    fonts
-    cryptswap
-    man
-    mullvad
-    ssh
-    git
-    polkit
-    powertop
-    rtl-sdr
-    steam
-    tailscale
-    tlp
-    udev-media-keys
-    urserver
-    systemd-oomd
+      common
+      android
+      boot
+      btrfs
+      flatpak
+      geoclue
+      gnupg-agent
+      gpu-screen-recorder
+      heroic
+      lutris
+      nix
+      pipewire
+      podman
+      zsh
+      fonts
+      cryptswap
+      man
+      mullvad
+      ssh
+      git
+      polkit
+      powertop
+      rtl-sdr
+      steam
+      tailscale
+      tlp
+      udev-media-keys
+      urserver
+      systemd-oomd
 
-    temperature-symlink
-  ]) ++ (with inputs; [
-    nixos-hardware.nixosModules.common-cpu-intel
-    "${nixos-hardware}/common/gpu/intel/tiger-lake"
-    nixos-hardware.nixosModules.common-pc-laptop
-    nixos-hardware.nixosModules.common-pc-laptop-ssd
-  ]);
+      temperature-symlink
+    ])
+    ++ (with inputs; [
+      nixos-hardware.nixosModules.common-cpu-intel
+      "${nixos-hardware}/common/gpu/intel/tiger-lake"
+      nixos-hardware.nixosModules.common-pc-laptop
+      nixos-hardware.nixosModules.common-pc-laptop-ssd
+    ]);
 
   environment = {
     systemPackages = with pkgs; [
@@ -72,7 +75,10 @@
   services = {
     printing = {
       enable = true;
-      drivers = [ pkgs.epson-escpr pkgs.epson_201207w ];
+      drivers = [
+        pkgs.epson-escpr
+        pkgs.epson_201207w
+      ];
       browsing = true;
       startWhenNeeded = true;
     };
@@ -89,8 +95,14 @@
 
   hardware.sane = {
     enable = true;
-    extraBackends = [ pkgs.sane-airscan pkgs.epkowa ];
-    disabledDefaultBackends = [ "v4l" "epson2" ];
+    extraBackends = [
+      pkgs.sane-airscan
+      pkgs.epkowa
+    ];
+    disabledDefaultBackends = [
+      "v4l"
+      "epson2"
+    ];
   };
   services.ipp-usb.enable = true;
 
@@ -137,4 +149,3 @@
 
   system.stateVersion = "22.11";
 }
-

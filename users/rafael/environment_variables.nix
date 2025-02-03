@@ -1,4 +1,5 @@
-{ ... }: {
+{ ... }:
+{
   home.sessionVariables = {
     EDITOR = "nvim";
     BROWSER = "librewolf";
@@ -17,4 +18,3 @@
     LESS_TERMCAP_ue = "$'\E[0m'"; # reset underline
   };
 }
-

@@ -1,3 +1,1 @@
-{ ... }:
-final: prev: import ../pkgs { pkgs = prev; }
-
+{ ... }: final: prev: import ../pkgs { pkgs = prev; }

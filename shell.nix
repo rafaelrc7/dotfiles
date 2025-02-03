@@ -2,11 +2,19 @@
 
 # Shell for bootstrapping flake-enabled nix and home-manager
 # You can enter it through 'nix develop' or (legacy) 'nix-shell'
-{ system ? "x86_64-linux", pkgs ? (import ./nixpkgs.nix) { inherit system; } }: {
+{
+  system ? "x86_64-linux",
+  pkgs ? (import ./nixpkgs.nix) { inherit system; },
+}:
+{
   default = pkgs.mkShell {
     # Enable experimental features without having to specify the argument
     NIX_CONFIG = "experimental-features = nix-command flakes";
-    nativeBuildInputs = with pkgs; [ nix home-manager git neovim ];
+    nativeBuildInputs = with pkgs; [
+      nix
+      home-manager
+      git
+      neovim
+    ];
   };
 }
-

@@ -1,8 +1,12 @@
-{ pkgs, lib, ... }: {
+{ pkgs, lib, ... }:
+{
   time.timeZone = "America/Sao_Paulo";
   i18n.defaultLocale = "en_GB.UTF-8";
 
-  environment.pathsToLink = [ "/share/xdg-desktop-portal" "/share/applications" ];
+  environment.pathsToLink = [
+    "/share/xdg-desktop-portal"
+    "/share/applications"
+  ];
 
   environment = {
     systemPackages = with pkgs; [
@@ -25,7 +29,9 @@
       usbutils
       wget
     ];
-    variables = { EDITOR = "nvim"; };
+    variables = {
+      EDITOR = "nvim";
+    };
   };
 
   console = {
@@ -50,7 +56,10 @@
   security.pam.services.swaylock = { };
   security.pam.services.hyprlock = { };
   security.pam.services.login.enableGnomeKeyring = true;
-  services.dbus.packages = [ pkgs.gnome-keyring pkgs.gcr ];
+  services.dbus.packages = [
+    pkgs.gnome-keyring
+    pkgs.gcr
+  ];
 
   systemd.services.lock-on-sleep = {
     wantedBy = [ "sleep.target" ];
@@ -72,4 +81,3 @@
     ./rootCA.crt
   ];
 }
-

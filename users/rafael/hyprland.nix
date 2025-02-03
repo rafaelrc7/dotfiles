@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 let
   loadWallpaper = pkgs.writeShellScriptBin "loadWallpaper" ''
     set -eo pipefail
@@ -423,7 +428,7 @@ in
 
       extraConfig = ''
 
-    '';
+      '';
     };
 
   services.hypridle = {
@@ -493,4 +498,3 @@ in
   };
 
 }
-

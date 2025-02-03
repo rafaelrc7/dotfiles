@@ -44,46 +44,63 @@ let
   };
 in
 {
-  home.packages = (with pkgs; [
-    libsForQt5.qt5ct
-    libsForQt5.qtstyleplugins
-    libsForQt5.qtstyleplugin-kvantum
-    libsForQt5.qt5.qtwayland
+  home.packages =
+    (with pkgs; [
+      libsForQt5.qt5ct
+      libsForQt5.qtstyleplugins
+      libsForQt5.qtstyleplugin-kvantum
+      libsForQt5.qt5.qtwayland
 
-    qt6Packages.qt6ct
-    qt6Packages.qtstyleplugin-kvantum
-    qt6.qtwayland
+      qt6Packages.qt6ct
+      qt6Packages.qtstyleplugin-kvantum
+      qt6.qtwayland
 
-    catppuccin-papirus-folders
+      catppuccin-papirus-folders
 
-    nerd-fonts.fira-code
-    dejavu_fonts
-    font-awesome
-    roboto
-    roboto-serif
-    roboto-mono
-    liberation_ttf
-    noto-fonts
-    noto-fonts-emoji
-    noto-fonts-extra
-    noto-fonts-lgc-plus
-    noto-fonts-cjk-sans
-    noto-fonts-cjk-serif
-  ]) ++ [
-    fonts.monospace.package
-    fonts.sansSerif.package
-    fonts.serif.package
-    fonts.emoji.package
-    fonts.awesome.package
-  ];
+      nerd-fonts.fira-code
+      dejavu_fonts
+      font-awesome
+      roboto
+      roboto-serif
+      roboto-mono
+      liberation_ttf
+      noto-fonts
+      noto-fonts-emoji
+      noto-fonts-extra
+      noto-fonts-lgc-plus
+      noto-fonts-cjk-sans
+      noto-fonts-cjk-serif
+    ])
+    ++ [
+      fonts.monospace.package
+      fonts.sansSerif.package
+      fonts.serif.package
+      fonts.emoji.package
+      fonts.awesome.package
+    ];
 
   fonts.fontconfig = {
     enable = true;
     defaultFonts = with fonts; {
-      monospace = [ monospace.name awesome.name "Noto Sans Mono" ];
-      sansSerif = [ sansSerif.name awesome.name "Noto Sans" ];
-      serif = [ serif.name awesome.name "Noto Serif" ];
-      emoji = [ emoji.name awesome.name ];
+      monospace = [
+        monospace.name
+        awesome.name
+        "Noto Sans Mono"
+      ];
+      sansSerif = [
+        sansSerif.name
+        awesome.name
+        "Noto Sans"
+      ];
+      serif = [
+        serif.name
+        awesome.name
+        "Noto Serif"
+      ];
+      emoji = [
+        emoji.name
+        awesome.name
+      ];
     };
   };
 
@@ -131,7 +148,10 @@ in
     sway = {
       config = {
         fonts = {
-          names = [ fonts.sansSerif.name fonts.awesome.name ];
+          names = [
+            fonts.sansSerif.name
+            fonts.awesome.name
+          ];
           size = fonts.sizes.desktop + 0.0;
         };
       };
@@ -142,8 +162,10 @@ in
     settings = {
       main = {
         font =
-          let size = builtins.toString fonts.sizes.terminal;
-          in "${fonts.monospace.name}:size=${size}, ${fonts.awesome.name}:size=${size}, ${fonts.emoji.name}:size=${size}";
+          let
+            size = builtins.toString fonts.sizes.terminal;
+          in
+          "${fonts.monospace.name}:size=${size}, ${fonts.awesome.name}:size=${size}, ${fonts.emoji.name}:size=${size}";
       };
       colors.alpha = opacity.terminal;
     };
@@ -451,4 +473,3 @@ in
   '';
 
 }
-

@@ -1,4 +1,5 @@
-{ ... }: {
+{ ... }:
+{
 
   swapDevices = [
     { device = "/dev/mapper/swap"; }
@@ -10,4 +11,3 @@
   };
 
 }
-

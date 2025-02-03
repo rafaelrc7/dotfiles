@@ -1,5 +1,6 @@
 { self, ... }:
-{ inputs, pkgs, ... }: {
+{ inputs, pkgs, ... }:
+{
   networking.hostName = "vulcan";
 
   systemd.services.nix-daemon.serviceConfig.AllowedCPUs = "2-15";
@@ -7,46 +8,48 @@
   boot.kernelPackages = pkgs.linuxKernel.packages.linux_zen;
   boot.kernel.sysctl."kernel.sysrq" = 1;
 
-  imports = (with self.nixosModules; [
-    ./hardware-configuration.nix
-    ./networking.nix
+  imports =
+    (with self.nixosModules; [
+      ./hardware-configuration.nix
+      ./networking.nix
 
-    common
-    android
-    boot
-    btrfs
-    flatpak
-    geoclue
-    gnupg-agent
-    gpu-screen-recorder
-    heroic
-    libvirtd
-    lutris
-    mullvad
-    nix
-    pipewire
-    steam
-    zsh
-    podman
-    fonts
-    cryptswap
-    man
-    ssh
-    git
-    polkit
-    rtl-sdr
-    tailscale
-    waydroid
-    systemd-oomd
+      common
+      android
+      boot
+      btrfs
+      flatpak
+      geoclue
+      gnupg-agent
+      gpu-screen-recorder
+      heroic
+      libvirtd
+      lutris
+      mullvad
+      nix
+      pipewire
+      steam
+      zsh
+      podman
+      fonts
+      cryptswap
+      man
+      ssh
+      git
+      polkit
+      rtl-sdr
+      tailscale
+      waydroid
+      systemd-oomd
 
-    temperature-symlink
-  ]) ++ (with inputs; [
-    nixos-hardware.nixosModules.common-pc
-    nixos-hardware.nixosModules.common-pc-ssd
-    nixos-hardware.nixosModules.common-gpu-amd
-    nixos-hardware.nixosModules.common-cpu-amd
-    nixos-hardware.nixosModules.common-cpu-amd-pstate
-  ]);
+      temperature-symlink
+    ])
+    ++ (with inputs; [
+      nixos-hardware.nixosModules.common-pc
+      nixos-hardware.nixosModules.common-pc-ssd
+      nixos-hardware.nixosModules.common-gpu-amd
+      nixos-hardware.nixosModules.common-cpu-amd
+      nixos-hardware.nixosModules.common-cpu-amd-pstate
+    ]);
 
   environment = {
     systemPackages = with pkgs; [
@@ -105,7 +108,10 @@
   services = {
     printing = {
       enable = true;
-      drivers = [ pkgs.epson-escpr pkgs.epson_201207w ];
+      drivers = [
+        pkgs.epson-escpr
+        pkgs.epson_201207w
+      ];
       browsing = true;
       startWhenNeeded = true;
     };
@@ -151,4 +157,3 @@
 
   system.stateVersion = "22.11";
 }
-

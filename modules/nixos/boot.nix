@@ -1,10 +1,16 @@
 { pkgs, lib, ... }:
-let inherit (lib) mkDefault;
-in {
+let
+  inherit (lib) mkDefault;
+in
+{
   boot = {
     kernelPackages = mkDefault pkgs.linuxPackages_latest;
 
-    supportedFilesystems = mkDefault [ "vfat" "btrfs" "ext4 " ];
+    supportedFilesystems = mkDefault [
+      "vfat"
+      "btrfs"
+      "ext4 "
+    ];
 
     loader = {
       efi.canTouchEfiVariables = mkDefault true;
@@ -21,4 +27,3 @@ in {
     tmp.cleanOnBoot = mkDefault true;
   };
 }
-

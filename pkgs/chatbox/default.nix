@@ -1,5 +1,6 @@
-{ appimageTools
-, fetchurl
+{
+  appimageTools,
+  fetchurl,
 }:
 let
   pname = "chatbox";
@@ -18,7 +19,8 @@ let
       substituteInPlace $out/${appname}.desktop  --replace-fail 'Exec=AppRun' 'Exec=${pname}'
     '';
   };
-in appimageTools.wrapType2 {
+in
+appimageTools.wrapType2 {
   inherit pname version src;
 
   extraInstallCommands = ''
@@ -32,4 +34,3 @@ in appimageTools.wrapType2 {
     done
   '';
 }
-

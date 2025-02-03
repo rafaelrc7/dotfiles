@@ -1,4 +1,5 @@
-{ ... }: {
+{ ... }:
+{
   services.urserver.enable = true;
 
   hardware.uinput.enable = true;

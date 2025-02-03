@@ -1,6 +1,13 @@
-{ inputs, lib, pkgs, ... }:
-let flakeInputs = lib.filterAttrs (_: lib.isType "flake") inputs;
-in {
+{
+  inputs,
+  lib,
+  pkgs,
+  ...
+}:
+let
+  flakeInputs = lib.filterAttrs (_: lib.isType "flake") inputs;
+in
+{
   nix = {
     package = lib.mkDefault pkgs.nixVersions.latest;
 
@@ -30,4 +37,3 @@ in {
     registry = lib.mapAttrs (_: flake: { inherit flake; }) flakeInputs;
   };
 }
-

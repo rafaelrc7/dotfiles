@@ -1,4 +1,9 @@
-{ pkgs, lib, config, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 let
   link_dir = "/var/run/hwmon_temps";
   linkTemp = pkgs.writeShellScriptBin "linkTemp" ''
@@ -33,7 +38,9 @@ in
     systemd.services.hwmon_links =
       let
         linkTemps = pkgs.writeShellScriptBin "linkTemps" ''
-          ${builtins.foldl' (acc: elem: acc + "${linkTemp}/bin/linkTemp ${elem.name} ${elem.target} ${elem.input}\n") "" cfg.devices}
+          ${builtins.foldl' (
+            acc: elem: acc + "${linkTemp}/bin/linkTemp ${elem.name} ${elem.target} ${elem.input}\n"
+          ) "" cfg.devices}
         '';
 
         clearTemps = pkgs.writeShellScriptBin "clearTemps" ''
@@ -53,4 +60,3 @@ in
   };
 
 }
-

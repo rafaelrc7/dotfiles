@@ -1,35 +1,38 @@
 { self, ... }:
-{ inputs, ... }: {
+{ inputs, ... }:
+{
   networking.hostName = "lancaster";
 
   boot.kernel.sysctl."kernel.sysrq" = 1;
 
-  imports = (with self.nixosModules; [
-    ./hardware-configuration.nix
-    ./networking.nix
+  imports =
+    (with self.nixosModules; [
+      ./hardware-configuration.nix
+      ./networking.nix
 
-    common
-    btrfs
-    ddclient
-    geoclue
-    nix
-    zsh
-    podman
-    fonts
-    man
-    nightscout
-    ssh
-    git
-    polkit
-    tailscale
-    palserver
-    systemd-oomd
-  ]) ++ (with inputs; [
-    nixos-hardware.nixosModules.common-pc
-    nixos-hardware.nixosModules.common-pc-ssd
-    nixos-hardware.nixosModules.common-cpu-amd
-    nixos-hardware.nixosModules.common-cpu-amd-pstate
-  ]);
+      common
+      btrfs
+      ddclient
+      geoclue
+      nix
+      zsh
+      podman
+      fonts
+      man
+      nightscout
+      ssh
+      git
+      polkit
+      tailscale
+      palserver
+      systemd-oomd
+    ])
+    ++ (with inputs; [
+      nixos-hardware.nixosModules.common-pc
+      nixos-hardware.nixosModules.common-pc-ssd
+      nixos-hardware.nixosModules.common-cpu-amd
+      nixos-hardware.nixosModules.common-cpu-amd-pstate
+    ]);
 
   services.xserver.xkb = {
     layout = "us";
@@ -56,4 +59,3 @@
 
   system.stateVersion = "22.11";
 }
-

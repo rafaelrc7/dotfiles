@@ -1,4 +1,5 @@
-{ ... }: {
+{ ... }:
+{
   networking = {
     useDHCP = false;
     firewall = {
@@ -40,7 +41,10 @@
           IPv6PrivacyExtensions = true;
           DNSSEC = false;
         };
-        dns = [ "127.0.0.1" "::1" ];
+        dns = [
+          "127.0.0.1"
+          "::1"
+        ];
       };
 
       "10-ethernet-bond0" = {
@@ -73,4 +77,3 @@
     };
   };
 }
-

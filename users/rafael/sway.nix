@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 let
   loadWallpaper = pkgs.writeShellScriptBin "loadWallpaper" ''
     set -eo pipefail
@@ -81,8 +86,10 @@ in
           "${mod}+q" = "exec ${browser}";
           "${mod}+e" = "exec ${fileManager}";
           "${mod}+c" = "exec ${calculator}";
-          "${mod}+p" = "exec ${pkgs.cliphist}/bin/cliphist list | ${pkgs.wofi}/bin/wofi -p \"Copy\" -dmenu --insensitive --allow-images --hide-scroll | ${pkgs.cliphist}/bin/cliphist decode | ${pkgs.wl-clipboard}/bin/wl-copy";
-          "${mod}+shift+p" = "exec ${pkgs.cliphist}/bin/cliphist list | ${pkgs.wofi}/bin/wofi -p \"Delete from history\" -dmenu --insensitive --allow-images --hide-scroll | ${pkgs.cliphist}/bin/cliphist delete";
+          "${mod}+p" =
+            "exec ${pkgs.cliphist}/bin/cliphist list | ${pkgs.wofi}/bin/wofi -p \"Copy\" -dmenu --insensitive --allow-images --hide-scroll | ${pkgs.cliphist}/bin/cliphist decode | ${pkgs.wl-clipboard}/bin/wl-copy";
+          "${mod}+shift+p" =
+            "exec ${pkgs.cliphist}/bin/cliphist list | ${pkgs.wofi}/bin/wofi -p \"Delete from history\" -dmenu --insensitive --allow-images --hide-scroll | ${pkgs.cliphist}/bin/cliphist delete";
           "${mod}+alt+p" = "exec ${pkgs.cliphist}/bin/cliphist wipe";
           "Print" = "exec ${printClip}";
 
@@ -99,11 +106,13 @@ in
           "shift+XF86AudioLowerVolume" = "exec ${pkgs.playerctl}/bin/playerctl volume 0.1-";
           "shift+XF86AudioRaiseVolume" = "exec ${pkgs.playerctl}/bin/playerctl volume 0.1+";
 
-          "${alt}+XF86AudioMute" = "exec ${pkgs.wireplumber}/bin/wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle";
+          "${alt}+XF86AudioMute" =
+            "exec ${pkgs.wireplumber}/bin/wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle";
 
           "XF86AudioMute" = "exec ${pkgs.wireplumber}/bin/wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
           "XF86AudioLowerVolume" = "exec ${pkgs.wireplumber}/bin/wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-";
-          "XF86AudioRaiseVolume" = "exec ${pkgs.wireplumber}/bin/wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%+";
+          "XF86AudioRaiseVolume" =
+            "exec ${pkgs.wireplumber}/bin/wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%+";
 
           "XF86MonBrightnessUp" = "exec ${pkgs.brightnessctl}/bin/brightnessctl set 10%+";
           "XF86MonBrightnessDown" = "exec ${pkgs.brightnessctl}/bin/brightnessctl set 10%-";
@@ -162,8 +171,7 @@ in
 
       };
 
-      extraConfigEarly = ''
-    '';
+      extraConfigEarly = '''';
 
       extraSessionCommands = ''
         [ -e $HOME/.zshenv ] && . $HOME/.zshenv
@@ -221,7 +229,10 @@ in
     enable = true;
     systemdTarget = "sway-session.target";
     timeouts = [
-      { timeout = 300; command = "${pkgs.swaylock}/bin/swaylock -Ffk -c 000000"; }
+      {
+        timeout = 300;
+        command = "${pkgs.swaylock}/bin/swaylock -Ffk -c 000000";
+      }
       {
         timeout = 600;
         command = "${pkgs.sway}/bin/swaymsg \"output * power off\"";
@@ -229,9 +240,11 @@ in
       }
     ];
     events = [
-      { event = "before-sleep"; command = "${pkgs.swaylock}/bin/swaylock -Ffk -c 000000"; }
+      {
+        event = "before-sleep";
+        command = "${pkgs.swaylock}/bin/swaylock -Ffk -c 000000";
+      }
     ];
   };
 
 }
-

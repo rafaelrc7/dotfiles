@@ -1,4 +1,9 @@
-{ lib, config, pkgs, ... }:
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
 let
   nightscoutPath = "/var/cache/nightscout";
 in
@@ -9,7 +14,10 @@ in
   };
 
   networking.firewall = {
-    allowedTCPPorts = [ 80 443 ];
+    allowedTCPPorts = [
+      80
+      443
+    ];
   };
 
   virtualisation.podman = {
@@ -64,7 +72,12 @@ in
           Service = {
             WorkingDirectory = homeDir;
             # TODO: Fix PATH
-            Environment = "PATH=/bin:/sbin:/nix/var/nix/profiles/default/bin:/run/wrappers/bin:${lib.makeBinPath [ pkgs.podman pkgs.podman-compose ]}:$PATH";
+            Environment = "PATH=/bin:/sbin:/nix/var/nix/profiles/default/bin:/run/wrappers/bin:${
+              lib.makeBinPath [
+                pkgs.podman
+                pkgs.podman-compose
+              ]
+            }:$PATH";
             EnvironmentFile = envFile;
             Restart = "always";
             RestartSec = "30";
@@ -179,4 +192,3 @@ in
       '';
     };
 }
-

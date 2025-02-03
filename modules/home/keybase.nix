@@ -1,4 +1,4 @@
-{ ... }: {
+{ ... }:
+{
   services.keybase.enable = true;
 }
-

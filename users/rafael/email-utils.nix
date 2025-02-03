@@ -1,4 +1,5 @@
-{ pkgs, config, ... }: rec {
+{ pkgs, config, ... }:
+rec {
   # https://unix.stackexchange.com/questions/231184/how-can-i-use-mutt-with-local-storage-imap-and-instant-pushing-of-new-email
   update-new-mail-count = pkgs.writeShellScriptBin "update-new-mail-count" ''
     set -eo pipefail
@@ -120,4 +121,3 @@
     rm -rf $PROFILEDIR
   '';
 }
-

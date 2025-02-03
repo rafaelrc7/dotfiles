@@ -1,6 +1,8 @@
 args@{ pkgs, config, ... }:
-let email-utils = import ./email-utils.nix args;
-in {
+let
+  email-utils = import ./email-utils.nix args;
+in
+{
   accounts.email.maildirBasePath = "${config.xdg.dataHome}/maildir";
 
   accounts.email.accounts = import ./email-accounts (args // { inherit email-utils; });
@@ -41,4 +43,3 @@ in {
     };
   };
 }
-

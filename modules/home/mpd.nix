@@ -1,4 +1,5 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   services.mpd = {
     enable = true;
     extraConfig = ''
@@ -42,4 +43,3 @@
     mpc-cli
   ];
 }
-

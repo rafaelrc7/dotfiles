@@ -1,4 +1,5 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   # Protonmail-Bridge service
   systemd.user.services.protonmail-bridge = {
     Unit = {
@@ -27,4 +28,3 @@
     }
   '';
 }
-

@@ -1,4 +1,5 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   security.polkit.enable = true;
 
   systemd = {
@@ -17,4 +18,3 @@
     };
   };
 }
-

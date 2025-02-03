@@ -1,4 +1,5 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   imports = [
     ./gamescope.nix
   ];
@@ -10,4 +11,3 @@
 
   programs.gamemode.enable = true;
 }
-

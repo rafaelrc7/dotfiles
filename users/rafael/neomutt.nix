@@ -83,7 +83,10 @@ in
         action = "<enter-command>unset wait_key<enter><enter-command>exec sync-mailbox<enter><shell-escape>sleep 1 && ${email-utils.sync-mail}/bin/sync-mail<enter><quit>";
       }
       {
-        map = [ "index" "pager" ];
+        map = [
+          "index"
+          "pager"
+        ];
         key = "B";
         action = "<view-attachments><search>html<enter><view-mailcap><exit>";
       }
@@ -99,17 +102,26 @@ in
         action = ''<enter-command>unset wait_key<enter><shell-escape>read -p 'Enter a search term to find with notmuch: ' x; echo \$x >~/.cache/mutt_terms<enter><limit>~i \"\`notmuch search --output=messages \$(cat ~/.cache/mutt_terms) | head -n 600 | perl -le '@a=<>;s/\^id:// for@a;$,=\"|\";print@a' | perl -le '@a=<>; chomp@a; s/\\+/\\\\+/ for@a;print@a' \`\"<enter>" "show only messages matching a notmuch pattern'';
       }
       {
-        map = [ "index" "pager" ];
+        map = [
+          "index"
+          "pager"
+        ];
         key = "U";
         action = "<enter-command>unset wait_key<enter><pipe-message> ${pkgs.urlscan}/bin/urlscan<enter><enter-command>set wait_key=yes<enter>";
       }
       {
-        map = [ "attach" "compose" ];
+        map = [
+          "attach"
+          "compose"
+        ];
         key = "U";
         action = "<enter-command>unset wait_key<enter><pipe-entry> ${pkgs.urlscan}/bin/urlscan<enter><enter-command>set wait_key=yes<enter>";
       }
       {
-        map = [ "index" "pager" ];
+        map = [
+          "index"
+          "pager"
+        ];
         key = "a";
         action = "<pipe-message>${pkgs.abook}/bin/abook --add-email-quiet<return>";
       }
@@ -124,7 +136,14 @@ in
       notmuch.neomutt.enable = true;
       neomutt = {
         enable = true;
-        extraMailboxes = [ "Starred" "Archive" folders.sent folders.drafts folders.trash "Spam" ];
+        extraMailboxes = [
+          "Starred"
+          "Archive"
+          folders.sent
+          folders.drafts
+          folders.trash
+          "Spam"
+        ];
 
         extraConfig = ''
           set pgp_default_key = "${gpg.key}"
@@ -136,4 +155,3 @@ in
       };
     };
 }
-

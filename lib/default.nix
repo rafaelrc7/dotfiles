@@ -1,6 +1,16 @@
-{ self, inputs, lib, ... }:
+{
+  self,
+  inputs,
+  lib,
+  ...
+}:
 let
-  inherit (builtins) length listToAttrs map readDir;
+  inherit (builtins)
+    length
+    listToAttrs
+    map
+    readDir
+    ;
   inherit (inputs.nixpkgs.lib) nixosSystem;
   inherit (lib.attrsets) mapAttrsToList nameValuePair;
   inherit (lib.lists) foldr;
@@ -9,50 +19,72 @@ let
 in
 {
   flake.lib = lib // rec {
-    nixpkgsConfig = { overlays ? [ ], config ? { } }: {
-      nixpkgs = {
-        config = {
-          allowUnfree = true;
-        } // config;
-        overlays = overlays ++ (self.lib.attrsets.mapAttrsToList (_: v: v) self.overlays) ++ [
-          inputs.nix-vscode-extensions.overlays.default
-          inputs.nur.overlays.default
-          inputs.nixgl.overlay
-        ];
+    nixpkgsConfig =
+      {
+        overlays ? [ ],
+        config ? { },
+      }:
+      {
+        nixpkgs = {
+          config = {
+            allowUnfree = true;
+          } // config;
+          overlays =
+            overlays
+            ++ (self.lib.attrsets.mapAttrsToList (_: v: v) self.overlays)
+            ++ [
+              inputs.nix-vscode-extensions.overlays.default
+              inputs.nur.overlays.default
+              inputs.nixgl.overlay
+            ];
+        };
       };
-    };
 
-    mkUser = { name, extraGroups ? [ ], sshKeys ? [ ], ... }: {
-      inherit name;
-      value = {
-        isNormalUser = true;
-        createHome = true;
-        group = "${name}";
-        openssh.authorizedKeys.keys = sshKeys;
-        inherit extraGroups;
+    mkUser =
+      {
+        name,
+        extraGroups ? [ ],
+        sshKeys ? [ ],
+        ...
+      }:
+      {
+        inherit name;
+        value = {
+          isNormalUser = true;
+          createHome = true;
+          group = "${name}";
+          openssh.authorizedKeys.keys = sshKeys;
+          inherit extraGroups;
+        };
       };
-    };
 
-    mkUserGroup = config: { name, ... }: {
-      inherit name;
-      value = {
-        gid = config.users.users."${name}".uid;
+    mkUserGroup =
+      config:
+      { name, ... }:
+      {
+        inherit name;
+        value = {
+          gid = config.users.users."${name}".uid;
+        };
       };
-    };
 
-    mkUsers = users: { config, ... }: {
-      users = {
-        users = listToAttrs (map mkUser users);
-        groups = listToAttrs (map (mkUserGroup config) users);
+    mkUsers =
+      users:
+      { config, ... }:
+      {
+        users = {
+          users = listToAttrs (map mkUser users);
+          groups = listToAttrs (map (mkUserGroup config) users);
+        };
       };
-    };
 
     mkHMUser =
-      { name
-      , homeModules ? [ ]
-      , userModule ? self.users."${name}"
-      , extraArgs ? { }
-      , ...
+      {
+        name,
+        homeModules ? [ ],
+        userModule ? self.users."${name}",
+        extraArgs ? { },
+        ...
       }:
       {
         inherit name;
@@ -67,10 +99,11 @@ in
     mkHMUsers = users: listToAttrs (map mkHMUser users);
 
     mkHost =
-      { hostName
-      , system ? "x86_64-linux"
-      , users ? [ ]
-      , nixosModules ? [ ]
+      {
+        hostName,
+        system ? "x86_64-linux",
+        users ? [ ],
+        nixosModules ? [ ],
       }:
       nixosSystem {
         inherit system;
@@ -98,17 +131,26 @@ in
       };
 
     mkHome =
-      { username
-      , system ? "x86_64-linux"
-      , homeModules ? [ ]
-      , userModule ? self.users."${username}"
-      , extraArgs ? { }
+      {
+        username,
+        system ? "x86_64-linux",
+        homeModules ? [ ],
+        userModule ? self.users."${username}",
+        extraArgs ? { },
       }:
       let
         homeDirectory = "/home/${username}";
       in
       inputs.home-manager.lib.homeManagerConfiguration {
-        extraSpecialArgs = { inherit inputs nixpkgs system username self; };
+        extraSpecialArgs = {
+          inherit
+            inputs
+            nixpkgs
+            system
+            username
+            self
+            ;
+        };
         modules = [
           (nixpkgsConfig { })
           inputs.catppuccin.homeManagerModules.catppuccin
@@ -122,7 +164,8 @@ in
         ] ++ homeModules;
       };
 
-    capitalise = str:
+    capitalise =
+      str:
       let
         cs = (lib.stringToCharacters str);
         hd = if length cs > 0 then lib.head cs else "";
@@ -136,24 +179,34 @@ in
     prepend = x: xs: [ x ] ++ xs;
     append = x: xs: xs ++ [ x ];
 
-    findModules = dir:
+    findModules =
+      dir:
       let
         dirFiles = attrsToList (readDir dir);
-        modules = ((foldr ({ name, value }: acc:
-          let
-            fullPath = dir + "/${name}";
-            isNixModule = value == "regular" && hasSuffix ".nix" name && name != "default.nix";
-            isDir = value == "directory";
-            isDirModule = isDir && readDir fullPath ? "default.nix";
-            module = nameValuePair (removeSuffix ".nix" name) (
-              if isNixModule || isDirModule then fullPath
-              else if isDir then findModules fullPath
-              else { }
-            );
-          in
-          if module.value == { } then acc
-          else append module acc
-        )) [ ]) dirFiles;
+        modules =
+          (
+            (foldr (
+              { name, value }:
+              acc:
+              let
+                fullPath = dir + "/${name}";
+                isNixModule = value == "regular" && hasSuffix ".nix" name && name != "default.nix";
+                isDir = value == "directory";
+                isDirModule = isDir && readDir fullPath ? "default.nix";
+                module = nameValuePair (removeSuffix ".nix" name) (
+                  if isNixModule || isDirModule then
+                    fullPath
+                  else if isDir then
+                    findModules fullPath
+                  else
+                    { }
+                );
+              in
+              if module.value == { } then acc else append module acc
+            ))
+            [ ]
+          )
+            dirFiles;
       in
       listToAttrs modules;
 
@@ -161,4 +214,3 @@ in
     optionalsNotNull = modules: builtins.filter (m: m != null) modules;
   };
 }
-

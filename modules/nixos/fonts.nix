@@ -1,4 +1,5 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   fonts = {
     fontDir.enable = true;
     enableDefaultPackages = true;
@@ -22,10 +23,24 @@
     fontconfig = {
       enable = true;
       defaultFonts = {
-        sansSerif = [ "DejaVu Sans" "Noto Sans" "Font Awesome 6 Free" ];
-        serif = [ "DejaVu Serif" "Noto Serif" "Font Awesome 6 Free" ];
-        monospace = [ "FiraCode Nerd Font" "Font Awesome 6 Free" ];
-        emoji = [ "Noto Color Emoji" "Font Awesome 6 Free" ];
+        sansSerif = [
+          "DejaVu Sans"
+          "Noto Sans"
+          "Font Awesome 6 Free"
+        ];
+        serif = [
+          "DejaVu Serif"
+          "Noto Serif"
+          "Font Awesome 6 Free"
+        ];
+        monospace = [
+          "FiraCode Nerd Font"
+          "Font Awesome 6 Free"
+        ];
+        emoji = [
+          "Noto Color Emoji"
+          "Font Awesome 6 Free"
+        ];
       };
       localConf = ''
         <alias>
@@ -38,4 +53,3 @@
     };
   };
 }
-

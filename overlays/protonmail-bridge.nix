@@ -6,4 +6,3 @@ final: prev: {
     vendorHash = "sha256-RKAkdCTkUcUKO+eXvn/Sh52Un4DzvgUlF19MiGm/K0c=";
   });
 }
-

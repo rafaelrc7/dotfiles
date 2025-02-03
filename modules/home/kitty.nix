@@ -1,4 +1,5 @@
-{ lib, ... }: {
+{ lib, ... }:
+{
   programs.kitty = {
     enable = true;
     settings = {
@@ -12,4 +13,3 @@
     TERMINAL = lib.mkDefault "kitty";
   };
 }
-

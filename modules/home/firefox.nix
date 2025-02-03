@@ -1,4 +1,5 @@
-{ lib, ... }: {
+{ lib, ... }:
+{
   programs.firefox = {
     enable = true;
     nativeMessagingHosts = [
@@ -25,4 +26,3 @@
   };
 
 }
-

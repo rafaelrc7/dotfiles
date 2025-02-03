@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 {
   home.packages = with pkgs; [
     cliphist
@@ -67,8 +72,14 @@
     enable = true;
     allowImages = true;
   };
-  systemd.user.services.cliphist.Install.WantedBy = lib.mkForce [ "sway-session.target" "hyprland-session.target" ];
-  systemd.user.services.cliphist-images.Install.WantedBy = lib.mkForce [ "sway-session.target" "hyprland-session.target" ];
+  systemd.user.services.cliphist.Install.WantedBy = lib.mkForce [
+    "sway-session.target"
+    "hyprland-session.target"
+  ];
+  systemd.user.services.cliphist-images.Install.WantedBy = lib.mkForce [
+    "sway-session.target"
+    "hyprland-session.target"
+  ];
 
   programs.foot = {
     enable = true;
@@ -109,7 +120,10 @@
     sunrise = "06:00";
     sunset = "17:30";
   };
-  systemd.user.services.wlsunset.Install.WantedBy = lib.mkForce [ "sway-session.target" "hyprland-session.target" ];
+  systemd.user.services.wlsunset.Install.WantedBy = lib.mkForce [
+    "sway-session.target"
+    "hyprland-session.target"
+  ];
 
   services.mako = {
     enable = true;
@@ -133,7 +147,9 @@
       ];
     };
   };
-  systemd.user.services.wayland-pipewire-idle-inhibit.Install.WantedBy = lib.mkForce [ "sway-session.target" "hyprland-session.target" ];
+  systemd.user.services.wayland-pipewire-idle-inhibit.Install.WantedBy = lib.mkForce [
+    "sway-session.target"
+    "hyprland-session.target"
+  ];
 
 }
-

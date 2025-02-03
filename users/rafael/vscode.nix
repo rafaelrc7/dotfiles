@@ -1,4 +1,5 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   programs.vscode = {
     enable = true;
     enableExtensionUpdateCheck = false;
@@ -39,8 +40,12 @@
         vscode-marketplace.slevesque.shader
         vscode-marketplace.dtoplak.vscode-glsllint
 
-        (vscode-marketplace.vsciot-vscode.vscode-arduino.overrideAttrs (_: { sourceRoot = "extension"; }))
-        (vscode-marketplace.ms-vscode.vscode-serial-monitor.overrideAttrs (_: { sourceRoot = "extension"; }))
+        (vscode-marketplace.vsciot-vscode.vscode-arduino.overrideAttrs (_: {
+          sourceRoot = "extension";
+        }))
+        (vscode-marketplace.ms-vscode.vscode-serial-monitor.overrideAttrs (_: {
+          sourceRoot = "extension";
+        }))
         vscode-marketplace.platformio.platformio-ide
 
         vscode-marketplace.pinage404.nix-extension-pack
@@ -102,4 +107,3 @@
     command = ${pkgs.python3}/bin/python -m venv /home/rafael/.platformio/penv
   '';
 }
-

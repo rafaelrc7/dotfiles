@@ -1,4 +1,5 @@
-{ ... }: {
+{ ... }:
+{
   systemd.oomd = {
     enable = true;
     enableUserSlices = true;
@@ -6,4 +7,3 @@
     enableRootSlice = true;
   };
 }
-

@@ -11,4 +11,3 @@ in
     inherit remote-nvim;
   };
 }
-

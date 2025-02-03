@@ -1,4 +1,5 @@
-{ ... }: {
+{ ... }:
+{
   networking = {
     useDHCP = false;
     firewall = {
@@ -75,4 +76,3 @@
     };
   };
 }
-
