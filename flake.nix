@@ -164,6 +164,7 @@
         { pkgs, system, ... }:
         {
           devShells = {
+            default = import ./shell.nix { inherit pkgs; };
             bootstrap = import ./bootstrap.nix { inherit pkgs system; };
           };
 
