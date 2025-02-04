@@ -6,16 +6,14 @@
   system ? "x86_64-linux",
   pkgs ? (import ./nixpkgs.nix) { inherit system; },
 }:
-{
-  default = pkgs.mkShell {
-    # Enable experimental features without having to specify the argument
-    NIX_CONFIG = "experimental-features = nix-command flakes";
-    nativeBuildInputs = with pkgs; [
-      git
-      home-manager
-      neovim
-      nh
-      nixVersions.latest
-    ];
-  };
+pkgs.mkShell {
+  # Enable experimental features without having to specify the argument
+  NIX_CONFIG = "experimental-features = nix-command flakes";
+  nativeBuildInputs = with pkgs; [
+    git
+    home-manager
+    neovim
+    nh
+    nixVersions.latest
+  ];
 }

@@ -162,7 +162,10 @@
       perSystem =
         { pkgs, system, ... }:
         {
-          devShells = import ./shell.nix { inherit pkgs system; };
+          devShells = {
+            bootstrap = import ./bootstrap.nix { inherit pkgs system; };
+          };
+
           packages = import ./pkgs { inherit pkgs; };
 
           treefmt.config = {
