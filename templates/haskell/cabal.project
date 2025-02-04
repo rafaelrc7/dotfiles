@@ -1,0 +1,6 @@
+packages: ./*.cabal
+
+package hello
+  debug-info: True
+  optimization: False
+
