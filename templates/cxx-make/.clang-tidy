@@ -1,0 +1,69 @@
+Checks:          'readability-identifier-naming'
+WarningsAsErrors: ''
+HeaderFilterRegex: '.*'
+FormatStyle:     file
+CheckOptions:
+# Classes
+  - key:             readability-identifier-naming.AbstractClassCase
+    value:           CamelCase
+
+  - key:             readability-identifier-naming.ClassCase
+    value:           CamelCase
+
+  - key:             readability-identifier-naming.StructCase
+    value:           CamelCase
+
+  - key:             readability-identifier-naming.UnionCase
+    value:           CamelCase
+
+# Members
+  - key:             readability-identifier-naming.MemberCase
+    value:           lower_case
+
+  - key:             readability-identifier-naming.MethodCase
+    value:           lower_case
+
+# Function
+  - key:             readability-identifier-naming.FunctionCase
+    value:           lower_case
+
+  - key:             readability-identifier-naming.ParameterCase
+    value:           lower_case
+
+# Variables
+  - key:             readability-identifier-naming.VariableCase
+    value:           lower_case
+
+# Constants
+  - key:             readability-identifier-naming.ConstantCase
+    value:           UPPER_CASE
+
+  - key:             readability-identifier-naming.MacroDefinitionCase
+    value:           UPPER_CASE
+
+  - key:             readability-identifier-naming.EnumConstantCase
+    value:           UPPER_CASE
+
+  - key:             readability-identifier-naming.StaticConstantCase
+    value:           UPPER_CASE
+
+  - key:             readability-identifier-naming.ConstantMemberCase
+    value:           lower_case
+
+  - key:             readability-identifier-naming.ConstantParameterCase
+    value:           lower_case
+
+  - key:             readability-identifier-naming.ConstantPointerParameterCase
+    value:           lower_case
+
+# Namespace
+  - key:             readability-identifier-naming.NamespaceCase
+    value:           lower_case
+
+# Settings
+  - key:             readability-identifier-naming.GetConfigPerFile
+    value:           true
+
+  - key:             readability-identifier-naming.AggressiveDependentMemberLookup
+    value:           true
+

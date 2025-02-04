@@ -1,0 +1,12 @@
+/result
+/.direnv
+/compile_commands.json
+/bin/
+/build/
+/.cache/
+*.exe
+*.o
+*.d
+*.a
+*.so
+
