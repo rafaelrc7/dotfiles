@@ -21,6 +21,7 @@
       geoclue
       gnupg-agent
       gpu-screen-recorder
+      guix
       heroic
       libvirtd
       lutris
