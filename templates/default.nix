@@ -1,5 +1,9 @@
 { ... }:
 {
+  go = {
+    path = ./go;
+    description = "A simple go project using flake-parts";
+  };
   haskell = {
     path = ./haskell;
     description = "A simple haskell project using flake-parts";
