@@ -156,6 +156,7 @@
           };
         };
 
+        templates = import ./templates { };
       };
 
       systems = [ "x86_64-linux" ];
