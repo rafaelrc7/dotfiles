@@ -1,0 +1,89 @@
+# Base style: LLVM
+BasedOnStyle: LLVM
+
+ColumnLimit: 80
+
+# Keep braces on the same line for functions
+AllowShortBlocksOnASingleLine: Empty
+AllowShortFunctionsOnASingleLine: Empty
+Cpp11BracedListStyle: true
+RemoveBracesLLVM: true
+BreakBeforeBraces: Custom
+BraceWrapping:
+  AfterCaseLabel: false
+  AfterClass: true
+  AfterControlStatement: MultiLine
+  AfterEnum: false
+  AfterFunction: true
+  AfterNamespace: true
+  AfterStruct: true
+  AfterUnion: true
+  AfterExternBlock: true
+  BeforeCatch: false
+  BeforeElse: false
+  BeforeLambdaBody: false
+  BeforeWhile: false
+  IndentBraces: false
+  SplitEmptyFunction: false
+  SplitEmptyRecord: false
+  SplitEmptyNamespace: false
+
+# Use tabs for indentation
+UseTab: Always
+
+# Indent width settings
+IndentWidth: 4
+TabWidth: 4
+ConstructorInitializerIndentWidth: 1
+IndentAccessModifiers: false
+IndentCaseBlocks: false
+IndentCaseLabels: false
+IndentExternBlock: false
+IndentGotoLabels: false
+NamespaceIndentation: None
+
+# Alignment
+DerivePointerAlignment: false
+PointerAlignment: Right
+ReferenceAlignment: Pointer
+BreakBeforeBinaryOperators: NonAssignment
+AlignArrayOfStructures: Right
+AlignConsecutiveAssignments: Consecutive
+AlignConsecutiveBitFields: Consecutive
+AlignEscapedNewlines: Left
+AlignOperands: Align
+AlignTrailingComments: Always
+BreakConstructorInitializers: BeforeComma
+BreakInheritanceList: BeforeComma
+PackConstructorInitializers: NextLineOnly
+
+# Qualifier
+QualifierAlignment: Custom
+QualifierOrder: [ 'friend', 'static', 'volatile', 'inline', 'constexpr', 'const', 'type', 'restrict' ]
+
+# Spaces
+SpaceAfterCStyleCast: false
+SpaceBeforeAssignmentOperators: true
+SpaceBeforeParens: Custom
+SpaceBeforeParensOptions:
+  AfterControlStatements: true
+  AfterForeachMacros: true
+  AfterFunctionDeclarationName: true
+  AfterFunctionDefinitionName: true
+  AfterIfMacros: true
+  AfterOverloadedOperator: true
+  AfterRequiresInClause: true
+  AfterRequiresInExpression: true
+  BeforeNonEmptyParentheses: false
+SpaceBeforeRangeBasedForLoopColon: true
+SpaceInEmptyBlock: false
+SpacesInParens: Never
+
+# Misc
+RemoveSemicolon: true
+RemoveParentheses: ReturnStatement
+ReflowComments: true
+EmptyLineBeforeAccessModifier: Always
+FixNamespaceComments: true
+SortIncludes: CaseSensitive
+

@@ -1,5 +1,9 @@
 { ... }:
 {
+  cxx-autotools = {
+    path = ./cxx-autotools;
+    description = "A simple C/C++/Assembly project using GNU Autotools and flake-parts";
+  };
   cxx-make = {
     path = ./cxx-make;
     description = "A simple C/C++/Assembly project using Make and flake-parts";
