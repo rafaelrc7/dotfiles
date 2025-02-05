@@ -12,6 +12,10 @@
     path = ./haskell;
     description = "A simple haskell project using flake-parts";
   };
+  java-mvn = {
+    path = ./java-mvn;
+    description = "A simple java project using maven and flake-parts";
+  };
   latex = {
     path = ./latex;
     description = "A simple latex project using flake-parts";
