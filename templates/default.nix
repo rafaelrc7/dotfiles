@@ -24,6 +24,10 @@
     path = ./latex;
     description = "A simple latex project using flake-parts";
   };
+  python = {
+    path = ./python;
+    description = "A simple python project using flake-parts";
+  };
   rust = {
     path = ./rust;
     description = "A simple rust project using flake-parts";
