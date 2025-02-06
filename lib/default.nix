@@ -109,7 +109,12 @@ in
         inherit system;
 
         specialArgs = {
-          inherit inputs system nixpkgs;
+          inherit
+            inputs
+            system
+            nixpkgs
+            self
+            ;
           inherit (inputs) home-manager nur;
         };
 

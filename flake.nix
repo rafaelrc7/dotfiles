@@ -68,6 +68,7 @@
         ./users
         ./hosts
         ./lib
+        ./profiles
       ];
 
       flake = {

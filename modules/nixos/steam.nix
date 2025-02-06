@@ -2,6 +2,7 @@
 {
   imports = [
     ./gamescope.nix
+    ./java.nix
   ];
 
   programs.steam = {
@@ -40,6 +41,5 @@
 
   hardware.steam-hardware.enable = true;
 
-  programs.java.enable = true;
   programs.gamemode.enable = true;
 }
