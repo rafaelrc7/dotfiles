@@ -1,7 +1,7 @@
 { inputs, ... }:
 final: prev:
 let
-  nixpkgs-prev = import inputs.nixpkgs-prev {
+  pkgs = import inputs.nixpkgs-epson_201207w {
     system = final.system;
     config = {
       allowUnfree = true;
@@ -9,8 +9,5 @@ let
   };
 in
 {
-  epson-escpr = nixpkgs-prev.epson-escpr;
-  epson_201207w = nixpkgs-prev.epson_201207w;
-  jami = nixpkgs-prev.jami;
-  ollama = nixpkgs-prev.ollama;
+  epson_201207w = pkgs.epson_201207w;
 }
