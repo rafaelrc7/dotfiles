@@ -8,6 +8,10 @@ final: prev: {
     postBuild = ''
       wrapProgram $out/bin/sdrpp \
         --set PIPEWIRE_NOJACK 1
+      rm "$out/share/applications/sdrpp.desktop"
+      substitute "${prev.sdrpp}/share/applications/sdrpp.desktop" \
+        "''${out}/share/applications/sdrpp.desktop" \
+        --replace "${prev.sdrpp}" "$out"
     '';
   };
 }
