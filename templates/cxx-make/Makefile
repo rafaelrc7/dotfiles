@@ -1,132 +1,220 @@
-# Preamble
+######################### Preamble ###########################################
 SHELL := bash
 .ONESHELL:
 .SHELLFLAGS := -eu -o pipefail -c
 .DELETE_ON_ERROR:
+.SECONDEXPANSION:
 MAKEFLAGS += --warn-undefined-variables
 MAKEFLAGS += --no-builtin-rules
 MAKEFLAGS += -j$(shell nproc)
 
+######################### Project Settings ###################################
+
 # Default target debug/release
 all: debug
 
-# Executables
-TARGETS := hello
+# TARGETS
+#	BIN_TARGETS := list of executable targets installed at ./bin
+# 	lIB_TARGETS := list of library targets installed at ./lib. Must include
+#		.so/.a extension
+BIN_TARGETS := hello goodbye
+LIB_TARGETS := libhello.a libgoodbye.so
 
-# Install Prefix
-PREFIX ?= /usr/local
+# TARGET source files
+#	<TARGET>_SRCS := list of source files
+hello_SRCS := ./src/hello.c
+goodbye_SRCS := ./src/goodbye.c
+libhello.a_SRCS := ./src/libhello.c
+libgoodbye.so_SRCS := ./src/libgoodbye.c
 
-# Assembler/Compilers
-CXX ?= g++
-CC ?= gcc
-AS ?= as
+# Extra optional variables
+# 	<TARGET>_OBJS := list of target specific link objects, such as static libraries
+#	<TARGET>_ARFLAGS := list of target specific ARFLAGS
+# 	<TARGET>_LDFLAGS := list of target specific LDFLAGS, such as libraries
+# 	<TARGET>_LDLIBS := list of target specific LDLIBS, such as libraries
+#   <TARGET>_CPPFLAGS := list of target specific CPPFLAGS
+#   <TARGET>_CXXFLAGS := list of target specific CXXFLAGS
+#   <TARGET>_CFLAGS := list of target specific CFLAGS
+#   <TARGET>_ASFLAGS := list of target specific ASFLAGS
+hello_OBJS := ./lib/libhello.a
+goodbye_LDLIBS := -lgoodbye
+
+# Default tool to use to link binaries and shared libraries
 LINK ?= $(CC)
 
-# Flags
+# TARGET specific link tool
+#	<TARGET>_LINK := compiler eg. $(CXX)
+
+# General Flags
 CPPFLAGS ?= -Wall -Wextra -pedantic
 CXXFLAGS ?= -std=c++17
 CFLAGS ?= -std=c17 -Werror=vla
 ASFLAGS ?=
+ARFLAGS ?=
 LDFLAGS ?=
+LDLIBS ?=
 
-CPPFLAGS_DEBUG += -ggdb -O0
-CPPFLAGS_RELEASE += -DNDEBUG -O2 -flto
-LDFLAGS_DEBUG +=
-LDFLAGS_RELEASE += -flto=auto -s
+# General Profile Flags
+CPPFLAGS_DEBUG ?= -ggdb -O0
+CPPFLAGS_RELEASE ?= -DNDEBUG -O2 -flto
+LDFLAGS_DEBUG ?=
+LDFLAGS_RELEASE ?= -flto=auto
 
-# Directories
+# Build Directories
 INC_DIR := ./include
-BUILD_DIR := ./build
 BIN_DIR := ./bin
+LIB_DIR := ./lib
+AUX_DIR := ./build
 
-# Executables settings
-HELLO_SRC_DIR := ./src
+# Project source dir
+srcdir := ./src
 
-HELLO_SRCS := $(shell find $(HELLO_SRC_DIR) -type f -name *.c -or -name *.cpp -or -name *.s)
-HELLO_OBJS := $(HELLO_SRCS:%=$(BUILD_DIR)/%.o)
-HELLO_DEPS := $(HELLO_OBJS:.o=.d)
-
-$(BIN_DIR)/hello: $(HELLO_OBJS) | $(BIN_DIR)
-
--include $(HELLO_DEPS)
-
-# Compile commands
-compile_commands.json: Makefile $(HELLO_SRCS)
-	+bear -- make --always-make --no-silent
+# Install Directories
+DESTDIR ?= /
+prefix ?= /usr/local
+exec_prefix ?= $(prefix)
+bindir ?= $(exec_prefix)/bin
+libdir ?= $(exec_prefix)/lib
+datarootdir ?= $(prefix)/share
+datadir ?= $(datarootdir)
+sysconfdir ?= $(prefix)/etc
+sharedstatedir ?= $(prefix)/com
+localstatedir ?= $(prefix)/var
+runstatedir ?= $(localstatedir)/run
+includedir ?= $(prefix)/include
 
 ###############################################################################
+###############################################################################
 
-EXECUTABLES := $(addprefix $(BIN_DIR)/,$(TARGETS))
+# Targets
+TARGETS := $(BIN_TARGETS) $(LIB_TARGETS)
+$(BIN_TARGETS): $(BIN_DIR)/$$@
+$(LIB_TARGETS): $(LIB_DIR)/$$@
+BINS := $(addprefix $(BIN_DIR)/,$(BIN_TARGETS))
+LIBS := $(addprefix $(LIB_DIR)/,$(LIB_TARGETS))
 
-BUILD_SRC_DIRS := $(addprefix $(BUILD_DIR)/,$(shell find ./src -type d))
+# Source Files
+SRCS = $(foreach TARGET,$(TARGETS),$($(TARGET)_SRCS))
+OBJS = $$(addprefix $(AUX_DIR)/,$$(addsuffix .o,$$($$(@F)_SRCS)))
+BUILD_SRC_DIRS := $(addprefix $(AUX_DIR)/,$(shell find $(srcdir) -type d))
 
+# Flags
 INC_FLAG := $(addprefix -I,$(INC_DIR))
+LIB_FLAG := $(addprefix -L,$(LIB_DIR))
 
+CPPFLAGS += $(INC_FLAG)
+LDFLAGS += $(LIB_FLAG)
+
+# Dependency files
+include $(SRCS:%=$(AUX_DIR)/%.d)
+
+# Profiles
 debug: CPPFLAGS += $(CPPFLAGS_DEBUG)
 debug: LDFLAGS  += $(LDFLAGS_DEBUG)
-debug: $(EXECUTABLES)
+debug: $(TARGETS) | $(INC_DIR)
 
 release: CPPFLAGS += $(CPPFLAGS_RELEASE)
 release: LDFLAGS  += $(LDFLAGS_RELEASE)
-release: $(EXECUTABLES) | $(INC_DIR)
+release: $(TARGETS) | $(INC_DIR)
 
-# Executables
-$(BIN_DIR)/%: | $(BIN_DIR)
-	$(LINK) $^ -o $@ $(LDFLAGS)
+# Set optional variables default value to empty string
+$(foreach VAR,LINK OBJS LDFLAGS LDLIBS ARFLAGS CPPFLAGS CXXFLAGS CFLAGS ASFLAGS,\
+	$(foreach TARGET,$(TARGETS),\
+		$(eval $(TARGET)_$(VAR)?=)))
+
+# Propagate TARGET specific flags for sources and dep files
+$(foreach VAR,CPPFLAGS CXXFLAGS CFLAGS ASFLAGS,\
+	$(foreach TARGET,$(TARGETS),\
+		$(foreach TARGET_SRCS,$($(TARGET)_SRCS),\
+			$(eval $(TARGET_SRCS:%=$(AUX_DIR:./%=%)/%.o)_$(VAR)?=)\
+			$(eval $(TARGET_SRCS:%=$(AUX_DIR:./%=%)/%.d)_$(VAR)?=)\
+			$(eval $(TARGET_SRCS:%=$(AUX_DIR:./%=%)/%.o)_$(VAR)+=$($(TARGET)_$(VAR)))\
+			$(eval $(TARGET_SRCS:%=$(AUX_DIR:./%=%)/%.d)_$(VAR)+=$($(TARGET)_$(VAR))))))
+
+# Binaries
+$(BINS): $(OBJS) $$($$(@F)_OBJS) | $(BIN_DIR) $(LIBS)
+	$(or $($(@F)_LINK),$(LINK)) -o $@ $^ $(LDFLAGS) $($(@F)_LDFLAGS) $(LDLIBS) $($(@F)_LDLIBS)
+
+# Libraries
+$(LIB_DIR)/%.so: CPPFLAGS += -fPIC
+$(LIB_DIR)/%.so: $(OBJS) $$($$(@F)_OBJS) | $(LIB_DIR)
+	$(or $($(@F)_LINK),$(LINK)) -o $@ -shared $^ $(LDFLAGS) $($(@F)_LDFLAGS) $(LDLIBS) $($(@F)_LDLIBS)
+
+$(LIB_DIR)/%.a: $(OBJS) $$($$(@F)_OBJS) | $(LIB_DIR)
+	$(AR) $(ARFLAGS) $($(@F)_ARFLAGS) $@ $?
 
 # ASM object files
-$(BUILD_DIR)/%.s.o: %.s | $(BUILD_SRC_DIRS)
-	$(AS) $(ASFLAGS) $(CPPFLAGS) $(INC_FLAG) -c $< -o $@
+$(AUX_DIR)/%.s.o: %.s | $(BUILD_SRC_DIRS)
+	$(AS) -o $@ $(ASFLAGS) $($@_ASFLAGS) $(CPPFLAGS) $($@_CPPFLAGS) -c $<
 
 # C object files
-$(BUILD_DIR)/%.c.o: %.c | $(BUILD_SRC_DIRS)
-	$(CC) $(CFLAGS) $(CPPFLAGS) $(INC_FLAG) -c $< -o $@
+$(AUX_DIR)/%.c.o: %.c | $(BUILD_SRC_DIRS)
+	$(CC) -o $@ $(CFLAGS) $($@_CFLAGS) $(CPPFLAGS) $($@_CPPFLAGS) -c $<
+
 # C++ object files
-$(BUILD_DIR)/%.cpp.o: %.cpp | $(BUILD_SRC_DIRS)
-	$(CXX) $(CXXFLAGS) $(CPPFLAGS) $(INC_FLAG) -c $< -o $@
+$(AUX_DIR)/%.cpp.o: %.cpp | $(BUILD_SRC_DIRS)
+	$(CXX) -o $@ $(CXXFLAGS) $($@_CXXFLAGS) $(CPPFLAGS) $($@_CPPFLAGS) -c $<
 
 # C++ header dependency files
-$(BUILD_DIR)/%.cpp.d: %.cpp | $(BUILD_SRC_DIRS)
-	@$(CXX) $(CXXFLAGS) $(CPPFLAGS) $(INC_FLAG) $< -MM -MT $(@:%.cpp.d=%.cpp.o) >$@
+$(AUX_DIR)/%.cpp.d: %.cpp | $(BUILD_SRC_DIRS)
+	@$(CXX) $(CXXFLAGS) $($@_CXXFLAGS) $(CPPFLAGS) $($@_CPPFLAGS) $< -MM -MT $(@:%.cpp.d=%.cpp.o) >$@
 
 # C header dependency files
-$(BUILD_DIR)/%.c.d: %.c | $(BUILD_SRC_DIRS)
-	@$(CC) $(CFLAGS) $(CPPFLAGS) $(INC_FLAG) $< -MM -MT $(@:%.c.d=%.c.o) >$@
+$(AUX_DIR)/%.c.d: %.c | $(BUILD_SRC_DIRS)
+	@$(CC) $(CFLAGS) $($@_CFLAGS) $(CPPFLAGS) $($@_CPPFLAGS) $< -MM -MT $(@:%.c.d=%.c.o) >$@
 
 # Directories
-$(BUILD_DIR) $(BUILD_SRC_DIRS) $(BIN_DIR) $(INC_DIR):
+$(AUX_DIR) $(BUILD_SRC_DIRS) $(BIN_DIR) $(LIB_DIR) $(INC_DIR):
 	@$(MKDIR_P) $@
 
+# Compiledb
 compiledb: compile_commands.json
 
+compile_commands.json: Makefile $(SRCS)
+	+bear -- make --always-make --no-silent
+
+# Utilities
 clean:
 	-$(RM_R) compile_commands.json
-	-$(RM_R) "$(BUILD_DIR)"
+	-$(RM_R) "$(AUX_DIR)"
 	-$(RM_R) "$(BIN_DIR)"
+	-$(RM_R) "$(LIB_DIR)"
 
 install: release
-	find "$(EXECUTABLES)" -type f \
-		-exec install -Dm755 "{}" -t "$(PREFIX)/bin" \;
+	find "$(BIN_DIR)" -type f \
+		-exec install -Dm755 "{}" -t "$(DESTDIR)$(bindir)" \;
+	find "$(LIB_DIR)" -type f \
+		-exec install -Dm755 "{}" -t "$(DESTDIR)$(libdir)" \;
 	find "$(INC_DIR)" -type f \( -iname "*.hpp" -or -iname "*.h" \) \
-		-exec install -Dm644 "{}" "$(PREFIX)/{}" \;
+		-exec install -Dm644 "{}" "$(DESTDIR)$(prefix)/{}" \;
+
+install-strip: release
+	find "$(BIN_DIR)" -type f \
+		-exec install -Dsm755 "{}" -t "$(DESTDIR)$(bindir)" \;
+	find "$(LIB_DIR)" -type f \
+		-exec install -Dsm755 "{}" -t "$(DESTDIR)$(libdir)" \;
+	find "$(INC_DIR)" -type f \( -iname "*.hpp" -or -iname "*.h" \) \
+		-exec install -Dm644 "{}" "$(DESTDIR)$(prefix)/{}" \;
 
 uninstall:
-	-find "$(EXECUTABLES)" -type f \
-		-exec rm "$(PREFIX)/{}" \;
+	-find "$(BIN_DIR)" -type f \
+		-exec rm "$(DESTDIR)$(prefix)/{}" \;
+	-find "$(LIB_DIR)" -type f \
+		-exec rm "$(DESTDIR)$(prefix)/{}" \;
 	-find "$(INC_DIR)" -type f \( -iname "*.hpp" -or -iname "*.h" \) \
-		-exec rm "$(PREFIX)/{}" \;
+		-exec rm "$(DESTDIR)$(prefix)/{}" \;
 	-find "$(INC_DIR)" -type d -regex "$(INC_DIR)/.+" \
-		-exec rmdir "$(PREFIX)/{}" \;
+		-exec rmdir "$(DESTDIR)$(prefix)/{}" \;
 
 fmt:
-	find ./src -iname *.h -or -iname *.hpp -or -iname *.c -or -iname *.cpp | xargs clang-format -i
+	find $(srcdir) -iname *.h -or -iname *.hpp -or -iname *.c -or -iname *.cpp | xargs clang-format -i
 
 tidy: compiledb
-	find ./src -iname *.cpp -or iname *.c |\
+	find $(srcdir) -iname *.cpp -or iname *.c |\
 		xargs run-clang-tidy -j`nproc` -config-file ./.clang-tidy -p . -fix -format
 
 MKDIR_P ?= mkdir -p
-RM_R ?= rm -r
+RM_R ?= $(RM) -r
 
-.PHONY: all debug release clean compiledb install uninstall fmt
+.PHONY: all debug release clean compiledb install install-strip uninstall fmt tidy $(TARGETS)
 

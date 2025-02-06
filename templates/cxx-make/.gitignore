@@ -2,6 +2,7 @@
 /.direnv
 /compile_commands.json
 /bin/
+/lib/
 /build/
 /.cache/
 *.exe

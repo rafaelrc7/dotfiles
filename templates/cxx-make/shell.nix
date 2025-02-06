@@ -14,11 +14,7 @@ pkgs.mkShell {
   hardeningDisable = [ "all" ];
   nativeBuildInputs =
     with pkgs;
-    [
-      gcc
-      gnumake
-      pkg-config
-    ]
+    [ ]
     ++ pkgs.lib.optional devTools [
       bear
       clang-tools
