@@ -1,4 +1,1 @@
-{ self, ... }:
-{
-  flake.homeModules = self.lib.findModules ./.;
-}
+{ lib, ... }: lib.findModules ./.

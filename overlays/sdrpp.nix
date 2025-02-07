@@ -1,5 +1,4 @@
-{ ... }:
-final: prev: {
+inputs: final: prev: {
   sdrpp = final.symlinkJoin {
     pname = prev.sdrpp.pname;
     version = prev.sdrpp.version;

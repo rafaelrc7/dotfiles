@@ -1,5 +1,4 @@
-{ inputs, ... }:
-final: prev:
+inputs: final: prev:
 let
   remote-nvim = prev.vimUtils.buildVimPlugin {
     name = "remote-nvim";

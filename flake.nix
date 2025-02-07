@@ -1,6 +1,62 @@
 {
   description = "My NixOS configurations and dotfiles flake";
 
+  outputs =
+    inputs@{ self, flake-parts, ... }:
+    flake-parts.lib.mkFlake { inherit inputs; } {
+      imports = [
+        inputs.treefmt-nix.flakeModule
+        ./users
+        ./lib
+      ];
+
+      flake = {
+        nixosModules = import ./modules/nixos { inherit (self) lib; };
+        homeModules = import ./modules/home { inherit (self) lib; };
+        nixosProfiles = import ./profiles/nixos { inherit (self) nixosModules lib; };
+
+        overlays = import ./overlays {
+          inherit (self) lib;
+          inherit inputs;
+        };
+
+        nixosConfigurations = import ./nixosConfigurations {
+          inherit (self) lib;
+          inherit self inputs;
+        };
+
+        homeConfigurations = {
+          rafael = self.lib.mkHome {
+            system = "x86_64-linux";
+            username = "rafael";
+          };
+        };
+
+        templates = import ./templates { };
+      };
+
+      systems = [ "x86_64-linux" ];
+      perSystem =
+        { pkgs, system, ... }:
+        {
+          devShells = {
+            default = import ./shell.nix { inherit pkgs; };
+            bootstrap = import ./bootstrap.nix { inherit pkgs system; };
+          };
+
+          packages = import ./pkgs { inherit pkgs; };
+
+          treefmt.config = {
+            projectRootFile = "flake.nix";
+            programs = {
+              nixfmt.enable = true;
+              prettier.enable = true;
+              stylua.enable = true;
+            };
+          };
+        };
+    };
+
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11";
@@ -56,130 +112,5 @@
       flake = false;
     };
   };
-
-  outputs =
-    inputs@{ self, flake-parts, ... }:
-    flake-parts.lib.mkFlake { inherit inputs; } {
-      imports = [
-        inputs.treefmt-nix.flakeModule
-        ./modules/nixos
-        ./modules/home
-        ./overlays
-        ./users
-        ./hosts
-        ./lib
-        ./profiles
-      ];
-
-      flake = {
-        nixosConfigurations = {
-          vulcan = self.lib.mkHost {
-            hostName = "vulcan";
-            users = [
-              {
-                name = "rafael";
-                extraGroups = [
-                  "wheel"
-                  "adbusers"
-                  "libvirtd"
-                  "dialout"
-                  "podman"
-                  "plugdev"
-                ];
-                sshKeys = import ./users/rafael/sshkeys.nix;
-              }
-            ];
-          };
-
-          lancaster = self.lib.mkHost {
-            hostName = "lancaster";
-            users = [
-              {
-                name = "rafael";
-                extraGroups = [
-                  "wheel"
-                  "adbusers"
-                  "libvirtd"
-                  "dialout"
-                  "podman"
-                ];
-                sshKeys = import ./users/rafael/sshkeys.nix;
-                extraArgs = {
-                  crypto = null;
-                  email = null;
-                  firefox = null;
-                  go = null;
-                  gschemas = null;
-                  gui-pkgs = null;
-                  hyprland = null;
-                  jetbrains = null;
-                  kitty = null;
-                  librewolf = null;
-                  mpd = null;
-                  mpv = null;
-                  neomutt = null;
-                  node = null;
-                  protonmail-bridge = null;
-                  rclone-gdrive = null;
-                  sway = null;
-                  udiskie = null;
-                  obs = null;
-                  vscode = null;
-                  zathura = null;
-                };
-              }
-            ];
-          };
-
-          spitfire = self.lib.mkHost {
-            hostName = "spitfire";
-            users = [
-              {
-                name = "rafael";
-                extraGroups = [
-                  "wheel"
-                  "adbusers"
-                  "libvirtd"
-                  "dialout"
-                  "podman"
-                  "plugdev"
-                ];
-                sshKeys = import ./users/rafael/sshkeys.nix;
-              }
-            ];
-          };
-        };
-
-        homeConfigurations = {
-          rafael = self.lib.mkHome {
-            system = "x86_64-linux";
-            username = "rafael";
-          };
-        };
-
-        templates = import ./templates { };
-      };
-
-      systems = [ "x86_64-linux" ];
-      perSystem =
-        { pkgs, system, ... }:
-        {
-          devShells = {
-            default = import ./shell.nix { inherit pkgs; };
-            bootstrap = import ./bootstrap.nix { inherit pkgs system; };
-          };
-
-          packages = import ./pkgs { inherit pkgs; };
-
-          treefmt.config = {
-            projectRootFile = "flake.nix";
-            programs = {
-              nixfmt.enable = true;
-              prettier.enable = true;
-              stylua.enable = true;
-            };
-          };
-        };
-    };
 
 }

@@ -1,4 +1,1 @@
-{ self, ... }:
-{
-  flake.nixosModules = self.lib.findModules ./.;
-}
+{ lib, ... }: lib.findModules ./.

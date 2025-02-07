@@ -1,7 +1,8 @@
 {
-  inputs,
   pkgs,
-  self,
+  nixos-hardware,
+  nixosModules,
+  nixosProfiles,
   ...
 }:
 {
@@ -15,12 +16,12 @@
       ./networking.nix
       ./printer.nix
     ]
-    ++ (with self.nixosProfiles; [
+    ++ (with nixosProfiles; [
       base
       pc
       gaming
     ])
-    ++ (with self.nixosModules; [
+    ++ (with nixosModules; [
       cryptswap
       systemd-boot
 
@@ -33,7 +34,7 @@
       rtl-sdr
       waydroid
     ])
-    ++ (with inputs.nixos-hardware.nixosModules; [
+    ++ (with nixos-hardware.nixosModules; [
       common-pc
       common-pc-ssd
       common-gpu-amd

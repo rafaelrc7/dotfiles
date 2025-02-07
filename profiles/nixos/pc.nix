@@ -1,6 +1,5 @@
-{ self, ... }:
-{
-  imports = with self.nixosModules; [
+nixosModules: {
+  imports = with nixosModules; [
     android
     btrfs
     flatpak

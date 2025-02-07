@@ -1,5 +1,4 @@
-{ inputs, ... }:
-final: prev: {
+inputs: final: prev: {
   protonmail-bridge = prev.protonmail-bridge.overrideAttrs (old: {
     version = "3.16.0";
     src = inputs.proton-bridge;

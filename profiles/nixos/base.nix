@@ -1,6 +1,5 @@
-{ self, ... }:
-{
-  imports = with self.nixosModules; [
+nixosModules: {
+  imports = with nixosModules; [
     common
     appimage
     geoclue

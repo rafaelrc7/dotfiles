@@ -1,6 +1,7 @@
 {
-  inputs,
-  self,
+  nixos-hardware,
+  nixosModules,
+  nixosProfiles,
   ...
 }:
 {
@@ -13,13 +14,13 @@
       ./networking.nix
       ./printer.nix
     ]
-    ++ (with self.nixosProfiles; [
+    ++ (with nixosProfiles; [
       base
       pc
       gaming
       laptop
     ])
-    ++ (with self.nixosModules; [
+    ++ (with nixosModules; [
       cryptswap
       systemd-boot
 
@@ -30,11 +31,11 @@
       udev-media-keys
       urserver
     ])
-    ++ (with inputs; [
-      nixos-hardware.nixosModules.common-cpu-intel
+    ++ (with nixos-hardware; [
+      common-pc-laptop
+      common-pc-laptop-ssd
+      common-cpu-intel
       "${nixos-hardware}/common/gpu/intel/tiger-lake"
-      nixos-hardware.nixosModules.common-pc-laptop
-      nixos-hardware.nixosModules.common-pc-laptop-ssd
     ]);
 
   services.hwmonLinks = {

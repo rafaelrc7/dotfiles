@@ -1,5 +1,4 @@
-{ inputs, ... }:
-final: prev:
+inputs: final: prev:
 let
   pkgs = import inputs.nixpkgs-epson_201207w {
     system = final.system;

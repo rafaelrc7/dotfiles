@@ -12,10 +12,10 @@ let
     readDir
     ;
   inherit (inputs.nixpkgs.lib) nixosSystem;
+  inherit (inputs) nixpkgs;
   inherit (lib.attrsets) mapAttrsToList nameValuePair;
   inherit (lib.lists) foldr;
   inherit (lib.strings) hasSuffix removeSuffix;
-  inherit (self) nixpkgs;
 in
 {
   flake.lib = lib // rec {
@@ -98,43 +98,6 @@ in
 
     mkHMUsers = users: listToAttrs (map mkHMUser users);
 
-    mkHost =
-      {
-        hostName,
-        system ? "x86_64-linux",
-        users ? [ ],
-        nixosModules ? [ ],
-      }:
-      nixosSystem {
-        inherit system;
-
-        specialArgs = {
-          inherit
-            inputs
-            system
-            nixpkgs
-            self
-            ;
-          inherit (inputs) home-manager nur;
-        };
-
-        modules = nixosModules ++ [
-          (nixpkgsConfig { })
-          (self.hosts."${hostName}")
-          (mkUsers users)
-          inputs.home-manager.nixosModules.home-manager
-          inputs.catppuccin.nixosModules.catppuccin
-          {
-            home-manager = {
-              useUserPackages = true;
-              useGlobalPkgs = true;
-              extraSpecialArgs = { inherit inputs nixpkgs self; };
-              users = mkHMUsers users;
-            };
-          }
-        ];
-      };
-
     mkHome =
       {
         username,
@@ -150,7 +113,6 @@ in
         extraSpecialArgs = {
           inherit
             inputs
-            nixpkgs
             system
             username
             self

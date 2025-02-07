@@ -1,6 +1,5 @@
-{ self, ... }:
-{
-  imports = with self.nixosModules; [
+nixosModules: {
+  imports = with nixosModules; [
     gpu-screen-recorder
     heroic
     lutris
