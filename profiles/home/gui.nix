@@ -1,4 +1,5 @@
 homeModules: with homeModules; [
+  firefox
   gschemas
   kitty
   librewolf
