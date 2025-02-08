@@ -5,15 +5,11 @@
   ...
 }:
 let
-  inherit (builtins)
-    length
-    listToAttrs
-    map
-    readDir
-    ;
+  inherit (builtins) length listToAttrs readDir;
   inherit (inputs.nixpkgs.lib) nixosSystem;
+  inherit (inputs.home-manager.lib) homeManagerConfiguration;
   inherit (inputs) nixpkgs;
-  inherit (lib.attrsets) mapAttrsToList nameValuePair;
+  inherit (lib.attrsets) mapAttrs mapAttrsToList nameValuePair;
   inherit (lib.lists) foldr;
   inherit (lib.strings) hasSuffix removeSuffix;
 in
@@ -40,32 +36,67 @@ in
         };
       };
 
-    mkUser =
+    mkHomeConfiguration =
       {
-        name,
-        extraGroups ? [ ],
-        sshKeys ? [ ],
-        ...
+        username,
+        userModule ? self.users."${username}",
+        gui ? true,
+        profiles ? null,
+        extraModules ? [ ],
+        system ? "x86_64-linux",
+        pkgs ? nixpkgs.legacyPackages.${system},
       }:
-      {
-        inherit name;
-        value = {
-          isNormalUser = true;
-          createHome = true;
-          group = "${name}";
-          openssh.authorizedKeys.keys = sshKeys;
-          inherit extraGroups;
-        };
+      homeManagerConfiguration {
+        inherit pkgs;
+        extraSpecialArgs = { inherit inputs self; };
+        modules = [
+          (userModule {
+            inherit (self) homeModules homeProfiles;
+            inherit gui profiles extraModules;
+          })
+          (nixpkgsConfig { })
+          inputs.catppuccin.homeManagerModules.catppuccin
+          {
+            programs.home-manager.enable = true;
+            home = {
+              inherit username;
+              homeDirectory = "/home/${username}";
+              stateVersion = "22.11";
+            };
+          }
+        ];
       };
 
-    mkUserGroup =
-      config:
-      { name, ... }:
+    mkNixosConfiguration =
       {
-        inherit name;
-        value = {
-          gid = config.users.users."${name}".uid;
+        system ? "x86_64-linux",
+        users ? { },
+        configuration,
+      }:
+      nixosSystem {
+        inherit system;
+        specialArgs = {
+          inherit inputs;
+          inherit (self) nixosModules nixosProfiles;
+          inherit (inputs) home-manager nur nixos-hardware;
         };
+        modules = [
+          (import configuration)
+          inputs.home-manager.nixosModules.home-manager
+          inputs.catppuccin.nixosModules.catppuccin
+
+          (nixpkgsConfig { })
+
+          (mkUsers users)
+          {
+            home-manager = {
+              useUserPackages = true;
+              useGlobalPkgs = true;
+              extraSpecialArgs = { inherit inputs nixpkgs self; };
+              users = mkHMUsers users;
+            };
+          }
+        ];
       };
 
     mkUsers =
@@ -73,62 +104,49 @@ in
       { config, ... }:
       {
         users = {
-          users = listToAttrs (map mkUser users);
-          groups = listToAttrs (map (mkUserGroup config) users);
+          users = mapAttrs mkUser users;
+          groups = mapAttrs (mkUserGroup config) users;
         };
       };
 
-    mkHMUser =
+    mkUser =
+      name:
       {
-        name,
-        homeModules ? [ ],
-        userModule ? self.users."${name}",
-        extraArgs ? { },
+        extraGroups ? [ ],
+        sshKeys ? [ ],
         ...
       }:
       {
-        inherit name;
-        value = {
-          imports = [
-            inputs.catppuccin.homeManagerModules.catppuccin
-            (userModule extraArgs)
-          ] ++ homeModules;
-        };
+        isNormalUser = true;
+        createHome = true;
+        group = "${name}";
+        openssh.authorizedKeys.keys = sshKeys;
+        inherit extraGroups;
       };
 
-    mkHMUsers = users: listToAttrs (map mkHMUser users);
+    mkUserGroup = config: name: _: {
+      gid = config.users.users."${name}".uid;
+    };
 
-    mkHome =
+    mkHMUsers = users: (mapAttrs mkHMUser users);
+
+    mkHMUser =
+      name:
       {
-        username,
-        system ? "x86_64-linux",
-        homeModules ? [ ],
-        userModule ? self.users."${username}",
-        extraArgs ? { },
+        userModule ? self.users."${name}",
+        gui ? true,
+        profiles ? null,
+        extraModules ? [ ],
+        ...
       }:
-      let
-        homeDirectory = "/home/${username}";
-      in
-      inputs.home-manager.lib.homeManagerConfiguration {
-        extraSpecialArgs = {
-          inherit
-            inputs
-            system
-            username
-            self
-            ;
-        };
-        modules = [
-          (nixpkgsConfig { })
+      {
+        imports = [
           inputs.catppuccin.homeManagerModules.catppuccin
-          {
-            home = {
-              inherit username homeDirectory;
-              stateVersion = "22.11";
-            };
-          }
-          (userModule extraArgs)
-        ] ++ homeModules;
+          (userModule {
+            inherit (self) homeModules homeProfiles;
+            inherit gui profiles extraModules;
+          })
+        ];
       };
 
     capitalise =

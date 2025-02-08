@@ -1,11 +1,17 @@
-args@{ pkgs, config, ... }:
+args@{
+  pkgs,
+  config,
+  ...
+}:
 let
   email-utils = import ./email-utils.nix args;
 in
 {
-  accounts.email.maildirBasePath = "${config.xdg.dataHome}/maildir";
+  imports = [
+    ./neomutt.nix
+  ];
 
-  accounts.email.accounts = import ./email-accounts (args // { inherit email-utils; });
+  accounts.email.maildirBasePath = "${config.xdg.dataHome}/maildir";
 
   programs.msmtp.enable = true;
   programs.mbsync.enable = true;

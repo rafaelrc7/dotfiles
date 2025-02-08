@@ -4,4 +4,4 @@
   inputs,
   ...
 }:
-builtins.mapAttrs (host: module: import module { inherit self inputs; }) (lib.findModules ./.)
+builtins.mapAttrs (host: module: import module { inherit lib self inputs; }) (lib.findModules ./.)

@@ -1,20 +1,20 @@
-{
+args@{
   pkgs,
   config,
-  email-utils,
   lib,
   ...
 }:
 let
+  email-utils = import ../../../modules/home/email/email-utils.nix args;
   protonmail-bridge-pass = pkgs.writeShellScriptBin "protonmail-bridge-pass" ''
     ${pkgs.libsecret}/bin/secret-tool lookup protonmail-bridge password
   '';
 
   # Must be manually generated with
   # openssl s_client -starttls imap -connect 127.0.0.1:1143 -showcerts
-  certificatesFile = "${config.xdg.dataHome}/certs/protonmail.crt";
+  certificatesFile = "${config.xdg.dataHome}/certs/protonmail.pem";
 in
-{
+rec {
   primary = lib.mkDefault true;
   flavor = "plain"; # protonmail, if needed
 
@@ -75,19 +75,40 @@ in
   };
 
   # Tools
-  msmtp.enable = true;
+  msmtp.enable = config.programs.msmtp.enable;
 
-  notmuch.enable = true;
+  notmuch.enable = config.programs.notmuch.enable;
 
   mbsync = {
-    enable = true;
+    enable = config.programs.mbsync.enable;
     create = "maildir";
   };
 
   imapnotify = {
-    enable = true;
+    enable = config.services.imapnotify.enable;
     boxes = [ "INBOX" ];
     onNotify = ''${email-utils.sync-mail}/bin/sync-mail protonmail'';
     onNotifyPost = ''${email-utils.notify-new-mail}/bin/notify-new-mail protonmail'';
+  };
+
+  notmuch.neomutt.enable = config.programs.notmuch.enable && config.programs.neomutt.enable;
+  neomutt = {
+    enable = config.programs.neomutt.enable;
+    extraMailboxes = [
+      "Starred"
+      "Archive"
+      folders.sent
+      folders.drafts
+      folders.trash
+      "Spam"
+    ];
+
+    extraConfig = ''
+      set pgp_default_key = "${gpg.key}"
+      set pgp_self_encrypt = yes
+
+      # protonmail-bridge already saves sent email to Sent.
+      set copy = no
+    '';
   };
 }

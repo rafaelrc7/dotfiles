@@ -4,16 +4,25 @@
   outputs =
     inputs@{ self, flake-parts, ... }:
     flake-parts.lib.mkFlake { inherit inputs; } {
+      systems = [ "x86_64-linux" ];
+
       imports = [
         inputs.treefmt-nix.flakeModule
-        ./users
+        inputs.home-manager.flakeModules.home-manager
         ./lib
       ];
 
       flake = {
         nixosModules = import ./modules/nixos { inherit (self) lib; };
-        homeModules = import ./modules/home { inherit (self) lib; };
         nixosProfiles = import ./profiles/nixos { inherit (self) nixosModules lib; };
+
+        homeModules = import ./modules/home { inherit (self) lib; };
+        homeProfiles = import ./profiles/home { inherit (self) homeModules lib; };
+
+        users = import ./users {
+          inherit (self) lib;
+          inherit self inputs;
+        };
 
         overlays = import ./overlays {
           inherit (self) lib;
@@ -25,17 +34,19 @@
           inherit self inputs;
         };
 
-        homeConfigurations = {
-          rafael = self.lib.mkHome {
-            system = "x86_64-linux";
-            username = "rafael";
-          };
-        };
+        homeConfigurations = builtins.mapAttrs (
+          username: userModule:
+          self.lib.mkHomeConfiguration {
+            inherit
+              username
+              userModule
+              ;
+          }
+        ) self.users;
 
         templates = import ./templates { };
       };
 
-      systems = [ "x86_64-linux" ];
       perSystem =
         { pkgs, system, ... }:
         {
@@ -95,6 +106,11 @@
     };
 
     vscoq.url = "github:coq-community/vscoq";
+
+    ssh-keys = {
+      url = "https://github.com/rafaelrc7.keys";
+      flake = false;
+    };
 
     awesome-git = {
       url = "github:awesomewm/awesome";

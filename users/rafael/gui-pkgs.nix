@@ -2,7 +2,6 @@
 {
   home.packages = with pkgs; [
     (discord.override { nss = nss_latest; })
-    (discord-canary.override { nss = nss_latest; })
     calibre
     gimp
     gnome-disk-utility
@@ -11,6 +10,7 @@
     libreoffice-fresh
     obsidian
     pwvucontrol
+    qbittorrent
     qutebrowser
     spotify
     tdesktop

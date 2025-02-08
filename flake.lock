@@ -749,9 +749,22 @@
         "nur": "nur",
         "proton-bridge": "proton-bridge",
         "remote-nvim": "remote-nvim",
+        "ssh-keys": "ssh-keys",
         "treefmt-nix": "treefmt-nix_2",
         "vscoq": "vscoq",
         "wayland-pipewire-idle-inhibit": "wayland-pipewire-idle-inhibit"
+      }
+    },
+    "ssh-keys": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-kMuyIyXC04w/bZWXkhojugYBVC78qLTF2Y7lz8h8VdU=",
+        "type": "file",
+        "url": "https://github.com/rafaelrc7.keys"
+      },
+      "original": {
+        "type": "file",
+        "url": "https://github.com/rafaelrc7.keys"
       }
     },
     "systems": {
