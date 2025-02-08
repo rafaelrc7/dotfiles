@@ -31,7 +31,7 @@
       udev-media-keys
       urserver
     ])
-    ++ (with nixos-hardware; [
+    ++ (with nixos-hardware.nixosModules; [
       common-pc-laptop
       common-pc-laptop-ssd
       common-cpu-intel
