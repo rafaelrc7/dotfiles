@@ -15,7 +15,7 @@ all: debug
 
 # TARGETS
 #	BIN_TARGETS := list of executable targets installed at ./bin
-# 	lIB_TARGETS := list of library targets installed at ./lib. Must include
+#	lIB_TARGETS := list of library targets installed at ./lib. Must include
 #		.so/.a extension
 BIN_TARGETS := hello goodbye
 LIB_TARGETS := libhello.a libgoodbye.so
@@ -28,14 +28,14 @@ libhello.a_SRCS := ./src/libhello.c
 libgoodbye.so_SRCS := ./src/libgoodbye.c
 
 # Extra optional variables
-# 	<TARGET>_OBJS := list of target specific link objects, such as static libraries
+#	<TARGET>_OBJS := list of target specific link objects, such as static libraries
 #	<TARGET>_ARFLAGS := list of target specific ARFLAGS
-# 	<TARGET>_LDFLAGS := list of target specific LDFLAGS, such as libraries
-# 	<TARGET>_LDLIBS := list of target specific LDLIBS, such as libraries
-#   <TARGET>_CPPFLAGS := list of target specific CPPFLAGS
-#   <TARGET>_CXXFLAGS := list of target specific CXXFLAGS
-#   <TARGET>_CFLAGS := list of target specific CFLAGS
-#   <TARGET>_ASFLAGS := list of target specific ASFLAGS
+#	<TARGET>_LDFLAGS := list of target specific LDFLAGS, such as libraries
+#	<TARGET>_LDLIBS := list of target specific LDLIBS, such as libraries
+#	<TARGET>_CPPFLAGS := list of target specific CPPFLAGS
+#	<TARGET>_CXXFLAGS := list of target specific CXXFLAGS
+#	<TARGET>_CFLAGS := list of target specific CFLAGS
+#	<TARGET>_ASFLAGS := list of target specific ASFLAGS
 hello_OBJS := ./lib/libhello.a
 goodbye_LDLIBS := -lgoodbye
 
@@ -55,9 +55,9 @@ LDFLAGS ?=
 LDLIBS ?=
 
 # General Profile Flags
-CPPFLAGS_DEBUG ?= -ggdb -O0
+CPPFLAGS_DEBUG ?= -ggdb -O0 -fsanitize=address,leak,undefined
 CPPFLAGS_RELEASE ?= -DNDEBUG -O2 -flto
-LDFLAGS_DEBUG ?=
+LDFLAGS_DEBUG ?= -fsanitize=address,leak,undefined
 LDFLAGS_RELEASE ?= -flto=auto
 
 # Build Directories
@@ -106,7 +106,7 @@ CPPFLAGS += $(INC_FLAG)
 LDFLAGS += $(LIB_FLAG)
 
 # Dependency files
-include $(SRCS:%=$(AUX_DIR)/%.d)
+-include $(SRCS:%=$(AUX_DIR)/%.d)
 
 # Profiles
 debug: CPPFLAGS += $(CPPFLAGS_DEBUG)
