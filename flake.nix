@@ -29,7 +29,7 @@
           inherit inputs;
         };
 
-        nixosConfigurations = import ./nixosConfigurations {
+        nixosConfigurations = import ./hosts {
           inherit (self) lib;
           inherit self inputs;
         };
