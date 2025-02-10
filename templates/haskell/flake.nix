@@ -47,8 +47,8 @@
             programs = {
               cabal-fmt.enable = true;
               nixfmt.enable = true;
-              ormolu.enable = true;
               prettier.enable = true;
+              stylish-haskell.enable = true;
             };
           };
         };

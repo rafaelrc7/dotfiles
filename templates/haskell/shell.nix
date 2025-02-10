@@ -10,19 +10,18 @@ haskell.shellFor {
   packages = p: [ p.hello ];
   nativeBuildInputs =
     [
-      pkgs.gcc
       (haskell.ghc.withPackages (p: [
         haskell.cabal-install
       ]))
     ]
     ++ pkgs.lib.optional devTools [
-      pkgs.hlint
-      pkgs.ormolu
       (haskell.ghc.withPackages (p: [
         p.ghci-dap
         p.haskell-dap
         p.haskell-debug-adapter
         p.haskell-language-server
+        p.hlint
+        p.stylish-haskell
       ]))
     ];
 }
