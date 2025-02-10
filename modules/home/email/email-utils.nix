@@ -104,7 +104,7 @@ rec {
     set -eo pipefail
 
     PROFILEDIR=`mktemp -p /tmp -d tmp-qb-profile.XXXXXX.d`
-    USERPROFILEDIR=`~/.config/qutebrowser/`
+    USERPROFILEDIR="~/.config/qutebrowser/"
     mkdir $PROFILEDIR/config
 
     if [[ -d $USERPROFILEDIR ]]; then
