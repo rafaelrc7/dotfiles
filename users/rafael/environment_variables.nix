@@ -1,5 +1,6 @@
-{ ... }:
+{ config, ... }:
 {
+  systemd.user.sessionVariables = config.home.sessionVariables;
   home.sessionVariables = {
     EDITOR = "nvim";
     BROWSER = "librewolf";

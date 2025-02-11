@@ -1,4 +1,9 @@
-{ pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 {
 
   home.packages = with pkgs; [
@@ -9,15 +14,13 @@
 
   wayland.windowManager.sway.config.bars = [ ];
 
-  systemd.user.services.waybar.Install.WantedBy = lib.mkForce [
-    "sway-session.target"
-    "hyprland-session.target"
-  ];
+  systemd.user.services.waybar.Service.Slice = "app-graphical.slice";
   programs.waybar = {
     enable = true;
 
     systemd = {
       enable = true;
+      target = config.wayland.systemd.target;
     };
 
     settings = [

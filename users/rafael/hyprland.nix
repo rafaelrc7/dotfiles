@@ -2,17 +2,14 @@
   config,
   pkgs,
   lib,
+  osConfig,
   ...
 }:
 let
-  loadWallpaper = pkgs.writeShellScriptBin "loadWallpaper" ''
-    set -eo pipefail
-    [[ -f ${config.xdg.userDirs.pictures}/Wallpapers/default ]] && WALLPAPER="${config.xdg.userDirs.pictures}/Wallpapers/default"
-    [[ -f ${config.xdg.userDirs.pictures}/Wallpapers/`uname -n` ]] && WALLPAPER="${config.xdg.userDirs.pictures}/Wallpapers/`uname -n`"
-    [[ -f ${config.xdg.configHome}/wallpaper ]] && WALLPAPER="${config.xdg.configHome}/wallpaper"
-    [[ -v WALLPAPER ]] && exec -- ${pkgs.swaybg}/bin/swaybg -i "$WALLPAPER" -m fill
-    exit 0
-  '';
+  inherit (lib) optionals;
+  isNixOS = osConfig != null;
+  isUWSM = isNixOS && osConfig.programs.hyprland.enable && osConfig.programs.hyprland.withUWSM;
+  execCmd = if isUWSM then "uwsm app -- " else "";
 in
 {
   imports = [
@@ -25,11 +22,34 @@ in
     hypridle
     hyprlock
     hyprpaper
+    libsForQt5.qt5.qtwayland
+    qt6.qtwayland
   ];
+
+  xdg.configFile."uwsm/env".text = ''
+    export XDG_SESSION_TYPE=wayland
+
+    export CLUTTER_BACKEND=wayland
+    export GDK_BACKEND=wayland,x11,*
+    export QT_QPA_PLATFORM=wayland;xcb
+    export SDL_VIDEODRIVER=wayland
+
+    export _JAVA_AWT_WM_NONREPARENTING=1
+    export MOZ_ENABLE_WAYLAND=1
+    export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
+
+    export EXPLORER=dolphin
+    export TERMINAL=foot
+  '';
+
+  xdg.configFile."uwsm/env-hyprland".text = ''
+    export XDG_CURRENT_DESKTOP=Hyprland
+    export XDG_SESSION_DESKTOP=Hyprland
+  '';
 
   wayland.windowManager.hyprland =
     let
-      menu = "${pkgs.procps}/bin/pkill wofi || ${pkgs.wofi}/bin/wofi --show=drun --insensitive --allow-images --hide-scroll";
+      menu = ''${pkgs.fuzzel}/bin/fuzzel --hide-before-typing --launch-prefix="${execCmd}"'';
       terminal = "${pkgs.foot}/bin/foot";
       browser = "${pkgs.librewolf}/bin/librewolf";
       fileManager = "${pkgs.dolphin}/bin/dolphin";
@@ -40,7 +60,7 @@ in
       enable = true;
 
       systemd = {
-        enable = true;
+        enable = !isUWSM;
         enableXdgAutostart = true;
         variables = [
           "DISPLAY"
@@ -132,28 +152,27 @@ in
 
         "$mod" = "SUPER";
 
-        exec-once = [
-          "${loadWallpaper}/bin/loadWallpaper"
+        exec-once = map (cmd: execCmd + cmd) [
         ];
 
         bind = [
           # Apps
-          "$mod, RETURN, exec, ${terminal}"
-          "$mod, D, exec, ${menu}"
-          "$mod, Q, exec, ${browser}"
-          "$mod, E, exec, ${fileManager}"
+          "$mod, RETURN, exec, ${execCmd}${terminal}"
+          "$mod, D, exec, ${execCmd}${menu}"
+          "$mod, Q, exec, ${execCmd}${browser}"
+          "$mod, E, exec, ${execCmd}${fileManager}"
 
           # Screenshot
-          ", Print, exec, ${printClip}"
+          ", Print, exec, ${execCmd}${printClip}"
 
           # Save replay
-          "$mod + SHIFT, R, exec, ${pkgs.killall}/bin/killall -s SIGUSR1 gpu-screen-recorder"
+          "$mod + SHIFT, R, exec, ${execCmd}${pkgs.killall}/bin/killall -s SIGUSR1 gpu-screen-recorder"
 
           # Clear notifications
-          "$mod + CTRL, SPACE, exec, ${pkgs.mako}/bin/makoctl dismiss -a"
+          "$mod + CTRL, SPACE, exec, ${execCmd}${pkgs.mako}/bin/makoctl dismiss -a"
 
           # Toggle waybar
-          "$mod, B, exec, ${pkgs.killall}/bin/killall -s SIGUSR1 -r waybar"
+          "$mod, B, exec, ${execCmd}${pkgs.killall}/bin/killall -s SIGUSR1 -r waybar"
 
           # Fullscreen / maximise
           "$mod, F, fullscreen, 0"
@@ -164,7 +183,7 @@ in
           "$mod + SHIFT, Q, killactive"
 
           # Kill mode
-          "$mod + CTRL, Q, exec, ${pkgs.hyprland}/bin/hyprctl kill"
+          "$mod + CTRL, Q, exec, ${execCmd}${pkgs.hyprland}/bin/hyprctl kill"
 
           # Sticky
           "$mod + SHIFT, S, pin"
@@ -173,20 +192,20 @@ in
           "$mod + SHIFT, SPACE, togglefloating"
 
           # Exit/logout
-          "$mod + SHIFT, E, exec, ${pkgs.wlogout}/bin/wlogout"
-          "$mod + CTRL, L, exec, ${pkgs.systemd}/bin/loginctl lock-session"
+          "$mod + SHIFT, E, exec, ${execCmd}${pkgs.wlogout}/bin/wlogout"
+          "$mod + CTRL, L, exec, ${execCmd}${pkgs.systemd}/bin/loginctl lock-session"
 
           # Clipboard manager
-          "$mod, P, exec, ${pkgs.procps}/bin/pkill wofi || ${pkgs.cliphist}/bin/cliphist list | ${pkgs.wofi}/bin/wofi -p \"Copy\" -dmenu --insensitive --allow-images --hide-scroll | ${pkgs.cliphist}/bin/cliphist decode | ${pkgs.wl-clipboard}/bin/wl-copy"
-          "$mod + SHIFT, P, exec, ${pkgs.procps}/bin/pkill wofi || ${pkgs.cliphist}/bin/cliphist list | ${pkgs.wofi}/bin/wofi -p \"Delete from history\" -dmenu --insensitive --allow-images --hide-scroll | ${pkgs.cliphist}/bin/cliphist delete"
-          "$mod + ALT, P, exec, ${pkgs.cliphist}/bin/cliphist wipe"
+          "$mod, P, exec, ${execCmd}${pkgs.cliphist}/bin/cliphist list | ${pkgs.fuzzel}/bin/fuzzel -p \"Copy\" --dmenu | ${pkgs.cliphist}/bin/cliphist decode | ${pkgs.wl-clipboard}/bin/wl-copy"
+          "$mod + SHIFT, P, exec, ${execCmd}${pkgs.cliphist}/bin/cliphist list | ${pkgs.fuzzel}/bin/fuzzel -p \"Delete from history\" --dmenu | ${pkgs.cliphist}/bin/cliphist delete"
+          "$mod + ALT, P, exec, ${execCmd}${pkgs.cliphist}/bin/cliphist wipe"
 
           # Brightness
-          ", XF86MonBrightnessUp, exec, ${pkgs.brightnessctl}/bin/brightnessctl set 10%+"
-          ", XF86MonBrightnessDown, exec, ${pkgs.brightnessctl}/bin/brightnessctl set 10%-"
+          ", XF86MonBrightnessUp, exec, ${execCmd}${pkgs.brightnessctl}/bin/brightnessctl set 10%+"
+          ", XF86MonBrightnessDown, exec, ${execCmd}${pkgs.brightnessctl}/bin/brightnessctl set 10%-"
 
           # Audio
-          "SHIFT, XF86AudioMute, exec, ${pkgs.wireplumber}/bin/wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
+          "SHIFT, XF86AudioMute, exec, ${execCmd}${pkgs.wireplumber}/bin/wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
 
           # Global binds
           ",Pause,pass,^(discord)$"
@@ -233,7 +252,7 @@ in
           "$mod, minus, togglespecialworkspace, scratchpad"
           "$mod, C,     togglespecialworkspace, calculator"
           "$mod, R,     togglespecialworkspace, screen-record"
-          "$mod, equal, exec, ${pkgs.procps}/bin/pkill wofi || ${pkgs.hyprland}/bin/hyprctl workspaces -j | ${pkgs.jq}/bin/jq -r '.[] | .name' | ${pkgs.wofi}/bin/wofi --dmenu | ${pkgs.findutils}/bin/xargs -I {} ${pkgs.hyprland}/bin/hyprctl dispatch workspace name:{}"
+          "$mod, equal, exec, ${execCmd}${pkgs.hyprland}/bin/hyprctl workspaces -j | ${pkgs.jq}/bin/jq -r '.[] | .name' | ${pkgs.fuzzel}/bin/fuzzel --dmenu | ${pkgs.findutils}/bin/xargs -I {} ${pkgs.hyprland}/bin/hyprctl dispatch workspace name:{}"
 
           # Move window between workspaces
           "$mod + SHIFT, 1, movetoworkspacesilent, 1"
@@ -247,31 +266,31 @@ in
           "$mod + SHIFT, 9, movetoworkspacesilent, 9"
           "$mod + SHIFT, 0, movetoworkspacesilent, 10"
           "$mod + SHIFT, minus, movetoworkspacesilent, special:scratchpad"
-          "$mod + SHIFT, equal, exec, ${pkgs.procps}/bin/pkill wofi || ${pkgs.hyprland}/bin/hyprctl workspaces -j | ${pkgs.jq}/bin/jq -r '.[] | .name' | ${pkgs.wofi}/bin/wofi --dmenu | ${pkgs.findutils}/bin/xargs -I {} ${pkgs.hyprland}/bin/hyprctl dispatch movetoworkspacesilent name:{}"
+          "$mod + SHIFT, equal, exec, ${execCmd}${pkgs.hyprland}/bin/hyprctl workspaces -j | ${pkgs.jq}/bin/jq -r '.[] | .name' | ${pkgs.fuzzel}/bin/fuzzel --dmenu | ${pkgs.findutils}/bin/xargs -I {} ${pkgs.hyprland}/bin/hyprctl dispatch movetoworkspacesilent name:{}"
         ];
 
         bindel = [
           # Global Volume
-          ", XF86AudioRaiseVolume, exec, ${pkgs.wireplumber}/bin/wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%+"
-          ", XF86AudioLowerVolume, exec, ${pkgs.wireplumber}/bin/wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
+          ", XF86AudioRaiseVolume, exec, ${execCmd}${pkgs.wireplumber}/bin/wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%+"
+          ", XF86AudioLowerVolume, exec, ${execCmd}${pkgs.wireplumber}/bin/wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
 
           # App Volume
-          "ALT, XF86AudioRaiseVolume, exec, ${pkgs.playerctl}/bin/playerctl volume 0.1+"
-          "ALT, XF86AudioLowerVolume, exec, ${pkgs.playerctl}/bin/playerctl volume 0.1-"
+          "ALT, XF86AudioRaiseVolume, exec, ${execCmd}${pkgs.playerctl}/bin/playerctl volume 0.1+"
+          "ALT, XF86AudioLowerVolume, exec, ${execCmd}${pkgs.playerctl}/bin/playerctl volume 0.1-"
         ];
 
         bindl = [
           # Mute
-          ", XF86AudioMute, exec, ${pkgs.wireplumber}/bin/wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+          ", XF86AudioMute, exec, ${execCmd}${pkgs.wireplumber}/bin/wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
 
           # Media keys
-          ", XF86AudioPlay, exec, ${pkgs.playerctl}/bin/playerctl play-pause"
-          ", XF86AudioStop, exec, ${pkgs.playerctl}/bin/playerctl stop"
-          ", XF86AudioPrev, exec, ${pkgs.playerctl}/bin/playerctl previous"
-          ", XF86AudioNext, exec, ${pkgs.playerctl}/bin/playerctl next"
+          ", XF86AudioPlay, exec, ${execCmd}${pkgs.playerctl}/bin/playerctl play-pause"
+          ", XF86AudioStop, exec, ${execCmd}${pkgs.playerctl}/bin/playerctl stop"
+          ", XF86AudioPrev, exec, ${execCmd}${pkgs.playerctl}/bin/playerctl previous"
+          ", XF86AudioNext, exec, ${execCmd}${pkgs.playerctl}/bin/playerctl next"
 
-          "SHIFT, XF86AudioPrev, exec, ${pkgs.playerctl}/bin/playerctl position 10-"
-          "SHIFT, XF86AudioNext, exec, ${pkgs.playerctl}/bin/playerctl position 10+"
+          "SHIFT, XF86AudioPrev, exec, ${execCmd}${pkgs.playerctl}/bin/playerctl position 10-"
+          "SHIFT, XF86AudioNext, exec, ${execCmd}${pkgs.playerctl}/bin/playerctl position 10+"
         ];
 
         bindm = [
@@ -400,7 +419,7 @@ in
           workspace_center_on = 1;
         };
 
-        env = [
+        env = optionals (!isUWSM) [
           "GDK_BACKEND,wayland,x11,*"
           "QT_QPA_PLATFORM,wayland;xcb"
           "SDL_VIDEODRIVER,wayland"
@@ -431,6 +450,62 @@ in
       '';
     };
 
+  xdg.configFile."hypr/hyprpaper.conf".text =
+    if isNixOS then
+      let
+        wallpaper = ./imgs/wallpapers/${osConfig.networking.hostName};
+      in
+      ''
+        preload = ${wallpaper}
+        wallpaper = , ${wallpaper}
+      ''
+    else
+      '''';
+  systemd.user.services.hyprpaper = {
+    Unit = {
+      Description = "Hyprpaper wallpaper utility for Hyprland";
+      After = [ config.wayland.systemd.target ];
+    };
+
+    Service = {
+      Type = "exec";
+      ExecCondition = ''${pkgs.systemd}/lib/systemd/systemd-xdg-autostart-condition "Hyprland" ""'';
+      ExecStart = "${pkgs.hyprpaper}/bin/hyprpaper";
+      Restart = "on-failure";
+      Slice = "background-graphical.slice";
+    };
+
+    Install.WantedBy = [ config.wayland.systemd.target ];
+  };
+
+  systemd.user.services.hyprpaper-load = lib.mkIf (!isNixOS) (
+    let
+      loadWallpaper = pkgs.writeShellScriptBin "loadWallpaper" ''
+        set -eo pipefail
+        [[ -f ${config.xdg.userDirs.pictures}/Wallpapers/default ]] && WALLPAPER="${config.xdg.userDirs.pictures}/Wallpapers/default"
+        [[ -f ${config.xdg.userDirs.pictures}/Wallpapers/`uname -n` ]] && WALLPAPER="${config.xdg.userDirs.pictures}/Wallpapers/`uname -n`"
+        [[ -f ${config.xdg.configHome}/wallpaper ]] && WALLPAPER="${config.xdg.configHome}/wallpaper"
+        [[ -v WALLPAPER ]] && exec -- ${pkgs.hyprland}/bin/hyprctl hyprpaper reload ,"$WALLPAPER"
+        exit 0
+      '';
+    in
+    {
+      Unit = {
+        Description = "Hyprpaper wallpaper utility for Hyprland";
+        After = "hyprpaper.service";
+      };
+
+      Service = {
+        Type = "oneshot";
+        ExecStart = "${loadWallpaper}/bin/loadWallpaper";
+        Restart = "on-failure";
+        Slice = "background-graphical.slice";
+      };
+
+      Install.WantedBy = [ "hyprpaper.service" ];
+    }
+  );
+
   services.hypridle = {
     enable = true;
     settings = {
@@ -460,7 +535,11 @@ in
       ];
     };
   };
-  systemd.user.services.hypridle.Install.WantedBy = lib.mkForce [ "hyprland-session.target" ];
+  systemd.user.services.hypridle = rec {
+    Service.Slice = "background.slice";
+    Unit.After = Install.WantedBy;
+    Install.WantedBy = lib.mkForce [ config.wayland.systemd.target ];
+  };
 
   programs.hyprlock = {
     enable = true;

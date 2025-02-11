@@ -3,6 +3,7 @@ nixosModules: {
     android
     btrfs
     flatpak
+    hyprland-uwsm
     pipewire
   ];
 }

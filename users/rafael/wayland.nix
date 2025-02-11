@@ -5,6 +5,8 @@
   ...
 }:
 {
+  wayland.systemd.target = "graphical-session.target";
+
   home.packages = with pkgs; [
     cliphist
     dolphin
@@ -16,8 +18,16 @@
     slurp
     wdisplays
     wl-clipboard
-    wofi
   ];
+
+  programs.fuzzel = {
+    enable = true;
+    settings = {
+      main = {
+        terminal = "${pkgs.foot}/bin/foot";
+      };
+    };
+  };
 
   programs.wlogout = {
     enable = true;
@@ -72,14 +82,21 @@
     enable = true;
     allowImages = true;
   };
-  systemd.user.services.cliphist.Install.WantedBy = lib.mkForce [
-    "sway-session.target"
-    "hyprland-session.target"
-  ];
-  systemd.user.services.cliphist-images.Install.WantedBy = lib.mkForce [
-    "sway-session.target"
-    "hyprland-session.target"
-  ];
+
+  systemd.user.services.cliphist = rec {
+    Service.Slice = "background-graphical.slice";
+    Unit.After = Install.WantedBy;
+    Install.WantedBy = lib.mkForce [
+      config.wayland.systemd.target
+    ];
+  };
+  systemd.user.services.cliphist-images = rec {
+    Service.Slice = "background-graphical.slice";
+    Unit.After = Install.WantedBy;
+    Install.WantedBy = lib.mkForce [
+      config.wayland.systemd.target
+    ];
+  };
 
   programs.foot = {
     enable = true;
@@ -120,10 +137,13 @@
     sunrise = "06:00";
     sunset = "17:30";
   };
-  systemd.user.services.wlsunset.Install.WantedBy = lib.mkForce [
-    "sway-session.target"
-    "hyprland-session.target"
-  ];
+  systemd.user.services.wlsunset = rec {
+    Service.Slice = "background-graphical.slice";
+    Unit.After = Install.WantedBy;
+    Install.WantedBy = lib.mkForce [
+      config.wayland.systemd.target
+    ];
+  };
 
   services.mako = {
     enable = true;
@@ -147,9 +167,14 @@
       ];
     };
   };
-  systemd.user.services.wayland-pipewire-idle-inhibit.Install.WantedBy = lib.mkForce [
-    "sway-session.target"
-    "hyprland-session.target"
-  ];
-
+  systemd.user.services.wayland-pipewire-idle-inhibit = rec {
+    Service.Slice = "background-graphical.slice";
+    Unit.After = lib.mkForce [
+      config.wayland.systemd.target
+      "pipewire.service"
+    ];
+    Install.WantedBy = lib.mkForce [
+      config.wayland.systemd.target
+    ];
+  };
 }

@@ -32,6 +32,8 @@ in
               inputs.nix-vscode-extensions.overlays.default
               inputs.nur.overlays.default
               inputs.nixgl.overlay
+              inputs.hyprland.overlays.hyprland-packages
+              inputs.hyprland.overlays.hyprland-extras
             ];
         };
       };
@@ -56,6 +58,7 @@ in
           })
           (nixpkgsConfig { })
           inputs.catppuccin.homeManagerModules.catppuccin
+          inputs.hyprland.homeManagerModules.default
           {
             programs.home-manager.enable = true;
             home = {
@@ -84,6 +87,7 @@ in
           (import configuration)
           inputs.home-manager.nixosModules.home-manager
           inputs.catppuccin.nixosModules.catppuccin
+          inputs.hyprland.nixosModules.default
 
           (nixpkgsConfig { })
 
@@ -142,6 +146,7 @@ in
       {
         imports = [
           inputs.catppuccin.homeManagerModules.catppuccin
+          inputs.hyprland.homeManagerModules.default
           (userModule {
             inherit (self) homeModules homeProfiles;
             inherit gui profiles extraModules;

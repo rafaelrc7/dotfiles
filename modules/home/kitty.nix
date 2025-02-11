@@ -8,8 +8,4 @@
       mouse_map = "left click ungrabbed no-op";
     };
   };
-
-  home.sessionVariables = {
-    TERMINAL = lib.mkDefault "kitty";
-  };
 }

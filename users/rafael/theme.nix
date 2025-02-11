@@ -109,6 +109,7 @@ in
     flavor = "mocha";
 
     zathura.enable = true;
+    fuzzel.enable = true;
     waybar.enable = true;
     tmux.enable = true;
     sway.enable = true;
