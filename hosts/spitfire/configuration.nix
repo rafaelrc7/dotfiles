@@ -23,6 +23,7 @@
     ++ (with nixosModules; [
       cryptswap
       systemd-boot
+      zram
 
       java
       mullvad
