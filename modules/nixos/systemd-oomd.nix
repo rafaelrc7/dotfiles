@@ -7,7 +7,7 @@
     enableRootSlice = true;
     extraConfig = {
       DefaultMemoryPressureDurationSec = "20";
-      SwapUsedLimitPercent = "90%";
+      SwapUsedLimit = "90%";
     };
   };
 
