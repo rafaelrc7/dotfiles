@@ -22,6 +22,8 @@
       gaming
     ])
     ++ (with nixosModules; [
+      amdgpu-fullrgb
+
       cryptswap
       systemd-boot
       zram

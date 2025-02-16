@@ -1,5 +1,21 @@
 {
   "nodes": {
+    "amdgpu-fullrgb-patch": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1739663314,
+        "narHash": "sha256-bhIUGdhImQix2vpCXPTfvTEOeTK+mRkwUMQzPPjZLaE=",
+        "ref": "refs/heads/main",
+        "rev": "9cf93c40c27b78e965db36b6fa740cff0cc74531",
+        "revCount": 7,
+        "type": "git",
+        "url": "https://gist.github.com/rafaelrc7/0270037dbe86205365ec8b7a4f339f82"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://gist.github.com/rafaelrc7/0270037dbe86205365ec8b7a4f339f82"
+      }
+    },
     "aquamarine": {
       "inputs": {
         "hyprutils": [
@@ -1102,6 +1118,7 @@
     },
     "root": {
       "inputs": {
+        "amdgpu-fullrgb-patch": "amdgpu-fullrgb-patch",
         "awesome-git": "awesome-git",
         "awesomerc": "awesomerc",
         "catppuccin": "catppuccin",
