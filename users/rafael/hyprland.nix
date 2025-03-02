@@ -8,7 +8,8 @@
 let
   inherit (lib) optionals;
   isNixOS = osConfig != null;
-  isUWSM = isNixOS && osConfig.programs.hyprland.enable && osConfig.programs.hyprland.withUWSM;
+  isNixOSHyprland = isNixOS && osConfig.programs.hyprland.enable;
+  isUWSM = isNixOSHyprland && osConfig.programs.hyprland.withUWSM;
   execCmd = if isUWSM then "uwsm app -- " else "";
 in
 {
@@ -52,12 +53,13 @@ in
       menu = ''${pkgs.fuzzel}/bin/fuzzel --hide-before-typing --launch-prefix="${execCmd}"'';
       terminal = "${pkgs.foot}/bin/foot";
       browser = "${pkgs.librewolf}/bin/librewolf";
-      fileManager = "${pkgs.dolphin}/bin/dolphin";
+      fileManager = "${pkgs.kdePackages.dolphin}/bin/dolphin";
       printClip = "${pkgs.flameshot}/bin/flameshot gui";
       calculator = "${pkgs.qalculate-qt}/bin/qalculate-qt";
     in
     {
       enable = true;
+      package = if isNixOSHyprland then null else pkgs.hyprland;
 
       systemd = {
         enable = !isUWSM;

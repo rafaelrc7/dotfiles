@@ -9,7 +9,7 @@
 
   home.packages = with pkgs; [
     cliphist
-    dolphin
+    kdePackages.dolphin
     flameshot
     glfw-wayland
     grim

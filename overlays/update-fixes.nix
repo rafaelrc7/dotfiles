@@ -1,6 +1,6 @@
 inputs: final: prev:
 let
-  pkgs = import inputs.nixpkgs-epson_201207w {
+  pkgs = import inputs.nixpkgs-master {
     system = final.system;
     config = {
       allowUnfree = true;

@@ -31,7 +31,7 @@ in
       menu = "${pkgs.procps}/bin/pkill wofi || ${pkgs.wofi}/bin/wofi --show=drun --insensitive --allow-images --hide-scroll | ${pkgs.findutils}/bin/xargs swaymsg exec --";
       terminal = "${pkgs.foot}/bin/foot";
       browser = "${pkgs.librewolf}/bin/librewolf";
-      fileManager = "${pkgs.dolphin}/bin/dolphin";
+      fileManager = "${pkgs.kdePackages.dolphin}/bin/dolphin";
       screenlock = "${pkgs.swaylock}/bin/swaylock -Ffk -c 000000";
       printClip = "${pkgs.slurp}/bin/slurp | ${pkgs.grim}/bin/grim -g - - | ${pkgs.wl-clipboard}/bin/wl-copy";
       calculator = "${pkgs.procps}/bin/pkill qalculate-qt || ${pkgs.qalculate-qt}/bin/qalculate-qt";

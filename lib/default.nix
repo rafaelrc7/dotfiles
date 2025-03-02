@@ -32,8 +32,7 @@ in
               inputs.nix-vscode-extensions.overlays.default
               inputs.nur.overlays.default
               inputs.nixgl.overlay
-              inputs.hyprland.overlays.hyprland-packages
-              inputs.hyprland.overlays.hyprland-extras
+              inputs.hyprland.overlays.default
             ];
         };
       };
