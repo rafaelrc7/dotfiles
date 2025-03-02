@@ -1,23 +1,23 @@
 { pkgs, ... }:
 {
-  boot.initrd.kernelModules = [ "amdgpu" ];
   services.xserver.videoDrivers = [ "amdgpu" ];
   hardware = {
+    amdgpu.initrd.enable = true;
+    amdgpu.opencl.enable = true;
+
+    amdgpu.amdvlk = {
+      enable = true;
+      support32Bit.enable = true;
+    };
+
     graphics = {
       enable = true;
       enable32Bit = true;
       extraPackages = with pkgs; [
-        amdvlk
-
         libvdpau-va-gl
         libva-vdpau-driver
-
-        rocmPackages.clr
-        rocmPackages.clr.icd
       ];
       extraPackages32 = with pkgs.driversi686Linux; [
-        amdvlk
-
         libvdpau-va-gl
         libva-vdpau-driver
       ];
