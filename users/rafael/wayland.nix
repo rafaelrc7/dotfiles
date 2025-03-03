@@ -24,7 +24,7 @@
     enable = true;
     settings = {
       main = {
-        terminal = "${pkgs.foot}/bin/foot";
+        terminal = "${pkgs.kitty}/bin/kitty";
       };
     };
   };
@@ -96,24 +96,6 @@
     Install.WantedBy = lib.mkForce [
       config.wayland.systemd.target
     ];
-  };
-
-  programs.foot = {
-    enable = true;
-    settings = {
-      main = {
-        dpi-aware = "no";
-      };
-
-      cursor = {
-        style = "beam";
-        blink = "yes";
-      };
-
-      mouse = {
-        hide-when-typing = "yes";
-      };
-    };
   };
 
   programs.imv.enable = true;

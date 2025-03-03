@@ -40,7 +40,7 @@ in
     export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
 
     export EXPLORER=dolphin
-    export TERMINAL=foot
+    export TERMINAL=kitty
   '';
 
   xdg.configFile."uwsm/env-hyprland".text = ''
@@ -51,7 +51,7 @@ in
   wayland.windowManager.hyprland =
     let
       menu = ''${pkgs.fuzzel}/bin/fuzzel --hide-before-typing --launch-prefix="${execCmd}"'';
-      terminal = "${pkgs.foot}/bin/foot";
+      terminal = "${pkgs.kitty}/bin/kitty";
       browser = "${config.programs.firefox.finalPackage}/bin/firefox";
       fileManager = "${pkgs.kdePackages.dolphin}/bin/dolphin";
       printClip = "${pkgs.flameshot}/bin/flameshot gui";
@@ -436,7 +436,7 @@ in
 
           "MOZ_ENABLE_WAYLAND,1"
 
-          "TERMINAL,foot"
+          "TERMINAL,kitty"
           "EXPLORER,dolphin"
         ];
 

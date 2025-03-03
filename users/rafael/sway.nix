@@ -29,7 +29,7 @@ in
   wayland.windowManager.sway =
     let
       menu = "${pkgs.procps}/bin/pkill wofi || ${pkgs.wofi}/bin/wofi --show=drun --insensitive --allow-images --hide-scroll | ${pkgs.findutils}/bin/xargs swaymsg exec --";
-      terminal = "${pkgs.foot}/bin/foot";
+      terminal = "${pkgs.kitty}/bin/kitty";
       browser = "${config.programs.firefox.finalPackage}/bin/firefox";
       fileManager = "${pkgs.kdePackages.dolphin}/bin/dolphin";
       screenlock = "${pkgs.swaylock}/bin/swaylock -Ffk -c 000000";
@@ -186,7 +186,7 @@ in
         export CLUTTER_BACKEND="wayland"
         export XDG_SESSION_TYPE="wayland"
 
-        export TERMINAL="foot"
+        export TERMINAL="kitty"
         export EXPLORER="dolphin"
       '';
 
