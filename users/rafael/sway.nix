@@ -30,7 +30,7 @@ in
     let
       menu = "${pkgs.procps}/bin/pkill wofi || ${pkgs.wofi}/bin/wofi --show=drun --insensitive --allow-images --hide-scroll | ${pkgs.findutils}/bin/xargs swaymsg exec --";
       terminal = "${pkgs.foot}/bin/foot";
-      browser = "${pkgs.librewolf}/bin/librewolf";
+      browser = "${config.programs.firefox.finalPackage}/bin/firefox";
       fileManager = "${pkgs.kdePackages.dolphin}/bin/dolphin";
       screenlock = "${pkgs.swaylock}/bin/swaylock -Ffk -c 000000";
       printClip = "${pkgs.slurp}/bin/slurp | ${pkgs.grim}/bin/grim -g - - | ${pkgs.wl-clipboard}/bin/wl-copy";

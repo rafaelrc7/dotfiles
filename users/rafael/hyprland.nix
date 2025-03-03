@@ -52,7 +52,7 @@ in
     let
       menu = ''${pkgs.fuzzel}/bin/fuzzel --hide-before-typing --launch-prefix="${execCmd}"'';
       terminal = "${pkgs.foot}/bin/foot";
-      browser = "${pkgs.librewolf}/bin/librewolf";
+      browser = "${config.programs.firefox.finalPackage}/bin/firefox";
       fileManager = "${pkgs.kdePackages.dolphin}/bin/dolphin";
       printClip = "${pkgs.flameshot}/bin/flameshot gui";
       calculator = "${pkgs.qalculate-qt}/bin/qalculate-qt";

@@ -9,12 +9,10 @@
         "pcmanfm.desktop"
       ];
       "x-scheme-handler/https" = [
-        "librewolf.desktop"
         "firefox.desktop"
         "chromium-browser.desktop"
       ];
       "x-scheme-handler/http" = [
-        "librewolf.desktop"
         "firefox.desktop"
         "chromium-browser.desktop"
       ];
@@ -34,7 +32,6 @@
         "us.zoom.Zoom.desktop"
       ];
       "application/x-extension-html" = [
-        "librewolf.desktop"
         "firefox.desktop"
         "chromium-browser.desktop"
       ];

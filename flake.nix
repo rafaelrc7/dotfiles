@@ -83,6 +83,11 @@
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-master.url = "github:nixos/nixpkgs";
 
+    nur = {
+      url = "github:nix-community/NUR";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -94,7 +99,6 @@
     hyprland.url = "github:hyprwm/Hyprland/f261fb6fe028a1427cfd672eee6e7d5705cd696f";
 
     nixos-hardware.url = "github:nixos/nixos-hardware/master";
-    nur.url = "github:nix-community/nur";
     catppuccin.url = "github:rafaelrc7/catppuccin-nix";
 
     awesomerc.url = "github:rafaelrc7/awesomerc";
