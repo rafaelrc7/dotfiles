@@ -118,8 +118,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    vscoq.url = "github:coq-community/vscoq";
-
     ssh-keys = {
       url = "https://github.com/rafaelrc7.keys";
       flake = false;
@@ -137,12 +135,6 @@
 
     amdgpu-fullrgb-patch = {
       url = "git+https://gist.github.com/rafaelrc7/0270037dbe86205365ec8b7a4f339f82";
-      flake = false;
-    };
-
-    # neovim plugins
-    remote-nvim = {
-      url = "github:amitds1997/remote-nvim.nvim";
       flake = false;
     };
   };
