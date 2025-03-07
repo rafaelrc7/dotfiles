@@ -96,6 +96,7 @@
     flake-parts.url = "github:hercules-ci/flake-parts";
     treefmt-nix.url = "github:numtide/treefmt-nix";
 
+    bisq-for-nixos.url = "github:emmanuelrosa/bisq-for-nixos";
     hyprland.url = "github:hyprwm/Hyprland/f261fb6fe028a1427cfd672eee6e7d5705cd696f";
 
     nixos-hardware.url = "github:nixos/nixos-hardware/master";
