@@ -38,9 +38,6 @@ in
     export _JAVA_AWT_WM_NONREPARENTING=1
     export MOZ_ENABLE_WAYLAND=1
     export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
-
-    export EXPLORER=dolphin
-    export TERMINAL=kitty
   '';
 
   xdg.configFile."uwsm/env-hyprland".text = ''
@@ -435,9 +432,6 @@ in
           "_JAVA_AWT_WM_NONREPARENTING,1"
 
           "MOZ_ENABLE_WAYLAND,1"
-
-          "TERMINAL,kitty"
-          "EXPLORER,dolphin"
         ];
 
         cursor = {

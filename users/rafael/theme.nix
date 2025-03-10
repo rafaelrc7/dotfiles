@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 let
   fonts = {
     monospace = {
@@ -185,6 +185,41 @@ in
     x11.enable = true;
     gtk.enable = true;
   };
+
+  xdg.configFile."dolphinrc".force = true;
+  xdg.configFile."dolphinrc".text = ''
+    MenuBar=Disabled
+
+    [$Version]
+    update_info=dolphin_detailsmodesettings.upd:rename-leading-padding
+
+    [DetailsMode]
+    PreviewSize=22
+
+    [General]
+    OpenExternallyCalledFolderInNewTab=true
+    RememberOpenedTabs=false
+    ShowFullPathInTitlebar=true
+    Version=202
+    ViewPropsTimestamp=2023,8,8,0,46,50.888
+    TerminalApplication=${config.home.sessionVariables.TERMINAL}
+
+    [KFileDialog Settings]
+    Places Icons Auto-resize=false
+    Places Icons Static Size=22
+
+    [MainWindow]
+    MenuBar=Disabled
+
+    [PreviewSettings]
+    Plugins=
+
+    [Search]
+    Location=Everywhere
+
+    [UiSettings]
+    ColorScheme=*
+  '';
 
   gtk = {
     enable = true;

@@ -185,9 +185,6 @@ in
         export MOZ_ENABLE_WAYLAND="1"
         export CLUTTER_BACKEND="wayland"
         export XDG_SESSION_TYPE="wayland"
-
-        export TERMINAL="kitty"
-        export EXPLORER="dolphin"
       '';
 
       systemd = {
