@@ -252,6 +252,21 @@
             "ebay".metaData.hidden = true;
             "eBay".metaData.hidden = true;
 
+            "Wiktionary" = {
+              urls = [
+                {
+                  template = "https://en.wiktionary.org/w/index.php";
+                  params = [
+                    {
+                      name = "search";
+                      value = "{searchTerms}";
+                    }
+                  ];
+                }
+              ];
+              definedAliases = [ "@wiktionary" ];
+            };
+
             "Nix Packages" = {
               urls = [
                 {
