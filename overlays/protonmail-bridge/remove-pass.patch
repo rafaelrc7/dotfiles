@@ -1,0 +1,18 @@
+diff --git c/pkg/keychain/helper_linux.go w/pkg/keychain/helper_linux.go
+index 996e192e..e96a2466 100644
+--- c/pkg/keychain/helper_linux.go
++++ w/pkg/keychain/helper_linux.go
+@@ -48,13 +48,6 @@ func listHelpers() (Helpers, string) {
+ 		logrus.WithField("keychain", "SecretService").Debug("Keychain is not available.")
+ 	}
+ 
+-	if _, err := execabs.LookPath("pass"); err == nil && isUsable(newPassHelper("")) {
+-		helpers[Pass] = newPassHelper
+-		logrus.WithField("keychain", "Pass").Info("Keychain is usable.")
+-	} else {
+-		logrus.WithField("keychain", "Pass").Debug("Keychain is not available.")
+-	}
+-
+ 	defaultHelper := SecretServiceDBus
+ 
+ 	// If Pass is available, use it by default.

@@ -129,11 +129,6 @@
       flake = false;
     };
 
-    proton-bridge = {
-      url = "github:rafaelrc7/proton-bridge";
-      flake = false;
-    };
-
     amdgpu-fullrgb-patch = {
       url = "git+https://gist.github.com/rafaelrc7/0270037dbe86205365ec8b7a4f339f82";
       flake = false;

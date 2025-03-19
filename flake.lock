@@ -874,22 +874,6 @@
         "type": "github"
       }
     },
-    "proton-bridge": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1741235529,
-        "narHash": "sha256-z/4YdXb+sWeC/ysebMKpsnFPsxOXl9KttMT9qtjbaNw=",
-        "owner": "rafaelrc7",
-        "repo": "proton-bridge",
-        "rev": "5cb6bb198dc724d76688892946cde365f2405e7e",
-        "type": "github"
-      },
-      "original": {
-        "owner": "rafaelrc7",
-        "repo": "proton-bridge",
-        "type": "github"
-      }
-    },
     "root": {
       "inputs": {
         "amdgpu-fullrgb-patch": "amdgpu-fullrgb-patch",
@@ -908,7 +892,6 @@
         "nixpkgs-stable": "nixpkgs-stable",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "nur": "nur",
-        "proton-bridge": "proton-bridge",
         "ssh-keys": "ssh-keys",
         "treefmt-nix": "treefmt-nix_2",
         "wayland-pipewire-idle-inhibit": "wayland-pipewire-idle-inhibit"
