@@ -244,13 +244,12 @@
           "media.ffmpeg.vaapi.enabled" = true;
         };
         search = rec {
-          default = "DuckDuckGo";
+          default = "ddg";
           privateDefault = default;
           force = true;
           engines = {
-            "Bing".metaData.hidden = true;
+            "bing".metaData.hidden = true;
             "ebay".metaData.hidden = true;
-            "eBay".metaData.hidden = true;
 
             "Wiktionary" = {
               urls = [
