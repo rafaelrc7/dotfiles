@@ -27,7 +27,6 @@
         Behavior = "reject-foreign";
         BehaviorPrivateBrowsing = Behavior;
       };
-      DisableFirefoxAccounts = true;
       DisableFirefoxStudies = true;
       DisableFormHistory = true;
       DisablePocket = true;
@@ -423,7 +422,6 @@
             temporary-containers
             terms-of-service-didnt-read
             ublock-origin
-            xbrowsersync
           ];
         };
       };
