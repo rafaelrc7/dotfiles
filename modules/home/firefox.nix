@@ -262,6 +262,7 @@
                   ];
                 }
               ];
+              iconMapObj."16" = "https://en.wiktionary.org/favicon.ico";
               definedAliases = [ "@wiktionary" ];
             };
 
@@ -285,7 +286,7 @@
                   ];
                 }
               ];
-
+              icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
               definedAliases = [ "@np" ];
             };
 
@@ -309,7 +310,7 @@
                   ];
                 }
               ];
-
+              icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
               definedAliases = [ "@no" ];
             };
 
@@ -325,6 +326,7 @@
                   ];
                 }
               ];
+              icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
               definedAliases = [ "@nw" ];
             };
 
@@ -344,6 +346,7 @@
                   ];
                 }
               ];
+              icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
               definedAliases = [ "@hm" ];
             };
 
@@ -359,6 +362,7 @@
                   ];
                 }
               ];
+              iconMapObj."16" = "https://hoogle.haskell.org/favicon.png";
               definedAliases = [ "@hs" ];
             };
 
@@ -378,6 +382,7 @@
                   ];
                 }
               ];
+              iconMapObj."16" = "https://hoogle.haskell.org/favicon.png";
               definedAliases = [ "@ghc" ];
             };
 
@@ -393,6 +398,7 @@
                   ];
                 }
               ];
+              iconMapObj."32" = "https://doc.rust-lang.org/stable/static.files/favicon-32x32-6580c154.png";
               definedAliases = [ "@rs" ];
             };
           };
