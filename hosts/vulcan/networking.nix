@@ -11,12 +11,14 @@
         8010 # VLC Chromecast
         9512 # Unified Remote
         11470 # Stremio
+        27015 # Steam
         25565 # Minecraft
         43157 # qbittorrent
       ];
       allowedUDPPorts = [
         4212 # VLC Remote
         9512 # Unified Remote
+        27015 # Steam
         59010 # SoundWire
       ];
     };
