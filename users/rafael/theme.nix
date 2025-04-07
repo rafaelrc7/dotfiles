@@ -114,7 +114,6 @@ in
     tmux.enable = true;
     sway.enable = true;
     nvim.enable = true;
-    mpv.enable = true;
     mako.enable = true;
     kitty.enable = true;
     imv.enable = true;
