@@ -25,6 +25,7 @@
       amdgpu-fullrgb
 
       cryptswap
+      ddclient
       systemd-boot
       zram
 
