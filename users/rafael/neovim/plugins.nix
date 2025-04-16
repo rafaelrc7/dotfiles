@@ -15,6 +15,33 @@ in
       ps.which-key-nvim
 
       {
+        plugin = ps.firenvim;
+        type = "lua";
+        config = # lua
+          ''
+            if vim.g.started_by_firenvim then
+              vim.g.firenvim_config = {
+                globalSettings = {
+                  priority = 0,
+                  cmdline = "neovim",
+                  messages = "neovim",
+                },
+                localSettings = {
+                  [".*"] = {
+                    priority = 0,
+                    content = "text",
+                    cmdline = "neovim",
+                    messages = "neovim",
+                    selector = "textarea",
+                    takeover = "never",
+                  },
+                },
+              }
+            end
+          '';
+      }
+
+      {
         plugin = ps.nvim-cmp;
         type = "lua";
         config = builtins.readFile ./lua/plugin/cmp.lua;

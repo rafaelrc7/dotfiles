@@ -413,6 +413,7 @@
             fastforwardteam
             ff2mpv
             firefox-color
+            firenvim
             localcdn
             multi-account-containers
             passff
