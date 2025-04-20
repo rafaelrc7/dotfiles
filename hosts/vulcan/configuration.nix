@@ -33,6 +33,7 @@
       java
       libvirtd
       llm
+      minecraft-server
       mullvad
       podman
       rtl-sdr

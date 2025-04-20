@@ -12,7 +12,6 @@
         9512 # Unified Remote
         11470 # Stremio
         27015 # Steam
-        25565 # Minecraft
         43157 # qbittorrent
       ];
       allowedUDPPorts = [
