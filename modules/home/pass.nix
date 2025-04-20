@@ -7,7 +7,6 @@
 let
   pass = pkgs.pass.withExtensions (
     exts: with exts; [
-      pass-audit
       pass-genphrase
       pass-otp
       pass-update
