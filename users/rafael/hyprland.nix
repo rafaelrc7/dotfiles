@@ -125,6 +125,7 @@ in
 
           # Fix flameshot on multiple monitors
           "pin,                      class:(flameshot), title:(flameshot)"
+          "stayfocused,              class:(flameshot), title:(flameshot)"
           "suppressevent fullscreen, class:(flameshot), title:(flameshot)"
           "float,                    class:(flameshot), title:(flameshot)"
           "monitor 0,                class:(flameshot), title:(flameshot)"
