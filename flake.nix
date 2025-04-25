@@ -97,7 +97,7 @@
     treefmt-nix.url = "github:numtide/treefmt-nix";
 
     bisq-for-nixos.url = "github:emmanuelrosa/bisq-for-nixos";
-    hyprland.url = "github:hyprwm/Hyprland";
+    hyprland.url = "github:hyprwm/Hyprland/55e953b383f6b658b20ede1fea7772d2a88e7c65";
 
     nixos-hardware.url = "github:nixos/nixos-hardware/master";
     catppuccin.url = "github:rafaelrc7/catppuccin-nix";

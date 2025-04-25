@@ -1,4 +1,5 @@
 {
+  lib,
   config,
   pkgs,
   ...
@@ -49,14 +50,12 @@
       }
     ];
 
-    initExtraBeforeCompInit = ''
+    initContent = lib.mkOrder 550 ''
       zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|=*' 'l:|=* r:|=*'
       zstyle ':completion:*' menu select
       setopt COMPLETE_ALIASES
       zmodload zsh/complist
-    '';
 
-    initExtra = ''
       # Binds arrows to history search
       autoload -U up-line-or-beginning-search
       autoload -U down-line-or-beginning-search

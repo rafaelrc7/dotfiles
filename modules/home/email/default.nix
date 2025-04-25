@@ -13,12 +13,6 @@ in
 
   accounts.email.maildirBasePath = "${config.xdg.dataHome}/maildir";
 
-  # https://github.com/nix-community/home-manager/issues/5831
-  home.sessionVariables = {
-    MSMTPQ_Q = "${config.xdg.dataHome}/msmtp/queue";
-    MSMTPQ_LOG = "${config.xdg.cacheHome}/msmtp/queue.log";
-  };
-
   programs.msmtp.enable = true;
   programs.mbsync.enable = true;
   programs.notmuch.enable = true;
