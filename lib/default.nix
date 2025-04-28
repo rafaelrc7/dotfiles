@@ -56,7 +56,7 @@ in
             inherit gui profiles extraModules;
           })
           (nixpkgsConfig { })
-          inputs.catppuccin.homeManagerModules.catppuccin
+          inputs.catppuccin.homeModules.catppuccin
           inputs.hyprland.homeManagerModules.default
           {
             programs.home-manager.enable = true;
@@ -144,7 +144,7 @@ in
       }:
       {
         imports = [
-          inputs.catppuccin.homeManagerModules.catppuccin
+          inputs.catppuccin.homeModules.catppuccin
           inputs.hyprland.homeManagerModules.default
           (userModule {
             inherit (self) homeModules homeProfiles;
