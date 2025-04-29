@@ -38,6 +38,7 @@ in
       ./email-accounts
       ./environment_variables.nix
       ./git.nix
+      ./less.nix
       ./neovim
       ./theme.nix
       ./xdg-mimeapps.nix
