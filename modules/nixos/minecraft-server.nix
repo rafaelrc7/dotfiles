@@ -294,4 +294,30 @@ in
       Unit = "minecraft-server-backup@%i.service";
     };
   };
+
+  security.sudo.extraRules =
+    let
+      # https://www.freedesktop.org/software/systemd/man/latest/systemd.unit.html
+      serviceBaseNameRE = "minecraft-server(-backup)?";
+      validUnitNameRE = "[[:alnum:]:_.\\\\-]+(\\.service)?";
+      serviceNameRE = "${serviceBaseNameRE}@${validUnitNameRE}";
+      commandRE = "(start|stop|restart|status)";
+      systemctlArgsRE = "${commandRE}[[:space:]]+${serviceNameRE}";
+    in
+    [
+      {
+        groups = [ config.users.users.minecraft.group ];
+        commands =
+          builtins.map
+            (systemctl: {
+              options = [ "NOPASSWD" ];
+              command = "${systemctl} ^${systemctlArgsRE}$";
+            })
+            [
+              "${pkgs.systemd}/bin/systemctl"
+              "/run/current-system/sw/bin/systemctl"
+              "/etc/profiles/per-user/*/bin/systemctl"
+            ];
+      }
+    ];
 }
