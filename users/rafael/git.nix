@@ -49,7 +49,6 @@
     ignores = [
       "*~"
       "*.swp"
-      ".idea"
       ".direnv"
     ];
     signing = {
