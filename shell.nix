@@ -4,7 +4,7 @@
 }:
 pkgs.mkShell {
   shellHook = ''
-    export FLAKE=$(git rev-parse --show-toplevel);
+    export NH_FLAKE=$(git rev-parse --show-toplevel);
   '';
   nativeBuildInputs = with pkgs; [
     nh
