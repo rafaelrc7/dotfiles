@@ -4,6 +4,7 @@ SHELL := bash
 .SHELLFLAGS := -eu -o pipefail -c
 .DELETE_ON_ERROR:
 .SECONDEXPANSION:
+.EXTRA_PREREQS := $(MAKEFILE_LIST)
 MAKEFLAGS += --warn-undefined-variables
 MAKEFLAGS += --no-builtin-rules
 MAKEFLAGS += -j$(shell nproc)
@@ -15,7 +16,7 @@ all: debug
 
 # TARGETS
 #	BIN_TARGETS := list of executable targets installed at ./bin
-#	lIB_TARGETS := list of library targets installed at ./lib. Must include
+#	LIB_TARGETS := list of library targets installed at ./lib. Must include
 #		.so/.a extension
 BIN_TARGETS := hello goodbye
 LIB_TARGETS := libhello.a libgoodbye.so
@@ -95,8 +96,10 @@ LIBS := $(addprefix $(LIB_DIR)/,$(LIB_TARGETS))
 
 # Source Files
 SRCS = $(foreach TARGET,$(TARGETS),$($(TARGET)_SRCS))
-OBJS = $$(addprefix $(AUX_DIR)/,$$(addsuffix .o,$$($$(@F)_SRCS)))
-BUILD_SRC_DIRS := $(addprefix $(AUX_DIR)/,$(shell find $(srcdir) -type d))
+TARGET_OBJS = $$(addprefix $(AUX_DIR)/$$(@F)/,$$(addsuffix .o,$$($$(@F)_SRCS))) $$($$(@F)_OBJS)
+SRC_DIRS := $(shell find $(srcdir) -type d)
+BUILD_SRC_DIRS := $(foreach TARGET,$(TARGETS),$(addprefix $(AUX_DIR)/$(TARGET)/,$(SRC_DIRS)))
+AUX_DIRS := $(foreach TARGET,$(TARGETS),$(addsuffix /$(TARGET),$(AUX_DIR)))
 
 # Flags
 INC_FLAG := $(addprefix -I,$(INC_DIR))
@@ -104,9 +107,6 @@ LIB_FLAG := $(addprefix -L,$(LIB_DIR))
 
 CPPFLAGS += $(INC_FLAG)
 LDFLAGS += $(LIB_FLAG)
-
-# Dependency files
--include $(SRCS:%=$(AUX_DIR)/%.d)
 
 # Profiles
 debug: CPPFLAGS += $(CPPFLAGS_DEBUG)
@@ -122,46 +122,52 @@ $(foreach VAR,LINK OBJS LDFLAGS LDLIBS ARFLAGS CPPFLAGS CXXFLAGS CFLAGS ASFLAGS,
 	$(foreach TARGET,$(TARGETS),\
 		$(eval $(TARGET)_$(VAR)?=)))
 
-# Propagate TARGET specific flags for sources and dep files
-$(foreach VAR,CPPFLAGS CXXFLAGS CFLAGS ASFLAGS,\
-	$(foreach TARGET,$(TARGETS),\
-		$(foreach TARGET_SRCS,$($(TARGET)_SRCS),\
-			$(eval $(TARGET_SRCS:%=$(AUX_DIR:./%=%)/%.o)_$(VAR)?=)\
-			$(eval $(TARGET_SRCS:%=$(AUX_DIR:./%=%)/%.d)_$(VAR)?=)\
-			$(eval $(TARGET_SRCS:%=$(AUX_DIR:./%=%)/%.o)_$(VAR)+=$($(TARGET)_$(VAR)))\
-			$(eval $(TARGET_SRCS:%=$(AUX_DIR:./%=%)/%.d)_$(VAR)+=$($(TARGET)_$(VAR))))))
-
 # Binaries
-$(BINS): $(OBJS) $$($$(@F)_OBJS) | $(BIN_DIR) $(LIBS)
+$(BINS): $(TARGET_OBJS) | $(BIN_DIR) $(LIBS)
 	$(or $($(@F)_LINK),$(LINK)) -o $@ $^ $(LDFLAGS) $($(@F)_LDFLAGS) $(LDLIBS) $($(@F)_LDLIBS)
 
 # Libraries
 $(LIB_DIR)/%.so: CPPFLAGS += -fPIC
-$(LIB_DIR)/%.so: $(OBJS) $$($$(@F)_OBJS) | $(LIB_DIR)
+$(LIB_DIR)/%.so: $(TARGET_OBJS) | $(LIB_DIR)
 	$(or $($(@F)_LINK),$(LINK)) -o $@ -shared $^ $(LDFLAGS) $($(@F)_LDFLAGS) $(LDLIBS) $($(@F)_LDLIBS)
 
-$(LIB_DIR)/%.a: $(OBJS) $$($$(@F)_OBJS) | $(LIB_DIR)
+$(LIB_DIR)/%.a: $(TARGET_OBJS) | $(LIB_DIR)
 	$(AR) $(ARFLAGS) $($(@F)_ARFLAGS) $@ $?
 
-# ASM object files
-$(AUX_DIR)/%.s.o: %.s | $(BUILD_SRC_DIRS)
-	$(AS) -o $@ $(ASFLAGS) $($@_ASFLAGS) $(CPPFLAGS) $($@_CPPFLAGS) -c $<
+# Dependency files
+-include $(foreach TARGET,$(TARGETS),$($(TARGET)_SRCS:%=$(AUX_DIR)/$(TARGET)/%.d))
+
+# Each target has its own build folder, making it possible to build the same
+# source file with different flags for different targets. Also makes sure to
+# pass target specific flags to its files
+define objs
+# C header dependency files
+$$(AUX_DIR)/$(TARGET)/%.c.d: %.c | $$(BUILD_SRC_DIRS)
+	@$$(CC) $$(CFLAGS) $$($(TARGET)_CFLAGS) $$(CPPFLAGS) $$($(TARGET)_CPPFLAGS) $$< -MM -MT $$(@:%.c.d=%.c.o) >$$@
 
 # C object files
-$(AUX_DIR)/%.c.o: %.c | $(BUILD_SRC_DIRS)
-	$(CC) -o $@ $(CFLAGS) $($@_CFLAGS) $(CPPFLAGS) $($@_CPPFLAGS) -c $<
-
-# C++ object files
-$(AUX_DIR)/%.cpp.o: %.cpp | $(BUILD_SRC_DIRS)
-	$(CXX) -o $@ $(CXXFLAGS) $($@_CXXFLAGS) $(CPPFLAGS) $($@_CPPFLAGS) -c $<
+$$(AUX_DIR)/$(TARGET)/%.c.o: %.c | $$(BUILD_SRC_DIRS)
+	$$(CC) -o $$@ $$(CFLAGS) $$($(TARGET)_CFLAGS) $$(CPPFLAGS) $$($(TARGET)_CPPFLAGS) -c $$<
 
 # C++ header dependency files
-$(AUX_DIR)/%.cpp.d: %.cpp | $(BUILD_SRC_DIRS)
-	@$(CXX) $(CXXFLAGS) $($@_CXXFLAGS) $(CPPFLAGS) $($@_CPPFLAGS) $< -MM -MT $(@:%.cpp.d=%.cpp.o) >$@
+$$(AUX_DIR)/$(TARGET)/%.cpp.d: %.cpp | $$(BUILD_SRC_DIRS)
+	@$$(CXX) $$(CXXFLAGS) $$($(TARGET)_CXXFLAGS) $$(CPPFLAGS) $$($(TARGET)_CPPFLAGS) $$< -MM -MT $$(@:%.cpp.d=%.cpp.o) >$$@
 
-# C header dependency files
-$(AUX_DIR)/%.c.d: %.c | $(BUILD_SRC_DIRS)
-	@$(CC) $(CFLAGS) $($@_CFLAGS) $(CPPFLAGS) $($@_CPPFLAGS) $< -MM -MT $(@:%.c.d=%.c.o) >$@
+# C++ object files
+$$(AUX_DIR)/$(TARGET)/%.cpp.o: %.cpp | $$(BUILD_SRC_DIRS)
+	$$(CXX) -o $$@ $$(CXXFLAGS) $$($(TARGET)_CXXFLAGS) $$(CPPFLAGS) $$($(TARGET)_CPPFLAGS) -c $$<
+
+# ASM object files
+$$(AUX_DIR)/$(TARGET)/%.s.o: %.s | $$(BUILD_SRC_DIRS)
+	$$(AS) -o $$@ $$(ASFLAGS) $$($(TARGET)_ASFLAGS) -c $$<
+
+$$(AUX_DIR)/$(TARGET)/%.S.o: $$(AUX_DIR)/$(TARGET)/%.S.s | $$(BUILD_SRC_DIRS)
+	$$(AS) -o $$@ $$(ASFLAGS) $$($(TARGET)_ASFLAGS) -c $$<
+
+$$(AUX_DIR)/$(TARGET)/%.S.s: %.S | $$(BUILD_SRC_DIRS)
+	$$(CC) -o $$@ $$(CPPFLAGS) $$($(TARGET)_CPPFLAGS) -E $$<
+endef
+$(foreach TARGET,$(TARGETS),$(eval $(call objs)))
 
 # Directories
 $(AUX_DIR) $(BUILD_SRC_DIRS) $(BIN_DIR) $(LIB_DIR) $(INC_DIR):
@@ -207,10 +213,11 @@ uninstall:
 		-exec rmdir "$(DESTDIR)$(prefix)/{}" \;
 
 fmt:
-	find $(srcdir) -iname *.h -or -iname *.hpp -or -iname *.c -or -iname *.cpp | xargs clang-format -i
+	find $(srcdir) -iname "*.h" -or -iname "*.hpp" -or -iname "*.c" -or -iname "*.cpp" |\
+		xargs clang-format -i
 
 tidy: compiledb
-	find $(srcdir) -iname *.cpp -or iname *.c |\
+	find $(srcdir) -iname "*.cpp" -or -iname "*.c" |\
 		xargs run-clang-tidy -j`nproc` -config-file ./.clang-tidy -p . -fix -format
 
 MKDIR_P ?= mkdir -p

@@ -19,6 +19,7 @@ pkgs.mkShell {
       bear
       clang-tools
       gdb
+      libclang
       valgrind
     ];
 }
