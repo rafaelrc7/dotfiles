@@ -443,7 +443,7 @@ in
       };
 
       extraConfig = ''
-
+        debug:full_cm_proto=true
       '';
     };
 
