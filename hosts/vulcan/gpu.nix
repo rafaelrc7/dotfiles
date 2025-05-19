@@ -6,7 +6,7 @@
     amdgpu.opencl.enable = true;
 
     amdgpu.amdvlk = {
-      enable = false;
+      enable = true;
       support32Bit.enable = true;
     };
 
