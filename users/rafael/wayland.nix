@@ -130,11 +130,13 @@
 
   services.mako = {
     enable = true;
-    actions = true;
-    anchor = "top-right";
-    icons = true;
-    defaultTimeout = 7000; # 7s
-    ignoreTimeout = true;
+    settings = {
+      actions = true;
+      anchor = "top-right";
+      default-timeout = 7000; # 7s
+      icons = true;
+      ignore-timeout = true;
+    };
   };
 
   services.playerctld.enable = true;
@@ -150,7 +152,7 @@
       ];
     };
   };
-  systemd.user.services.wayland-pipewire-idle-inhibit = rec {
+  systemd.user.services.wayland-pipewire-idle-inhibit = {
     Service.Slice = "background-graphical.slice";
     Unit.After = lib.mkForce [
       config.wayland.systemd.target
