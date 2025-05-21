@@ -24,11 +24,6 @@
           inherit self inputs;
         };
 
-        overlays = import ./overlays {
-          inherit (self) lib;
-          inherit inputs;
-        };
-
         nixosConfigurations = import ./hosts {
           inherit (self) lib;
           inherit self inputs;
@@ -43,6 +38,18 @@
               ;
           }
         ) self.users;
+
+        overlays =
+          let
+            overlays = import ./overlays {
+              inherit (self) lib;
+              inherit inputs;
+            };
+          in
+          overlays
+          // {
+            default = self.lib.composeManyExtensions (builtins.attrValues overlays);
+          };
 
         templates = import ./templates { };
       };
