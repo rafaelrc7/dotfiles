@@ -27,13 +27,17 @@ in
           } // config;
           overlays =
             overlays
-            ++ (self.lib.attrsets.mapAttrsToList (_: v: v) self.overlays)
             ++ [
               inputs.nix-vscode-extensions.overlays.default
               inputs.nur.overlays.default
               inputs.nixgl.overlay
               inputs.hyprland.overlays.default
-            ];
+              (final: prev: {
+                # Necessary auntil wayland-protocols overlay in Hyprland gets removed
+                wayland-protocols = inputs.nixpkgs.legacyPackages."${final.system}".wayland-protocols;
+              })
+            ]
+            ++ (self.lib.attrsets.mapAttrsToList (_: v: v) self.overlays);
         };
       };
 
