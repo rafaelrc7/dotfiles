@@ -30,10 +30,6 @@ in
             inputs.nur.overlays.default
             inputs.nixgl.overlay
             inputs.hyprland.overlays.default
-            (final: prev: {
-              # Necessary auntil wayland-protocols overlay in Hyprland gets removed
-              wayland-protocols = inputs.nixpkgs.legacyPackages."${final.system}".wayland-protocols;
-            })
             self.overlays.default
           ];
         };
