@@ -111,21 +111,43 @@
     };
   };
 
-  services.wlsunset = {
+  services.hyprsunset = {
     enable = true;
-    temperature = {
-      day = 6500;
-      night = 4000;
-    };
-    sunrise = "06:00";
-    sunset = "17:30";
+    extraArgs = [ "--identity" ];
   };
-  systemd.user.services.wlsunset = rec {
+  systemd.user.services.hyprsunset = rec {
     Service.Slice = "background-graphical.slice";
     Unit.After = Install.WantedBy;
     Install.WantedBy = lib.mkForce [
       config.wayland.systemd.target
     ];
+  };
+
+  systemd.user.services."hyprsunset-manager" = rec {
+    Unit = {
+      Description = "Manage Hyprsunset";
+      Wants = Install.WantedBy;
+      After = Install.WantedBy;
+    };
+
+    Service = {
+      Type = "simple";
+      Restart = "always";
+      RestartSec = 30;
+      ExecStart = lib.getExe (
+        pkgs.writeShellApplication {
+          name = "hyprsunset-manager";
+          runtimeInputs = with pkgs; [
+            dateutils
+            jq
+            socat
+          ];
+          text = builtins.readFile ./hyprsunset-manager.sh;
+        }
+      );
+    };
+
+    Install.WantedBy = [ "hyprsunset.service" ];
   };
 
   services.mako = {
