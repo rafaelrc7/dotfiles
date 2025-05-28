@@ -16,6 +16,7 @@ in
   imports = [
     ./waybar.nix
     ./wayland.nix
+    ./hyprsunset.nix
   ];
 
   home.packages = with pkgs; [
@@ -569,4 +570,9 @@ in
     };
   };
 
+  systemd.user.services.hyprsunset = rec {
+    Service.Slice = "background-graphical.slice";
+    Unit.After = Install.WantedBy;
+    Install.WantedBy = lib.mkForce [ config.wayland.systemd.target ];
+  };
 }
