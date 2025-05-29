@@ -62,39 +62,39 @@ store_status_file() {
 
 enable_hyprsunset() {
 	if [[ $ENABLED == "no" ]]; then
+		ENABLED="yes"
+		store_status_file
 		if [[ $PAUSED == "no" ]]; then
 			send_hyprsunset_status
 		fi
-		ENABLED="yes"
-		store_status_file
 	fi
 }
 
 disable_hyprsunset() {
 	if [[ $ENABLED == "yes" ]]; then
+		ENABLED="no"
+		store_status_file
 		if [[ $PAUSED == "no" ]]; then
 			send_hyprsunset_default
 		fi
-		ENABLED="no"
-		store_status_file
 	fi
 }
 
 pause_hyprsunset() {
 	if [[ $PAUSED == "no" ]]; then
+		PAUSED="yes"
 		if [[ $ENABLED == "yes" ]]; then
 			send_hyprsunset_default
 		fi
-		PAUSED="yes"
 	fi
 }
 
 unpause_hyprsunset() {
 	if [[ $PAUSED == "yes" ]]; then
+		PAUSED="no"
 		if [[ $ENABLED == "yes" ]]; then
 			send_hyprsunset_status
 		fi
-		PAUSED="no"
 	fi
 }
 
@@ -108,10 +108,10 @@ set_hyprsunset_temperature() {
 
 	if [[ "$TEMPERATURE" != "$new_temperature" ]]; then
 		TEMPERATURE=$new_temperature
+		store_status_file
 		if [[ $ENABLED == "yes" && $PAUSED == "no" ]]; then
 			send_hyprsunset_temperature
 		fi
-		store_status_file
 	fi
 }
 
@@ -125,10 +125,10 @@ set_hyprsunset_gamma() {
 
 	if [[ "$GAMMA" != "$new_gamma" ]]; then
 		GAMMA=$new_gamma
+		store_status_file
 		if [[ $ENABLED == "yes" && $PAUSED == "no" ]]; then
 			send_hyprsunset_gamma
 		fi
-		store_status_file
 	fi
 }
 
