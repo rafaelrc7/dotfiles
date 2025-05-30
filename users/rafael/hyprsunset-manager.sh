@@ -164,7 +164,9 @@ else
 	store_status_file
 fi
 
-force_update_hyprsunset
+until force_update_hyprsunset; do
+	sleep 1
+done
 
 while read -r msg; do
 	case "$msg" in
