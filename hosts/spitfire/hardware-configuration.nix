@@ -18,7 +18,6 @@
     "sdhci_pci"
   ];
   boot.initrd.kernelModules = [ ];
-  boot.initrd.luks.reusePassphrases = true;
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 

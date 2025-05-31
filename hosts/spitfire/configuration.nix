@@ -6,6 +6,7 @@
 }:
 {
   networking.hostName = "spitfire";
+  boot.initrd.systemd.enable = true;
 
   imports =
     [
