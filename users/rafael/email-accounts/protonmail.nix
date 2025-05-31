@@ -87,8 +87,8 @@ rec {
   imapnotify = {
     enable = config.services.imapnotify.enable;
     boxes = [ "INBOX" ];
-    onNotify = ''${email-utils.sync-mail}/bin/sync-mail protonmail'';
-    onNotifyPost = ''${email-utils.notify-new-mail}/bin/notify-new-mail protonmail'';
+    onNotify = ''${lib.getExe email-utils.sync-mail} protonmail'';
+    onNotifyPost = ''${lib.getExe email-utils.notify-new-mail} protonmail'';
   };
 
   notmuch.neomutt.enable = config.programs.notmuch.enable && config.programs.neomutt.enable;

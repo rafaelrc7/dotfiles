@@ -1,5 +1,6 @@
 args@{
   pkgs,
+  lib,
   config,
   ...
 }:
@@ -39,8 +40,8 @@ in
 
       Service = {
         Type = "oneshot";
-        ExecStart = "${email-utils.sync-mail}/bin/sync-mail";
-        ExecStartPost = "${email-utils.notify-new-mail}/bin/notify-new-mail";
+        ExecStart = "${lib.getExe email-utils.sync-mail}";
+        ExecStartPost = "${lib.getExe email-utils.notify-new-mail}";
         Restart = "on-failure";
         RestartSec = "10s";
       };

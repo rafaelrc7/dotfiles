@@ -1,4 +1,9 @@
-args@{ pkgs, config, ... }:
+args@{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 let
   neomutt_gruvbox = pkgs.fetchFromGitHub {
     owner = "shuber2";
@@ -80,7 +85,7 @@ in
       {
         map = [ "index" ];
         key = "q";
-        action = "<enter-command>unset wait_key<enter><enter-command>exec sync-mailbox<enter><shell-escape>sleep 1 && ${email-utils.sync-mail}/bin/sync-mail<enter><quit>";
+        action = "<enter-command>unset wait_key<enter><enter-command>exec sync-mailbox<enter><shell-escape>sleep 1 && ${lib.getExe email-utils.sync-mail}<enter><quit>";
       }
       {
         map = [
@@ -93,7 +98,7 @@ in
       {
         map = [ "index" ];
         key = "S";
-        action = "<enter-command>unset wait_key<enter><enter-command>exec sync-mailbox<enter><shell-escape>sleep 1 && ${email-utils.sync-mail}/bin/sync-mail<enter><enter-command>set wait_key=yes<enter><enter-command>exec sync-mailbox<enter>";
+        action = "<enter-command>unset wait_key<enter><enter-command>exec sync-mailbox<enter><shell-escape>sleep 1 && ${lib.getExe email-utils.sync-mail}<enter><enter-command>set wait_key=yes<enter><enter-command>exec sync-mailbox<enter>";
       }
       {
         # from muttwizard
