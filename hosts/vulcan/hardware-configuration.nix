@@ -42,7 +42,6 @@ in
 
   environment.systemPackages = with pkgs; [ v4l-utils ];
 
-  boot.initrd.luks.reusePassphrases = true;
   boot.initrd.luks.devices = {
     "root".device = "/dev/disk/by-partlabel/cryptroot";
     "harddrive".device = "/dev/disk/by-partlabel/cryptharddrive";
