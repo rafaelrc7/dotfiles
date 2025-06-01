@@ -14,6 +14,7 @@
     qutebrowser
     spotify
     tdesktop
+    thunderbird
     ungoogled-chromium
   ];
 }
