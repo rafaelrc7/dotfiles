@@ -10,6 +10,7 @@
     libreoffice-fresh
     obsidian
     pwvucontrol
+    protonmail-desktop
     qbittorrent
     qutebrowser
     spotify
