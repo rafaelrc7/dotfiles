@@ -7,6 +7,7 @@ api.nvim_create_autocmd("VimResized", {
 
 api.nvim_create_autocmd("BufWritePre", {
 	callback = function(_)
+		if vim.bo.filetype == "mail" then return end
 		local saved_view = vim.fn.winsaveview()
 		pcall(function() vim.cmd [[%s/\s\+$//e]] end)
 		vim.fn.winrestview(saved_view)
