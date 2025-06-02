@@ -28,8 +28,8 @@ rec {
 
   gpg = {
     key = "31DE9B4380A123E50CA4B834227EF83D7E920D08";
-    encryptByDefault = true;
-    signByDefault = true;
+    encryptByDefault = false;
+    signByDefault = false;
   };
 
   signature = {
@@ -104,9 +104,6 @@ rec {
     ];
 
     extraConfig = ''
-      set pgp_default_key = "${gpg.key}"
-      set pgp_self_encrypt = yes
-
       # protonmail-bridge already saves sent email to Sent.
       set copy = no
     '';
