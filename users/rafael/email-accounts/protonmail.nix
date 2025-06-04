@@ -15,7 +15,6 @@ let
   certificatesFile = "${config.xdg.dataHome}/certs/protonmail.pem";
 in
 rec {
-  primary = lib.mkDefault true;
   flavor = "plain"; # protonmail, if needed
 
   # Identity
@@ -35,10 +34,8 @@ rec {
   signature = {
     showSignature = "append";
     text = ''
-      att.
+      sds,
         Rafael Carvalho
-
-        pgp key: https://pgp.rafaelrc.com
     '';
   };
 
