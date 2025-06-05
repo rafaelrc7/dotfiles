@@ -28,11 +28,105 @@ let
 in
 {
   # https://gist.github.com/Konfekt/9797372146e65a70a44c1e24a35ae0a2
-  xdg.configFile."neomutt/mailcap".text = ''
-    text/html; ${mutt_bgrun} ${email-utils.qutebrowser-tmp}/bin/qutebrowser-tmp %s; nametemplate=%s.html; test=test -n "$DISPLAY";
-    text/html; ${mutt_bgrun} $BROWSER %s; nametemplate=%s.html; test=test -n "$DISPLAY"
-    text/html; ${pkgs.lynx}/bin/lynx -assume_charset=%{charset} -display_charset=utf-8 -dump %s; nametemplate=%s.html; copiousoutput
-  '';
+  xdg.configFile."neomutt/mailcap".text =
+    let
+      soffice = "${pkgs.libreoffice-fresh}/lib/libreoffice/program/soffice --nologo";
+      tohtml = lib.getExe (
+        pkgs.writeShellApplication {
+          name = "tohtml";
+          runtimeInputs = with pkgs; [
+            pandoc
+            w3m
+          ];
+          text = ''
+            pandoc --from="$1" --to=html "$2" | w3m -dump -T text/html -
+          '';
+        }
+      );
+      pdftohtml = lib.getExe (
+        pkgs.writeShellApplication {
+          name = "pdftohtml";
+          runtimeInputs = with pkgs; [
+            poppler_utils
+            w3m
+          ];
+          text = ''
+            pdftotext -nopgbrk -q -htmlmeta -- "$1" - | w3m -dump -T text/html -
+          '';
+        }
+      );
+      doctohtml = lib.getExe (
+        pkgs.writeShellApplication {
+          name = "doctohtml";
+          runtimeInputs = with pkgs; [
+            wv
+            w3m
+          ];
+          text = ''
+            wvHtml "$1" - | w3m -dump -T text/html -
+          '';
+        }
+      );
+    in
+    ''
+      # Text
+      text/markdown; ${tohtml} markdown %s; copiousoutput
+
+      application/json; ${lib.getExe pkgs.jq} --color-output . %s; copiousoutput
+
+      text/html; ${mutt_bgrun} ${lib.getExe email-utils.qutebrowser-tmp} %s; nametemplate=%s.html; test=test -n "$DISPLAY"
+      text/html; ${mutt_bgrun} $BROWSER %s; nametemplate=%s.html; test=test -n "$DISPLAY"
+      text/html; ${lib.getExe pkgs.w3m} -dump -I %{charset} -O utf-8 %s; nametemplate=%s.html; copiousoutput
+
+
+      # PDFs
+      application/pdf; ${mutt_bgrun} ${lib.getExe pkgs.zathura} %s; test=test -n "$DISPLAY"; nametemplate=%s.pdf
+      application/pdf; ${pdftohtml} %s; nametemplate=%s.pdf; copiousoutput
+
+      application/x-pdf; ${mutt_bgrun} ${lib.getExe pkgs.zathura} %s; test=test -n "$DISPLAY"; nametemplate=%s.pdf
+      application/x-pdf; ${pdftohtml} %s; nametemplate=%s.pdf; copiousoutput
+
+
+      # Images
+      image/*; ${mutt_bgrun} ${lib.getExe pkgs.imv} %s; test=test -n "$DISPLAY"
+
+
+      # Videos
+      video/*; ${mutt_bgrun} ${lib.getExe pkgs.mpv} %s; test=test -n "$DISPLAY"
+
+
+      # Office Documents
+      application/vnd.oasis.opendocument.text; ${mutt_bgrun} ${soffice} %s; test=test -n "$DISPLAY"
+      application/vnd.oasis.opendocument.text; ${tohtml} odt %s; copiousoutput
+
+      application/vnd.oasis.opendocument.spreadsheet; ${mutt_bgrun} ${soffice} %s; test=test -n "$DISPLAY"
+
+      application/vnd.oasis.opendocument.presentation; ${mutt_bgrun} ${soffice} %s; test=test -n "$DISPLAY"
+
+      application/vnd.openxmlformats-officedocument.wordprocessingml.document; ${mutt_bgrun} ${soffice} %s; nametemplate=%s.docx; test=test -n "$DISPLAY"
+      application/vnd.openxmlformats-officedocument.wordprocessingml.document; ${tohtml} docx %s; nametemplate=%s.docx; copiousoutput
+      application/vnd.openxmlformats-officedocument.wordprocessingml.template; ${mutt_bgrun} ${soffice} %s; nametemplate=%s.docm; test=test -n "$DISPLAY"
+      application/vnd.openxmlformats-officedocument.wordprocessingml.template; ${tohtml} docx %s; nametemplate=%s.docm; copiousoutput
+
+      application/msword; ${mutt_bgrun} ${soffice} %s; test=test -n "$DISPLAY"
+      application/msword; ${doctohtml} %s; copiousoutput
+
+      application/vnd.msword; ${mutt_bgrun} ${soffice} %s; test=test -n "$DISPLAY"
+      application/vnd.msword; ${doctohtml} %s; copiousoutput
+
+      application/vnd.openxmlformats-officedocument.spreadsheetml.sheet; ${mutt_bgrun} ${soffice} %s; test=test -n "$DISPLAY"
+      application/vnd.openxmlformats-officedocument.spreadsheetml.template; ${mutt_bgrun} ${soffice} %s; test=test -n "$DISPLAY"
+
+      application/vnd.ms-excel; ${mutt_bgrun} ${soffice} %s; test=test -n "$DISPLAY"
+
+      application/csv; ${mutt_bgrun} ${soffice} %s; test=test -n "$DISPLAY"
+
+      application/vnd.openxmlformats-officedocument.presentationml.presentation; ${mutt_bgrun} ${soffice} %s; test=test -n "$DISPLAY"
+      application/vnd.openxmlformats-officedocument.presentationml.template; ${mutt_bgrun} ${soffice} %s; test=test -n "$DISPLAY"
+      application/vnd.openxmlformats-officedocument.presentationml.slideshow; ${mutt_bgrun} ${soffice} %s; test=test -n "$DISPLAY"
+
+      application/vnd.ms-powerpoint ${mutt_bgrun} ${soffice} %s; test=test -n "$DISPLAY"
+    '';
 
   programs.neomutt = {
     enable = true;
