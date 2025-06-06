@@ -170,6 +170,12 @@ in
       unset mark_old
 
       bind editor <Tab> complete-query
+      set abort_key = "<Esc>"
+
+      set abort_noattach = "ask-yes"
+      set abort_noattach_regex = "\\<(attach|attached|attachments?|anexos?|anexado)\\>"
+
+      set attach_save_dir = "${config.xdg.userDirs.download}"
 
       # Colours
       source ${mutt_catppuccin}/neomuttrc
