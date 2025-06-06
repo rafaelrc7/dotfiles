@@ -60,6 +60,7 @@ rec {
   mbsync = {
     enable = config.programs.mbsync.enable;
     create = "maildir";
+    expunge = "both";
   };
 
   imapnotify = {
