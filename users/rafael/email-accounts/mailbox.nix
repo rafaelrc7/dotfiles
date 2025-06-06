@@ -55,7 +55,22 @@ rec {
   # Tools
   msmtp.enable = config.programs.msmtp.enable;
 
-  notmuch.enable = config.programs.notmuch.enable;
+  notmuch = {
+    enable = config.programs.notmuch.enable;
+    neomutt = {
+      enable = config.programs.notmuch.enable && config.programs.neomutt.enable;
+      virtualMailboxes = [
+        {
+          name = "All";
+          query = "folder:/mailbox/Inbox/ or folder:/mailbox/Archive/";
+        }
+        {
+          name = "Unread";
+          query = "folder:/mailbox/Inbox/ and tag:unread";
+        }
+      ];
+    };
+  };
 
   mbsync = {
     enable = config.programs.mbsync.enable;
@@ -70,7 +85,6 @@ rec {
     onNotifyPost = ''${lib.getExe email-utils.notify-new-mail} mailbox'';
   };
 
-  notmuch.neomutt.enable = config.programs.notmuch.enable && config.programs.neomutt.enable;
   neomutt = {
     enable = config.programs.neomutt.enable;
     extraConfig = ''
