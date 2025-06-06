@@ -10,7 +10,7 @@ let
     ${pkgs.libsecret}/bin/secret-tool lookup mailbox-org password
   '';
 in
-{
+rec {
   primary = lib.mkDefault true;
   flavor = "plain";
 
@@ -70,5 +70,12 @@ in
   };
 
   notmuch.neomutt.enable = config.programs.notmuch.enable && config.programs.neomutt.enable;
-  neomutt.enable = config.programs.neomutt.enable;
+  neomutt = {
+    enable = config.programs.neomutt.enable;
+    extraConfig = ''
+      set crypt_auto_sign = yes
+      set pgp_default_key = ${gpg.key}
+    '';
+  };
+
 }

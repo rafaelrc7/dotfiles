@@ -173,6 +173,15 @@ in
 
       # Colours
       source ${mutt_catppuccin}/neomuttrc
+
+      # Encryption
+      set crypt_use_gpgme = yes
+      set postpone_encrypt = yes # Necessary for pgp_self_encrypt
+      set pgp_self_encrypt = yes
+      set crypt_use_pka = no
+      set crypt_auto_sign = no
+      set crypt_auto_encrypt = no
+      set crypt_auto_pgp = yes
     '';
 
     macros = [
