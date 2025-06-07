@@ -180,6 +180,11 @@ in
       # Colours
       source ${mutt_catppuccin}/neomuttrc
 
+      # Autocrypt
+      set autocrypt = yes
+      set autocrypt_dir = "~/.gnupg"
+      set autocrypt_reply = no
+
       # Encryption
       set crypt_use_gpgme = yes
       set postpone_encrypt = yes # Necessary for pgp_self_encrypt
