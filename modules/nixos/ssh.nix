@@ -3,8 +3,9 @@
   services.openssh = {
     enable = true;
     settings = {
-      PermitRootLogin = lib.mkForce "no";
       PasswordAuthentication = false;
+      PermitRootLogin = lib.mkForce "no";
+      X11Forwarding = true;
     };
   };
 }
