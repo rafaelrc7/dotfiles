@@ -100,9 +100,9 @@ in
 
         workspace = [
           "10, monitor:desc:LG Electronics LG FULL HD 0x01010101, default:true"
-          "special:scratchpad,    on-created-empty:${terminal}"
-          "special:calculator,    on-created-empty:${calculator}"
-          "special:screen-record, on-created-empty:${pkgs.gpu-screen-recorder-gtk}/bin/gpu-screen-recorder-gtk"
+          "special:scratchpad,    on-created-empty:${execCmd}${terminal}"
+          "special:calculator,    on-created-empty:${execCmd}${calculator}"
+          "special:screen-record, on-created-empty:${execCmd}${pkgs.gpu-screen-recorder-gtk}/bin/gpu-screen-recorder-gtk"
         ];
 
         windowrulev2 = [
@@ -124,6 +124,9 @@ in
           "float,              class:(Paradox Launcher)"
           "center, floating:1, class:(Paradox Launcher)"
 
+          # Floating Picture-in-Picture
+          "float, class:(firefox), title:(Picture-in-Picture)"
+
           # Fix flameshot on multiple monitors
           "pin,                      class:(flameshot), title:(flameshot)"
           "stayfocused,              class:(flameshot), title:(flameshot)"
@@ -135,9 +138,14 @@ in
           "rounding 0,               class:(flameshot), title:(flameshot)"
 
           # Fix password dialogs losing focus
-          "stayfocused, class:^(pinentry-)"
-          "stayfocused, class:^(polkit-), title:(Authenticate)"
+          "stayfocused, class:(pinentry-)(.*)"
+          "stayfocused, class:(polkit-)(.*), title:(Authenticate)"
           "stayfocused, class:(gcr-prompter)"
+
+          # Hide password dialogs
+          "noscreenshare, class:(pinentry-)(.*)"
+          "noscreenshare, class:(polkit-)(.*), title:(Authenticate)"
+          "noscreenshare, class:(gcr-prompter)"
 
           # Make qalculate-qt floating by default
           "float, class:^(io.github.Qalculate.qalculate-qt)$"
@@ -209,7 +217,7 @@ in
           "SHIFT, XF86AudioMute, exec, ${execCmd}${pkgs.wireplumber}/bin/wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
 
           # Global binds
-          ",Pause,pass,^(discord)$"
+          "ALT, Pause, pass, class:(discord)"
 
           # Tab windows
           "$mod, T, togglegroup"
