@@ -1,7 +1,7 @@
 { pkgs, ... }:
 {
   home.packages = with pkgs; [
-    (discord.override { nss = nss_latest; })
+    discord
     calibre
     gimp
     gnome-disk-utility
