@@ -105,29 +105,11 @@ in
   };
 
   catppuccin = {
+    enable = true;
     accent = "blue";
     flavor = "mocha";
 
-    zathura.enable = true;
-    fuzzel.enable = true;
-    waybar.enable = true;
-    tmux.enable = true;
-    sway.enable = true;
-    nvim.enable = true;
-    mako.enable = true;
-    kitty.enable = true;
-    imv.enable = true;
-    hyprland.enable = true;
-    fzf.enable = true;
-    foot.enable = true;
-    delta.enable = true;
-    btop.enable = true;
-    bat.enable = true;
-    zsh-syntax-highlighting.enable = true;
-    kvantum = {
-      enable = true;
-      apply = true;
-    };
+    firefox.profiles.personal.enable = false;
     gtk = {
       enable = true;
       icon.enable = true;
@@ -256,7 +238,7 @@ in
 
   qt = {
     enable = true;
-    platformTheme.name = "qtct";
+    platformTheme.name = "kvantum";
     style.name = "kvantum";
   };
 

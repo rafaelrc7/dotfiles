@@ -107,7 +107,7 @@
     hyprland.url = "github:hyprwm/Hyprland";
 
     nixos-hardware.url = "github:nixos/nixos-hardware/master";
-    catppuccin.url = "github:rafaelrc7/catppuccin-nix";
+    catppuccin.url = "github:catppuccin/nix";
 
     awesomerc.url = "github:rafaelrc7/awesomerc";
 

@@ -145,16 +145,16 @@
         "nixpkgs": "nixpkgs_3"
       },
       "locked": {
-        "lastModified": 1747623346,
-        "narHash": "sha256-j6PQpGX8hDNygiemoT1/m83ii34fG1NV21JK0/KeWiE=",
-        "owner": "rafaelrc7",
-        "repo": "catppuccin-nix",
-        "rev": "d437773d8cf6f1de5c74f1af4ac7a942c12fffef",
+        "lastModified": 1752227483,
+        "narHash": "sha256-eetITGJfURryoHY5gfuE9/4sEV9aSgzhPxgsQgofNa8=",
+        "owner": "catppuccin",
+        "repo": "nix",
+        "rev": "5f431aac1a4038c385e6de2d2384d943e4802d61",
         "type": "github"
       },
       "original": {
-        "owner": "rafaelrc7",
-        "repo": "catppuccin-nix",
+        "owner": "catppuccin",
+        "repo": "nix",
         "type": "github"
       }
     },
