@@ -3,6 +3,7 @@ homeModules: with homeModules; [
   keybase
   nix
   pass
+  spotify-player
   syncthing
   tmux
 ]
