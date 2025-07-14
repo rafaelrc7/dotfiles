@@ -1,4 +1,9 @@
-{ config, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   fonts = {
     monospace = {
@@ -110,11 +115,77 @@ in
     flavor = "mocha";
 
     firefox.profiles.personal.enable = false;
-    gtk = {
-      enable = true;
-      icon.enable = true;
-    };
   };
+
+  # Based on https://github.com/Weathercold/nixfiles/blob/master/home/modules/themes/catppuccin/gtk.nix
+  gtk =
+    let
+      accent = config.catppuccin.accent;
+      flavor = config.catppuccin.flavor;
+      polarity = if flavor == "latte" then "light" else "dark";
+      size = "compact";
+      tweaks = [ ];
+      flavorTweak = lib.optionalString (flavor == "frappe" || flavor == "macchiato") flavor;
+      toTitleCase = s: lib.toUpper (builtins.substring 0 1 s) + builtins.substring 1 100 s;
+      mkSuffix = s: "-${toTitleCase s}";
+    in
+    {
+      enable = true;
+
+      theme =
+        let
+          accent = if config.catppuccin.accent == "blue" then "default" else config.catppuccin.accent;
+        in
+        {
+          name =
+            "Catppuccin-GTK"
+            + lib.optionalString (accent != "default") (mkSuffix accent)
+            + mkSuffix polarity
+            + lib.optionalString (size == "compact") "-Compact"
+            + lib.optionalString (flavorTweak != "") (mkSuffix flavorTweak);
+          package = pkgs.magnetic-catppuccin-gtk.override {
+            inherit size;
+            accent = [ accent ];
+            shade = polarity;
+            tweaks = tweaks ++ lib.optional (flavorTweak != "") flavorTweak;
+          };
+        };
+
+      iconTheme = {
+        name = "Papirus${mkSuffix polarity}";
+        package = pkgs.catppuccin-papirus-folders.override { inherit accent flavor; };
+      };
+
+      font = {
+        inherit (fonts.sansSerif) package name;
+        size = fonts.sizes.applications;
+      };
+
+      gtk2.extraConfig = ''
+        gtk-enable-animations=1
+        gtk-primary-button-warps-slider=0
+        gtk-toolbar-style=3
+        gtk-menu-images=1
+        gtk-button-images=1
+      '';
+
+      gtk3.extraConfig = {
+        gtk-application-prefer-dark-theme = true;
+        gtk-decoration-layout = "icon:minimize,maximize,close";
+        gtk-enable-animations = true;
+        gtk-menu-images = true;
+        gtk-modules = "colorreload-gtk-module:window-decorations-gtk-module";
+        gtk-primary-button-warps-slider = false;
+        gtk-toolbar-style = 3;
+      };
+
+      gtk4.extraConfig = {
+        gtk-application-prefer-dark-theme = true;
+        gtk-decoration-layout = "icon:minimize,maximize,close";
+        gtk-enable-animations = true;
+        gtk-primary-button-warps-slider = false;
+      };
+    };
 
   wayland.windowManager = {
     hyprland = {
@@ -201,40 +272,6 @@ in
     [UiSettings]
     ColorScheme=*
   '';
-
-  gtk = {
-    enable = true;
-
-    font = {
-      inherit (fonts.sansSerif) package name;
-      size = fonts.sizes.applications;
-    };
-
-    gtk2.extraConfig = ''
-      gtk-enable-animations=1
-      gtk-primary-button-warps-slider=0
-      gtk-toolbar-style=3
-      gtk-menu-images=1
-      gtk-button-images=1
-    '';
-
-    gtk3.extraConfig = {
-      gtk-application-prefer-dark-theme = true;
-      gtk-decoration-layout = "icon:minimize,maximize,close";
-      gtk-enable-animations = true;
-      gtk-menu-images = true;
-      gtk-modules = "colorreload-gtk-module:window-decorations-gtk-module";
-      gtk-primary-button-warps-slider = false;
-      gtk-toolbar-style = 3;
-    };
-
-    gtk4.extraConfig = {
-      gtk-application-prefer-dark-theme = true;
-      gtk-decoration-layout = "icon:minimize,maximize,close";
-      gtk-enable-animations = true;
-      gtk-primary-button-warps-slider = false;
-    };
-  };
 
   qt = {
     enable = true;

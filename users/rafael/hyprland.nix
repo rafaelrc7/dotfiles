@@ -549,7 +549,7 @@ in
       general = {
         disable_loading_bar = true;
         hide_cursor = true;
-        grace = 10;
+        grace = 30;
         no_fade_in = false;
         no_fade_out = false;
         text_trim = true;
