@@ -41,7 +41,6 @@
       EnableTrackingProtection = {
         Value = true;
         Cryptomining = true;
-        Fingerprinting = true;
         EmailTracking = true;
       };
       EncryptedMediaExtensions = {
@@ -201,8 +200,6 @@
           "browser.urlbar.suggest.recentsearches" = false;
           "intl.locale.requested" = builtins.concatStringsSep "," languagePacks;
           "privacy.globalprivacycontrol.enabled" = true;
-          "privacy.resistFingerprinting.letterboxing" = true;
-          "privacy.resistFingerprinting" = true;
 
           "privacy.sanitize.sanitizeOnShutdown" = true;
           "privacy.clearOnShutdown.cache" = true;
