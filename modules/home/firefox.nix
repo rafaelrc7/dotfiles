@@ -406,6 +406,7 @@
             consent-o-matic
             cookie-autodelete
             darkreader
+            duckduckgo-privacy-essentials
             export-cookies-txt
             fastforwardteam
             ff2mpv
@@ -418,7 +419,6 @@
             redirector
             return-youtube-dislikes
             search-by-image
-            simplelogin
             smart-referer
             sponsorblock
             stylus
