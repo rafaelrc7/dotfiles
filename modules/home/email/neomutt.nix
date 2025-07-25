@@ -74,7 +74,7 @@ in
 
       application/json; ${lib.getExe pkgs.jq} --color-output . %s; copiousoutput
 
-      text/html; ${mutt_bgrun} ${lib.getExe email-utils.qutebrowser-tmp} %s; nametemplate=%s.html; test=test -n "$DISPLAY"
+      text/html; ${lib.getExe pkgs.qutebrowser} --temp-basedir -s content.dns_prefetch false -s content.javascript.enabled false -s content.local_content_can_access_remote_urls true %s; needsterminal; nametemplate=%s.html; test=test -n "$DISPLAY"
       text/html; ${mutt_bgrun} $BROWSER %s; nametemplate=%s.html; test=test -n "$DISPLAY"
       text/html; ${lib.getExe pkgs.w3m} -dump -I %{charset} -O utf-8 %s; nametemplate=%s.html; copiousoutput
 
