@@ -368,6 +368,7 @@ in
           kb_layout = "us,br";
           kb_model = ",abnt2";
           kb_variant = "intl,abnt2";
+          kb_options = "compose:rctrl";
 
           numlock_by_default = true;
           resolve_binds_by_sym = true;
