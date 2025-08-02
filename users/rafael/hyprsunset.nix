@@ -1,4 +1,5 @@
 {
+  inputs,
   config,
   pkgs,
   lib,
@@ -152,7 +153,6 @@ in
 
   services.hyprsunset = {
     enable = true;
-    package = pkgs.nixpkgs-unstable.hyprsunset;
     extraArgs = [ "--identity" ];
   };
 

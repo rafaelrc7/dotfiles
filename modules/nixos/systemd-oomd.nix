@@ -11,12 +11,12 @@
     };
   };
 
-  systemd.extraConfig = ''
-    DefaultCPUAccounting=yes
-    DefaultIOAccounting=yes
-    DefaultMemoryAccounting=yes
-    DefaultTasksAccounting=yes
-  '';
+  systemd.settings.Manager = {
+    DefaultCPUAccounting = true;
+    DefaultIOAccounting = true;
+    DefaultMemoryAccounting = true;
+    DefaultTasksAccounting = true;
+  };
 
   # Services
   systemd.services."user@".serviceConfig = {

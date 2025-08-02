@@ -1,4 +1,5 @@
 {
+  inputs,
   config,
   pkgs,
   lib,
@@ -57,7 +58,6 @@ in
     in
     {
       enable = true;
-      package = if isNixOSHyprland then null else pkgs.hyprland;
 
       systemd = {
         enable = !isUWSM;

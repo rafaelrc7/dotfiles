@@ -151,11 +151,6 @@ in
           };
         };
 
-      iconTheme = {
-        name = "Papirus${mkSuffix polarity}";
-        package = pkgs.catppuccin-papirus-folders.override { inherit accent flavor; };
-      };
-
       font = {
         inherit (fonts.sansSerif) package name;
         size = fonts.sizes.applications;
