@@ -32,91 +32,90 @@ let
 in
 {
   systemd.user = {
-    services =
-      {
-        hyprsunset-manager = rec {
-          Install.WantedBy = [ "hyprsunset.service" ];
+    services = {
+      hyprsunset-manager = rec {
+        Install.WantedBy = [ "hyprsunset.service" ];
 
-          Unit = {
-            Description = "Manage Hyprsunset";
-            Requires = "hyprsunset-manager.socket";
-            Wants = Install.WantedBy;
-            After = Install.WantedBy ++ [ "hyprsunset-manager.socket" ];
-          };
-
-          Service = {
-            Type = "exec";
-            Restart = "always";
-            Sockets = "hyprsunset-manager.socket";
-            StandardInput = "socket";
-            StandardOutput = "journal";
-            StandardError = "journal";
-            ExecStart = lib.getExe (
-              pkgs.writeShellApplication {
-                name = "hyprsunset-manager";
-                runtimeInputs = with pkgs; [
-                  bc
-                  config.wayland.windowManager.hyprland.package
-                  dateutils
-                  jq
-                ];
-                text = builtins.readFile ./hyprsunset-manager.sh;
-              }
-            );
-          };
+        Unit = {
+          Description = "Manage Hyprsunset";
+          Requires = "hyprsunset-manager.socket";
+          Wants = Install.WantedBy;
+          After = Install.WantedBy ++ [ "hyprsunset-manager.socket" ];
         };
 
-        hyprsunset-manager-hyprland-event-listener = rec {
-          Install.WantedBy = [ "hyprsunset-manager.service" ];
+        Service = {
+          Type = "exec";
+          Restart = "always";
+          Sockets = "hyprsunset-manager.socket";
+          StandardInput = "socket";
+          StandardOutput = "journal";
+          StandardError = "journal";
+          ExecStart = lib.getExe (
+            pkgs.writeShellApplication {
+              name = "hyprsunset-manager";
+              runtimeInputs = with pkgs; [
+                bc
+                config.wayland.windowManager.hyprland.package
+                dateutils
+                jq
+              ];
+              text = builtins.readFile ./hyprsunset-manager.sh;
+            }
+          );
+        };
+      };
 
-          Unit = {
-            Description = "Listen to Hyprland events for hyprsunset manager";
-            Requires = Install.WantedBy;
-            Wants = Install.WantedBy;
-            After = Install.WantedBy;
-          };
+      hyprsunset-manager-hyprland-event-listener = rec {
+        Install.WantedBy = [ "hyprsunset-manager.service" ];
 
-          Service = {
-            Type = "exec";
-            Restart = "always";
-            ExecStart = lib.getExe (
-              pkgs.writeShellApplication {
-                name = "hyprsunset-manager";
-                runtimeInputs = with pkgs; [
-                  config.wayland.windowManager.hyprland.package
-                  jq
-                  socat
-                ];
-                text = builtins.readFile ./hyprsunset-manager-hyprland-event-listener.sh;
-              }
-            );
-          };
+        Unit = {
+          Description = "Listen to Hyprland events for hyprsunset manager";
+          Requires = Install.WantedBy;
+          Wants = Install.WantedBy;
+          After = Install.WantedBy;
+        };
+
+        Service = {
+          Type = "exec";
+          Restart = "always";
+          ExecStart = lib.getExe (
+            pkgs.writeShellApplication {
+              name = "hyprsunset-manager";
+              runtimeInputs = with pkgs; [
+                config.wayland.windowManager.hyprland.package
+                jq
+                socat
+              ];
+              text = builtins.readFile ./hyprsunset-manager-hyprland-event-listener.sh;
+            }
+          );
+        };
+      };
+    }
+    // lib.mapAttrs' (
+      name: transitionCfg:
+      lib.nameValuePair "hyprsunset-transition-${name}" {
+        Install = { };
+
+        Unit = {
+          ConditionEnvironment = "WAYLAND_DISPLAY";
+          Description = "hyprsunset transition for ${name}";
+          After = [ "hyprsunset-manager.service" ];
+          Requires = [ "hyprsunset-manager.service" ];
+        };
+
+        Service = {
+          Type = "oneshot";
+          # Execute multiple requests sequentially
+          ExecStart = pkgs.writeShellScript "hyprsunset-transition-${name}" (
+            lib.concatMapStringsSep " && " (
+              cmd: ''echo "${lib.escapeShellArgs cmd}" > "/run/user/$UID/hyprsunset-manager"''
+            ) transitionCfg.requests
+          );
+
         };
       }
-      // lib.mapAttrs' (
-        name: transitionCfg:
-        lib.nameValuePair "hyprsunset-transition-${name}" {
-          Install = { };
-
-          Unit = {
-            ConditionEnvironment = "WAYLAND_DISPLAY";
-            Description = "hyprsunset transition for ${name}";
-            After = [ "hyprsunset-manager.service" ];
-            Requires = [ "hyprsunset-manager.service" ];
-          };
-
-          Service = {
-            Type = "oneshot";
-            # Execute multiple requests sequentially
-            ExecStart = pkgs.writeShellScript "hyprsunset-transition-${name}" (
-              lib.concatMapStringsSep " && " (
-                cmd: ''echo "${lib.escapeShellArgs cmd}" > "/run/user/$UID/hyprsunset-manager"''
-              ) transitionCfg.requests
-            );
-
-          };
-        }
-      ) hyprsunset-transitions;
+    ) hyprsunset-transitions;
 
     timers = lib.mapAttrs' (
       name: transitionCfg:

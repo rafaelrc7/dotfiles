@@ -24,7 +24,8 @@ in
         nixpkgs = {
           config = {
             allowUnfree = true;
-          } // config;
+          }
+          // config;
           overlays = overlays ++ [
             inputs.nix-vscode-extensions.overlays.default
             inputs.nur.overlays.default

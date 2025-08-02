@@ -13,17 +13,16 @@
 pkgs.mkShell {
   inherit inputsFrom;
   strictDeps = true;
-  nativeBuildInputs =
+  nativeBuildInputs = [
+    go
+  ]
+  ++ pkgs.lib.optional devTools (
+    with pkgs;
     [
-      go
+      gopls
+      gotools
+      go-tools
+      gopkgs
     ]
-    ++ pkgs.lib.optional devTools (
-      with pkgs;
-      [
-        gopls
-        gotools
-        go-tools
-        gopkgs
-      ]
-    );
+  );
 }

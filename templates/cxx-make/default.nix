@@ -13,18 +13,19 @@ stdenv.mkDerivation {
     pkg-config
   ];
 
-  buildFlags =
-    [ "release" ]
-    ++ lib.optionals stdenv.cc.isClang [
-      "AR=llvm-ar"
-      "RANLIB=llvm-ranlib"
-      "NM=llvm-nm"
-    ]
-    ++ lib.optionals stdenv.cc.isGNU [
-      "AR=gcc-ar"
-      "RANLIB=gcc-ranlib"
-      "NM=gcc-nm"
-    ];
+  buildFlags = [
+    "release"
+  ]
+  ++ lib.optionals stdenv.cc.isClang [
+    "AR=llvm-ar"
+    "RANLIB=llvm-ranlib"
+    "NM=llvm-nm"
+  ]
+  ++ lib.optionals stdenv.cc.isGNU [
+    "AR=gcc-ar"
+    "RANLIB=gcc-ranlib"
+    "NM=gcc-nm"
+  ];
 
   installFlags = [ "prefix=${placeholder "out"}" ];
   enableParallelBuilding = true;
