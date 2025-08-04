@@ -72,6 +72,12 @@ in
       ps.actions-preview-nvim
 
       {
+        plugin = ps.conform-nvim;
+        type = "lua";
+        config = builtins.readFile ./lua/plugin/conform.lua;
+      }
+
+      {
         plugin = ps.nvim-autopairs;
         type = "lua";
         config = builtins.readFile ./lua/plugin/nvim-autopairs.lua;

@@ -15,17 +15,3 @@ map("", "<leader>s", ":setlocal spell!<CR>", { silent = true, noremap = true, de
 -- buffers
 map("n", "th", ":bprev<CR>", { silent = true, desc = "[T]ab left ([h])" })
 map("n", "tl", ":bnext<CR>", { silent = true, desc = "[T]ab right ([l])" })
-
--- Formatting
-local format = require "format"
-
-map(
-	"n",
-	"<leader>fr",
-	function() format.format(0, { async = true }) end,
-	{ silent = true, desc = "[F]o[r]mat current buffer" }
-)
-map("n", "<leader>af", function()
-	vim.b.do_not_format = not vim.b.do_not_format
-	vim.notify("Autoformat on save was " .. (vim.b.do_not_format and "DISABLED" or "ENABLED"), vim.log.levels.INFO)
-end, { silent = true, desc = "Toggle [a]uto [f]ormat for current buffer" })
