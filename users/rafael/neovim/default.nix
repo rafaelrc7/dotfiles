@@ -48,6 +48,7 @@
     extraPackages = with pkgs; [
       clang
       curl
+      delta
       fd
       ripgrep
       graphviz
