@@ -47,7 +47,7 @@ in
     ];
 
   home.packages = with pkgs; [
-    neovim-qt
+    (neovim-qt.override { neovim = config.programs.neovim.finalPackage; })
     nh
   ];
 
