@@ -37,6 +37,8 @@
       ${builtins.readFile ./lua/autocmds.lua}
 
       ${builtins.readFile ./lua/filetypes.lua}
+
+      ${builtins.readFile ./lua/godot.lua}
     '';
 
     extraLuaPackages =

@@ -94,6 +94,7 @@ local lsps = {
 	"elixirls",
 	"emmet_language_server",
 	"eslint",
+	"gdscript",
 	"glsl_analyzer",
 	"gopls",
 	"gradle_ls",
