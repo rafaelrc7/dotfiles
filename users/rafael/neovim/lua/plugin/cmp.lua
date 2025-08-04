@@ -48,15 +48,22 @@ cmp.setup {
 		end, { "i", "s" }),
 	},
 	sources = cmp.config.sources({
-		{ name = "conjure" },
-		{ name = "git" },
-		{ name = "luasnip" },
-		{ name = "nvim_lsp" },
 		{ name = "path" },
+		{ name = "nvim_lsp" },
+		{ name = "luasnip" },
+		{ name = "conjure" },
 	}, {
 		{ name = "buffer" },
 	}),
 }
+
+cmp.setup.filetype("gitcommit", {
+	sources = cmp.config.sources({
+		{ name = "git" },
+	}, {
+		{ name = "buffer" },
+	}),
+})
 
 -- Calling cmp.mapping.preset.cmdline(override) *does not* actually override it
 -- https://github.com/hrsh7th/nvim-cmp/blob/main/lua/cmp/config/mapping.lua

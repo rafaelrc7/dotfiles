@@ -62,7 +62,15 @@ in
       ps.cmp-path
       ps.cmp-treesitter
 
-      ps.luasnip
+      ps.friendly-snippets
+      {
+        plugin = ps.luasnip;
+        type = "lua";
+        config = # lua
+          ''
+            require("luasnip.loaders.from_vscode").lazy_load()
+          '';
+      }
 
       {
         plugin = ps.nvim-lspconfig;

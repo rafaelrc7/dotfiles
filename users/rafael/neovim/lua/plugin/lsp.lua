@@ -29,36 +29,30 @@ vim.g.completion_matching_strategy_list = { "exact", "substring", "fuzzy" }
 
 vim.api.nvim_create_autocmd({ "LspAttach" }, {
 	callback = function(ev)
+		local id = vim.tbl_get(ev, "data", "client_id")
+		local client = id and vim.lsp.get_client_by_id(id)
+
 		local bufnr = ev.buf
 
-		local bufmap = function(mode, rhs, lhs, desc)
+		local bufmap = function(mode, lhs, rhs, desc)
 			if desc then desc = "LSP " .. desc end
-			vim.keymap.set(mode, rhs, lhs, { buffer = bufnr, desc = desc, silent = true })
+			vim.keymap.set(mode, lhs, rhs, { buffer = bufnr, desc = desc, silent = true })
 		end
+
+		local client_supports = function(method) return client ~= nil and client:supports_method(method) end
 
 		local _, _ = pcall(vim.lsp.codelens.refresh)
 		vim.bo[ev.buf].omnifunc = "v:lua.vim.lsp.omnifunc"
 
-		vim.keymap.set(
-			"n",
-			"[d",
-			function() vim.diagnostic.jump { count = -1, float = true } end,
-			{ desc = "Previous [d]iagnostic" }
-		)
-		vim.keymap.set(
-			"n",
-			"]d",
-			function() vim.diagnostic.jump { count = 1, float = true } end,
-			{ desc = "Next [d]iagnostic" }
-		)
-		vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Add to loclist" })
+		if client_supports "textDocument/inlayHint" then vim.lsp.inlay_hint.enable(true, { bufnr = bufnr }) end
 
-		bufmap("n", "<leader>D", vim.lsp.buf.type_definition, "Type [D]efinition")
+		bufmap("n", "[d", function() vim.diagnostic.jump { count = -1, float = true } end, "Previous [d]iagnostic")
+		bufmap("n", "]d", function() vim.diagnostic.jump { count = 1, float = true } end, "Next [d]iagnostic")
+		bufmap("n", "<leader>q", vim.diagnostic.setloclist, "Add diagnostics to loclist")
+
 		bufmap("n", "gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
 		bufmap("n", "gd", vim.lsp.buf.definition, "[G]oto [D]efinition")
 		bufmap("n", "K", vim.lsp.buf.hover, "Hover Documentation")
-		bufmap("n", "<C-k>", vim.lsp.buf.signature_help, "Signature Documentation")
-		bufmap("n", "gi", vim.lsp.buf.implementation, "[G]oto [I]mplementation")
 		bufmap("n", "<leader>wa", vim.lsp.buf.add_workspace_folder, "[W]orkspace [A]dd Folder")
 		bufmap("n", "<leader>wr", vim.lsp.buf.remove_workspace_folder, "[W]orkspace [R]emove Folder")
 		bufmap(
@@ -67,8 +61,6 @@ vim.api.nvim_create_autocmd({ "LspAttach" }, {
 			function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end,
 			"[W]orkspace [L]ist Folders"
 		)
-		bufmap("n", "<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
-		bufmap("n", "gr", require("telescope.builtin").lsp_references, "[G]oto [R]eferences")
 		bufmap("n", "<leader>ds", require("telescope.builtin").lsp_document_symbols, "[D]ocument [S]ymbols")
 		bufmap("n", "<leader>ws", require("telescope.builtin").lsp_dynamic_workspace_symbols, "[W]orkspace [S]ymbols")
 		bufmap("n", "<leader>cl", vim.lsp.codelens.run, "[C]ode [L]ens")
@@ -76,9 +68,12 @@ vim.api.nvim_create_autocmd({ "LspAttach" }, {
 
 		-- Code actions
 		require("actions-preview").setup {
-			require("actions-preview.highlight").delta "delta --no-gitconfig --side-by-side",
+			highlight_command = {
+				require("actions-preview.highlight").delta "delta --no-gitconfig --side-by-side",
+				require("actions-preview.highlight").diff_highlight(),
+			},
 		}
-		bufmap({ "v", "n" }, "<leader>ca", require("actions-preview").code_actions, "[C]ode [a]ctions")
+		bufmap({ "v", "n" }, "grp", require("actions-preview").code_actions, "Code actions [p]review")
 	end,
 	group = vim.api.nvim_create_augroup("UserLspConfig", { clear = true }),
 })
