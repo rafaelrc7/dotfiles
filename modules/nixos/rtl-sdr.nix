@@ -8,4 +8,6 @@
 
     sdrpp
   ];
+
+  networking.firewall.allowedTCPPorts = [ 5259 ];
 }
