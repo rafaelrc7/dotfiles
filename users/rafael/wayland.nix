@@ -10,7 +10,6 @@
   home.packages = with pkgs; [
     cliphist
     kdePackages.dolphin
-    kdePackages.konsole
     flameshot
     glfw-wayland
     grim
@@ -20,6 +19,9 @@
     wdisplays
     wl-clipboard
   ];
+
+  xdg.configFile."menus/applications.menu".text =
+    builtins.readFile "${pkgs.kdePackages.plasma-workspace}/etc/xdg/menus/plasma-applications.menu";
 
   programs.fuzzel = {
     enable = true;
