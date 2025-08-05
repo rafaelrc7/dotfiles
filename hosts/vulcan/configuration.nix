@@ -32,6 +32,7 @@
     libvirtd
     llm
     minecraft-server
+    black-mesa-sourcecoop
     mullvad
     podman
     rtl-sdr
