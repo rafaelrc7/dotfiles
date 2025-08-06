@@ -148,7 +148,7 @@
     loginExtra = ''
       if which uwsm; then
         if uwsm check may-start; then
-          exec uwsm start -S hyprland_uwsm.desktop
+          exec uwsm start hyprland_uwsm.desktop
         fi
       else
         if [ "$(tty)" = "/dev/tty1" ] && which Hyprland; then
