@@ -131,14 +131,14 @@ in
           "float, class:(firefox), title:(Picture-in-Picture)"
 
           # Fix flameshot on multiple monitors
-          "pin,                      class:(flameshot), title:(flameshot)"
-          "stayfocused,              class:(flameshot), title:(flameshot)"
-          "suppressevent fullscreen, class:(flameshot), title:(flameshot)"
-          "float,                    class:(flameshot), title:(flameshot)"
-          "monitor 0,                class:(flameshot), title:(flameshot)"
-          "move 0 0,                 class:(flameshot), title:(flameshot)"
-          "bordersize 0,             class:(flameshot), title:(flameshot)"
-          "rounding 0,               class:(flameshot), title:(flameshot)"
+          "pin,                      title:(flameshot)"
+          "stayfocused,              title:(flameshot)"
+          "suppressevent fullscreen, title:(flameshot)"
+          "float,                    title:(flameshot)"
+          "monitor 0,                title:(flameshot)"
+          "move 0 0,                 title:(flameshot)"
+          "bordersize 0,             title:(flameshot)"
+          "rounding 0,               title:(flameshot)"
 
           # Fix password dialogs losing focus
           "stayfocused, class:(pinentry-)(.*)"
