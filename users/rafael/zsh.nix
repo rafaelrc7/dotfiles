@@ -39,11 +39,6 @@
         src = "${zsh-nix-shell}/share/zsh-nix-shell";
       }
       {
-        name = "zsh-git-prompt";
-        file = "zshrc.sh";
-        src = "${zsh-git-prompt}/share/zsh-git-prompt";
-      }
-      {
         name = "zsh-vi-mode";
         file = "zsh-vi-mode.plugin.zsh";
         src = "${zsh-vi-mode}/share/zsh-vi-mode";
@@ -91,12 +86,11 @@
 
       # Prompt
       autoload -U colors && colors
-      GIT_PROMPT_EXECUTABLE="haskell"
 
       prompt() {
         [[ -v IN_NIX_SHELL ]] && PS1="%F{blue}(nix-sh) " || PS1=""
         PS1="%B''${PS1}%(!.%F{red}root.%F{cyan}%n)%F{blue}@%F{cyan}%m%F{blue}:%F{cyan}%3~ %(!.%F{red}#.%F{green}$)%b%f "
-        RPROMPT="%(?..%B%F{red}<FAIL>%b %?)%f $(git_super_status)"
+        RPROMPT="%(?..%B%F{red}<FAIL>%b %?)%f"
       }
 
       precmd_functions+=prompt
