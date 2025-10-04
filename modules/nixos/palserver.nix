@@ -1,22 +1,35 @@
-{ pkgs, config, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
 let
   palserver_path = "/var/lib/palworld";
+  palserver_workingDir = "${palserver_path}/.local/share/Steam/Steamapps/common/PalServer";
   palserver_update = pkgs.writeShellScriptBin "palserver_update" ''
     set -eo pipefail
-    ${pkgs.steamcmd}/bin/steamcmd +login anonymous +app_update 2394010 validate +quit
+    ${lib.getExe pkgs.steamcmd} +login anonymous +app_update 2394010 validate +quit
+    [[ ! -d ~/.steam ]] && mkdir ~/.steam
     [[ ! -a ~/.steam/sdk32 ]] && ln -s ~/.local/share/Steam/linux32 ~/.steam/sdk32
     [[ ! -a ~/.steam/sdk64 ]] && ln -s ~/.local/share/Steam/linux64 ~/.steam/sdk64
     exit 0
   '';
   palserver_restart = pkgs.writeShellScriptBin "palserver_restart" ''
     set -eo pipefail
-    ${pkgs.rconc}/bin/rconc localhost Save
-    ${pkgs.rconc}/bin/rconc localhost Shutdown 30
+    ${lib.getExe pkgs.rconc} localhost Save
+    ${lib.getExe pkgs.rconc} localhost Shutdown 30
     exit 0
   '';
   palserver_reminder = pkgs.writeShellScriptBin "palserver_reminder" ''
     set -eo pipefail
-    ${pkgs.rconc}/bin/rconc localhost Broadcast Servidor_Reiniciara_5:00_17:00_automaticamente
+    ${lib.getExe pkgs.rconc} localhost Broadcast Servidor_Reiniciara_5:00_17:00_automaticamente
+    exit 0
+  '';
+  palserver_start = pkgs.writeShellScriptBin "palserver_start" ''
+    [[ ! -d ${palserver_workingDir} ]] && mkdir ${palserver_workingDir}
+    cd ${palserver_workingDir}
+    ${lib.getExe pkgs.steam-run} ./PalServer.sh -publicport=8211 -port=8211 -useperfthreads -NoAsyncLoadingThread -UseMultithreadForDs
     exit 0
   '';
 in
@@ -33,6 +46,8 @@ in
     gid = config.users.users.palworld.uid;
   };
 
+  networking.firewall.allowedUDPPorts = [ 8211 ];
+
   systemd.services = {
     # Main server service
     palserver = {
@@ -44,14 +59,13 @@ in
       serviceConfig = {
         User = "palworld";
         Group = "palworld";
-        WorkingDirectory = "${palserver_path}/.local/share/Steam/Steamapps/common/PalServer";
-        ExecStartPre = "${palserver_update}/bin/palserver_update";
-        ExecStart = "${pkgs.steam-run}/bin/steam-run ./PalServer.sh -publicport=8211 -port=8211 -useperfthreads -NoAsyncLoadingThread -UseMultithreadForDs";
+        ExecStartPre = "${lib.getExe palserver_update}";
+        ExecStart = "${lib.getExe palserver_start}";
         Restart = "always";
         RestartSec = "15s";
       };
 
-      #wantedBy = [ "multi-user.target" ];
+      # wantedBy = [ "multi-user.target" ];
     };
 
     # Restart server service
@@ -65,7 +79,7 @@ in
         User = "palworld";
         Group = "palworld";
         WorkingDirectory = "${palserver_path}/.local/share/Steam/Steamapps/common/PalServer";
-        ExecStart = "${palserver_restart}/bin/palserver_restart";
+        ExecStart = "${lib.getExe palserver_restart}";
       };
     };
 
@@ -80,7 +94,7 @@ in
         User = "palworld";
         Group = "palworld";
         WorkingDirectory = "${palserver_path}/.local/share/Steam/Steamapps/common/PalServer";
-        ExecStart = "${palserver_reminder}/bin/palserver_reminder";
+        ExecStart = "${lib.getExe palserver_reminder}";
       };
     };
   };
