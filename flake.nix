@@ -89,6 +89,7 @@
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-master.url = "github:nixos/nixpkgs";
+    nixpkgs-prev.url = "github:nixos/nixpkgs/dbeacf1b40207b74fede8a8f97a7d6bcf8beee67";
 
     nur = {
       url = "github:nix-community/NUR";

@@ -452,6 +452,8 @@ in
           inactive_timeout = 5;
           default_monitor = "";
         };
+
+        ecosystem.no_update_news = true;
       };
 
       extraConfig = ''

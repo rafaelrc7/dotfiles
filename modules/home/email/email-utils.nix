@@ -144,8 +144,8 @@ rec {
       mkdir "$PROFILEDIR/config"
 
       if [[ -d "$USERPROFILEDIR" ]]; then
-        [[ -a "$USERPROFILEDIR"/user-stylecheet.css ]] && cp "$USERPROFILEDIR/user-stylecheet.css" "$PROFILEDIR/config/"
-        [[ -a "$USERPROFILEDIR"/autoconfig.yml ]] && cp "$USERPROFILEDIR/autoconfig.yml" "$PROFILEDIR/config/"
+        [[ -e "$USERPROFILEDIR"/user-stylecheet.css ]] && cp "$USERPROFILEDIR/user-stylecheet.css" "$PROFILEDIR/config/"
+        [[ -e "$USERPROFILEDIR"/autoconfig.yml ]] && cp "$USERPROFILEDIR/autoconfig.yml" "$PROFILEDIR/config/"
       fi
 
       if [[ -d "$HOME/.local/share/qutebrowser/userscripts" ]]; then
