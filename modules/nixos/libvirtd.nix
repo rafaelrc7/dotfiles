@@ -8,10 +8,7 @@
       onBoot = "ignore";
       onShutdown = "shutdown";
       allowedBridges = [ "br0" ];
-      qemu = {
-        runAsRoot = false;
-        ovmf.enable = true;
-      };
+      qemu.runAsRoot = false;
     };
     spiceUSBRedirection.enable = true;
   };

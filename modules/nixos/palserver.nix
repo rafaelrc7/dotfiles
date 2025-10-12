@@ -9,10 +9,9 @@ let
   palserver_workingDir = "${palserver_path}/.local/share/Steam/Steamapps/common/PalServer";
   palserver_update = pkgs.writeShellScriptBin "palserver_update" ''
     set -eo pipefail
-    ${lib.getExe pkgs.steamcmd} +login anonymous +app_update 2394010 validate +quit
-    [[ ! -d ~/.steam ]] && mkdir ~/.steam
-    [[ ! -a ~/.steam/sdk32 ]] && ln -s ~/.local/share/Steam/linux32 ~/.steam/sdk32
-    [[ ! -a ~/.steam/sdk64 ]] && ln -s ~/.local/share/Steam/linux64 ~/.steam/sdk64
+    ${pkgs.steamcmd}/bin/steamcmd +login anonymous +app_update 2394010 validate +quit
+    [[ ! -e ~/.steam/sdk32 ]] && ln -s ~/.local/share/Steam/linux32 ~/.steam/sdk32
+    [[ ! -e ~/.steam/sdk64 ]] && ln -s ~/.local/share/Steam/linux64 ~/.steam/sdk64
     exit 0
   '';
   palserver_restart = pkgs.writeShellScriptBin "palserver_restart" ''

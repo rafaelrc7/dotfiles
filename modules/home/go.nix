@@ -2,7 +2,11 @@
 {
   programs.go = {
     enable = true;
-    goPath = ".local/share/go";
+    env = {
+      GOPATH = [
+        "${config.xdg.dataHome}/go"
+      ];
+    };
   };
 
   home.sessionPath = [ "$HOME/${config.programs.go.goPath}/bin" ];

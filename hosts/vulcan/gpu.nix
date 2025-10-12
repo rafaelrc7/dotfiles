@@ -4,12 +4,6 @@
   hardware = {
     amdgpu.initrd.enable = true;
     amdgpu.opencl.enable = true;
-
-    amdgpu.amdvlk = {
-      enable = true;
-      support32Bit.enable = true;
-    };
-
     graphics = {
       enable = true;
       enable32Bit = true;
