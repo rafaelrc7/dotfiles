@@ -64,5 +64,7 @@
 
   systemd.services.nix-daemon.serviceConfig.AllowedCPUs = "2-15";
 
+  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
+
   system.stateVersion = "22.11";
 }
