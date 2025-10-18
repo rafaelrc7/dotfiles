@@ -1,5 +1,4 @@
 {
-  inputs,
   config,
   pkgs,
   lib,
@@ -165,6 +164,7 @@ in
         "$mod" = "SUPER";
 
         exec-once = map (cmd: execCmd + cmd) [
+          "fcitx5 -d"
         ];
 
         bind = [
