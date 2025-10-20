@@ -2,10 +2,11 @@
 {
   programs.git = {
     enable = true;
-    userName = "rafaelrc7";
-    userEmail = "contact@rafaelrc.com";
-    delta.enable = true;
-    extraConfig = {
+    settings = {
+      user = {
+        name = "rafaelrc7";
+        email = "contact@rafaelrc.com";
+      };
       branch.sort = "-committerdate";
       column.ui = "auto";
       commit.verbose = true;
@@ -13,7 +14,6 @@
         fsmonitor = true;
         untrackedcache = true;
       };
-      delta.navigate = true;
       diff = {
         algorithm = "histogram";
         colorMoved = "plain";
@@ -54,6 +54,14 @@
     signing = {
       signByDefault = true;
       key = "161833317F080B3AC3ECFB01A2E6A1C9A59514A5";
+    };
+  };
+
+  programs.delta = {
+    enable = true;
+    enableGitIntegration = true;
+    options = {
+      navigate = true;
     };
   };
 
