@@ -10,10 +10,12 @@
       ];
       "x-scheme-handler/https" = [
         "firefox.desktop"
+        "google-chrome.desktop"
         "chromium-browser.desktop"
       ];
       "x-scheme-handler/http" = [
         "firefox.desktop"
+        "google-chrome.desktop"
         "chromium-browser.desktop"
       ];
       "x-scheme-handler/nxm" = [
@@ -33,6 +35,7 @@
       ];
       "application/x-extension-html" = [
         "firefox.desktop"
+        "google-chrome.desktop"
         "chromium-browser.desktop"
       ];
       "audio/*" = [ "mpv.desktop" ];
@@ -47,6 +50,9 @@
       "text/*" = [
         "nvim.desktop"
         "nvim-qt.desktop"
+      ];
+      "x-scheme-handler/unityhub" = [
+        "unityhub.desktop"
       ];
     };
   };

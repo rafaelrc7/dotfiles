@@ -16,7 +16,7 @@ let
         [Desktop Entry]
         Name=${opts.prettyName} (UWSM)
         Comment=${opts.comment}
-        Exec=${lib.getExe cfg.package} start -S -F ${opts.binPath}
+        Exec=${lib.getExe cfg.package} start -e -D ${opts.prettyName} -F ${opts.binPath}
         Type=Application
       '';
       destination = "/share/wayland-sessions/${opts.name}_uwsm.desktop";
@@ -31,6 +31,9 @@ in
     enable = true;
     withUWSM = true;
   };
+
+  programs.uwsm.waylandCompositors.hyprland.binPath =
+    lib.mkForce "/run/current-system/sw/bin/start-hyprland";
 
   # Generate non-botched name
   services.displayManager = {

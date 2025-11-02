@@ -1,6 +1,6 @@
 inputs: final: prev:
 let
-  bisqPkgs = inputs.bisq-for-nixos.packages."${final.system}";
+  bisqPkgs = inputs.bisq-for-nixos.packages."${final.stdenv.hostPlatform.system}";
 in
 {
   bisq-desktop = bisqPkgs.bisq-desktop-appimage-wrapper.override {

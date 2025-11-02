@@ -19,10 +19,9 @@ rec {
 
   # Identity
   realName = "Rafael Carvalho";
-  address = "contact@rafaelrc.com";
+  address = "rafaelrc7@pm.me";
   aliases = [
     "rafaelrc7@proton.me"
-    "rafaelrc7@pm.me"
   ];
 
   gpg = {
@@ -47,7 +46,7 @@ rec {
   };
 
   # Credentials
-  userName = "contact@rafaelrc.com";
+  userName = "rafaelrc7@pm.me";
   passwordCommand = ''${protonmail-bridge-pass}/bin/protonmail-bridge-pass'';
 
   # IMAP / SMTP

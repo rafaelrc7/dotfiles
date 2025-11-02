@@ -32,11 +32,12 @@
   environment = {
     systemPackages = with pkgs; [
       exfat
+      fastfetch
       file
       gnumake
       htop
       killall
-      fastfetch
+      lm_sensors
       parted
       ripgrep
       tree

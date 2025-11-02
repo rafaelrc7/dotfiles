@@ -47,7 +47,7 @@ in
         pkgs.writeShellApplication {
           name = "pdftohtml";
           runtimeInputs = with pkgs; [
-            poppler_utils
+            poppler-utils
             w3m
           ];
           text = ''

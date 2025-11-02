@@ -20,7 +20,7 @@ let
     };
     emoji = {
       name = "Noto Color Emoji";
-      package = pkgs.noto-fonts-emoji;
+      package = pkgs.noto-fonts-color-emoji;
     };
     awesome = {
       name = "Font Awesome 6 Free";
@@ -70,8 +70,7 @@ in
       roboto-mono
       liberation_ttf
       noto-fonts
-      noto-fonts-emoji
-      noto-fonts-extra
+      noto-fonts-color-emoji
       noto-fonts-lgc-plus
       noto-fonts-cjk-sans
       noto-fonts-cjk-serif

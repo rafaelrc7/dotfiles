@@ -140,7 +140,6 @@ It's parameters are:
   should be included on the host.
 
   The fields of the attrset are:
-
   - name
   - extraGroups (defaults to empty list)
   - sshKeys (defaults to empty list)

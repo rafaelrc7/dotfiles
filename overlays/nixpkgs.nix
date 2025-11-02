@@ -1,5 +1,12 @@
-inputs: final: prev: {
-  nixpkgs-stable = inputs.nixpkgs-stable.legacyPackages."${final.system}";
-  nixpkgs-unstable = inputs.nixpkgs-unstable.legacyPackages."${final.system}";
-  nixpkgs-master = inputs.nixpkgs-master.legacyPackages."${final.system}";
+inputs: final: prev:
+let
+  system = final.stdenv.hostPlatform.system;
+  config = {
+    allowUnfree = true;
+  };
+in
+{
+  nixpkgs-stable = import inputs.nixpkgs-stable { inherit system config; };
+  nixpkgs-unstable = import inputs.nixpkgs-unstable { inherit system config; };
+  nixpkgs-master = import inputs.nixpkgs-master { inherit system config; };
 }

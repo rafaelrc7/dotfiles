@@ -28,12 +28,12 @@
   environment = {
     systemPackages = with pkgs; [
       libva-utils
-      glxinfo
+      mesa-demos
     ];
   };
 
   services.ollama = {
-    acceleration = "rocm";
+    package = pkgs.ollama-rocm;
     rocmOverrideGfx = "11.0.2";
   };
 }

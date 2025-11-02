@@ -1,21 +1,21 @@
 { pkgs, ... }:
 {
   home.packages = with pkgs; [
-    (discord.override { nss = nss_latest; })
     calibre
+    (discord.override { nss = nss_latest; })
     gimp
     gnome-disk-utility
+    google-chrome
     helvum
     jami
     libreoffice-fresh
     obsidian
-    pwvucontrol
     protonmail-desktop
+    pwvucontrol
     qbittorrent
     qutebrowser
     spotify
-    tdesktop
+    telegram-desktop
     thunderbird
-    ungoogled-chromium
   ];
 }

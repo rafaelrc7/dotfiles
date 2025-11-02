@@ -7,6 +7,6 @@
 
   environment.systemPackages = with pkgs; [
     libva-utils
-    glxinfo
+    mesa-demos
   ];
 }

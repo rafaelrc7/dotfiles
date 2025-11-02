@@ -11,7 +11,7 @@
     cliphist
     kdePackages.dolphin
     flameshot
-    glfw-wayland
+    glfw
     grim
     libnotify
     mako

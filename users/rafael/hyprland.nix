@@ -107,58 +107,62 @@ in
           "special:screen-record, on-created-empty:${execCmd}${pkgs.gpu-screen-recorder-gtk}/bin/gpu-screen-recorder-gtk"
         ];
 
-        windowrulev2 = [
+        windowrule = [
           # No borders when only tiled window. Keep border on maximised
-          "bordersize 0, floating:0, onworkspace:w[tv1]"
-          "rounding 0,   floating:0, onworkspace:w[tv1]"
+          "border_size 0, match:float no, match:workspace w[tv1]"
+          "rounding 0,    match:float no, match:workspace w[tv1]"
 
           # Floating Steam dialogs
-          "float, class:steam"
-          "tile,  class:steam, title:Friends List"
-          "tile,  class:steam, title:Steam"
+          "float on,  match:class (steam)"
+          "float off, match:class (steam), match:title (Friends List)"
+          "float off, match:class (steam), match:title (Steam)"
 
           # No borders on steam games
-          "bordersize 0, class:(steam_app.*)"
-          "rounding 0,   class:(steam_app.*)"
-          "stayfocused,  class:(steam_app.*)"
+          "border_size 0,   match:class (steam_app.*)"
+          "rounding 0,      match:class (steam_app.*)"
+          "stay_focused on, match:class (steam_app.*)"
 
           # Floating Paradox Launchers
-          "float,              class:(Paradox Launcher)"
-          "center, floating:1, class:(Paradox Launcher)"
+          "float on,                   match:class (Paradox Launcher)"
+          "center on, match:float yes, match:class (Paradox Launcher)"
 
           # Floating Picture-in-Picture
-          "float, class:(firefox), title:(Picture-in-Picture)"
+          "float on, match:class (firefox), match:title (Picture-in-Picture)"
 
           # Fix flameshot on multiple monitors
-          "pin,                      title:(flameshot)"
-          "stayfocused,              title:(flameshot)"
-          "suppressevent fullscreen, title:(flameshot)"
-          "float,                    title:(flameshot)"
-          "monitor 0,                title:(flameshot)"
-          "move 0 0,                 title:(flameshot)"
-          "bordersize 0,             title:(flameshot)"
-          "rounding 0,               title:(flameshot)"
+          "pin on,                    match:title (flameshot)"
+          "no_anim on,                match:title (flameshot)"
+          "stay_focused on,           match:title (flameshot)"
+          "suppress_event fullscreen, match:title (flameshot)"
+          "float on,                  match:title (flameshot)"
+          "monitor 0,                 match:title (flameshot)"
+          "move 0 0,                  match:title (flameshot)"
+          "border_size 0,             match:title (flameshot)"
+          "rounding 0,                match:title (flameshot)"
 
           # Fix password dialogs losing focus
-          "stayfocused, class:(pinentry-)(.*)"
-          "stayfocused, class:(polkit-)(.*), title:(Authenticate)"
-          "stayfocused, class:(gcr-prompter)"
+          "stay_focused on, match:class (pinentry-)(.*)"
+          "stay_focused on, match:class (polkit-)(.*), match:title (Authenticate)"
+          "stay_focused on, match:class (gcr-prompter)"
 
           # Hide password dialogs
-          "noscreenshare, class:(pinentry-)(.*)"
-          "noscreenshare, class:(polkit-)(.*), title:(Authenticate)"
-          "noscreenshare, class:(gcr-prompter)"
+          "no_screen_share on, match:class (pinentry-)(.*)"
+          "no_screen_share on, match:class (polkit-)(.*), match:title (Authenticate)"
+          "no_screen_share on, match:class (gcr-prompter)"
 
           # Make qalculate-qt floating by default
-          "float, class:^(io.github.Qalculate.qalculate-qt)$"
+          "float on, match:class ^(io.github.Qalculate.qalculate-qt)$"
 
           # Move spotify to special workspace
-          "workspace special:music, class:spotify"
+          "workspace special music, match:class (spotify)"
 
           # Make special workspaces floating
-          "float, onworkspace:n[s:special:scratchpad]"
-          "float, onworkspace:n[s:special:calculator]"
-          "float, onworkspace:n[s:special:screen-record]"
+          "float on, match:workspace n[s:special:scratchpad]"
+          "float on, match:workspace n[s:special:calculator]"
+          "float on, match:workspace n[s:special:screen-record]"
+
+          # No border on floating
+          "border_size 0, match:float yes"
         ];
 
         "$mod" = "SUPER";
@@ -317,7 +321,6 @@ in
           gaps_in = 4;
           gaps_out = 0;
           border_size = 2;
-          no_border_on_floating = false;
 
           resize_on_border = true;
           hover_icon_on_border = true;
@@ -456,9 +459,7 @@ in
         ecosystem.no_update_news = true;
       };
 
-      extraConfig = ''
-        debug:full_cm_proto=true
-      '';
+      extraConfig = '''';
     };
 
   xdg.configFile."hypr/hyprpaper.conf".text =
