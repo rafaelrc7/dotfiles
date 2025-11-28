@@ -623,6 +623,26 @@
         "type": "github"
       }
     },
+    "nix-ld": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1763973343,
+        "narHash": "sha256-VltuxbdEwpxrqdaKJCQoZj7M+m8B6oaYEh6/nNqKG/w=",
+        "owner": "Mic92",
+        "repo": "nix-ld",
+        "rev": "ca567ee02ee26c773f7be30094a83a3bbd1bf63c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Mic92",
+        "repo": "nix-ld",
+        "type": "github"
+      }
+    },
     "nix-vscode-extensions": {
       "inputs": {
         "nixpkgs": [
@@ -938,6 +958,7 @@
         "flake-parts": "flake-parts",
         "home-manager": "home-manager",
         "hyprland": "hyprland",
+        "nix-ld": "nix-ld",
         "nix-vscode-extensions": "nix-vscode-extensions",
         "nixgl": "nixgl",
         "nixos-hardware": "nixos-hardware",

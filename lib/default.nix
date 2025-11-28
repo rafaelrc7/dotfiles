@@ -84,6 +84,7 @@ in
         modules = [
           (import configuration)
           inputs.home-manager.nixosModules.home-manager
+          inputs.nix-ld.nixosModules.nix-ld
           inputs.catppuccin.nixosModules.catppuccin
           inputs.hyprland.nixosModules.default
 
