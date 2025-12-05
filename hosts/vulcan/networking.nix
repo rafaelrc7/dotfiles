@@ -19,6 +19,9 @@
         9512 # Unified Remote
         27015 # Steam
         59010 # SoundWire
+        20100 # Holdfast NaW
+        27000 # Holdfast NaW
+        8700 # Holdfast NaW
       ];
     };
   };
