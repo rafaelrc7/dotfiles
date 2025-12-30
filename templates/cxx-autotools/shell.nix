@@ -22,7 +22,7 @@ pkgs.mkShell {
       libtool
       pkg-config
     ]
-    ++ pkgs.lib.optional devTools [
+    ++ pkgs.lib.optionals devTools [
       autotools-language-server
       bear
       clang-tools

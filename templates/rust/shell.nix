@@ -17,7 +17,7 @@ pkgs.mkShell {
       cargo
       rustc
     ]
-    ++ pkgs.lib.optional devTools [
+    ++ pkgs.lib.optionals devTools [
       clippy
       gdb
       rustfmt

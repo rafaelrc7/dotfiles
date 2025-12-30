@@ -17,7 +17,7 @@ pkgs.mkShell {
       jdk
       maven
     ]
-    ++ pkgs.lib.optional devTools [
+    ++ pkgs.lib.optionals devTools [
       jdt-language-server
     ];
 }

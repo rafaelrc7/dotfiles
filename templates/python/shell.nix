@@ -16,7 +16,7 @@ pkgs.mkShell {
     [
       python3
     ]
-    ++ pkgs.lib.optional devTools [
+    ++ pkgs.lib.optionals devTools [
       pyright
     ];
 }

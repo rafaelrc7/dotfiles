@@ -16,7 +16,7 @@ pkgs.mkShell {
   nativeBuildInputs = [
     go
   ]
-  ++ pkgs.lib.optional devTools (
+  ++ pkgs.lib.optionals devTools (
     with pkgs;
     [
       gopls

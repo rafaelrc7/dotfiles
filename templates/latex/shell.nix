@@ -14,7 +14,7 @@ pkgs.mkShell {
   nativeBuildInputs =
     with pkgs;
     [ ]
-    ++ pkgs.lib.optional devTools [
+    ++ pkgs.lib.optionals devTools [
       texlab
     ];
 }

@@ -13,7 +13,7 @@ haskell.shellFor {
       haskell.cabal-install
     ]))
   ]
-  ++ pkgs.lib.optional devTools [
+  ++ pkgs.lib.optionals devTools [
     (haskell.ghc.withPackages (p: [
       p.ghci-dap
       p.haskell-dap
