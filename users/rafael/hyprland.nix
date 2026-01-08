@@ -468,8 +468,12 @@ in
         wallpaper = ./imgs/wallpapers/${osConfig.networking.hostName};
       in
       ''
-        preload = ${wallpaper}
-        wallpaper = , ${wallpaper}
+        splash = false
+        wallpaper {
+          monitor =
+          path = ${wallpaper}
+          fit_mode = cover
+        }
       ''
     else
       '''';

@@ -97,7 +97,7 @@
     };
 
     home-manager = {
-      url = "github:nix-community/home-manager";
+      url = "github:nix-community/home-manager/d99b4ca5debaa082c7d76015aa2b7f3fc7e8b5f7";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -110,7 +110,9 @@
     };
 
     bisq-for-nixos.url = "github:emmanuelrosa/bisq-for-nixos";
+
     hyprland.url = "github:hyprwm/Hyprland";
+    hyprtoolkit.url = "github:hyprwm/hyprtoolkit";
 
     nixos-hardware.url = "github:nixos/nixos-hardware/master";
     catppuccin.url = "github:catppuccin/nix";

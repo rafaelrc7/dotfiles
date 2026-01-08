@@ -31,6 +31,9 @@ in
             inputs.nur.overlays.default
             inputs.nixgl.overlay
             inputs.hyprland.overlays.default
+            (final: prev: {
+              hyprtoolkit = inputs.hyprtoolkit.packages."${final.stdenv.hostPlatform.system}".hyprtoolkit;
+            })
             self.overlays.default
           ];
         };
