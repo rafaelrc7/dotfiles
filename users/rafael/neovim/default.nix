@@ -53,6 +53,7 @@
       fd
       graphviz
       ripgrep
+      wordnet
 
       # Clipboard
       wl-clipboard

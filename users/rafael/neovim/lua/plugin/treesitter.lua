@@ -1,5 +1,5 @@
 vim.api.nvim_create_autocmd("FileType", {
-	group = vim.api.nvim_create_augroup("treesitter_fold_enable", { clear = true }),
+	group = vim.api.nvim_create_augroup("treesitter_auto_enable", { clear = true }),
 	callback = function(ev)
 		-- Don't enable on big files --
 		if vim.bo.filetype == "bigfile" then return end

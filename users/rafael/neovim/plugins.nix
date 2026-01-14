@@ -22,26 +22,26 @@ in
       }
 
       {
-        plugin = ps.nvim-cmp;
-        type = "lua";
-        config = insertChunk ./lua/plugin/cmp.lua;
-      }
-      {
-        plugin = ps.cmp-git;
+        plugin = ps.blink-pairs;
         type = "lua";
         config =
-          insertPCall "cmp-git" # lua
+          insertPCall "luasnip" # lua
             ''
-              require("cmp_git").setup()
+              require("blink-pairs").setup {}
             '';
       }
-      ps.cmp-buffer
-      ps.cmp-cmdline
-      ps.cmp-conjure
-      ps.cmp_luasnip
-      ps.cmp-nvim-lsp
-      ps.cmp-path
-      ps.cmp-treesitter
+
+      ps.blink-indent
+
+      {
+        plugin = ps.blink-cmp;
+        type = "lua";
+        config = insertChunk ./lua/plugin/blink-cmp.lua;
+      }
+      ps.blink-cmp-git
+      ps.blink-cmp-latex
+      ps.blink-cmp-words
+      ps.blink-emoji-nvim
 
       ps.friendly-snippets
       {
@@ -65,12 +65,6 @@ in
         plugin = ps.conform-nvim;
         type = "lua";
         config = insertChunk ./lua/plugin/conform.lua;
-      }
-
-      {
-        plugin = ps.nvim-autopairs;
-        type = "lua";
-        config = insertChunk ./lua/plugin/nvim-autopairs.lua;
       }
 
       {
@@ -287,11 +281,21 @@ in
         config = insertChunk ./lua/plugin/haskell-tools.lua;
       }
 
+      {
+        plugin = ps.emmet-vim;
+        type = "lua";
+        config =
+          insertPCall "emmet" # lua
+            ''
+              vim.g.user_emmet_leader_key = "<C-X>"
+            '';
+      }
+
       ps.haskell-snippets-nvim
       ps.Coqtail
-      ps.emmet-vim
       ps.nvim-web-devicons
       ps.vim-surround
       ps.diffview-nvim
+      ps.lazydev-nvim
     ];
 }

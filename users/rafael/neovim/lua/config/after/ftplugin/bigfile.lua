@@ -2,14 +2,22 @@ vim.cmd "syntax off"
 
 vim.opt_local.foldmethod = "manual"
 vim.opt_local.spell = false
+vim.b.completion = false
+vim.b.indent_guide = false
 
-local cmp = require "cmp"
-if cmp then cmp.setup.buffer { enabled = false } end
+do
+	local ok, cmp = pcall(require, "cmp")
+	if ok then cmp.setup.buffer { enabled = false } end
+end
 
-local gitsigns = require "gitsigns"
-if gitsigns then gitsigns.detach() end
+do
+	local ok, gitsigns = pcall(require, "gitsigns")
+	if ok then gitsigns.detach() end
+end
 
-local vim_illuminate = require "illuminate"
-if vim_illuminate then vim_illuminate.pause_buf() end
+do
+	local ok, vim_illuminate = pcall(require, "illuminate")
+	if ok then vim_illuminate.pause_buf() end
+end
 
 vim.notify("File is larger than 1.5 MB, disabled filetype and other features", vim.log.levels.WARN)

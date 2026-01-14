@@ -26,7 +26,8 @@
       local data_dir = workspace_path .. project_path
 
       local capabilities = vim.lsp.protocol.make_client_capabilities()
-      capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
+      capabilities = vim.tbl_deep_extend('force', capabilities, require('blink.cmp').get_lsp_capabilities({}, false))
+
       local extendedClientCapabilities = jdtls.extendedClientCapabilities
       extendedClientCapabilities.resolveAdditionalTextEditsSupport = true
 

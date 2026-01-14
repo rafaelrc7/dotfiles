@@ -15,6 +15,7 @@ vim.keymap.set(
 )
 
 vim.diagnostic.config {
+	virtual_lines = true,
 	signs = {
 		text = {
 			[vim.diagnostic.severity.ERROR] = "󰅚",
@@ -114,11 +115,9 @@ local lsps = {
 	"vimls",
 }
 
-local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
 for _, v in pairs(lsps) do
 	vim.lsp.config(v, {
 		on_attach = on_attach,
-		capabilities = capabilities,
 	})
 end
 
