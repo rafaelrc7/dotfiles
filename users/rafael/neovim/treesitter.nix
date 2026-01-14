@@ -1,9 +1,12 @@
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
+let
+  inherit (import ./util.nix { inherit lib; }) insertChunk;
+in
 {
   programs.neovim.plugins = [
     {
       type = "lua";
-      config = builtins.readFile ./lua/plugin/treesitter.lua;
+      config = insertChunk ./lua/plugin/treesitter.lua;
       plugin = (
         pkgs.vimPlugins.nvim-treesitter.withPlugins (
           p: with p; [

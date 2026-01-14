@@ -3,8 +3,8 @@ require("gitsigns").setup {
 		local gitsigns = require "gitsigns"
 
 		local function map(mode, keys, func, desc)
-			if desc then desc = "Git " .. desc end
-			vim.keymap.set(mode, keys, func, { noremap = true, buffer = bufnr, desc = desc, silent = true })
+			if desc then desc = "(Git) " .. desc end
+			vim.keymap.set(mode, keys, func, { buffer = bufnr, noremap = true, silent = true, desc = desc })
 		end
 
 		-- Navigation

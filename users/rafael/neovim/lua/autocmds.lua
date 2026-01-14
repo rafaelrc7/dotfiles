@@ -1,8 +1,6 @@
-local api = vim.api
-
-api.nvim_create_autocmd("VimResized", {
+vim.api.nvim_create_autocmd("VimResized", {
 	command = "wincmd =",
-	group = api.nvim_create_augroup("autoresize_windows_on_terminal_resize", { clear = true }),
+	group = vim.api.nvim_create_augroup("autoresize_windows_on_terminal_resize", { clear = true }),
 })
 
 local function updateColorColumn()
@@ -14,13 +12,13 @@ local function updateColorColumn()
 	end
 end
 
-local colorColumnGroup = api.nvim_create_augroup("colorcolumn", { clear = true })
-api.nvim_create_autocmd("OptionSet", {
+local colorColumnGroup = vim.api.nvim_create_augroup("colorcolumn", { clear = true })
+vim.api.nvim_create_autocmd("OptionSet", {
 	pattern = "textwidth",
 	callback = updateColorColumn,
 	group = colorColumnGroup,
 })
-api.nvim_create_autocmd("BufEnter", {
+vim.api.nvim_create_autocmd("BufEnter", {
 	callback = updateColorColumn,
 	group = colorColumnGroup,
 })

@@ -2,9 +2,9 @@ return {
 	settings = {
 		python = {
 			analysis = {
-				extraPaths = { ".", "src" },
 				autoSearchPaths = true,
 				diagnosticMode = "openFilesOnly",
+				extraPaths = { ".", "src" },
 				useLibraryCodeForTypes = true,
 			},
 		},

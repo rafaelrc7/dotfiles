@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
 {
   imports = [
     ./plugins.nix
@@ -28,18 +28,17 @@
     withPython3 = true;
     withNodeJs = true;
 
-    extraLuaConfig = ''
-
-      ${builtins.readFile ./lua/options.lua}
-
-      ${builtins.readFile ./lua/maps.lua}
-
-      ${builtins.readFile ./lua/autocmds.lua}
-
-      ${builtins.readFile ./lua/filetypes.lua}
-
-      ${builtins.readFile ./lua/godot.lua}
-    '';
+    extraLuaConfig =
+      let
+        inherit (import ./util.nix { inherit lib; }) insertChunks;
+      in
+      insertChunks [
+        ./lua/options.lua
+        ./lua/maps.lua
+        ./lua/autocmds.lua
+        ./lua/filetypes.lua
+        ./lua/godot.lua
+      ];
 
     extraLuaPackages =
       lps: with lps; [
@@ -52,8 +51,8 @@
       curl
       delta
       fd
-      ripgrep
       graphviz
+      ripgrep
 
       # Clipboard
       wl-clipboard
@@ -68,15 +67,15 @@
 
       # Commonly used LSPs
       clang-tools
-      nodePackages.bash-language-server
+      lemminx
       lua-language-server
-      stylua
       nixd
       nixfmt
+      nodePackages.bash-language-server
       pyright
+      stylua
       texlab
       vscode-langservers-extracted
-      lemminx
 
       # Haskell
       haskellPackages.fast-tags

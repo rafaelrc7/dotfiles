@@ -1,8 +1,8 @@
-vim.api.nvim_set_keymap(
+vim.keymap.set(
 	"n",
 	"<localleader>mp",
 	":MarkdownPreview<CR>",
-	{ silent = true, noremap = true, desc = "[M]arkdown [p]review" }
+	{ buffer = true, noremap = true, silent = true, desc = "[M]arkdown [p]review" }
 )
 
 vim.opt_local.spell = true

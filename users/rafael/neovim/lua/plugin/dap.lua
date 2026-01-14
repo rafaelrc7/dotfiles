@@ -1,6 +1,4 @@
 local dap, dapui = require "dap", require "dapui"
-local map = vim.keymap.set
-local sign_define = vim.fn.sign_define
 
 dap.listeners.before.attach.dapui_config = function() dapui.open() end
 
@@ -10,35 +8,35 @@ dap.listeners.before.event_terminated.dapui_config = function() dapui.close() en
 
 dap.listeners.before.event_exited.dapui_config = function() dapui.close() end
 
-map("n", "<Leader>dt", dapui.toggle, { desc = "[D]ap-ui [t]oggle" })
-map("n", "<Leader>dr", function() dapui.open { reset = true } end, { desc = "[D]ap-ui [r]eset" })
+vim.keymap.set("n", "<Leader>dt", dapui.toggle, { desc = "[D]ap-ui [t]oggle" })
+vim.keymap.set("n", "<Leader>dr", function() dapui.open { reset = true } end, { desc = "[D]ap-ui [r]eset" })
 
-map("n", "<Leader>db", dap.toggle_breakpoint, { desc = "Toggle [d]ebug [b]reakpoint" })
-map("n", "<Leader>dBB", dap.set_breakpoint, { desc = "Set debug [[b]]reakpoint" })
-map(
+vim.keymap.set("n", "<Leader>db", dap.toggle_breakpoint, { desc = "Toggle [d]ebug [b]reakpoint" })
+vim.keymap.set("n", "<Leader>dBB", dap.set_breakpoint, { desc = "Set debug [[b]]reakpoint" })
+vim.keymap.set(
 	"n",
 	"<Leader>dBL",
 	function() dap.set_breakpoint(nil, nil, vim.fn.input "Log point message: ") end,
 	{ desc = "Toggle [b]reakpoint [l]og" }
 )
-map(
+vim.keymap.set(
 	"n",
 	"<Leader>dBC",
 	function() dap.set_breakpoint(vim.fn.input "Breakpoint Condition: ", nil, nil) end,
 	{ desc = "Toggle [b]reakpoint [c]onditional" }
 )
 
-map("n", "<Leader>dc", dap.continue, { desc = "[D]ebug [c]ontinue" })
-map("n", "<Leader>do", dap.step_over, { desc = "[D]ebug step [o]ver" })
-map("n", "<Leader>di", dap.step_into, { desc = "[D]ebug step [i]nto" })
-map("n", "<Leader>dO", dap.step_out, { desc = "[D]ebug step [o]ut" })
-map("n", "<Leader>dK", dap.terminate, { desc = "[D]ebug [K]ill" })
+vim.keymap.set("n", "<Leader>dc", dap.continue, { desc = "[D]ebug [c]ontinue" })
+vim.keymap.set("n", "<Leader>do", dap.step_over, { desc = "[D]ebug step [o]ver" })
+vim.keymap.set("n", "<Leader>di", dap.step_into, { desc = "[D]ebug step [i]nto" })
+vim.keymap.set("n", "<Leader>dO", dap.step_out, { desc = "[D]ebug step [o]ut" })
+vim.keymap.set("n", "<Leader>dK", dap.terminate, { desc = "[D]ebug [K]ill" })
 
-sign_define("DapBreakpoint", { text = "", texthl = "DapBreakpoint" })
-sign_define("DapBreakpointCondition", { text = "", texthl = "DapBreakpoint" })
-sign_define("DapLogPoint", { text = "", texthl = "DapBreakpoint" })
-sign_define("DapBreakpointRejected", { text = "", texthl = "DapBreakpoint" })
-sign_define("DapStopped", { text = "󰁕", texthl = "DapStopped" })
+vim.fn.sign_define("DapBreakpoint", { text = "", texthl = "DapBreakpoint" })
+vim.fn.sign_define("DapBreakpointCondition", { text = "", texthl = "DapBreakpoint" })
+vim.fn.sign_define("DapLogPoint", { text = "", texthl = "DapBreakpoint" })
+vim.fn.sign_define("DapBreakpointRejected", { text = "", texthl = "DapBreakpoint" })
+vim.fn.sign_define("DapStopped", { text = "󰁕", texthl = "DapStopped" })
 
 dap.adapters.gdb = {
 	type = "executable",
