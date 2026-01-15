@@ -120,7 +120,9 @@ in
         config =
           insertPCall "nvim-highlight-colors" # lua
             ''
-              require("nvim-highlight-colors").setup {}
+              require("nvim-highlight-colors").setup {
+              	exclude_filetypes = { "bigfile" },
+              }
             '';
       }
 
@@ -172,7 +174,7 @@ in
           insertPCall "illuminate" # lua
             ''
               require("illuminate").configure {
-              	filetypes_denylist = { "dirbuf", "dirvish", "fugitive", "NvimTree", },
+              	filetypes_denylist = { "dirbuf", "dirvish", "fugitive", "NvimTree", "bigfile", },
               }
             '';
       }

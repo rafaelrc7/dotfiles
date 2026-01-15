@@ -1,8 +1,11 @@
-vim.cmd "sytax off"
+vim.treesitter.stop()
 
 vim.opt_local.foldmethod = "manual"
 vim.opt_local.spell = false
+vim.b.do_not_format = true
 vim.b.completion = false
+vim.b.indent_guide = false
+vim.b.pairs = false
 vim.b.indent_guide = false
 
 do
@@ -12,7 +15,7 @@ end
 
 do
 	local ok, gitsigns = pcall(require, "gitsigns")
-	if ok then gitsigns.detach() end
+	if ok then gitsigns.detach(0) end
 end
 
 do
