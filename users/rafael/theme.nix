@@ -114,6 +114,7 @@ in
     flavor = "mocha";
 
     firefox.profiles.personal.enable = false;
+    delta.enable = false;
   };
 
   # Based on https://github.com/Weathercold/nixfiles/blob/master/home/modules/themes/catppuccin/gtk.nix

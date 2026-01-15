@@ -1,4 +1,4 @@
-vim.cmd.sytax "off"
+vim.cmd "sytax off"
 
 vim.opt_local.foldmethod = "manual"
 vim.opt_local.spell = false
