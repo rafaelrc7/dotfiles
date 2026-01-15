@@ -1,4 +1,4 @@
-vim.o.background = "dark"
+vim.opt.background = "dark"
 
 require("gruvbox").setup {
 	contrast = "hard",

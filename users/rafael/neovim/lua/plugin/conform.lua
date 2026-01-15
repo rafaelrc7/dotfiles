@@ -18,7 +18,7 @@ require("conform").setup {
 	end,
 }
 
-vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
+vim.opt.formatexpr = "v:lua.require'conform'.formatexpr()"
 
 -- Keymaps
 vim.keymap.set(
