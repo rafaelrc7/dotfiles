@@ -22,3 +22,42 @@ vim.api.nvim_create_autocmd("BufEnter", {
 	callback = updateColorColumn,
 	group = colorColumnGroup,
 })
+
+local saveFileView = vim.api.nvim_create_augroup("saveFileView", { clear = true })
+vim.api.nvim_create_autocmd({ "BufWinLeave", "BufWritePost", "WinLeave" }, {
+	desc = "Save file view",
+	group = saveFileView,
+	callback = function(ev)
+		if not vim.b[ev.buf].view_loaded then return end
+
+		vim.cmd.mkview { mods = { emsg_silent = true } }
+	end,
+})
+vim.api.nvim_create_autocmd("BufWinEnter", {
+	desc = "Load file view",
+	group = saveFileView,
+	callback = function(ev)
+		if vim.b[ev.buf].view_loaded then return end
+
+		local ignoreFt = {
+			"bigfile",
+			"dirbuf",
+			"dirvish",
+			"fugitive",
+			"gitcommit",
+			"gitrebase",
+			"hgcommit",
+			"NvimTree",
+			"oil",
+			"svg",
+		}
+
+		local ft = vim.opt_local.filetype:get()
+		local bt = vim.opt_local.buftype:get()
+
+		if bt ~= "" or not ft or ft == "" or vim.tbl_contains(ignoreFt, ft) then return end
+
+		vim.cmd.loadview { mods = { emsg_silent = true } }
+		vim.b[ev.buf].view_loaded = true
+	end,
+})
