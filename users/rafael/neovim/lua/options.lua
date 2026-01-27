@@ -29,13 +29,13 @@ vim.opt.foldmethod = "syntax"
 vim.opt.foldlevelstart = 99 -- By default all folds are open
 vim.opt.undodir = os.getenv "HOME" .. "/.local/share/nvim/undo"
 vim.opt.colorcolumn = { "80", "120" }
-vim.opt.completeopt = "menu,menuone,noselect"
+vim.opt.completeopt = { "menu", "menuone", "noselect" }
 vim.opt.termguicolors = true
 vim.opt.updatetime = 1000
 vim.opt.scrolloff = 15
 vim.opt.virtualedit = "block"
 vim.opt.inccommand = "split"
 
-vim.opt.spelllang = "pt,en_gb"
+vim.opt.spelllang = { "pt", "en_gb" }
 
 vim.cmd "filetype plugin on"

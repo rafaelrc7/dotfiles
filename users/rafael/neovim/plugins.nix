@@ -199,12 +199,14 @@ in
         plugin = ps.nvim-dap;
         type = "lua";
         config = (
-          insertPCall "dap.lua" # lua
-            ''
-              ${builtins.readFile ./lua/plugin/dap.lua}
-              require("dap").adapters.gdb.command = "${pkgs.gdb}/bin/gdb"
-              require("dap").adapters.lldb.command = "${pkgs.vscode-extensions.vadimcn.vscode-lldb.adapter}/bin/codelldb"
-            ''
+          insertPCall "dap.lua" (
+            builtins.readFile (
+              pkgs.replaceVars ./lua/plugin/dap.lua {
+                gdb = lib.getExe pkgs.gdb;
+                lldb = "${pkgs.vscode-extensions.vadimcn.vscode-lldb.adapter}/bin/codelldb";
+              }
+            )
+          )
         );
       }
 
