@@ -34,6 +34,7 @@ in
 
   programs.uwsm.waylandCompositors.hyprland.binPath =
     lib.mkForce "/run/current-system/sw/bin/start-hyprland";
+  programs.uwsm.waylandCompositors.hyprland.prettyName = lib.mkForce "Hyprland";
 
   # Generate non-botched name
   services.displayManager = {
