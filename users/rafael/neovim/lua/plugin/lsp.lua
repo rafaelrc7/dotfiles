@@ -79,8 +79,6 @@ vim.api.nvim_create_autocmd({ "LspAttach" }, {
 	group = vim.api.nvim_create_augroup("UserLspConfig", { clear = true }),
 })
 
-local function on_attach(_, _) end
-
 local lsps = {
 	"angularls",
 	"arduino_language_server",
@@ -112,13 +110,12 @@ local lsps = {
 	"racket_langserver",
 	"scheme_langserver",
 	"texlab",
+	"ts_ls",
 	"vimls",
 }
 
 for _, v in pairs(lsps) do
-	vim.lsp.config(v, {
-		on_attach = on_attach,
-	})
+	vim.lsp.config(v, {})
 end
 
 vim.lsp.enable(lsps)
