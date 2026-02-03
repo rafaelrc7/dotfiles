@@ -12,12 +12,12 @@
   outputs =
     inputs:
     inputs.flake-parts.lib.mkFlake { inherit inputs; } {
-      systems = import inputs.systems;
       imports = [
         inputs.treefmt-nix.flakeModule
         inputs.flake-parts.flakeModules.easyOverlay
       ];
 
+      systems = import inputs.systems;
       perSystem =
         {
           config,
@@ -33,7 +33,7 @@
 
           apps.default = {
             type = "app";
-            program = "${config.packages.default}/bin/hello";
+            program = lib.getExe config.packages.default;
           };
 
           overlayAttrs = {

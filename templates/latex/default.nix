@@ -13,7 +13,6 @@ stdenv.mkDerivation rec {
     latexmk -interaction=nonstopmode -auxdir=.cache/latex -pdf ${name}.tex
   '';
   installPhase = ''
-    mkdir -p $out
     cp ${name}.pdf $out
   '';
 }

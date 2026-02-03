@@ -19,7 +19,12 @@
       ];
 
       perSystem =
-        { config, pkgs, ... }:
+        {
+          config,
+          lib,
+          pkgs,
+          ...
+        }:
         let
           # GHC version, change to `pkgs.haskell.packages.ghcXYZ`
           # Available version list can be querried with `nix-env -f "<nixpkgs>" -qaP -A haskell.compiler`
@@ -33,7 +38,7 @@
 
           apps.default = {
             type = "app";
-            program = "${config.packages.default}/bin/hello";
+            program = lib.getExe config.packages.default;
           };
 
           overlayAttrs = {

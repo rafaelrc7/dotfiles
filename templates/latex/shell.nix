@@ -1,11 +1,7 @@
 {
   pkgs ? import <nixpkgs> { },
   devTools ? true,
-  inputsFrom ? [
-    pkgs.callPackage
-    ./default.nix
-    { }
-  ],
+  inputsFrom ? [ (pkgs.callPackage ./default.nix { }) ],
   ...
 }:
 pkgs.mkShell {

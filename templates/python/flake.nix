@@ -33,7 +33,7 @@
 
           apps.default = {
             type = "app";
-            program = "${config.packages.default}/bin/main.py";
+            program = lib.getExe config.packages.default;
           };
 
           overlayAttrs = {

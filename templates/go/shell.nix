@@ -3,11 +3,7 @@
   devTools ? true,
   go ? pkgs.go,
   buildGoModule ? pkgs.buildGoModule.override { inherit go; },
-  inputsFrom ? [
-    pkgs.callPackage
-    ./default.nix
-    { inherit buildGoModule; }
-  ],
+  inputsFrom ? [ (pkgs.callPackage ./default.nix { inherit buildGoModule; }) ],
   ...
 }:
 pkgs.mkShell {
