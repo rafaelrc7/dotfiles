@@ -90,6 +90,7 @@
 
   services.wayland-pipewire-idle-inhibit = {
     enable = true;
+    systemdTarget = config.wayland.systemd.target;
     settings = {
       verbosity = "INFO";
       media_minimum_duration = 10;
@@ -99,14 +100,5 @@
       ];
     };
   };
-  systemd.user.services.wayland-pipewire-idle-inhibit = {
-    Service.Slice = "background-graphical.slice";
-    Unit.After = lib.mkForce [
-      config.wayland.systemd.target
-      "pipewire.service"
-    ];
-    Install.WantedBy = lib.mkForce [
-      config.wayland.systemd.target
-    ];
-  };
+  systemd.user.services.wayland-pipewire-idle-inhibit.Service.Slice = "background-graphical.slice";
 }

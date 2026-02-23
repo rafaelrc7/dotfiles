@@ -28,7 +28,7 @@
     withPython3 = true;
     withNodeJs = true;
 
-    extraLuaConfig =
+    initLua =
       let
         inherit (import ./util.nix { inherit lib; }) insertChunks;
       in

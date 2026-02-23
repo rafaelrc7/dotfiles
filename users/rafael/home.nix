@@ -100,7 +100,7 @@ in
     };
 
     extraConfig = ''
-      XAuthLocation ${pkgs.xorg.xauth}/bin/xauth
+      XAuthLocation ${pkgs.xauth}/bin/xauth
     '';
   };
 

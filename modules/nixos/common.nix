@@ -47,7 +47,16 @@
     ];
   };
 
-  programs.nix-ld.dev.enable = true;
+  programs.nix-ld.dev = {
+    enable = true;
+    libraries = [
+      pkgs.glibc_multi
+    ]
+    ++ (pkgs.steam-run.args.targetPkgs pkgs)
+    ++ (pkgs.steam-run.args.multiPkgs pkgs)
+    ++ (pkgs.appimageTools.defaultFhsEnvArgs.targetPkgs pkgs)
+    ++ (pkgs.appimageTools.defaultFhsEnvArgs.multiPkgs pkgs);
+  };
 
   programs.neovim = {
     enable = true;

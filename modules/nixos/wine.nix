@@ -2,6 +2,6 @@
 {
   environment.systemPackages = with pkgs; [
     winetricks
-    wineWowPackages.staging
+    wineWow64Packages.staging
   ];
 }

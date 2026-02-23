@@ -91,8 +91,6 @@ in
 
       xwayland.enable = true;
 
-      importantPrefixes = [ ];
-
       settings = {
         monitor = [
           "desc:LG Electronics LG ULTRAWIDE 0x01010101, preferred, 0x0,    1"
@@ -459,7 +457,7 @@ in
         ecosystem.no_update_news = true;
       };
 
-      extraConfig = '''';
+      extraConfig = "";
     };
 
   xdg.configFile."hypr/hyprpaper.conf".text =
@@ -476,7 +474,7 @@ in
         }
       ''
     else
-      '''';
+      "";
   systemd.user.services.hyprpaper = {
     Unit = {
       Description = "Hyprpaper wallpaper utility for Hyprland";
