@@ -10,11 +10,14 @@ in
       plugin = (
         pkgs.vimPlugins.nvim-treesitter.withPlugins (
           p: with p; [
+            angular
             arduino
+            asm
             awk
             bash
             bibtex
             c
+            clojure
             cmake
             comment
             commonlisp
@@ -22,10 +25,19 @@ in
             c_sharp
             css
             csv
+            dart
+            desktop
             diff
+            disassembly
             dockerfile
+            doxygen
+            editorconfig
             elixir
+            elm
+            erlang
             fennel
+            forth
+            fsharp
             gdscript
             gdshader
             gitattributes
@@ -34,16 +46,25 @@ in
             gitignore
             git_rebase
             glsl
+            gnuplot
             go
+            goctl
             godot_resource
+            gomod
+            gosum
+            gotmpl
             gpg
+            graphql
             groovy
             haskell
             hlsl
             html
             http
+            hyprlang
+            idris
             ini
             java
+            javadoc
             javascript
             jq
             json
@@ -53,6 +74,7 @@ in
             latex
             llvm
             lua
+            luadoc
             make
             markdown
             markdown_inline
@@ -65,24 +87,31 @@ in
             ocaml
             ocaml_interface
             ocamllex
+            pascal
             passwd
             perl
+            prolog
             python
             r
             racket
             regex
             rst
             rust
+            scala
             scheme
             scss
             sql
             ssh_config
+            strace
             toml
             typescript
+            udev
             vim
             vimdoc
             xml
             yaml
+            zig
+            zsh
           ]
         )
       );
