@@ -229,7 +229,7 @@ in
 
           # Dwindle
           "$mod, O, pseudo,"
-          "$mod, S, togglesplit"
+          "$mod, S, layoutmsg, togglesplit"
           "$mod + SHIFT + ALT, H, layoutmsg, preselect l"
           "$mod + SHIFT + ALT, J, layoutmsg, preselect d"
           "$mod + SHIFT + ALT, K, layoutmsg, preselect u"
