@@ -115,6 +115,22 @@ in
 
     firefox.profiles.personal.enable = false;
     delta.enable = false;
+
+    nvim.settings = {
+      show_end_of_buffer = true;
+      integrations = {
+        diffview = true;
+        leap = true;
+        markview = true;
+        noice = true;
+        navic = {
+          enabled = true;
+        };
+        notify = true;
+        lsp_trouble = true;
+        which_key = true;
+      };
+    };
   };
 
   # Based on https://github.com/Weathercold/nixfiles/blob/master/home/modules/themes/catppuccin/gtk.nix

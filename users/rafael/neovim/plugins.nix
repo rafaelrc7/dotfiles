@@ -163,7 +163,9 @@ in
         config =
           insertPCall "bufferline" # lua
             ''
-              require("bufferline").setup {}
+              require("bufferline").setup {
+              	highlights = require("catppuccin.special.bufferline").get_theme()
+              }
             '';
       }
 
