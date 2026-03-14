@@ -92,6 +92,7 @@
   fileSystems."/boot" = {
     device = "/dev/disk/by-partlabel/EFI";
     fsType = "vfat";
+    options = [ "umask=0077" ];
   };
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";

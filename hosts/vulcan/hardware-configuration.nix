@@ -103,6 +103,7 @@ in
   fileSystems."/boot" = {
     device = "/dev/disk/by-uuid/EA94-FCDF";
     fsType = "vfat";
+    options = [ "umask=0077" ];
   };
 
   fileSystems."/media/harddrive" = {
