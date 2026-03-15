@@ -14,6 +14,7 @@ let
         "adbusers"
         "dialout"
         "libvirtd"
+        "minecraft"
         "plugdev"
         "podman"
         "wheel"
