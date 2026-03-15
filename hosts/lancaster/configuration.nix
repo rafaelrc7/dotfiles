@@ -1,35 +1,35 @@
-{ self, inputs, ... }:
+{
+  nixos-hardware,
+  nixosModules,
+  nixosProfiles,
+  config,
+  ...
+}:
 {
   networking.hostName = "lancaster";
 
-  imports =
-    (with self.nixosModules; [
-      ./hardware-configuration.nix
-      ./networking.nix
-
-      common
-      btrfs
-      ddclient
-      fonts
-      geoclue
-      git
-      man
-      nightscout
-      nix
-      palserver
-      podman
-      polkit
-      ssh
-      systemd-oomd
-      tailscale
-      zsh
-    ])
-    ++ (with inputs; [
-      nixos-hardware.nixosModules.common-pc
-      nixos-hardware.nixosModules.common-pc-ssd
-      nixos-hardware.nixosModules.common-cpu-amd
-      nixos-hardware.nixosModules.common-cpu-amd-pstate
-    ]);
+  imports = [
+    ./hardware-configuration.nix
+    ./networking.nix
+  ]
+  ++ (with nixosProfiles; [
+    base
+  ])
+  ++ (with nixosModules; [
+    btrfs
+    ddclient
+    git
+    nightscout
+    palserver
+    podman
+    zram
+  ])
+  ++ (with nixos-hardware.nixosModules; [
+    common-pc
+    common-pc-ssd
+    common-cpu-amd
+    common-cpu-amd-pstate
+  ]);
 
   services.xserver.xkb = {
     layout = "us";
@@ -46,7 +46,9 @@
   };
 
   # Monero RPC Port
-  networking.firewall.interfaces."${config.services.tailscale.interfaceName}".allowedTCPPorts = [ 18081 ];
+  networking.firewall.interfaces."${config.services.tailscale.interfaceName}".allowedTCPPorts = [
+    18081
+  ];
 
   system.stateVersion = "22.11";
 }

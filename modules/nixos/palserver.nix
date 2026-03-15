@@ -54,8 +54,6 @@ in
     gid = config.users.users.palworld.uid;
   };
 
-  networking.firewall.allowedUDPPorts = [ 8211 ];
-
   systemd.services = {
     # Main server service
     palserver = {

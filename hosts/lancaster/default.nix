@@ -9,7 +9,7 @@ let
     rafael = {
       gui = false;
       sshKeys = lib.strings.splitString "\n" (builtins.readFile inputs.ssh-keys);
-      profiles = (with self.homeProfiles; [ base ]);
+      profiles = (with self.homeProfiles; base);
       extraGroups = [
         "adbusers"
         "dialout"
@@ -26,4 +26,3 @@ self.lib.mkNixosConfiguration {
   configuration = ./configuration.nix;
   inherit users;
 }
-

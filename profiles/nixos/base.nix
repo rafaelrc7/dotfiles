@@ -2,17 +2,17 @@ nixosModules: {
   imports = with nixosModules; [
     common
     appimage
-    geoclue
-    gnupg-agent
-    nix
-    zsh
     fonts
-    man
-    ssh
+    geoclue
     git
+    gnupg-agent
+    man
+    nix
     polkit
-    tailscale
+    ssh
     systemd-oomd
+    tailscale
     temperature-symlink
+    zsh
   ];
 }
