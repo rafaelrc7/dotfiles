@@ -49,16 +49,17 @@ in
   systemd.services = {
     "minecraft-server@vanilla" = {
       overrideStrategy = "asDropin";
+      wantedBy = [ "multi-user.target" ];
       serviceConfig.ExecStart = [
         ""
-        "${lib.getExe pkgs.papermcServers.papermc-1_21_4} -server -Xms\${MEM} -Xmx\${MEM} $JVM_OPTS"
+        "${lib.getExe pkgs.papermc} -server -Xms\${MEM} -Xmx\${MEM} $JVM_OPTS"
       ];
     };
     "minecraft-server@test" = {
       overrideStrategy = "asDropin";
       serviceConfig.ExecStart = [
         ""
-        "${lib.getExe pkgs.papermcServers.papermc-1_21_4} -server -Xms\${MEM} -Xmx\${MEM} $JVM_OPTS"
+        "${lib.getExe pkgs.papermc} -server -Xms\${MEM} -Xmx\${MEM} $JVM_OPTS"
       ];
     };
   };
