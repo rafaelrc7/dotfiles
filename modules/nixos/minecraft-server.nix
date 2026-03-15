@@ -7,6 +7,7 @@
 let
   folderName = "minecraft";
   dataDir = "/srv/${folderName}";
+  backupDir = "${dataDir}/backups";
   runDir = "/run/${folderName}";
   runServerJar = pkgs.writeShellScript "minecraft-server-run-jar" ''
     if [ -z "$1" ]; then
@@ -50,14 +51,14 @@ in
       overrideStrategy = "asDropin";
       serviceConfig.ExecStart = [
         ""
-        ''${lib.getExe pkgs.papermcServers.papermc-1_21_4} -server -Xms''${MEM} -Xmx''${MEM} $JVM_OPTS''
+        "${lib.getExe pkgs.papermcServers.papermc-1_21_4} -server -Xms\${MEM} -Xmx\${MEM} $JVM_OPTS"
       ];
     };
     "minecraft-server@test" = {
       overrideStrategy = "asDropin";
       serviceConfig.ExecStart = [
         ""
-        ''${lib.getExe pkgs.papermcServers.papermc-1_21_4} -server -Xms''${MEM} -Xmx''${MEM} $JVM_OPTS''
+        "${lib.getExe pkgs.papermcServers.papermc-1_21_4} -server -Xms\${MEM} -Xmx\${MEM} $JVM_OPTS"
       ];
     };
   };
@@ -84,7 +85,7 @@ in
       };
 
       serviceConfig = {
-        ExecStart = ''${runServerJar} ''${JAR_NAME} -Xms''${MEM} -Xmx''${MEM} $JVM_OPTS'';
+        ExecStart = "${runServerJar} \${JAR_NAME} -Xms\${MEM} -Xmx\${MEM} $JVM_OPTS";
         ExecStop = ''${stopScript} "%i"'';
         Restart = "on-failure";
         RestartSec = "60s";
@@ -125,8 +126,8 @@ in
         UMask = "0077";
         ProtectSystem = "strict";
         ReadWritePaths = [
-          runDir
-          dataDir
+          "${runDir}/%i.stdin"
+          "${dataDir}/%i"
         ];
         NoNewPrivileges = true;
         RemoveIPC = true;
@@ -156,7 +157,7 @@ in
       serviceConfig = {
         Type = "oneshot";
 
-        ExecStartPre = ''${pkgs.writeShellScript "minecraft-server-backup-pre" ''
+        ExecStartPre = "${pkgs.writeShellScript "minecraft-server-backup-pre" ''
           if [ $# -ne 2 ]; then
               echo "Must supply server name and backup path"
               exit 1
@@ -176,9 +177,9 @@ in
             stdbuf -oL tail -n2 -f "${dataDir}/$SERVER_NAME/logs/latest.log" \
               | sed '/Saved the game/q'
           fi
-        ''} %i ''${BACKUP_PATH}'';
+        ''} %i \${BACKUP_PATH}";
 
-        ExecStart = ''${
+        ExecStart = "${
           lib.getExe (
             pkgs.writeShellApplication {
               name = "minecraft-server-backup";
@@ -204,9 +205,9 @@ in
               '';
             }
           )
-        } %i ''${BACKUP_PATH}'';
+        } %i \${BACKUP_PATH}";
 
-        ExecStopPost = ''${pkgs.writeShellScript "minecraft-server-backup-post" ''
+        ExecStopPost = "${pkgs.writeShellScript "minecraft-server-backup-post" ''
           if [ $# -ne 2 ]; then
               echo "Must supply server name and backup path"
               exit 1
@@ -220,7 +221,7 @@ in
             echo "save-on" > "$SOCKET"
             echo "say Backup complete." > "$SOCKET"
           fi
-        ''} %i ''${BACKUP_PATH}'';
+        ''} %i \${BACKUP_PATH}";
 
         WorkingDirectory = "${dataDir}/%i";
 
@@ -253,13 +254,16 @@ in
         SystemCallArchitectures = "native";
         UMask = "0077";
         ProtectSystem = "strict";
-        ReadWritePaths = [ dataDir ];
+        ReadWritePaths = [
+          dataDir
+          "-${runDir}/%i.stdin"
+        ];
         NoNewPrivileges = true;
         RemoveIPC = true;
 
         # Set default variables
         Environment = [
-          "BACKUP_PATH=${dataDir}/%i/backup"
+          "BACKUP_PATH=${backupDir}/%i"
         ];
 
         # Override default variable values in environment file
@@ -308,7 +312,7 @@ in
       {
         groups = [ config.users.users.minecraft.group ];
         commands =
-          builtins.map
+          map
             (systemctl: {
               options = [ "NOPASSWD" ];
               command = "${systemctl} ^${systemctlArgsRE}$";
