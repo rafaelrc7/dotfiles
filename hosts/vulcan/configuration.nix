@@ -23,7 +23,6 @@
   ])
   ++ (with nixosModules; [
     cryptswap
-    ddclient
     systemd-boot
     zram
 
@@ -31,8 +30,6 @@
     java
     libvirtd
     llm
-    minecraft-server
-    black-mesa-sourcecoop
     mullvad
     podman
     rtl-sdr

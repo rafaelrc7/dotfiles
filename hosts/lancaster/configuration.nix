@@ -16,9 +16,11 @@
     base
   ])
   ++ (with nixosModules; [
+    black-mesa-sourcecoop
     btrfs
     ddclient
     git
+    minecraft-server
     nightscout
     palserver
     podman
