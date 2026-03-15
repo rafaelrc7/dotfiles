@@ -8,7 +8,6 @@
       ./networking.nix
 
       common
-      bitcoind
       btrfs
       ddclient
       fonts
