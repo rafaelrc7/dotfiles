@@ -32,6 +32,7 @@
     llm
     mullvad
     podman
+    postgresql
     rtl-sdr
     waydroid
   ])
