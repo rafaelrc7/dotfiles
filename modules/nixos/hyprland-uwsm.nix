@@ -5,46 +5,44 @@
   ...
 }:
 let
-  cfg = config.programs.uwsm;
-
-  # Helper function to create desktop entry files for UWSM-managed compositors
-  mk_uwsm_desktop_entry =
-    opts:
-    (pkgs.writeTextFile {
-      name = "${opts.name}_uwsm";
-      text = ''
-        [Desktop Entry]
-        Name=${opts.prettyName} (UWSM)
-        Comment=${opts.comment}
-        Exec=${lib.getExe cfg.package} start -e -D ${opts.prettyName} -F ${opts.binPath}
-        Type=Application
-      '';
-      destination = "/share/wayland-sessions/${opts.name}_uwsm.desktop";
-      derivationArgs = {
-        passthru.providedSessions = [ "${opts.name}_uwsm" ];
-      };
-    });
+  hyprlandDesktopEntry = (
+    pkgs.writeTextFile (
+      let
+        name = "hyprland";
+        hyprlandCfg = config.programs.uwsm.waylandCompositors.${name};
+      in
+      {
+        name = "${name}_uwsm";
+        text = ''
+          [Desktop Entry]
+          Name=${hyprlandCfg.prettyName} (UWSM)
+          Comment=${hyprlandCfg.comment}
+          Exec=${lib.getExe config.programs.uwsm.package} start -e -D ${hyprlandCfg.prettyName} -F -- ${hyprlandCfg.binPath} ${lib.strings.escapeShellArgs hyprlandCfg.extraArgs}
+          Type=Application
+        '';
+        destination = "/share/wayland-sessions/${name}_uwsm.desktop";
+        derivationArgs = {
+          passthru.providedSessions = [ "${name}_uwsm" ];
+        };
+      }
+    )
+  );
 in
 {
   programs.uwsm.enable = true;
+
+  programs.uwsm.waylandCompositors.hyprland = {
+    prettyName = "Hyprland";
+    comment = "Hyprland compositor managed by UWSM";
+    binPath = "/run/current-system/sw/bin/start-hyprland";
+  };
+
   programs.hyprland = {
     enable = true;
     withUWSM = true;
   };
 
-  programs.uwsm.waylandCompositors.hyprland.binPath =
-    lib.mkForce "/run/current-system/sw/bin/start-hyprland";
-  programs.uwsm.waylandCompositors.hyprland.prettyName = lib.mkForce "Hyprland";
-
   # Generate non-botched name
-  services.displayManager = {
-    enable = true;
-    sessionPackages = lib.mapAttrsToList (
-      name: value:
-      mk_uwsm_desktop_entry {
-        inherit name;
-        inherit (value) prettyName comment binPath;
-      }
-    ) cfg.waylandCompositors;
-  };
+  services.displayManager.sessionPackages = [ hyprlandDesktopEntry ];
+  environment.systemPackages = [ hyprlandDesktopEntry ];
 }
