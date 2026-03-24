@@ -10,6 +10,19 @@
 
   programs.firefox = rec {
     enable = true;
+
+    package = pkgs.firefox.overrideAttrs (oldAttrs: {
+      makeWrapperArgs = oldAttrs.makeWrapperArgs ++ [
+        "--set"
+        "MOZ_DISABLE_RDD_SANDBOX"
+        "1"
+
+        "--set"
+        "CUDA_DISABLE_PERF_BOOST"
+        "1"
+      ];
+    });
+
     languagePacks = [
       "en-GB"
       "en"
@@ -238,6 +251,7 @@
           "webgl.disabled" = false;
           "webgl.enable-webgl2" = true;
           "media.ffmpeg.vaapi.enabled" = true;
+          "media.hardware-video-decoding.force-enabled" = true;
         };
         search = rec {
           default = "ddg";
