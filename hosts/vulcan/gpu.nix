@@ -1,39 +1,32 @@
 { pkgs, ... }:
 {
-  services.xserver.videoDrivers = [ "amdgpu" ];
+  services.xserver.videoDrivers = [ "nvidia" ];
+
+  hardware.nvidia = {
+    modesetting.enable = true;
+    nvidiaSettings = true;
+    open = true;
+    powerManagement.enable = true;
+    videoAcceleration = true;
+  };
+
+  hardware.nvidia.prime.offload.enable = false;
+
   hardware = {
-    amdgpu.initrd.enable = true;
-    amdgpu.opencl.enable = true;
     graphics = {
       enable = true;
       enable32Bit = true;
     };
   };
 
-  systemd.tmpfiles.rules =
-    let
-      rocmEnv = pkgs.symlinkJoin {
-        name = "rocm-combined";
-        paths = with pkgs.rocmPackages; [
-          rocblas
-          hipblas
-          clr
-        ];
-      };
-    in
-    [
-      "L+    /opt/rocm   -    -    -     -    ${rocmEnv}"
-    ];
-
   environment = {
     systemPackages = with pkgs; [
       libva-utils
       mesa-demos
+      nvtopPackages.nvidia
+      egl-wayland
     ];
   };
 
-  services.ollama = {
-    package = pkgs.ollama-rocm;
-    rocmOverrideGfx = "11.0.2";
-  };
+  services.ollama.package = pkgs.ollama-cuda;
 }

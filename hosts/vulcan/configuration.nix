@@ -37,11 +37,11 @@
     waydroid
   ])
   ++ (with nixos-hardware.nixosModules; [
-    common-pc
-    common-pc-ssd
-    common-gpu-amd
     common-cpu-amd
     common-cpu-amd-pstate
+    common-gpu-nvidia
+    common-pc
+    common-pc-ssd
   ]);
 
   services.hwmonLinks = {
@@ -50,11 +50,6 @@
       {
         name = "k10temp";
         target = "cpu";
-        input = "temp1_input";
-      }
-      {
-        name = "amdgpu";
-        target = "gpu";
         input = "temp1_input";
       }
     ];

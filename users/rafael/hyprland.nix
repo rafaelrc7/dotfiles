@@ -39,6 +39,9 @@ in
     export _JAVA_AWT_WM_NONREPARENTING=1
     export MOZ_ENABLE_WAYLAND=1
     export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
+
+    export LIBVA_DRIVER_NAME=nvidia
+    export __GLX_VENDOR_LIBRARY_NAME=nvidia
   '';
 
   xdg.configFile."uwsm/env-hyprland".text = ''
@@ -79,6 +82,8 @@ in
           "QT_STYLE_OVERRIDE"
           "SDL_VIDEODRIVER"
           "_JAVA_AWT_WM_NONREPARENTING"
+          "LIBVA_DRIVER_NAME"
+          "__GLX_VENDOR_LIBRARY_NAME"
           "PATH"
         ];
 
@@ -444,6 +449,9 @@ in
 
           "QT_WAYLAND_DISABLE_WINDOWDECORATION,1"
           "_JAVA_AWT_WM_NONREPARENTING,1"
+
+          "LIBVA_DRIVER_NAME,nvidia"
+          "__GLX_VENDOR_LIBRARY_NAME,nvidia"
 
           "MOZ_ENABLE_WAYLAND,1"
         ];
