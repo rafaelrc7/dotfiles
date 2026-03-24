@@ -140,12 +140,12 @@
 
     # Autostart Hyprland
     loginExtra = ''
-      if which uwsm; then
-        if uwsm check may-start; then
+      if which uwsm > /dev/null; then
+        if uwsm check may-start > /dev/null; then
           exec uwsm start hyprland_uwsm.desktop
         fi
       else
-        if [ "$(tty)" = "/dev/tty1" ] && which Hyprland; then
+        if [ "$(tty)" = "/dev/tty1" ] && which Hyprland > /dev/null; then
           exec Hyprland
         fi
       fi
