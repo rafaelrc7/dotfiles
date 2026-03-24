@@ -5,8 +5,8 @@
     firewall = {
       enable = true;
       allowedTCPPorts = [
-        7240
-        7241
+        7240 # M&B Warband
+        7241 # M&B Warband
         7242 # M&B Warband
         8010 # VLC Chromecast
         9512 # Unified Remote
