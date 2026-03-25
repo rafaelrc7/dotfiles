@@ -52,6 +52,7 @@
       ".direnv"
     ];
     signing = {
+      format = "openpgp";
       signByDefault = true;
       key = "161833317F080B3AC3ECFB01A2E6A1C9A59514A5";
     };

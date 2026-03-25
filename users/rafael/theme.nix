@@ -196,6 +196,8 @@ in
         gtk-enable-animations = true;
         gtk-primary-button-warps-slider = false;
       };
+
+      gtk4.theme = config.gtk.theme;
     };
 
   wayland.windowManager = {
