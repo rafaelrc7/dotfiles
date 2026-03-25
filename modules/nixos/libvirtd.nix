@@ -27,9 +27,4 @@
       ${config.virtualisation.libvirtd.qemu.package}/bin/qemu-system-${stdenv.hostPlatform.qemuArch} -enable-kvm "$@"
     '')
   ];
-
-  boot.kernelModules = [
-    "kvm-amd"
-    "kvm-intel"
-  ];
 }
