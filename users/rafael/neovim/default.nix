@@ -73,6 +73,7 @@
       nixd
       nixfmt
       nodePackages.bash-language-server
+      prettier
       pyright
       stylua
       texlab
