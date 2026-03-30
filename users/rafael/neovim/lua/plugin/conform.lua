@@ -3,6 +3,7 @@ require("conform").setup {
 		lua = { "stylua" },
 		html = { "prettier" },
 		htmlangular = { "prettier" },
+		typescript = { "prettier" },
 		["_"] = { "trim_whitespace", lsp_format = "last" },
 	},
 	default_format_opts = {
