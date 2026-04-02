@@ -20,7 +20,7 @@
   ];
 
   console = {
-    font = lib.mkDefault "Lat2-Terminus16";
+    font = lib.mkDefault "${pkgs.kbd}/share/consolefonts/Lat2-Terminus16.psfu.gz";
     useXkbConfig = lib.mkDefault true;
   };
 
