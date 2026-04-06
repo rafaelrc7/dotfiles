@@ -67,12 +67,12 @@
       zathura
 
       # Commonly used LSPs
+      bash-language-server
       clang-tools
       lemminx
       lua-language-server
       nixd
       nixfmt
-      nodePackages.bash-language-server
       prettier
       pyright
       stylua

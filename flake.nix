@@ -113,7 +113,6 @@
     bisq-for-nixos.url = "github:emmanuelrosa/bisq-for-nixos";
 
     hyprland.url = "github:hyprwm/Hyprland";
-    hyprtoolkit.url = "github:hyprwm/hyprtoolkit";
 
     nixos-hardware.url = "github:nixos/nixos-hardware/master";
     catppuccin.url = "github:catppuccin/nix";
