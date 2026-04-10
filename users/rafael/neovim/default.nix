@@ -27,6 +27,7 @@
 
     withPython3 = true;
     withNodeJs = true;
+    withRuby = false;
 
     initLua =
       let
