@@ -160,13 +160,7 @@ in
       {
         plugin = ps.bufferline-nvim;
         type = "lua";
-        config =
-          insertPCall "bufferline" # lua
-            ''
-              require("bufferline").setup {
-              	highlights = require("catppuccin.special.bufferline").get_theme()
-              }
-            '';
+        config = insertChunk ./lua/plugin/bufferline.lua;
       }
 
       {
