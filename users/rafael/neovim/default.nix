@@ -35,6 +35,7 @@
       in
       insertChunks [
         ./lua/options.lua
+        ./lua/ui2.lua
         ./lua/maps.lua
         ./lua/autocmds.lua
         ./lua/filetypes.lua

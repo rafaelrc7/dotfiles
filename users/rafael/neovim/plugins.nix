@@ -270,12 +270,6 @@ in
       ps.nvim-notify
 
       {
-        plugin = ps.noice-nvim;
-        type = "lua";
-        config = insertChunk ./lua/plugin/noice.lua;
-      }
-
-      {
         plugin = ps.rustaceanvim;
         type = "lua";
         config = insertChunk ./lua/plugin/rustaceanvim.lua;
