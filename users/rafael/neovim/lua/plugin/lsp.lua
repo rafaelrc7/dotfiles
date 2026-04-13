@@ -42,7 +42,7 @@ vim.api.nvim_create_autocmd({ "LspAttach" }, {
 
 		local client_supports = function(method) return client ~= nil and client:supports_method(method) end
 
-		local _, _ = pcall(vim.lsp.codelens.refresh)
+		local _, _ = pcall(vim.lsp.codelens.enable, true, { bufnr = bufnr })
 		vim.bo[ev.buf].omnifunc = "v:lua.vim.lsp.omnifunc"
 
 		if client_supports "textDocument/inlayHint" then vim.lsp.inlay_hint.enable(true, { bufnr = bufnr }) end

@@ -35,7 +35,7 @@ vim.api.nvim_create_autocmd({ "LspAttach" }, {
 		local opts = function(desc) return { buffer = bufnr, silent = true, desc = desc and ("JDTLS: " .. desc) or nil } end
 		vim.keymap.set("n", "<A-o>", jdtls.organize_imports, opts "[O]rganise Imports")
 
-		local _, _ = pcall(vim.lsp.codelens.refresh)
+		local _, _ = pcall(vim.lsp.codelens.enable, true, { bufnr = bufnr })
 
 		-- Enable nvim-dap
 		jdtls.setup_dap { hotcodereplace = "auto", config_overrides = {} }
@@ -47,7 +47,7 @@ vim.api.nvim_create_autocmd({ "LspAttach" }, {
 vim.api.nvim_create_autocmd({ "BufWritePost" }, {
 	buffer = bufnr,
 	callback = function()
-		local _, _ = pcall(vim.lsp.codelens.refresh)
+		local _, _ = pcall(vim.lsp.codelens.enable, true, { bufnr = bufnr })
 	end,
 	group = augroup,
 })
