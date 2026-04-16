@@ -6,7 +6,6 @@
   ...
 }:
 {
-  inputs,
   config,
   lib,
   pkgs,
@@ -14,13 +13,13 @@
 }:
 let
   inherit (lib.lists) optionals;
-  defaultProfiles = with homeProfiles; auth ++ base ++ dev ++ home-pc;
+  defaultProfiles = with homeProfiles; base ++ dev ++ pc;
   profiles' = (if profiles == null then defaultProfiles else profiles);
 in
 {
 
-  home.username = lib.mkDefault "rafael";
-  home.homeDirectory = lib.mkDefault "/home/rafael";
+  home.username = "desenvolvedor";
+  home.homeDirectory = "/home/desenvolvedor";
 
   programs.home-manager.enable = true;
 
@@ -31,19 +30,17 @@ in
       homeProfiles.gui
       ++ [
         ./gui-pkgs.nix
-        ./hyprland.nix
       ]
     )
     ++ [
-      ./email-accounts
-      ./environment_variables.nix
-      ./git.nix
+      ../rafael/email-accounts
+      ../rafael/environment_variables.nix
+      ../rafael/git.nix
+      ../rafael/neovim
+      ../rafael/theme.nix
+      ../rafael/xdg-mimeapps.nix
+      ../rafael/zsh.nix
       ./less.nix
-      ./neovim
-      ./theme.nix
-      ./xdg-mimeapps.nix
-      ./zsh.nix
-      inputs.wayland-pipewire-idle-inhibit.homeModules.default
     ];
 
   home.packages = with pkgs; [

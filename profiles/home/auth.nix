@@ -1,4 +1,4 @@
 homeModules: with homeModules; [
-  email
-  mpd
+  gnome-keyring
+  keybase
 ]
