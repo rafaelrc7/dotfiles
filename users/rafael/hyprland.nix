@@ -49,6 +49,8 @@ in
     export XDG_SESSION_DESKTOP=Hyprland
   '';
 
+  xdg.portal.extraPortals = with pkgs; [ xdg-desktop-portal-hyprland ];
+
   wayland.windowManager.hyprland =
     let
       menu = ''${pkgs.fuzzel}/bin/fuzzel --hide-before-typing --launch-prefix="${execCmd}"'';

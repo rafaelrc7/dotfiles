@@ -6,7 +6,6 @@
     extraPortals = with pkgs; [
       xdg-desktop-portal-gtk
       xdg-desktop-portal-gnome
-      xdg-desktop-portal-hyprland
     ];
     config = {
       common = {
