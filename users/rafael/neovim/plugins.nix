@@ -21,15 +21,15 @@ in
         config = insertChunk ./lua/plugin/firenvim.lua;
       }
 
-      # {
-      #   plugin = ps.blink-pairs;
-      #   type = "lua";
-      #   config =
-      #     insertPCall "luasnip" # lua
-      #       ''
-      #         require("blink-pairs").setup {}
-      #       '';
-      # }
+      {
+        plugin = ps.nvim-autopairs;
+        type = "lua";
+        config =
+          insertPCall "nvim-autopairs" # lua
+            ''
+              require("nvim-autopairs").setup {}
+            '';
+      }
 
       ps.blink-indent
 

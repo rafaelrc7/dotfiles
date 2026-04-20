@@ -5,7 +5,10 @@ require("blink.cmp").setup {
 		nerd_font_variant = "mono",
 	},
 
-	completion = { documentation = { auto_show = true } },
+	completion = {
+		documentation = { auto_show = true },
+		accept = { auto_brackets = { enabled = true } },
+	},
 
 	sources = {
 		default = { "lazydev", "lsp", "latex", "path", "snippets", "buffer", "emoji" },
