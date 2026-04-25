@@ -13,6 +13,25 @@ in
       ps.nui-nvim
       ps.nvim-nio
 
+      {
+        plugin = ps.snacks-nvim;
+        type = "lua";
+        config = insertChunk ./lua/plugin/snacks.lua;
+      }
+
+      {
+        plugin = ps.todo-comments-nvim;
+        type = "lua";
+        config =
+          insertPCall "todo-comments-nvim" # lua
+            ''
+              require("todo-comments").setup {}
+              vim.keymap.set("n", "<leader>st", function() Snacks.picker.todo_comments() end, { desc = "Search TODO comments" })
+              vim.keymap.set( "n", "<leader>sT", function() Snacks.picker.todo_comments { keywords = { "TODO", "FIX", "FIXME" } } end,
+                { desc = "Search TODO/FIX/FIXME comments" })
+            '';
+      }
+
       ps.which-key-nvim
 
       {
@@ -30,8 +49,6 @@ in
               require("nvim-autopairs").setup {}
             '';
       }
-
-      ps.blink-indent
 
       {
         plugin = ps.blink-cmp;
@@ -76,14 +93,6 @@ in
               require("nvim-ts-autotag").setup {}
             '';
       }
-
-      {
-        plugin = ps.telescope-nvim;
-        type = "lua";
-        config = insertChunk ./lua/plugin/telescope.lua;
-      }
-      ps.telescope-fzf-native-nvim
-      ps.telescope-ui-select-nvim
 
       {
         plugin = ps.gitsigns-nvim;
@@ -132,7 +141,7 @@ in
         config =
           insertPCall "vim-fugitive" # lua
             ''
-              vim.keymap.set("n", "<leader>gs",  ":G<CR>",           { silent = true, desc = "[G]it [s]tatus" })
+              vim.keymap.set("n", "<leader>G",  ":G<CR>",            { silent = true, desc = "[G]it status" })
               vim.keymap.set("n", "<leader>[gd", ":diffget //2<CR>", { silent = true, desc = "[G]it [d]iff left" })
               vim.keymap.set("n", "<leader>]gd", ":diffget //3<CR>", { silent = true, desc = "[G]it [d]iff right" })
             '';
@@ -173,12 +182,6 @@ in
               	filetypes_denylist = { "dirbuf", "dirvish", "fugitive", "NvimTree", "bigfile", },
               }
             '';
-      }
-
-      {
-        plugin = ps.toggleterm-nvim;
-        type = "lua";
-        config = insertChunk ./lua/plugin/toggleterm.lua;
       }
 
       {
@@ -260,8 +263,6 @@ in
               vim.keymap.set('n',             'gs', '<Plug>(leap-from-window)')
             '';
       }
-
-      ps.nvim-notify
 
       {
         plugin = ps.rustaceanvim;

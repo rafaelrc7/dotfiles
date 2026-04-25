@@ -24,30 +24,18 @@ require("gitsigns").setup {
 			end
 		end, "Previous [c]hange")
 
-		map("n", "<leader>hs", gitsigns.stage_hunk, "[h]unk [s]tage")
-		map("n", "<leader>hr", gitsigns.reset_hunk, "[h]unk [r]eset")
-		map(
-			"v",
-			"<leader>hs",
-			function() gitsigns.stage_hunk { vim.fn.line ".", vim.fn.line "v" } end,
-			"[h]unk [s]tage"
-		)
-		map(
-			"v",
-			"<leader>hr",
-			function() gitsigns.reset_hunk { vim.fn.line ".", vim.fn.line "v" } end,
-			"[h]unk [r]eset"
-		)
-		map("n", "<leader>hS", gitsigns.stage_buffer, "[h]unk [s]tage buffer")
-		map("n", "<leader>hu", gitsigns.undo_stage_hunk, "[h]unk [u]nstage")
-		map("n", "<leader>hR", gitsigns.reset_buffer, "[h]unk [r]eset buffer")
-		map("n", "<leader>hp", gitsigns.preview_hunk, "[h]unk [p]review")
-		map("n", "<leader>hb", function() gitsigns.blame_line { full = true } end, "[h]unk [b]lame")
-		map("n", "<leader>tb", gitsigns.toggle_current_line_blame, "[t]oggle line [b]lame")
-		map("n", "<leader>hd", gitsigns.diffthis, "[h]unk [d]iff")
-		map("n", "<leader>hD", function() gitsigns.diffthis "~" end, "[h]unk [d]iff")
-		map("n", "<leader>td", gitsigns.toggle_deleted, "[t]oggle [d]eleted")
+		map("n", "<leader>gs", gitsigns.stage_hunk, "[s]tage hunk")
+		map("n", "<leader>gr", gitsigns.reset_hunk, "[r]eset hunk")
+		map("v", "<leader>gs", function() gitsigns.stage_hunk { vim.fn.line ".", vim.fn.line "v" } end, "[s]tage hunk")
+		map("v", "<leader>gr", function() gitsigns.reset_hunk { vim.fn.line ".", vim.fn.line "v" } end, "[r]eset hunk")
+		map("n", "<leader>gS", gitsigns.stage_buffer, "[s]tage buffer")
+		map("n", "<leader>gR", gitsigns.reset_buffer, "[r]eset buffer")
+		map("n", "<leader>gp", gitsigns.preview_hunk_inline, "[p]review hunk")
+		map("n", "<leader>gb", function() gitsigns.blame_line { full = true } end, "[b]lame hunk")
+		map("n", "<leader>gB", gitsigns.toggle_current_line_blame, "toggle line [b]lame")
+		map("n", "<leader>gd", gitsigns.diffthis, "[d]iff")
+		map("n", "<leader>gD", function() gitsigns.diffthis "~" end, "[d]iff")
 
-		map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", "select [h]unk")
+		map({ "o", "x" }, "gih", ":<C-U>Gitsigns select_hunk<CR>", "select [h]unk")
 	end,
 }

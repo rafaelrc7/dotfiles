@@ -51,8 +51,13 @@ vim.api.nvim_create_autocmd({ "LspAttach" }, {
 		bufmap("n", "]d", function() vim.diagnostic.jump { count = 1, float = true } end, "Next [d]iagnostic")
 		bufmap("n", "<leader>q", vim.diagnostic.setloclist, "Add diagnostics to loclist")
 
-		bufmap("n", "gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
-		bufmap("n", "gd", vim.lsp.buf.definition, "[G]oto [D]efinition")
+		bufmap("n", "gd", function() Snacks.picker.lsp_definitions() end, "[G]oto [D]efinition")
+		bufmap("n", "gD", function() Snacks.picker.lsp_declarations() end, "[G]oto [D]eclaration")
+		bufmap("n", "grr", function() Snacks.picker.lsp_references() end, "[R]eferences")
+		bufmap("n", "gI", function() Snacks.picker.lsp_implementations() end, "[G]oto [I]mplementations")
+		bufmap("n", "gy", function() Snacks.picker.lsp_type_definitions() end, "[G]oto T[y]pe definition")
+		bufmap("n", "gai", function() Snacks.picker.lsp_incoming_calls() end, "C[a]lls [i]ncoming")
+		bufmap("n", "gao", function() Snacks.picker.lsp_outgoing_calls() end, "C[a]lls [o]utgoing")
 		bufmap("n", "K", vim.lsp.buf.hover, "Hover Documentation")
 		bufmap("n", "<leader>wa", vim.lsp.buf.add_workspace_folder, "[W]orkspace [A]dd Folder")
 		bufmap("n", "<leader>wr", vim.lsp.buf.remove_workspace_folder, "[W]orkspace [R]emove Folder")
@@ -62,8 +67,10 @@ vim.api.nvim_create_autocmd({ "LspAttach" }, {
 			function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end,
 			"[W]orkspace [L]ist Folders"
 		)
-		bufmap("n", "<leader>ds", require("telescope.builtin").lsp_document_symbols, "[D]ocument [S]ymbols")
-		bufmap("n", "<leader>ws", require("telescope.builtin").lsp_dynamic_workspace_symbols, "[W]orkspace [S]ymbols")
+
+		bufmap("n", "<leader>ds", function() Snacks.picker.lsp_symbols() end, "[S]earch Document [S]ymbols")
+		bufmap("n", "<leader>ws", function() Snacks.picker.lsp_workspace_symbols() end, "Search [W]orkspace [S]ymbols")
+
 		bufmap("n", "<leader>cl", vim.lsp.codelens.run, "[C]ode [L]ens")
 		bufmap({ "n", "v" }, "<leader>cA", vim.lsp.buf.code_action, "[C]ode [A]ction")
 
