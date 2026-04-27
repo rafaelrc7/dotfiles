@@ -416,6 +416,7 @@
         };
         extensions = {
           packages = with pkgs.nur.repos.rycee.firefox-addons; [
+            angular-devtools
             clearurls
             consent-o-matic
             cookie-autodelete
