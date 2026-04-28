@@ -55,6 +55,7 @@
       fd
       graphviz
       ripgrep
+      trash-cli
       wordnet
 
       # Clipboard

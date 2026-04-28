@@ -46,6 +46,7 @@ in
   home.packages = with pkgs; [
     (neovim-qt.override { neovim = config.programs.neovim.finalPackage; })
     nh
+    trash-cli
   ];
 
   programs.fzf.enable = true;
