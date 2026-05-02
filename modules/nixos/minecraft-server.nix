@@ -17,7 +17,7 @@ let
     ${lib.optionalString pkgs.stdenvNoCC.hostPlatform.isLinux "export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${
       lib.makeLibraryPath [ pkgs.udev ]
     }"}
-    exec ${lib.getExe pkgs.jre} -server ''${@:2} -jar ''$1 nogui
+    exec ${lib.getExe pkgs.jdk25} -server ''${@:2} -jar ''$1 nogui
   '';
   stopScript = pkgs.writeShellScript "minecraft-server-stop" ''
     if [ -z "$1" ]; then
@@ -47,14 +47,6 @@ in
 
   # Specific instances overrides
   systemd.services = {
-    "minecraft-server@vanilla" = {
-      overrideStrategy = "asDropin";
-      wantedBy = [ "multi-user.target" ];
-      serviceConfig.ExecStart = [
-        ""
-        "${lib.getExe pkgs.papermc} -server -Xms\${MEM} -Xmx\${MEM} $JVM_OPTS"
-      ];
-    };
     "minecraft-server@test" = {
       overrideStrategy = "asDropin";
       serviceConfig.ExecStart = [
@@ -137,7 +129,7 @@ in
         Environment = [
           "JAR_NAME=server.jar"
           "MEM=6144M"
-          ''"JVM_OPTS=-Djava.net.preferIPv6Addresses=true -XX:+AlwaysPreTouch -XX:+DisableExplicitGC -XX:+ParallelRefProcEnabled -XX:+PerfDisableSharedMem -XX:+UnlockExperimentalVMOptions -XX:+UseG1GC -XX:G1HeapRegionSize=8M -XX:G1HeapWastePercent=5 -XX:G1MaxNewSizePercent=40 -XX:G1MixedGCCountTarget=4 -XX:G1MixedGCLiveThresholdPercent=90 -XX:G1NewSizePercent=30 -XX:G1RSetUpdatingPauseTimePercent=5 -XX:G1ReservePercent=20 -XX:InitiatingHeapOccupancyPercent=15 -XX:MaxGCPauseMillis=200 -XX:MaxTenuringThreshold=1 -XX:SurvivorRatio=32 -Dusing.aikars.flags=https://mcflags.emc.gs -Daikars.new.flags=true"''
+          ''"JVM_OPTS=-Djava.net.preferIPv6Addresses=true -XX:+UseZGC -XX:+UseCompactObjectHeaders"''
         ];
 
         # Override default variable values in environment file
