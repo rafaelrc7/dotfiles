@@ -531,7 +531,7 @@ in
     enable = true;
     settings = {
       general = {
-        lock_cmd = "${pkgs.procps}/bin/pidof hyprlock || ${pkgs.hyprlock}/bin/hyprlock --immediate";
+        lock_cmd = "${pkgs.procps}/bin/pidof hyprlock || ${pkgs.hyprlock}/bin/hyprlock --grace 0";
         unlock_cmd = "${pkgs.procps}/bin/pkill -USR1 hyprlock";
         before_sleep_cmd = "${pkgs.systemd}/bin/loginctl lock-session";
         after_sleep_cmd = "${pkgs.hyprland}/bin/hyprctl dispatch dpms on";
@@ -542,7 +542,7 @@ in
       listener = [
         {
           timeout = 300; # 5m
-          on-timeout = "${pkgs.systemd}/bin/loginctl lock-session";
+          on-timeout = "${pkgs.hyprlock}/bin/hyprlock --grace 30";
         }
         {
           timeout = 330; # 5.5m
@@ -562,11 +562,7 @@ in
     enable = true;
     settings = {
       general = {
-        disable_loading_bar = true;
         hide_cursor = true;
-        grace = 30;
-        no_fade_in = false;
-        no_fade_out = false;
         text_trim = true;
       };
 
