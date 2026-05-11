@@ -31,7 +31,7 @@ in
       homeProfiles.gui
       ++ [
         ./gui-pkgs.nix
-        ./hyprland.nix
+        ./hyprland
       ]
     )
     ++ [

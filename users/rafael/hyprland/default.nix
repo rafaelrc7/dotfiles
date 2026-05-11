@@ -14,9 +14,9 @@ let
 in
 {
   imports = [
-    ./waybar.nix
-    ./wayland.nix
-    ./hyprsunset.nix
+    ../waybar.nix
+    ../wayland.nix
+    ./hyprsunset
   ];
 
   home.packages = with pkgs; [
@@ -470,7 +470,7 @@ in
   xdg.configFile."hypr/hyprpaper.conf".text =
     if isNixOS then
       let
-        wallpaper = ./imgs/wallpapers/${osConfig.networking.hostName};
+        wallpaper = ../imgs/wallpapers/${osConfig.networking.hostName};
       in
       ''
         splash = false
