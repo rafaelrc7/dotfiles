@@ -78,37 +78,23 @@ in
 
   xdg.portal.extraPortals = with pkgs; [ xdg-desktop-portal-hyprland ];
 
-  xdg.configFile."hypr/hyprpaper.conf".text =
-    if isNixOS then
-      let
-        wallpaper = ../imgs/wallpapers/${osConfig.networking.hostName};
-      in
-      ''
-        splash = false
-        wallpaper {
-          monitor =
-          path = ${wallpaper}
-          fit_mode = cover
-        }
-      ''
-    else
-      "";
-  systemd.user.services.hyprpaper = {
-    Unit = {
-      Description = "Hyprpaper wallpaper utility for Hyprland";
-      After = [ config.wayland.systemd.target ];
-    };
+  services.hyprpaper = {
+    enable = true;
+    settings = {
+      splash = false;
+      wallpaper =
+        (lib.optional isNixOS {
+          fit_mode = "cover";
+          path = "${../imgs/wallpapers/${osConfig.networking.hostName}}";
+          monitor = "";
+        })
+        ++ [
 
-    Service = {
-      Type = "exec";
-      ExecCondition = ''${pkgs.systemd}/lib/systemd/systemd-xdg-autostart-condition "Hyprland" ""'';
-      ExecStart = "${pkgs.hyprpaper}/bin/hyprpaper";
-      Restart = "on-failure";
-      Slice = "background-graphical.slice";
+        ];
     };
-
-    Install.WantedBy = [ config.wayland.systemd.target ];
   };
+
+  systemd.user.services.hyprpaper.Install.WantedBy = [ config.wayland.systemd.target ];
 
   systemd.user.services.hyprpaper-load = lib.mkIf (!isNixOS) (
     let
