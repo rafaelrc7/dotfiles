@@ -113,6 +113,7 @@ in
     accent = "blue";
     flavor = "mocha";
 
+    hyprland.enable = false; # TODO: until catppuccin fixes lua support
     firefox.profiles.personal.enable = false;
     delta.enable = false;
 
@@ -203,11 +204,11 @@ in
   wayland.windowManager = {
     hyprland = {
       settings = with fonts; {
-        group.groupbar = {
+        config.group.groupbar = {
           font_family = sansSerif.name;
           font_size = sizes.desktop;
         };
-        misc.splash_font_family = sansSerif.name;
+        config.misc.splash_font_family = sansSerif.name;
       };
     };
 

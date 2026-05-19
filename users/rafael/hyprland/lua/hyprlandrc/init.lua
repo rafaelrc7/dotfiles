@@ -1,0 +1,7 @@
+require "hyprlandrc.config"
+require "hyprlandrc.monitors"
+require "hyprlandrc.windowrules"
+require "hyprlandrc.workspacerules"
+require "hyprlandrc.smartgaps"
+require "hyprlandrc.keybinds"
+require "hyprlandrc.autostart"
