@@ -71,9 +71,7 @@ in
     xwayland.enable = true;
 
     configType = "lua";
-    extraConfig = /* lua */ ''
-      require "hyprlandrc"
-    '';
+    extraConfig = builtins.readFile ./lua/hyprland.lua;
   };
 
   xdg.portal.extraPortals = with pkgs; [ xdg-desktop-portal-hyprland ];
