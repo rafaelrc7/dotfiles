@@ -70,6 +70,9 @@
     settings = {
       General = {
         showStartupLaunchMessage = false;
+
+        savePath = "${config.xdg.userDirs.pictures}/Screenshots";
+        copyPathAfterSave = true;
       };
     };
   };
