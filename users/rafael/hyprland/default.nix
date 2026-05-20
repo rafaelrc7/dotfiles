@@ -16,8 +16,9 @@ in
   ];
 
   home.packages = with pkgs; [
-    hyprland
     hypridle
+    hyprland
+    hyprland-guiutils
     hyprlock
     hyprpaper
     libsForQt5.qt5.qtwayland

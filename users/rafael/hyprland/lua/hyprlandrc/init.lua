@@ -1,4 +1,5 @@
 require "hyprlandrc.config"
+require "hyprlandrc.permissions"
 require "hyprlandrc.monitors"
 require "hyprlandrc.windowrules"
 require "hyprlandrc.workspacerules"
