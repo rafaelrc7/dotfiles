@@ -56,7 +56,7 @@ hl.bind(keys { mod, "SHIFT", "S" }, hl.dsp.window.pin {}, { description = "Toggl
 hl.bind(keys { mod, "SHIFT", "SPACE" }, hl.dsp.window.float {}, { description = "Toggle float mode" })
 
 -- Exit/Logout
-hl.bind(keys { mod, "SHIFT", "E" }, exec "wlgout", { description = "Open session actions" })
+hl.bind(keys { mod, "SHIFT", "E" }, exec "wlogout", { description = "Open session actions" })
 hl.bind(keys { mod, "CTRL", "L" }, exec "loginctl lock-session", { description = "Lock session" })
 
 -- Clipboard Manager
