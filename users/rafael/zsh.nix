@@ -86,8 +86,8 @@
 
       foot_title = /* zsh */ ''
         print -Pn "\e]0;$1\a"
-
       '';
+
       foot_restore_title = /* zsh */ ''
         print -Pn "\e]0;$TERM\a"
       '';

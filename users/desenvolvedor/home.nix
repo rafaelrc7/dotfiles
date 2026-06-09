@@ -17,9 +17,11 @@ let
   profiles' = (if profiles == null then defaultProfiles else profiles);
 in
 {
-
   home.username = "desenvolvedor";
   home.homeDirectory = "/home/desenvolvedor";
+
+  targets.genericLinux.enable = true;
+  targets.genericLinux.gpu.enable = true;
 
   programs.home-manager.enable = true;
 
