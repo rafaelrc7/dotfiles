@@ -1,4 +1,9 @@
-{ lib, pkgs, ... }:
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
 {
   home.sessionVariables = {
     BROWSER = lib.mkDefault "firefox";
@@ -10,6 +15,8 @@
 
   programs.firefox = rec {
     enable = true;
+
+    configPath = "${config.xdg.configHome}/mozilla/firefox";
 
     package = pkgs.firefox.overrideAttrs (oldAttrs: {
       makeWrapperArgs = oldAttrs.makeWrapperArgs ++ [
