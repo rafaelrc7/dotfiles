@@ -11,6 +11,11 @@
     nix-direnv.enable = true;
   };
 
+  programs.tmux.shell = lib.getExe config.programs.zsh.package;
+  programs.tmux.extraConfig = ''
+    set -g default-command ${lib.getExe config.programs.zsh.package}
+  '';
+
   programs.zsh = {
     enable = true;
     dotDir = "${config.xdg.configHome}/zsh";
