@@ -230,7 +230,7 @@ in
       main = {
         font =
           let
-            size = builtins.toString fonts.sizes.terminal;
+            size = toString fonts.sizes.terminal;
           in
           "${fonts.monospace.name}:size=${size}, ${fonts.awesome.name}:size=${size}, ${fonts.emoji.name}:size=${size}";
       };
@@ -243,7 +243,7 @@ in
       inherit (fonts.monospace) name package;
       size = fonts.sizes.terminal;
     };
-    settings.background_opacity = builtins.toString opacity.terminal;
+    settings.background_opacity = toString opacity.terminal;
   };
 
   home.pointerCursor = {
@@ -280,7 +280,7 @@ in
     }
 
     window#waybar {
-        background-color: alpha(@base, ${builtins.toString opacity.desktop});
+        background-color: alpha(@base, ${toString opacity.desktop});
         color: @text;
         transition-property: background-color;
         transition-duration: .5s;
