@@ -112,6 +112,8 @@ in
     enable = true;
     autoEnable = true;
 
+    cache.enable = true;
+
     accent = "blue";
     flavor = "mocha";
 
