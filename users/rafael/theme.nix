@@ -117,7 +117,6 @@ in
     accent = "blue";
     flavor = "mocha";
 
-    hyprland.enable = false; # TODO: until catppuccin fixes lua support
     firefox.profiles.personal.enable = false;
     delta.enable = false;
 
