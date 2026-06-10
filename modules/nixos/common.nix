@@ -7,7 +7,7 @@
     supportedFilesystems = [
       "vfat"
       "btrfs"
-      "ext4 "
+      "ext4"
     ];
   };
 
