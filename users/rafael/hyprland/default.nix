@@ -102,7 +102,7 @@ in
         [[ -f ${config.xdg.userDirs.pictures}/Wallpapers/default ]] && WALLPAPER="${config.xdg.userDirs.pictures}/Wallpapers/default"
         [[ -f ${config.xdg.userDirs.pictures}/Wallpapers/`uname -n` ]] && WALLPAPER="${config.xdg.userDirs.pictures}/Wallpapers/`uname -n`"
         [[ -f ${config.xdg.configHome}/wallpaper ]] && WALLPAPER="${config.xdg.configHome}/wallpaper"
-        [[ -v WALLPAPER ]] && exec -- ${pkgs.hyprland}/bin/hyprctl hyprpaper reload ,"$WALLPAPER"
+        [[ -v WALLPAPER ]] && exec -- ${pkgs.hyprland}/bin/hyprctl hyprpaper wallpaper ,"$WALLPAPER"
         exit 0
       '';
     in
@@ -130,7 +130,7 @@ in
         lock_cmd = "${pkgs.procps}/bin/pidof hyprlock || ${pkgs.hyprlock}/bin/hyprlock --grace 0";
         unlock_cmd = "${pkgs.procps}/bin/pkill -USR1 hyprlock";
         before_sleep_cmd = "${pkgs.systemd}/bin/loginctl lock-session";
-        after_sleep_cmd = "${pkgs.hyprland}/bin/hyprctl dispatch dpms on";
+        after_sleep_cmd = ''${pkgs.hyprland}/bin/hyprctl dispatch 'hl.dsp.dpms({ action = "enable" })'';
         ignore_dbus_inhibit = false;
         ignore_systemd_inhibit = false;
       };
@@ -142,8 +142,8 @@ in
         }
         {
           timeout = 330; # 5.5m
-          on-timeout = "${pkgs.hyprland}/bin/hyprctl dispatch dpms off";
-          on-resume = "${pkgs.hyprland}/bin/hyprctl dispatch dpms on";
+          on-timeout = ''${pkgs.hyprland}/bin/hyprctl hyprctl dispatch 'hl.dsp.dpms({ action = "disable" })'';
+          on-resume = ''${pkgs.hyprland}/bin/hyprctl hyprctl dispatch 'hl.dsp.dpms({ action = "enable" })'';
         }
       ];
     };
