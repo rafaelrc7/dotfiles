@@ -99,10 +99,21 @@ in
     let
       loadWallpaper = pkgs.writeShellScriptBin "loadWallpaper" ''
         set -eo pipefail
-        [[ -f ${config.xdg.userDirs.pictures}/Wallpapers/default ]] && WALLPAPER="${config.xdg.userDirs.pictures}/Wallpapers/default"
-        [[ -f ${config.xdg.userDirs.pictures}/Wallpapers/`uname -n` ]] && WALLPAPER="${config.xdg.userDirs.pictures}/Wallpapers/`uname -n`"
-        [[ -f ${config.xdg.configHome}/wallpaper ]] && WALLPAPER="${config.xdg.configHome}/wallpaper"
-        [[ -v WALLPAPER ]] && exec -- ${pkgs.hyprland}/bin/hyprctl hyprpaper wallpaper ,"$WALLPAPER"
+
+        if [[ -v WALLPAPER ]]; then
+          selected_wallpaper="$WALLPAPER"
+        elif [[ -f "${config.xdg.configHome}/wallpaper" ]]; then
+          selected_wallpaper="${config.xdg.configHome}/wallpaper"
+        elif [[ -f "${config.xdg.userDirs.pictures}/Wallpapers/$(uname -n)" ]]; then
+          selected_wallpaper="${config.xdg.userDirs.pictures}/Wallpapers/$(uname -n)"
+        elif [[ -f "${config.xdg.userDirs.pictures}/Wallpapers/default" ]]; then
+          selected_wallpaper="${config.xdg.userDirs.pictures}/Wallpapers/default"
+        fi
+
+        if [[ -v selected_wallpaper ]]; then
+          exec hyprctl hyprpaper wallpaper ,"$selected_wallpaper"
+        fi
+
         exit 0
       '';
     in
