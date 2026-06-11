@@ -183,25 +183,19 @@
         (lib.mkAfter initExtraAfter)
       ];
 
-    envExtra = /* zsh */ "";
-
     loginExtra = /* zsh */ ''
       # Autostart Hyprland
-      if which uwsm > /dev/null; then
-        if uwsm check may-start > /dev/null; then
-          exec uwsm start hyprland_uwsm.desktop
-        fi
-      else
-        if [ "$(tty)" = "/dev/tty1" ] && which Hyprland > /dev/null; then
-          exec Hyprland
-        fi
+      if which uwsm > /dev/null && uwsm check may-start > /dev/null; then
+          exec uwsm start hyprland-uwsm.desktop
       fi
 
-      true
+      :
     '';
 
     logoutExtra = /* zsh */ "";
 
     profileExtra = /* zsh */ "";
+
+    envExtra = /* zsh */ "";
   };
 }
