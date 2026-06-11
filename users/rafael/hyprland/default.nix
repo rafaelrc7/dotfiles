@@ -148,6 +148,7 @@ in
       ];
     };
   };
+
   systemd.user.services.hypridle = rec {
     Service.Slice = "background.slice";
     Unit.After = Install.WantedBy;
@@ -170,11 +171,5 @@ in
         }
       ];
     };
-  };
-
-  systemd.user.services.hyprsunset = rec {
-    Service.Slice = "background-graphical.slice";
-    Unit.After = Install.WantedBy;
-    Install.WantedBy = lib.mkForce [ config.wayland.systemd.target ];
   };
 }

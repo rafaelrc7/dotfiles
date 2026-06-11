@@ -21,6 +21,12 @@
     };
   };
 
+  systemd.user.services.hyprsunset = rec {
+    Service.Slice = "background-graphical.slice";
+    Unit.After = Install.WantedBy;
+    Install.WantedBy = lib.mkForce [ config.wayland.systemd.target ];
+  };
+
   systemd.user.services.hyprsunset-hyprland-event-listener = rec {
     Install.WantedBy = [ "hyprsunset.service" ];
 
