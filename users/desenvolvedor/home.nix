@@ -1,4 +1,5 @@
 {
+  homeModules,
   homeProfiles,
   profiles,
   extraModules ? [ ],
@@ -6,6 +7,7 @@
   ...
 }:
 {
+  inputs,
   config,
   lib,
   pkgs,
@@ -32,6 +34,8 @@ in
       homeProfiles.gui
       ++ [
         ./gui-pkgs.nix
+        ../rafael/hyprland
+        homeModules.uwsm
       ]
     )
     ++ [
@@ -44,6 +48,7 @@ in
       ../rafael/xdg-mimeapps.nix
       ../rafael/zsh.nix
       ./less.nix
+      inputs.wayland-pipewire-idle-inhibit.homeModules.default
     ];
 
   home.packages = with pkgs; [
