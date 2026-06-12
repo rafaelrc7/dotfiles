@@ -57,6 +57,22 @@ in
     trash-cli
   ];
 
+  wayland.windowManager.hyprland.extraConfig = /* lua */ ''
+    hl.monitor {
+    	output = "DVI-D-1",
+    	mode = "preferred",
+    	position = "0x0",
+    	scale = "1",
+    }
+
+    hl.monitor {
+    	output = "HDMI-A-1",
+    	mode = "preferred",
+    	position = "1920x0",
+    	scale = "1.5",
+    }
+  '';
+
   programs.fzf.enable = true;
   programs.ripgrep.enable = true;
 
