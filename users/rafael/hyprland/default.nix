@@ -21,7 +21,7 @@ in
     hyprland-guiutils
     hyprlock
     hyprpaper
-    libsForQt5.qt5.qtwayland
+    qt5.qtwayland
     qt6.qtwayland
 
     brightnessctl

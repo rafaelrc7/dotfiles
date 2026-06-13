@@ -54,7 +54,7 @@ in
       libsForQt5.qt5ct
       libsForQt5.qtstyleplugins
       libsForQt5.qtstyleplugin-kvantum
-      libsForQt5.qt5.qtwayland
+      qt5.qtwayland
 
       qt6Packages.qt6ct
       qt6Packages.qtstyleplugin-kvantum
