@@ -22,9 +22,9 @@
 
     autosuggestion.enable = true;
     autosuggestion.strategy = [
-      "completion"
       "match_prev_cmd"
       "history"
+      "completion"
     ];
 
     enableCompletion = true;
