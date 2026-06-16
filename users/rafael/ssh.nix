@@ -22,6 +22,17 @@
         IdentityFile = "${config.home.homeDirectory}/.ssh/aur";
         User = "aur";
       };
+
+      "hurricane" = {
+        User = "desenvolvedor";
+      };
+
+      "nxkvm" = {
+        Hostname = "192.168.1.240";
+        Port = 2222;
+        ProxyJump = "hurricane";
+        User = "user";
+      };
     };
 
     extraConfig = ''
