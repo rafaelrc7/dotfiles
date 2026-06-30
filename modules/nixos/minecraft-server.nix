@@ -46,21 +46,12 @@ in
   };
 
   # Specific instances overrides
-  systemd.services = {
-    "minecraft-server@test" = {
-      overrideStrategy = "asDropin";
-      serviceConfig.ExecStart = [
-        ""
-        "${lib.getExe pkgs.papermc} -server -Xms\${MEM} -Xmx\${MEM} $JVM_OPTS"
-      ];
-    };
-  };
-
-  systemd.timers = {
-    "minecraft-server-backup@vanilla" = {
-      overrideStrategy = "asDropin";
-      wantedBy = [ "timers.target" ];
-    };
+  systemd.services."minecraft-server@test" = {
+    overrideStrategy = "asDropin";
+    serviceConfig.ExecStart = [
+      ""
+      "${lib.getExe pkgs.papermc} -server -Xms\${MEM} -Xmx\${MEM} $JVM_OPTS"
+    ];
   };
 
   # Base minecraft server service
@@ -78,7 +69,7 @@ in
       };
 
       serviceConfig = {
-        ExecStart = "${runServerJar} \${JAR_NAME} -Xms\${MEM} -Xmx\${MEM} $JVM_OPTS";
+        ExecStart = "${runServerJar} \${JAR_NAME} -Xms\${MEM} -Xmx\${MEM} \${JVM_OPTS}";
         ExecStop = ''${stopScript} "%i"'';
         Restart = "on-failure";
         RestartSec = "60s";
