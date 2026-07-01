@@ -84,10 +84,11 @@ in
         };
         modules = [
           (import configuration)
-          inputs.home-manager.nixosModules.home-manager
-          inputs.nix-ld.nixosModules.nix-ld
           inputs.catppuccin.nixosModules.catppuccin
+          inputs.home-manager.nixosModules.home-manager
           inputs.hyprland.nixosModules.default
+          inputs.nix-ld.nixosModules.nix-ld
+          inputs.nix-minecraft-servers.nixosModules.default
 
           (nixpkgsConfig { })
 

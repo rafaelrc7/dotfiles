@@ -709,6 +709,21 @@
         "type": "github"
       }
     },
+    "nix-minecraft-servers": {
+      "locked": {
+        "lastModified": 1782956290,
+        "narHash": "sha256-pbGE97umOORAQhtI3WVfL8jKSUf3xwDAEYxu1lSpz3s=",
+        "owner": "rafaelrc7",
+        "repo": "nix-minecraft-servers",
+        "rev": "a96a6574d08dc396ad61192ef00fb63cea39e9d2",
+        "type": "github"
+      },
+      "original": {
+        "owner": "rafaelrc7",
+        "repo": "nix-minecraft-servers",
+        "type": "github"
+      }
+    },
     "nix-vscode-extensions": {
       "inputs": {
         "nixpkgs": [
@@ -975,6 +990,7 @@
         "home-manager": "home-manager",
         "hyprland": "hyprland",
         "nix-ld": "nix-ld",
+        "nix-minecraft-servers": "nix-minecraft-servers",
         "nix-vscode-extensions": "nix-vscode-extensions",
         "nixgl": "nixgl",
         "nixos-hardware": "nixos-hardware",
