@@ -1,8 +1,11 @@
 { pkgs, ... }:
 {
   documentation = {
-    man.enable = true;
-    man.cache.enable = true;
+    man = {
+      enable = true;
+      cache.enable = true;
+      cache.generateAtRuntime = true;
+    };
     dev.enable = true;
     nixos.enable = true;
   };
