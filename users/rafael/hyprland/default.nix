@@ -141,7 +141,7 @@ in
         lock_cmd = "${pkgs.procps}/bin/pidof hyprlock || ${pkgs.hyprlock}/bin/hyprlock --grace 0";
         unlock_cmd = "${pkgs.procps}/bin/pkill -USR1 hyprlock";
         before_sleep_cmd = "${pkgs.systemd}/bin/loginctl lock-session";
-        after_sleep_cmd = ''${pkgs.hyprland}/bin/hyprctl dispatch 'hl.dsp.dpms({ action = "enable" })'';
+        after_sleep_cmd = "${pkgs.hyprland}/bin/hyprctl dispatch 'hl.dsp.dpms({ action = \"enable\" })'";
         ignore_dbus_inhibit = false;
         ignore_systemd_inhibit = false;
       };
@@ -153,8 +153,8 @@ in
         }
         {
           timeout = 330; # 5.5m
-          on-timeout = ''${pkgs.hyprland}/bin/hyprctl hyprctl dispatch 'hl.dsp.dpms({ action = "disable" })'';
-          on-resume = ''${pkgs.hyprland}/bin/hyprctl hyprctl dispatch 'hl.dsp.dpms({ action = "enable" })'';
+          on-timeout = "${pkgs.hyprland}/bin/hyprctl dispatch 'hl.dsp.dpms({ action = \"disable\" })'";
+          on-resume = "${pkgs.hyprland}/bin/hyprctl dispatch 'hl.dsp.dpms({ action = \"enable\" })'";
         }
       ];
     };

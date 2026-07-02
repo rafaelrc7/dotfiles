@@ -198,7 +198,7 @@ hl.bind(
 )
 hl.bind(
 	keys { mod, "EQUAL" },
-	exec "hyprctl workspaces -j | jq -r '.[] | .name' | fuzzel --dmenu | xargs -I {} hyprctl dispatch workspace name:{}",
+	exec "hyprctl workspaces -j | jq -r '.[] | .name' | fuzzel --dmenu | xargs -I {} hyprctl dispatch 'hl.dsp.focus { workspace = \"name:{}\" }'",
 	{ description = "Select workspace from list" }
 )
 
@@ -209,7 +209,7 @@ hl.bind(
 )
 hl.bind(
 	keys { mod, "SHIFT", "EQUAL" },
-	exec "hyprctl workspaces -j | jq -r '.[] | .name' | fuzzel --dmenu | xargs -I {} hyprctl dispatch movetoworkspacesilent name:{}",
+	exec "hyprctl workspaces -j | jq -r '.[] | .name' | fuzzel --dmenu | xargs -I {} hyprctl dispatch 'hl.dsp.window.move { workspace = \"name:{}\", follow = false }'",
 	{ description = "Move window to workspace from list" }
 )
 
