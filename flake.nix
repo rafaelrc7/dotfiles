@@ -94,18 +94,18 @@
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-master.url = "github:nixos/nixpkgs";
 
-    nur = {
-      url = "github:nix-community/NUR";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    nur.url = "github:nix-community/NUR";
+    nur.inputs.nixpkgs.follows = "nixpkgs";
+    nur.inputs.flake-parts.follows = "flake-parts";
 
-    home-manager = {
-      url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    home-manager.url = "github:nix-community/home-manager";
+    home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     flake-parts.url = "github:hercules-ci/flake-parts";
+    flake-parts.inputs.nixpkgs-lib.follows = "nixpkgs";
+
     treefmt-nix.url = "github:numtide/treefmt-nix";
+    treefmt-nix.inputs.nixpkgs.follows = "nixpkgs";
 
     nix-ld = {
       url = "github:Mic92/nix-ld";
@@ -114,27 +114,26 @@
 
     bisq-for-nixos.url = "github:emmanuelrosa/bisq-for-nixos";
 
-    hyprland.url = "github:hyprwm/Hyprland/d5b8d7288d1ad56da906714fe911f54dca4245c4";
+    hyprland.url = "github:hyprwm/Hyprland";
+    hyprlock.url = "github:hyprwm/hyprlock";
 
-    nixos-hardware.url = "github:nixos/nixos-hardware/master";
+    nixos-hardware.url = "github:nixos/nixos-hardware";
+    nixos-hardware.inputs.nixpkgs.follows = "nixpkgs";
+
     catppuccin.url = "github:catppuccin/nix";
 
     awesomerc.url = "github:rafaelrc7/awesomerc";
 
-    nix-vscode-extensions = {
-      url = "github:nix-community/nix-vscode-extensions";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
+    nix-vscode-extensions.inputs.nixpkgs.follows = "nixpkgs";
 
-    nixgl = {
-      url = "github:guibou/nixgl";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    nixgl.url = "github:guibou/nixgl";
+    nixgl.inputs.nixpkgs.follows = "nixpkgs";
 
-    wayland-pipewire-idle-inhibit = {
-      url = "github:rafaelrc7/wayland-pipewire-idle-inhibit";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    wayland-pipewire-idle-inhibit.url = "github:rafaelrc7/wayland-pipewire-idle-inhibit";
+    wayland-pipewire-idle-inhibit.inputs.nixpkgs.follows = "nixpkgs";
+    wayland-pipewire-idle-inhibit.inputs.flake-parts.follows = "flake-parts";
+    wayland-pipewire-idle-inhibit.inputs.treefmt-nix.follows = "treefmt-nix";
 
     ssh-keys = {
       url = "https://github.com/rafaelrc7.keys";
