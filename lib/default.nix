@@ -32,6 +32,7 @@ in
             inputs.nixgl.overlay
             inputs.hyprland.overlays.default
             inputs.hyprland.overlays.hyprland-packages
+            inputs.hyprlock.overlays.default
             self.overlays.default
           ];
         };
