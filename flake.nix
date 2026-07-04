@@ -115,7 +115,15 @@
     bisq-for-nixos.url = "github:emmanuelrosa/bisq-for-nixos";
 
     hyprland.url = "github:hyprwm/Hyprland";
+
     hyprlock.url = "github:hyprwm/hyprlock";
+    hyprlock.inputs = {
+      nixpkgs.follows = "hyprland/nixpkgs";
+      hyprgraphics.follows = "hyprland/hyprgraphics";
+      hyprutils.follows = "hyprland/hyprutils";
+      hyprlang.follows = "hyprland/hyprlang";
+      hyprwayland-scanner.follows = "hyprland/hyprwayland-scanner";
+    };
 
     nixos-hardware.url = "github:nixos/nixos-hardware";
     nixos-hardware.inputs.nixpkgs.follows = "nixpkgs";
@@ -131,9 +139,11 @@
     nixgl.inputs.nixpkgs.follows = "nixpkgs";
 
     wayland-pipewire-idle-inhibit.url = "github:rafaelrc7/wayland-pipewire-idle-inhibit";
-    wayland-pipewire-idle-inhibit.inputs.nixpkgs.follows = "nixpkgs";
-    wayland-pipewire-idle-inhibit.inputs.flake-parts.follows = "flake-parts";
-    wayland-pipewire-idle-inhibit.inputs.treefmt-nix.follows = "treefmt-nix";
+    wayland-pipewire-idle-inhibit.inputs = {
+      nixpkgs.follows = "nixpkgs";
+      flake-parts.follows = "flake-parts";
+      treefmt-nix.follows = "treefmt-nix";
+    };
 
     ssh-keys = {
       url = "https://github.com/rafaelrc7.keys";
