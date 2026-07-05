@@ -2,12 +2,14 @@
 {
   services.nix-minecraft-servers = {
     enable = true;
+    sudoRules = true;
 
     servers.test = {
       enable = true;
       autoStart = false;
       eula = true;
       openFirewall = true;
+
       server = pkgs.papermc;
     };
 
