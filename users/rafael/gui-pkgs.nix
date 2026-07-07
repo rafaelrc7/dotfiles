@@ -1,6 +1,7 @@
 { pkgs, ... }:
 {
   home.packages = with pkgs; [
+    anki
     calibre
     crosspipe
     (discord.override { nss = nss_latest; })
