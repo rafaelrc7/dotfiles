@@ -6,6 +6,7 @@
     packages = with pkgs; [
       nerd-fonts.fira-code
 
+      cuneifonts
       dejavu_fonts
       font-awesome
       roboto
