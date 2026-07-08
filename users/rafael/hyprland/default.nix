@@ -6,6 +6,13 @@
   ...
 }:
 let
+  inherit (lib)
+    getExe
+    getExe'
+    mkForce
+    mkIf
+    optional
+    ;
   isNixOS = osConfig != null;
 in
 {
@@ -19,7 +26,6 @@ in
     hypridle
     hyprland
     hyprland-guiutils
-    hyprlock
     hyprpaper
     qt5.qtwayland
     qt6.qtwayland
@@ -82,7 +88,7 @@ in
     settings = {
       splash = false;
       wallpaper =
-        (lib.optional isNixOS {
+        (optional isNixOS {
           fit_mode = "cover";
           path = "${../imgs/wallpapers/${osConfig.networking.hostName}}";
           monitor = "";
@@ -95,7 +101,7 @@ in
 
   systemd.user.services.hyprpaper.Install.WantedBy = [ config.wayland.systemd.target ];
 
-  systemd.user.services.hyprpaper-load = lib.mkIf (!isNixOS) (
+  systemd.user.services.hyprpaper-load = mkIf (!isNixOS) (
     let
       loadWallpaper = pkgs.writeShellScriptBin "loadWallpaper" ''
         set -eo pipefail
@@ -125,7 +131,7 @@ in
 
       Service = {
         Type = "oneshot";
-        ExecStart = "${loadWallpaper}/bin/loadWallpaper";
+        ExecStart = "${getExe loadWallpaper}";
         Restart = "on-failure";
         Slice = "background-graphical.slice";
       };
@@ -138,10 +144,10 @@ in
     enable = true;
     settings = {
       general = {
-        lock_cmd = "${pkgs.procps}/bin/pidof hyprlock || ${pkgs.hyprlock}/bin/hyprlock --grace 0";
-        unlock_cmd = "${pkgs.procps}/bin/pkill -USR1 hyprlock";
-        before_sleep_cmd = "${pkgs.systemd}/bin/loginctl lock-session";
-        after_sleep_cmd = "${pkgs.hyprland}/bin/hyprctl dispatch 'hl.dsp.dpms({ action = \"enable\" })'";
+        lock_cmd = "${getExe' pkgs.procps "pidof"} hyprlock || ${getExe config.programs.hyprlock.package} --grace 0";
+        unlock_cmd = "${getExe' pkgs.procps "pkill"} -USR1 hyprlock";
+        before_sleep_cmd = "${getExe' pkgs.systemd "loginctl"} lock-session";
+        after_sleep_cmd = "${getExe' pkgs.hyprland "hyprctl"} dispatch 'hl.dsp.dpms({ action = \"enable\" })'";
         ignore_dbus_inhibit = false;
         ignore_systemd_inhibit = false;
       };
@@ -149,12 +155,12 @@ in
       listener = [
         {
           timeout = 300; # 5m
-          on-timeout = "${pkgs.hyprlock}/bin/hyprlock --grace 30";
+          on-timeout = "${getExe config.programs.hyprlock.package} --grace 30";
         }
         {
           timeout = 330; # 5.5m
-          on-timeout = "${pkgs.hyprland}/bin/hyprctl dispatch 'hl.dsp.dpms({ action = \"disable\" })'";
-          on-resume = "${pkgs.hyprland}/bin/hyprctl dispatch 'hl.dsp.dpms({ action = \"enable\" })'";
+          on-timeout = "${getExe' pkgs.hyprland "hyprctl"} dispatch 'hl.dsp.dpms({ action = \"disable\" })'";
+          on-resume = "${getExe' pkgs.hyprland "hyprctl"} dispatch 'hl.dsp.dpms({ action = \"enable\" })'";
         }
       ];
     };
@@ -163,7 +169,7 @@ in
   systemd.user.services.hypridle = rec {
     Service.Slice = "background.slice";
     Unit.After = Install.WantedBy;
-    Install.WantedBy = lib.mkForce [ config.wayland.systemd.target ];
+    Install.WantedBy = mkForce [ config.wayland.systemd.target ];
   };
 
   programs.hyprlock = {
