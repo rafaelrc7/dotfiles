@@ -65,7 +65,7 @@
       # Latex
       biber
       pstree
-      texlive.combined.scheme-medium
+      texliveMedium
       xdotool
       zathura
 

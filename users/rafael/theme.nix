@@ -250,6 +250,7 @@ in
   };
 
   home.pointerCursor = {
+    enable = true;
     inherit (cursor) name package size;
     x11.enable = true;
     gtk.enable = true;
