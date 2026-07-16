@@ -48,6 +48,12 @@
       bind-key -Ttable1 's' split-window -v
       bind-key -Ttable1 'v' split-window -h
       bind-key -Ttable1 'C-w' send-keys C-w
+
+      # Setup 'v' to begin selection
+      bind-key -T copy-mode-vi v send-keys -X begin-selection
+
+      # Setup 'y' to yank (copy)
+      bind-key -T copy-mode-vi y send-keys -X copy-selection
     '';
   };
 }
