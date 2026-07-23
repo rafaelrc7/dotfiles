@@ -192,6 +192,11 @@ hl.bind(
 	{ description = "Toggle calculator workspace" }
 )
 hl.bind(
+	keys { "XF86Calculator" },
+	hl.dsp.workspace.toggle_special "calculator",
+	{ description = "Toggle calculator workspace" }
+)
+hl.bind(
 	keys { mod, "R" },
 	hl.dsp.workspace.toggle_special "screen-record",
 	{ description = "Toggle screen-record workspace" }
