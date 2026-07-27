@@ -107,10 +107,11 @@
     treefmt-nix.url = "github:numtide/treefmt-nix";
     treefmt-nix.inputs.nixpkgs.follows = "nixpkgs";
 
-    nix-ld = {
-      url = "github:Mic92/nix-ld";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    nix-ld.url = "github:Mic92/nix-ld";
+    nix-ld.inputs.nixpkgs.follows = "nixpkgs";
+
+    nix-index-database.url = "github:nix-community/nix-index-database";
+    nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
 
     bisq-for-nixos.url = "github:emmanuelrosa/bisq-for-nixos";
 
@@ -145,6 +146,8 @@
       treefmt-nix.follows = "treefmt-nix";
     };
 
+    nix-minecraft-servers.url = "github:rafaelrc7/nix-minecraft-servers";
+
     ssh-keys = {
       url = "https://github.com/rafaelrc7.keys";
       flake = false;
@@ -159,8 +162,6 @@
       url = "git+https://gist.github.com/rafaelrc7/0270037dbe86205365ec8b7a4f339f82?ref=refs/tags/v6.14";
       flake = false;
     };
-
-    nix-minecraft-servers.url = "github:rafaelrc7/nix-minecraft-servers";
   };
 
 }

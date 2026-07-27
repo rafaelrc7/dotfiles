@@ -59,6 +59,7 @@ in
           (nixpkgsConfig { })
           inputs.catppuccin.homeModules.catppuccin
           inputs.hyprland.homeManagerModules.default
+          inputs.nix-index-database.homeModules.default
           {
             programs.home-manager.enable = true;
             home = {
@@ -88,6 +89,7 @@ in
           inputs.catppuccin.nixosModules.catppuccin
           inputs.home-manager.nixosModules.home-manager
           inputs.hyprland.nixosModules.default
+          inputs.nix-index-database.nixosModules.default
           inputs.nix-ld.nixosModules.nix-ld
           inputs.nix-minecraft-servers.nixosModules.default
 
@@ -149,6 +151,7 @@ in
         imports = [
           inputs.catppuccin.homeModules.catppuccin
           inputs.hyprland.homeManagerModules.default
+          inputs.nix-index-database.homeModules.default
           (userModule {
             inherit (self) homeModules homeProfiles;
             inherit gui profiles extraModules;
