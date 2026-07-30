@@ -90,7 +90,7 @@ in
             pascal
             passwd
             perl
-            prolog
+            #prolog
             python
             r
             racket
