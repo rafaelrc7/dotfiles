@@ -260,15 +260,19 @@
           "media.ffmpeg.vaapi.enabled" = true;
           "media.hardware-video-decoding.force-enabled" = true;
         };
+
         search = rec {
           default = "ddg";
           privateDefault = default;
           force = true;
-          engines = {
-            "bing".metaData.hidden = true;
-            "ebay".metaData.hidden = true;
 
-            "Wiktionary" = {
+          engines = {
+            bing.metaData.hidden = true;
+            ebay.metaData.hidden = true;
+            perplexity.metaData.hidden = true;
+
+            wiktionary = {
+              name = "Wiktionary";
               urls = [
                 {
                   template = "https://en.wiktionary.org/w/index.php";
@@ -284,7 +288,8 @@
               definedAliases = [ "@wiktionary" ];
             };
 
-            "YouTube" = {
+            youtube = {
+              name = "YouTube";
               urls = [
                 {
                   template = "https://www.youtube.com/results";
@@ -300,7 +305,8 @@
               definedAliases = [ "@yt" ];
             };
 
-            "Nix Packages" = {
+            nix-packages = {
+              name = "Nix Packages";
               urls = [
                 {
                   template = "https://search.nixos.org/packages";
@@ -324,7 +330,8 @@
               definedAliases = [ "@np" ];
             };
 
-            "Nix Options" = {
+            nixos-options = {
+              name = "NixOS Options";
               urls = [
                 {
                   template = "https://search.nixos.org/options";
@@ -335,7 +342,7 @@
                     }
                     {
                       name = "type";
-                      value = "packages";
+                      value = "options";
                     }
                     {
                       name = "query";
@@ -348,7 +355,37 @@
               definedAliases = [ "@no" ];
             };
 
-            "NixOS Wiki" = {
+            home-manager-options = {
+              name = "Nix home-manager Options";
+              urls = [
+                {
+                  template = "https://search.nixos.org/options";
+                  params = [
+                    {
+                      name = "channel";
+                      value = "unstable";
+                    }
+                    {
+                      name = "type";
+                      value = "options";
+                    }
+                    {
+                      name = "source";
+                      value = "home_manager";
+                    }
+                    {
+                      name = "query";
+                      value = "{searchTerms}";
+                    }
+                  ];
+                }
+              ];
+              icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+              definedAliases = [ "@hm" ];
+            };
+
+            nixos-wiki = {
+              name = "NixOS Wiki";
               urls = [
                 {
                   template = "https://wiki.nixos.org/w/index.php";
@@ -364,27 +401,25 @@
               definedAliases = [ "@nw" ];
             };
 
-            "Home Manager Options" = {
+            noogle = {
+              name = "Noogle";
               urls = [
                 {
-                  template = "https://home-manager-options.extranix.com/";
+                  template = "https://noogle.dev/q/";
                   params = [
                     {
-                      name = "release";
-                      value = "master";
-                    }
-                    {
-                      name = "query";
+                      name = "term";
                       value = "{searchTerms}";
                     }
                   ];
                 }
               ];
               icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
-              definedAliases = [ "@hm" ];
+              definedAliases = [ "@ng" ];
             };
 
-            "Hoogle" = {
+            hoogle = {
+              name = "Hoogle";
               urls = [
                 {
                   template = "https://hoogle.haskell.org";
@@ -400,7 +435,8 @@
               definedAliases = [ "@hs" ];
             };
 
-            "Hoogle GHC" = {
+            hoogle-ghc = {
+              name = "Hoogle GHC";
               urls = [
                 {
                   template = "https://hoogle.haskell.org/";
@@ -420,7 +456,8 @@
               definedAliases = [ "@ghc" ];
             };
 
-            "Rust" = {
+            rust = {
+              name = "Rust";
               urls = [
                 {
                   template = "https://doc.rust-lang.org/std/";
@@ -432,11 +469,12 @@
                   ];
                 }
               ];
-              iconMapObj."32" = "https://doc.rust-lang.org/stable/static.files/favicon-32x32-6580c154.png";
+              iconMapObj."32" = "https://rust-lang.org/static/images/favicon.svg";
               definedAliases = [ "@rs" ];
             };
           };
         };
+
         extensions = {
           packages = with pkgs.nur.repos.rycee.firefox-addons; [
             angular-devtools
