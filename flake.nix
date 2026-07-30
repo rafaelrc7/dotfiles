@@ -113,8 +113,6 @@
     nix-index-database.url = "github:nix-community/nix-index-database";
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
 
-    bisq-for-nixos.url = "github:emmanuelrosa/bisq-for-nixos";
-
     hyprland.url = "github:hyprwm/Hyprland";
 
     hyprlock.url = "github:hyprwm/hyprlock";

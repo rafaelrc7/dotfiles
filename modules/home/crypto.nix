@@ -4,8 +4,7 @@
     monero-cli
     p2pool
     wasabiwallet
-    bisq2
-    bisq-desktop
+    bisq1
     monero-gui
   ];
 }
