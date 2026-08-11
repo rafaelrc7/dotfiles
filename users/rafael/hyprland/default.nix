@@ -44,26 +44,26 @@ in
   ];
 
   xdg.configFile."uwsm/env".text = ''
-    export XDG_SESSION_TYPE=wayland
+    export XDG_SESSION_TYPE="wayland"
 
-    export GDK_PIXBUF_MODULE_FILE=${pkgs.librsvg}/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache
+    export GDK_PIXBUF_MODULE_FILE="${pkgs.librsvg}/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache"
 
-    export CLUTTER_BACKEND=wayland
-    export GDK_BACKEND=wayland,x11,*
-    export QT_QPA_PLATFORM=wayland;xcb
-    export SDL_VIDEODRIVER=wayland
+    export CLUTTER_BACKEND="wayland"
+    export GDK_BACKEND="wayland,x11,*"
+    export QT_QPA_PLATFORM="wayland;xcb"
+    export SDL_VIDEODRIVER="wayland"
 
     export _JAVA_AWT_WM_NONREPARENTING=1
     export MOZ_ENABLE_WAYLAND=1
     export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
 
-    export LIBVA_DRIVER_NAME=nvidia
-    export __GLX_VENDOR_LIBRARY_NAME=nvidia
+    export LIBVA_DRIVER_NAME="nvidia"
+    export __GLX_VENDOR_LIBRARY_NAME="nvidia"
   '';
 
   xdg.configFile."uwsm/env-hyprland".text = ''
-    export XDG_CURRENT_DESKTOP=Hyprland
-    export XDG_SESSION_DESKTOP=Hyprland
+    export XDG_CURRENT_DESKTOP="Hyprland"
+    export XDG_SESSION_DESKTOP="Hyprland"
   '';
 
   xdg.configFile."hypr/hyprlandrc" = {
@@ -77,6 +77,7 @@ in
     package = pkgs.hyprland;
     portalPackage = pkgs.xdg-desktop-portal-hyprland;
 
+    systemd.enable = false;
     xwayland.enable = true;
 
     configType = "lua";

@@ -154,18 +154,18 @@ in
 
       theme =
         let
-          accent = if config.catppuccin.accent == "blue" then "default" else config.catppuccin.accent;
+          accent' = if accent == "blue" then "default" else accent;
         in
         {
           name =
             "Catppuccin-GTK"
-            + lib.optionalString (accent != "default") (mkSuffix accent)
+            + lib.optionalString (accent' != "default") (mkSuffix accent')
             + mkSuffix polarity
             + lib.optionalString (size == "compact") "-Compact"
             + lib.optionalString (flavorTweak != "") (mkSuffix flavorTweak);
           package = pkgs.magnetic-catppuccin-gtk.override {
             inherit size;
-            accent = [ accent ];
+            accent = [ accent' ];
             shade = polarity;
             tweaks = tweaks ++ lib.optional (flavorTweak != "") flavorTweak;
           };
