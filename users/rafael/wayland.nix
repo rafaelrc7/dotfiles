@@ -34,6 +34,57 @@
 
   programs.wlogout = {
     enable = true;
+    layout =
+      let
+        loginctl = lib.getExe' pkgs.systemd "loginctl";
+        systemctl = lib.getExe' pkgs.systemd "systemctl";
+        systemd-run = lib.getExe' pkgs.systemd "systemd-run";
+        run =
+          label: cmds:
+          let
+            label' = "wlogout-${label}";
+          in
+          "${systemd-run} --user --collect --unit=${label'} ${pkgs.writeShellScript label' cmds}";
+        run-hyprshutdown = label: cmd: run label "${lib.getExe pkgs.hyprshutdown} && ${cmd}";
+      in
+      [
+        {
+          label = "lock";
+          action = "${loginctl} lock-session";
+          text = "Lock";
+          keybind = "l";
+        }
+        {
+          label = "hibernate";
+          action = "${systemctl} hibernate";
+          text = "Hibernate";
+          keybind = "h";
+        }
+        {
+          label = "logout";
+          action = run-hyprshutdown "logout" /* sh */ "${loginctl} terminate-user $USER";
+          text = "Logout";
+          keybind = "e";
+        }
+        {
+          label = "shutdown";
+          action = run-hyprshutdown "shutdown" /* sh */ "${systemctl} poweroff";
+          text = "Shutdown";
+          keybind = "s";
+        }
+        {
+          label = "suspend";
+          action = "${systemctl} suspend";
+          text = "Suspend";
+          keybind = "u";
+        }
+        {
+          label = "reboot";
+          action = run-hyprshutdown "reboot" /* sh */ "${systemctl} reboot";
+          text = "Reboot";
+          keybind = "r";
+        }
+      ];
   };
 
   home.file."${config.xdg.userDirs.pictures}/Wallpapers" = {
