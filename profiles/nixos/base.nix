@@ -1,11 +1,12 @@
 nixosModules: {
   imports = with nixosModules; [
-    common
     appimage
+    common
     fonts
     geoclue
     git
     gnupg-agent
+    keychron
     man
     nix
     polkit
