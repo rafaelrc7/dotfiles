@@ -4,7 +4,7 @@
     anki
     calibre
     crosspipe
-    (discord.override { nss = nss_latest; })
+    discord
     gimp
     gnome-disk-utility
     google-chrome
