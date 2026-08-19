@@ -22,9 +22,6 @@ in
   home.username = "desenvolvedor";
   home.homeDirectory = "/home/desenvolvedor";
 
-  targets.genericLinux.enable = true;
-  targets.genericLinux.gpu.enable = true;
-
   programs.home-manager.enable = true;
 
   imports =
@@ -48,6 +45,7 @@ in
       ../rafael/xdg-mimeapps.nix
       ../rafael/zsh.nix
       ./less.nix
+      homeModules.non-nixos
       inputs.wayland-pipewire-idle-inhibit.homeModules.default
     ];
 
@@ -129,15 +127,6 @@ in
   programs.password-store.settings = {
     PASSWORD_STORE_KEY = "081F97AC49F2CA9548DB08E7091BB8A361C7B4EB";
   };
-
-  home.file.".xprofile".text = ''
-    #!/bin/sh
-    [ -e $HOME/.zshenv ] && . $HOME/.zshenv
-    [ -e $HOME/.profile ] && . $HOME/.profile
-
-    # nix flatpak fix for opening links and other non-flatpak default apps
-    sh -c "systemctl --user import-environment PATH && systemctl --user restart xdg-desktop-portal.service" &
-  '';
 
   systemd.user.startServices = "sd-switch";
 

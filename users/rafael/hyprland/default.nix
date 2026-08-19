@@ -46,8 +46,6 @@ in
   xdg.configFile."uwsm/env".text = ''
     export XDG_SESSION_TYPE="wayland"
 
-    export GDK_PIXBUF_MODULE_FILE="${pkgs.librsvg}/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache"
-
     export CLUTTER_BACKEND="wayland"
     export GDK_BACKEND="wayland,x11,*"
     export QT_QPA_PLATFORM="wayland;xcb"

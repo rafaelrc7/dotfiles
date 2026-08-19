@@ -94,15 +94,6 @@ in
     PASSWORD_STORE_KEY = "081F97AC49F2CA9548DB08E7091BB8A361C7B4EB";
   };
 
-  home.file.".xprofile".text = ''
-    #!/bin/sh
-    [ -e $HOME/.zshenv ] && . $HOME/.zshenv
-    [ -e $HOME/.profile ] && . $HOME/.profile
-
-    # nix flatpak fix for opening links and other non-flatpak default apps
-    sh -c "systemctl --user import-environment PATH && systemctl --user restart xdg-desktop-portal.service" &
-  '';
-
   systemd.user.startServices = "sd-switch";
 
   home.stateVersion = "22.11";
