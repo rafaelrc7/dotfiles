@@ -51,6 +51,11 @@ in
   boot.initrd.luks.devices."root".allowDiscards = true;
   boot.initrd.luks.devices."swap".allowDiscards = true;
 
+  # CPU
+  hardware.enableAllFirmware = true;
+  powerManagement.cpuFreqGovernor = lib.mkDefault "performance";
+  hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+
   fileSystems."/" = {
     device = "/dev/mapper/root";
     fsType = "btrfs";
@@ -118,6 +123,4 @@ in
   # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
   networking.useDHCP = lib.mkDefault true;
   # networking.interfaces.enp42s0.useDHCP = lib.mkDefault true;
-
-  hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }
