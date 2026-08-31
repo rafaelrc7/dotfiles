@@ -8,7 +8,7 @@
     gimp
     gnome-disk-utility
     google-chrome
-    # jami
+    jami
     libreoffice-fresh
     obsidian
     protonmail-desktop
