@@ -30,7 +30,7 @@ in
   # https://gist.github.com/Konfekt/9797372146e65a70a44c1e24a35ae0a2
   xdg.configFile."neomutt/mailcap".text =
     let
-      soffice = "${pkgs.libreoffice-fresh}/lib/libreoffice/program/soffice --nologo";
+      soffice = "${pkgs.libreoffice}/lib/libreoffice/program/soffice --nologo";
       tohtml = lib.getExe (
         pkgs.writeShellApplication {
           name = "tohtml";

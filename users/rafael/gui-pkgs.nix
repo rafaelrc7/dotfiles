@@ -9,7 +9,6 @@
     gnome-disk-utility
     google-chrome
     jami
-    libreoffice-fresh
     obsidian
     protonmail-desktop
     pwvucontrol
