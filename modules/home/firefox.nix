@@ -54,7 +54,7 @@
       DisplayBookmarksToolbar = "newtab";
       DNSOverHTTPS = {
         Enabled = true;
-        ProviderURL = "https://family.dns.mullvad.net/dns-query";
+        ProviderURL = "https://dns.quad9.net/dns-query"; # Quad9
         Fallback = false;
       };
       DontCheckDefaultBrowser = true;
