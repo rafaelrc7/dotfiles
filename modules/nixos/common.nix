@@ -73,7 +73,7 @@
   security.pam.services.login.enableGnomeKeyring = true;
   services.dbus.packages = [
     pkgs.gnome-keyring
-    pkgs.gcr
+    pkgs.gcr_3
   ];
 
   systemd.services.lock-on-sleep = {

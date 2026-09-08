@@ -10,7 +10,7 @@
   };
 
   home.packages = with pkgs; [
-    gcr # needed by gnome-keyring
+    gcr_3 # needed by gnome-keyring
     gnome-keyring
     libsecret
   ];

@@ -3,7 +3,7 @@
   services.gnome.gnome-keyring.enable = true;
   environment.systemPackages = with pkgs; [
     gnome-keyring
-    gcr
+    gcr_3
     libsecret
   ];
   xdg.portal.config = {
