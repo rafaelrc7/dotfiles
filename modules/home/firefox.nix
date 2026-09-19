@@ -473,6 +473,23 @@
               iconMapObj."32" = "https://rust-lang.org/static/images/favicon.svg";
               definedAliases = [ "@rs" ];
             };
+
+            proton-db = {
+              name = "ProtonDB";
+              urls = [
+                {
+                  template = "https://www.protondb.com/search";
+                  params = [
+                    {
+                      name = "q";
+                      value = "{searchTerms}";
+                    }
+                  ];
+                }
+              ];
+              iconMapObj."32" = "https://www.protondb.com/favicon.ico";
+              definedAliases = [ "@pdb" ];
+            };
           };
         };
 
