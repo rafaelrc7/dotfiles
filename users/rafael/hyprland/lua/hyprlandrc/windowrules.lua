@@ -75,7 +75,7 @@ hl.window_rule {
 -- Spotify to music workspace
 hl.window_rule {
 	match = { class = "(spotify)" },
-	workspace = "special music",
+	workspace = "special:music",
 }
 
 -- No border on floating windows
