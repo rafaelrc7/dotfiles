@@ -31,6 +31,7 @@ in
       max-jobs = "auto";
       cores = 0;
       flake-registry = ""; # Disable global flake registry
+      nix-path = lib.mapAttrsToList (n: _: "${n}=flake:${n}") flakeInputs;
     };
 
     gc = {
@@ -40,6 +41,5 @@ in
     };
 
     registry = lib.mapAttrs (_: flake: { inherit flake; }) flakeInputs;
-    nixPath = lib.mapAttrsToList (n: _: "${n}=flake:${n}") flakeInputs;
   };
 }
