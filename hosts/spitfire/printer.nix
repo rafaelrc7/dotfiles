@@ -17,9 +17,11 @@
       enable = true;
       nssmdns4 = true;
       openFirewall = true;
-      publish.enable = true;
-      publish.addresses = true;
-      publish.userServices = true;
+      settings = {
+        publish.disable-publishing = false;
+        publish.publish-addresses = true;
+        publish.disable-user-service-publishing = false;
+      };
     };
   };
 

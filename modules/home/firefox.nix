@@ -518,7 +518,7 @@
             stylus
             tampermonkey
             temporary-containers
-            terms-of-service-didnt-read
+            # terms-of-service-didnt-read
             ublock-origin
             youtube-no-translation
           ];

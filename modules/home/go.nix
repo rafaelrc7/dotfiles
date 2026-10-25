@@ -1,13 +1,14 @@
 { config, ... }:
+let
+  goPath = "${config.xdg.dataHome}/go";
+in
 {
   programs.go = {
     enable = true;
     env = {
-      GOPATH = [
-        "${config.xdg.dataHome}/go"
-      ];
+      GOPATH = [ goPath ];
     };
   };
 
-  home.sessionPath = [ "$HOME/${config.programs.go.goPath}/bin" ];
+  home.sessionPath = [ "${goPath}/bin" ];
 }

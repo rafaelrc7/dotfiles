@@ -8,7 +8,6 @@
 {
   networking.hostName = "vulcan";
   boot.kernelPackages = pkgs.linuxKernel.packages.linux_zen;
-  boot.initrd.systemd.enable = true;
 
   imports = [
     ./gpu.nix

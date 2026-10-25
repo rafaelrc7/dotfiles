@@ -14,9 +14,12 @@
     avahi = {
       enable = true;
       nssmdns4 = true;
-      publish.enable = true;
-      publish.addresses = true;
-      publish.userServices = true;
+      openFirewall = true;
+      settings = {
+        publish.disable-publishing = false;
+        publish.publish-addresses = true;
+        publish.disable-user-service-publishing = false;
+      };
     };
   };
 
