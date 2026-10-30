@@ -27,6 +27,7 @@
       {
         layer = "bottom";
         position = "top";
+        height = 32;
 
         modules-left = [
           "sway/workspaces"
