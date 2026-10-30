@@ -23,7 +23,7 @@
   ++ (with nixosModules; [
     cryptswap
     systemd-boot
-    zram
+    zswap
 
     guix
     java

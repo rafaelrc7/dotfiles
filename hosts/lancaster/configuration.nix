@@ -24,7 +24,7 @@
     nightscout
     palserver
     podman
-    zram
+    zswap
   ])
   ++ (with nixos-hardware.nixosModules; [
     common-pc
