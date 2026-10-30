@@ -35,65 +35,126 @@
       "en"
       "pt-BR"
     ];
+
     nativeMessagingHosts = [
 
     ];
+
     policies = {
+      AIChatbot.Default = "ChatGPT";
+
       AppAutoUpdate = false;
-      ContentAnalysis = {
-        Enabled = false;
+
+      AutofillAddressEnabled = false;
+      AutofillCreditCardEnabled = false;
+
+      BackgroundAppUpdate = false;
+
+      ClearOnShutdown = {
+        BrowsingHistoryAndDownloads = true;
+        CookiesAndStorage = true;
+        Cache = true;
+        FormData = true;
+        SiteSettings = false;
+
+        Exceptions = [
+          "https://chatgpt.com"
+          "https://kagi.com"
+          "https://web.whatsapp.com"
+          "https://www.instagram.com/"
+
+          "https://accounts.google.com"
+          "https://www.google.com"
+          "https://www.youtube.com"
+        ];
       };
+
       Cookies = rec {
-        Behavior = "reject-foreign";
+        Behavior = "partition-foreign";
         BehaviorPrivateBrowsing = Behavior;
       };
+
+      DisableAppUpdate = true;
       DisableFirefoxStudies = true;
       DisableFormHistory = true;
-      DisablePocket = true;
+      DisableLaunchOnLogin = true;
       DisableTelemetry = true;
+
       DisplayBookmarksToolbar = "newtab";
+
       DNSOverHTTPS = {
         Enabled = true;
         ProviderURL = "https://dns.quad9.net/dns-query"; # Quad9
         Fallback = false;
       };
+
       DontCheckDefaultBrowser = true;
+
       EnableTrackingProtection = {
         Value = true;
+        Category = "strict";
         Cryptomining = true;
+        Fingerprinting = true;
         EmailTracking = true;
+        SuspectedFingerprinting = true;
+        BaselineExceptions = true;
+        ConvenienceExceptions = true;
       };
-      EncryptedMediaExtensions = {
-        Enabled = true;
-      };
+
+      EncryptedMediaExtensions.Enabled = true;
+
       FirefoxHome = {
         Search = true;
         TopSites = false;
         SponsoredTopSites = false;
         Highlights = false;
-        Pocket = false;
-        SponsoredPocket = false;
-        Snippets = false;
+        Stories = false;
+        SponsoredStories = false;
+        Weather = true;
+        Widgets.Enabled = true;
       };
+
       FirefoxSuggest = {
         WebSuggestions = false;
         SponsoredSuggestions = false;
-        ImproveSuggest = false;
+        OnlineEnabled = false;
       };
+
+      GoToIntranetSiteForSingleWordEntryInAddressBar = true;
+
       HardwareAcceleration = true;
+
       HttpsOnlyMode = "enabled";
-      NetworkPrediction = false;
-      NewTabPage = false;
-      OfferToSaveLogins = false;
-      PasswordManagerEnabled = false;
-      SanitizeOnShutdown = {
-        Cache = true;
-        Cookies = true;
-        History = true;
-        Sessions = true;
-        SiteSettings = true;
+
+      LocalNetworkAccess = {
+        Enabled = true;
+        BlockTrackers = true;
+        EnablePrompting = true;
       };
+
+      NetworkPrediction = false;
+
+      NoDefaultBookmarks = true;
+
+      OfferToSaveLoginsDefault = false;
+
+      PDFjs = {
+        Enabled = true;
+        EnablePermissions = false;
+      };
+
+      PromptForDownloadLocation = true;
+
+      RequestedLocales = languagePacks;
+
+      SearchBar = "unified";
+
       SearchSuggestEnabled = false;
+
+      ShowHomeButton = true;
+
+      SkipTermsOfUse = true;
+
       StartDownloadsInTempDirectory = true;
     };
     profiles = {
@@ -107,20 +168,8 @@
           "extensions.getAddons.showPane" = false;
           "extensions.htmlaboutaddons.recommendations.enabled" = false;
           "browser.discovery.enabled" = false;
-          "browser.shopping.experience2023.enabled" = false;
-          "datareporting.policy.dataSubmissionEnabled" = false;
-          "datareporting.healthreport.uploadEnabled" = false;
 
           # Disable Telemetry
-          "toolkit.telemetry.unified" = false;
-          "toolkit.telemetry.enabled" = false;
-          "toolkit.telemetry.server" = "data:,";
-          "toolkit.telemetry.archive.enabled" = false;
-          "toolkit.telemetry.newProfilePing.enabled" = false;
-          "toolkit.telemetry.shutdownPingSender.enabled" = false;
-          "toolkit.telemetry.updatePing.enabled" = false;
-          "toolkit.telemetry.bhrPing.enabled" = false;
-          "toolkit.telemetry.firstShutdownPing.enabled" = false;
           "toolkit.telemetry.coverage.opt-out" = true;
           "toolkit.coverage.opt-out" = true;
           "toolkit.coverage.endpoint.base" = "";
@@ -135,62 +184,39 @@
           # Disable Crash Reports
           "breakpad.reportURL" = "";
           "browser.tabs.crashReporting.sendReport" = false;
-          "browser.crashReports.unsubmittedCheck.enabled" = false;
           "browser.crashReports.unsubmittedCheck.autoSubmit2" = false;
 
           "network.connectivity-service.enabled" = false;
 
           "network.prefetch-next" = false;
-          "network.dns.disablePrefetch" = true;
-          "network.dns.disablePrefetchFromHTTPS" = true;
-          "network.predictor.enabled" = false;
-          "network.predictor.enable-prefetch" = false;
           "network.http.speculative-parallel-limit" = 0;
           "browser.places.speculativeConnect.enabled" = false;
 
           "network.proxy.socks_remote_dns" = true;
           "network.file.disable_unc_paths" = true;
-          "network.gio.supported-protocols" = "";
 
           "browser.urlbar.speculativeConnect.enabled" = false;
-          "browser.urlbar.quicksuggest.enabled" = false;
-          "browser.urlbar.suggest.quicksuggest.nonsponsored" = false;
-          "browser.urlbar.suggest.quicksuggest.sponsored" = false;
-          "browser.search.suggest.enabled" = false;
-          "browser.urlbar.suggest.searches" = false;
           "browser.urlbar.trending.featureGate" = false;
           "browser.urlbar.addons.featureGate" = false;
-          "browser.urlbar.fakespot.featureGate" = false;
           "browser.urlbar.mdn.featureGate" = false;
-          "browser.urlbar.pocket.featureGate" = false;
           "browser.urlbar.weather.featureGate" = false;
           "browser.urlbar.yelp.featureGate" = false;
           "browser.urlbar.clipboard.featureGate" = false;
           "browser.urlbar.recentsearches.featureGate" = false;
-          "browser.formfill.enable" = false;
           "browser.urlbar.suggest.engines" = false;
 
           "signon.autofillForms" = false;
           "signon.formlessCapture.enabled" = false;
           "network.auth.subresource-http-auth-allow" = 1;
 
-          "browser.cache.disk.enable" = false;
           "browser.privatebrowsing.forceMediaMemoryCache" = true;
           "media.memory_cache_max_size" = 65536;
           "browser.sessionstore.privacy_level" = 2;
-          "toolkit.winRegisterApplicationRestart" = false;
-          "browser.shell.shortcutFavicons" = false;
 
           "security.ssl.require_safe_negotiation" = true;
           "security.tls.enable_0rtt_data" = false;
 
-          "security.OCSP.enabled" = 1;
-          "security.OCSP.require" = true;
           "security.cert_pinning.enforcement_level" = 2;
-          "security.remote_settings.crlite_filters.enabled" = true;
-          "security.pki.crlite_mode" = 2;
-          "dom.security.https_only_mode" = true;
-          "dom.security.https_only_mode_send_http_background_request" = false;
           "security.ssl.treat_unsafe_negotiation_as_broken" = true;
           "browser.xul.error_pages.expert_bad_cert" = true;
           "network.http.referer.XOriginTrimmingPolicy" = 2;
@@ -204,53 +230,24 @@
 
           "network.IDN_show_punycode" = true;
 
-          "pdfjs.disabled" = false;
           "pdfjs.enableScripting" = false;
           "browser.tabs.searchclipboardfor.middleclick" = false;
-          "browser.contentanalysis.enabled" = false;
-          "browser.contentanalysis.default_result" = 0;
 
           "extensions.enabledScopes" = 5;
           "extensions.postDownloadThirdPartyPrompt" = false;
 
           "browser.compactmode.show" = true;
           "browser.download.always_ask_before_handling_new_types" = true;
-          "browser.download.useDownloadDir" = false;
           "browser.tabs.warnOnClose" = true;
           "browser.urlbar.suggest.recentsearches" = false;
-          "intl.locale.requested" = builtins.concatStringsSep "," languagePacks;
           "privacy.globalprivacycontrol.enabled" = true;
-
-          "privacy.sanitize.sanitizeOnShutdown" = true;
-          "privacy.clearOnShutdown.cache" = true;
-          "privacy.clearOnShutdown_v2.cache" = true;
-          "privacy.clearOnShutdown.downloads" = true;
-          "privacy.clearOnShutdown.formdata" = true;
-          "privacy.clearOnShutdown.history" = true;
-          "privacy.clearOnShutdown_v2.historyFormDataAndDownloads" = true;
-          "privacy.clearOnShutdown.cookies" = true;
-          "privacy.clearOnShutdown.offlineApps" = true;
-          "privacy.clearOnShutdown.sessions" = true;
-          "privacy.clearOnShutdown_v2.cookiesAndStorage" = true;
-          "privacy.clearSiteData.cache" = true;
-          "privacy.clearSiteData.cookiesAndStorage" = false;
-          "privacy.clearSiteData.historyFormDataAndDownloads" = true;
-          "privacy.cpd.cache" = true;
-          "privacy.clearHistory.cache" = true;
-          "privacy.cpd.formdata" = true;
-          "privacy.cpd.history" = true;
-          "privacy.clearHistory.historyFormDataAndDownloads" = true;
-          "privacy.cpd.cookies" = false;
-          "privacy.cpd.sessions" = true;
-          "privacy.cpd.offlineApps" = false;
-          "privacy.clearHistory.cookiesAndStorage" = false;
-          "privacy.sanitize.timeSpan" = 0;
+          "browser.newtabpage.activity-stream.showSponsoredCheckboxes" = false;
 
           "privacy.spoof_english" = 1;
-          "browser.display.use_system_colors" = false;
           "widget.non-native-theme.use-theme-accent" = false;
+          "privacy.antitracking.isolateContentScriptResources" = true;
+          "dom.security.https_only_mode_send_http_background_request" = false;
 
-          "browser.download.start_downloads_in_tmp_dir" = true;
           "browser.helperApps.deleteTempFileOnExit" = true;
           "browser.uitour.enabled" = false;
 
@@ -509,7 +506,6 @@
             localcdn
             multi-account-containers
             passff
-            privacy-settings
             redirector
             return-youtube-dislikes
             search-by-image
