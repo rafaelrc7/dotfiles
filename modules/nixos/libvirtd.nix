@@ -20,7 +20,7 @@
   programs.virt-manager.enable = true;
 
   environment.systemPackages = with pkgs; [
-    libguestfs
+    # libguestfs # broken (https://github.com/libguestfs/libguestfs/issues/227)
     spice-vdagent
 
     (pkgs.writeShellScriptBin "kvm" ''
