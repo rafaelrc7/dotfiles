@@ -286,6 +286,13 @@
               definedAliases = [ "@wiktionary" ];
             };
 
+            merriam-webster = {
+              name = "Merriam-Webster";
+              urls = [ { template = "https://www.merriam-webster.com/dictionary/{searchTerms}"; } ];
+              iconMapObj."32" = "https://www.merriam-webster.com/favicon.svg";
+              definedAliases = [ "@mw" ];
+            };
+
             youtube = {
               name = "YouTube";
               urls = [
