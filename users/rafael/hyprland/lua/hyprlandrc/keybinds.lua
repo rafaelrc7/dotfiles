@@ -1,6 +1,6 @@
 local programs = require("hyprlandrc.common.globals").programs
 
-local exec = require("hyprlandrc.common.utils").exec
+local dsp_exec_cmd = require("hyprlandrc.common.utils").dsp_exec_cmd
 local join_strings = require("hyprlandrc.common.utils").join_strings
 
 local function keys(keysTable) return join_strings(keysTable, " + ") end
@@ -21,29 +21,29 @@ hl.config {
 }
 
 -- Apps
-hl.bind(keys { mod, "RETURN" }, exec(programs.terminal), { description = "Open terminal" })
-hl.bind(keys { mod, "D" }, exec(programs.launcher_menu), { description = "Open launcher menu" })
-hl.bind(keys { mod, "Q" }, exec(programs.browser), { description = "Open web browser" })
-hl.bind(keys { mod, "E" }, exec(programs.file_manager), { description = "Open file browser" })
+hl.bind(keys { mod, "RETURN" }, dsp_exec_cmd(programs.terminal), { description = "Open terminal" })
+hl.bind(keys { mod, "D" }, dsp_exec_cmd(programs.launcher_menu), { description = "Open launcher menu" })
+hl.bind(keys { mod, "Q" }, dsp_exec_cmd(programs.browser), { description = "Open web browser" })
+hl.bind(keys { mod, "E" }, dsp_exec_cmd(programs.file_manager), { description = "Open file browser" })
 
 hl.bind(keys { mod, "SHIFT", "Q" }, hl.dsp.window.close(), { description = "Close window" })
-hl.bind(keys { mod, "CTRL", "Q" }, exec "hyprctl kill", { description = "Start kill mode" })
+hl.bind(keys { mod, "CTRL", "Q" }, dsp_exec_cmd "hyprctl kill", { description = "Start kill mode" })
 
 -- Screenshot
-hl.bind("Print", exec(programs.printscreen), { description = "Take screenshot" })
+hl.bind("Print", dsp_exec_cmd(programs.printscreen), { description = "Take screenshot" })
 
 -- Save Replay
 hl.bind(
 	keys { mod, "SHIFT", "R" },
-	exec "killall -s SIGUSR1 gpu-screen-recorder",
+	dsp_exec_cmd "killall -s SIGUSR1 gpu-screen-recorder",
 	{ description = "Save gpu-screen-recorder replay clip" }
 )
 
 -- Clear Notifications
-hl.bind(keys { mod, "CTRL", "SPACE" }, exec "makoctl dismiss -a", { description = "Dismiss all notifications" })
+hl.bind(keys { mod, "CTRL", "SPACE" }, dsp_exec_cmd "makoctl dismiss -a", { description = "Dismiss all notifications" })
 
 -- Toggle Waybar
-hl.bind(keys { mod, "B" }, exec "killall -s SIGUSR1 -r waybar", { description = "Toggle waybar" })
+hl.bind(keys { mod, "B" }, dsp_exec_cmd "killall -s SIGUSR1 -r waybar", { description = "Toggle waybar" })
 
 -- Fullscreen / Maximise
 hl.bind(keys { mod, "F" }, hl.dsp.window.fullscreen { mode = "fullscreen" }, { description = "Toggle fullscreen" })
@@ -56,65 +56,73 @@ hl.bind(keys { mod, "SHIFT", "S" }, hl.dsp.window.pin {}, { description = "Toggl
 hl.bind(keys { mod, "SHIFT", "SPACE" }, hl.dsp.window.float {}, { description = "Toggle float mode" })
 
 -- Exit/Logout
-hl.bind(keys { mod, "SHIFT", "E" }, exec "wlogout", { description = "Open session actions" })
-hl.bind(keys { mod, "CTRL", "L" }, exec "loginctl lock-session", { description = "Lock session" })
+hl.bind(keys { mod, "SHIFT", "E" }, dsp_exec_cmd "wlogout", { description = "Open session actions" })
+hl.bind(keys { mod, "CTRL", "L" }, dsp_exec_cmd "loginctl lock-session", { description = "Lock session" })
 
 -- Clipboard Manager
 hl.bind(
 	keys { mod, "P" },
-	exec 'cliphist list | fuzzel -p "Copy" --dmenu | cliphist decode | wl-copy',
+	dsp_exec_cmd 'cliphist list | fuzzel -p "Copy" --dmenu | cliphist decode | wl-copy',
 	{ description = "Open clipboard history" }
 )
 hl.bind(
 	keys { mod, "SHIFT", "P" },
-	exec 'cliphist list | fuzzel -p "Delete from history" --dmenu | cliphist delete',
+	dsp_exec_cmd 'cliphist list | fuzzel -p "Delete from history" --dmenu | cliphist delete',
 	{ description = "Delete item from clipboard history" }
 )
-hl.bind(keys { mod, "ALT", "P" }, exec "cliphist wipe", { description = "Wipe clipboard history" })
+hl.bind(keys { mod, "ALT", "P" }, dsp_exec_cmd "cliphist wipe", { description = "Wipe clipboard history" })
 
 -- Brightness
-hl.bind("XF86MonBrightnessUp", exec "brightnessctl set 10%+", { description = "Increase screen Brightness" })
-hl.bind("XF86MonBrightnessDown", exec "brightnessctl set 10%-", { description = "Decrease screen Brightness" })
+hl.bind("XF86MonBrightnessUp", dsp_exec_cmd "brightnessctl set 10%+", { description = "Increase screen Brightness" })
+hl.bind("XF86MonBrightnessDown", dsp_exec_cmd "brightnessctl set 10%-", { description = "Decrease screen Brightness" })
 
 -- Audio
 hl.bind(
 	keys { "SHIFT", "XF86AudioMute" },
-	exec "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle",
+	dsp_exec_cmd "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle",
 	{ description = "Toggle microphone mute" }
 )
 
 hl.bind(
 	"XF86AudioRaiseVolume",
-	exec "wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%+",
+	dsp_exec_cmd "wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%+",
 	{ repeating = true, locked = true, description = "Raise volume" }
 )
 hl.bind(
 	"XF86AudioLowerVolume",
-	exec "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-",
+	dsp_exec_cmd "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-",
 	{ repeating = true, locked = true, description = "Lower volume" }
 )
 
 hl.bind(
 	keys { "ALT", "XF86AudioRaiseVolume" },
-	exec "playerctl volume 0.1+",
+	dsp_exec_cmd "playerctl volume 0.1+",
 	{ repeating = true, locked = true, description = "Raise player volume" }
 )
 hl.bind(
 	keys { "ALT", "XF86AudioLowerVolume" },
-	exec "playerctl volume 0.1-",
+	dsp_exec_cmd "playerctl volume 0.1-",
 	{ repeating = true, locked = true, description = "Lower player volume" }
 )
 
-hl.bind("XF86AudioPlay", exec "playerctl play-pause", { locked = true, description = "Play/Pause player" })
-hl.bind("XF86AudioStop", exec "playerctl stop", { locked = true, description = "Stop player" })
+hl.bind("XF86AudioPlay", dsp_exec_cmd "playerctl play-pause", { locked = true, description = "Play/Pause player" })
+hl.bind("XF86AudioStop", dsp_exec_cmd "playerctl stop", { locked = true, description = "Stop player" })
 hl.bind(
 	"XF86AudioPrev",
-	exec "playerctl previous",
+	dsp_exec_cmd "playerctl previous",
 	{ locked = true, long_press = true, description = "Player Previous track" }
 )
-hl.bind("XF86AudioNext", exec "playerctl next", { locked = true, long_press = true, description = "Player next track" })
-hl.bind("XF86AudioPrev", exec "playerctl position 10-", { locked = true, description = "Player skip backwards" })
-hl.bind("XF86AudioNext", exec "playerctl position 10+", { locked = true, description = "Player skip forwards" })
+hl.bind(
+	"XF86AudioNext",
+	dsp_exec_cmd "playerctl next",
+	{ locked = true, long_press = true, description = "Player next track" }
+)
+hl.bind(
+	"XF86AudioPrev",
+	dsp_exec_cmd "playerctl position 10-",
+	{ locked = true, description = "Player skip backwards" }
+)
+hl.bind("XF86AudioNext", dsp_exec_cmd "playerctl position 10+", { locked = true, description = "Player skip forwards" })
 
 -- Global Binds
 hl.bind(keys { "ALT", "Pause" }, hl.dsp.pass { window = "class:(discord)" }, { description = "Toggle discord mute" })
@@ -203,7 +211,7 @@ hl.bind(
 )
 hl.bind(
 	keys { mod, "EQUAL" },
-	exec "hyprctl workspaces -j | jq -r '.[] | .name' | fuzzel --dmenu | xargs -I {} hyprctl dispatch 'hl.dsp.focus { workspace = \"name:{}\" }'",
+	dsp_exec_cmd "hyprctl workspaces -j | jq -r '.[] | .name' | fuzzel --dmenu | xargs -I {} hyprctl dispatch 'hl.dsp.focus { workspace = \"name:{}\" }'",
 	{ description = "Select workspace from list" }
 )
 
@@ -214,7 +222,7 @@ hl.bind(
 )
 hl.bind(
 	keys { mod, "SHIFT", "EQUAL" },
-	exec "hyprctl workspaces -j | jq -r '.[] | .name' | fuzzel --dmenu | xargs -I {} hyprctl dispatch 'hl.dsp.window.move { workspace = \"name:{}\", follow = false }'",
+	dsp_exec_cmd "hyprctl workspaces -j | jq -r '.[] | .name' | fuzzel --dmenu | xargs -I {} hyprctl dispatch 'hl.dsp.window.move { workspace = \"name:{}\", follow = false }'",
 	{ description = "Move window to workspace from list" }
 )
 
