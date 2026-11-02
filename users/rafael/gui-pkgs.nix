@@ -6,7 +6,6 @@
     crosspipe
     discord
     gimp
-    gnome-disk-utility
     google-chrome
     jami
     obsidian

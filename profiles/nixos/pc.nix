@@ -5,6 +5,7 @@ nixosModules: {
     catppuccin
     fcitx5
     flatpak
+    gparted
     hyprland-uwsm
     pipewire
   ];
