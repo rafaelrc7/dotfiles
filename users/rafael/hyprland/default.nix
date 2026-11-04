@@ -158,11 +158,6 @@ in
           timeout = 300; # 5m
           on-timeout = "${getExe config.programs.hyprlock.package} --grace 30";
         }
-        {
-          timeout = 330; # 5.5m
-          on-timeout = "${getExe' pkgs.hyprland "hyprctl"} dispatch 'hl.dsp.dpms({ action = \"disable\" })'";
-          on-resume = "${getExe' pkgs.hyprland "hyprctl"} dispatch 'hl.dsp.dpms({ action = \"enable\" })'";
-        }
       ];
     };
   };
