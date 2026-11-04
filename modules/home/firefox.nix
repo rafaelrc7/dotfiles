@@ -500,7 +500,6 @@
         extensions = {
           packages = with pkgs.nur.repos.rycee.firefox-addons; [
             angular-devtools
-            clearurls
             consent-o-matic
             cookie-autodelete
             darkreader
@@ -510,13 +509,11 @@
             ff2mpv
             firefox-color
             firenvim
-            localcdn
             multi-account-containers
             passff
             redirector
             return-youtube-dislikes
             search-by-image
-            smart-referer
             sponsorblock
             stylus
             tampermonkey
