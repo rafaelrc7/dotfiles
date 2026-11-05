@@ -52,18 +52,24 @@ hl.window_rule {
 -- Password Entry Dialogs
 hl.window_rule {
 	match = { class = "(pinentry-)(.*)" },
-	stay_focused = true,
+	float = true,
 	no_screen_share = true,
+	pin = true,
+	stay_focused = true,
 }
 hl.window_rule {
 	match = { class = "(polkit-)(.*)", title = "(Authenticate)" },
-	stay_focused = true,
+	float = true,
 	no_screen_share = true,
+	pin = true,
+	stay_focused = true,
 }
 hl.window_rule {
 	match = { class = "(gcr-prompter)" },
-	stay_focused = true,
+	float = true,
 	no_screen_share = true,
+	pin = true,
+	stay_focused = true,
 }
 
 -- qalculate-qt
