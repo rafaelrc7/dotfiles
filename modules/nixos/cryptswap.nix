@@ -1,12 +1,14 @@
-{ ... }:
+{ config, ... }:
 {
-
   swapDevices = [
-    { device = "/dev/mapper/swap"; }
+    {
+      label = "swap";
+      encrypted = {
+        enable = true;
+        label = "swap";
+        blkDev = "/dev/disk/by-partlabel/cryptswap";
+      };
+      discardPolicy = if config.boot.initrd.luks.devices."swap".allowDiscards then "both" else null;
+    }
   ];
-
-  boot.initrd.luks.devices = {
-    "swap".device = "/dev/disk/by-partlabel/cryptswap";
-  };
-
 }
