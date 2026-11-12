@@ -24,6 +24,9 @@ in
         nixpkgs = {
           config = {
             allowUnfree = true;
+            permittedInsecurePackages = [
+              "qutebrowser-3.7.0" # TODO: Accepts emudhra certs, remove when it's fixed
+            ];
           }
           // config;
           overlays = overlays ++ [
@@ -199,7 +202,7 @@ in
               in
               if module.value == { } then acc else append module acc
             ))
-            [ ]
+              [ ]
           )
             dirFiles;
       in
