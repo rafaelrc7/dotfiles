@@ -16,6 +16,7 @@ let
         "minecraft"
         "plugdev"
         "podman"
+        "tss"
         "wheel"
       ];
     };

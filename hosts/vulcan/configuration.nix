@@ -23,6 +23,7 @@
   ++ (with nixosModules; [
     cryptswap
     systemd-boot
+    tpm
     zswap
 
     guix
